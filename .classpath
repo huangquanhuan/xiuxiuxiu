@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java">
-		<attributes>
-			<attribute name="owner.project.facets" value="java"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
@@ -13,13 +8,14 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="lib" path="E:/JavaEE/xiuxiuxiu/jar/commons-fileupload-1.2.2.jar"/>
-	<classpathentry kind="lib" path="E:/JavaEE/xiuxiuxiu/jar/commons-io-1.4.jar"/>
-	<classpathentry kind="lib" path="E:/JavaEE/xiuxiuxiu/jar/commons-lang-2.5.jar"/>
-	<classpathentry kind="lib" path="E:/JavaEE/xiuxiuxiu/jar/jstl.jar"/>
-	<classpathentry kind="lib" path="E:/JavaEE/xiuxiuxiu/jar/mysql-connector-java-5.0.8-bin.jar"/>
-	<classpathentry kind="lib" path="E:/JavaEE/xiuxiuxiu/jar/servlet-api.jar"/>
-	<classpathentry kind="lib" path="E:/JavaEE/xiuxiuxiu/jar/standard.jar"/>
-	<classpathentry kind="lib" path="E:/JavaEE/xiuxiuxiu/jar/jsch-0.1.55.jar"/>
+	<classpathentry kind="lib" path="E:/大三下/xiuxiuxiu平台/xiuxiuxiu/jar/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="lib" path="E:/大三下/xiuxiuxiu平台/xiuxiuxiu/jar/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="E:/大三下/xiuxiuxiu平台/xiuxiuxiu/jar/commons-lang-2.5.jar"/>
+	<classpathentry kind="lib" path="E:/大三下/xiuxiuxiu平台/xiuxiuxiu/jar/jsch-0.1.55.jar"/>
+	<classpathentry kind="lib" path="E:/大三下/xiuxiuxiu平台/xiuxiuxiu/jar/jstl.jar"/>
+	<classpathentry kind="lib" path="E:/大三下/xiuxiuxiu平台/xiuxiuxiu/jar/mysql-connector-java-5.0.8-bin.jar"/>
+	<classpathentry kind="lib" path="E:/大三下/xiuxiuxiu平台/xiuxiuxiu/jar/servlet-api.jar"/>
+	<classpathentry kind="lib" path="E:/大三下/xiuxiuxiu平台/xiuxiuxiu/jar/standard.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
