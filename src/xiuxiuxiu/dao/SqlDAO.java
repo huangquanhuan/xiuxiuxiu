@@ -18,6 +18,7 @@ public interface SqlDAO{
 	boolean isStudentExist(int id);
 	
 	
+	//he;llo
 	//预约单操作
 	void addReservation(Reservation reservation);
 	void deleteReservation(int id);
