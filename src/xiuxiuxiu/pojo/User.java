@@ -1,26 +1,63 @@
 package xiuxiuxiu.pojo;
 
 /**
- * User - 映射到 User 表中的数据对象
+ * User - 人员类
  *
  * @author 刘忠燏
  * @date 2019-04-20
  */
 public class User {
-    private Integer id;
-    private String password;
-    private String name;
-    private String phoneNumber;
-    private Integer accessLevel;
-    private String studentId;
-    private String address;
-    private String Email;
 
-    public Integer getId() {
+	/**
+	 * 用户的id
+	 */
+	protected Integer id;
+	/**
+	 * 用户密码
+	 */
+    protected String password;
+    /**
+	 * 用户的id
+	 */
+    protected String name;
+    /**
+	 * 用户的联系方式（电话号码）
+	 */
+    protected String phoneNumber;
+    /**
+	 * 用户的权限等级
+	 */
+    protected Integer accessLevel;  
+    /**
+	 * 用户的住址
+	 */
+    protected String address;
+    /**
+	 * 用户的邮箱
+	 */
+    protected String Email;
+    
+    /**
+     * User构造函数，需输入(int id , String password , String name , String phoneNumber , int accessLevel ,String address , String Email)
+     */
+    public User(int id , String password , String name , String phoneNumber , int accessLevel ,String address , String Email){
+    	this.id = id;
+    	this.password = password;
+    	this.name = name;
+    	this.phoneNumber = phoneNumber;
+    	this.accessLevel = accessLevel;
+    	this.address = address;
+    	this.Email = Email;
+    }
+    public User(){
+    	
+    }
+
+    public Integer getID() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setID(Integer id) {
         this.id = id;
     }
 
@@ -54,14 +91,6 @@ public class User {
 
     public void setAccessLevel(Integer accessLevel) {
         this.accessLevel = accessLevel;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
     }
 
     public String getAddress() {
