@@ -1,6 +1,6 @@
 package xiuxiuxiu.dao;
 
-import xiuxiuxiu.pojo.User;
+import xiuxiuxiu.pojo.*;
 import java.util.List;
 
 /**
@@ -16,7 +16,7 @@ public interface UserDao {
      *
      * @param entity 实例化后的 User 对象
      */
-    void add(User entity);
+    void add(Student entity);
 
     /**
      * delete() - 从用户表中删除某一对象，以 ID 为依据
@@ -30,14 +30,14 @@ public interface UserDao {
      *
      * @param entity 要删除的 User 对象
      */
-    void delete(User entity);
+    void delete(Student entity);
 
     /**
      * update() - 把对 User 对象的修改写回数据库中
      *
      * @param entity 要保存的 User 对象
      */
-    void update(User entity);
+    void update(Student entity);
 
     /**
      * get() - 通过 ID 获取 User 对象
@@ -45,7 +45,7 @@ public interface UserDao {
      * @param id 要查找的 ID 号
      * @return 如果找到，则返回该 User 实例，否则返回 null
      */
-    User get(int id);
+    Student get(int id);
 
     /**
      * get() - 通过手机号和密码获取 User 对象（用于登录验证）
@@ -54,14 +54,14 @@ public interface UserDao {
      * @param password 用户的密码
      * @return 如果找到，返回 User 实例，否则返回 null
      */
-    User get(String phoneNumber, String password);
+    Student get(String phoneNumber, String password);
 
     /**
      * listAll() - 从数据库中获取所有记录，返回一个列表
      *
      * @return 一个包含 User 对象的 List
      */
-    List<User> listAll();
+    List<Student> listAll();
 
     /**
      * listByPage() - （分页查询用）从数据库中获取部分记录
@@ -70,7 +70,7 @@ public interface UserDao {
      * @param pageSize 每个页面的记录数目
      * @return 一个包含 User 对象的 List，且该 List 的长度小于或等于 pageSize
      */
-    List<User> listByPage(int pageNo, int pageSize);
+    List<Student> listByPage(int pageNo, int pageSize);
 
     /**
      * getTotal() - 返回 user 表的总记录数
