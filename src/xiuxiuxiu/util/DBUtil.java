@@ -20,11 +20,11 @@ public class DBUtil {
 	static String database = "xiuxiuxiu";
 	static String encoding = "UTF-8";
 	static String loginName = "root";
-	static String password = "6B2336f5ca2";
+	static String password = "123456";
 
 	static {
-	    //SSH通道
-	    go();
+//	    //SSH通道
+//	    go();
 	    //加载驱动
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
