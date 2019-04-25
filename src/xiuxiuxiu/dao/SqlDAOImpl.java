@@ -15,16 +15,15 @@ public class SqlDAOImpl implements SqlDAO {
 	@Override
 	public void addStudent(Student bean) {
 
-		String sql = "insert into user(user_id,password,user_name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? ,?)";
+		String sql = "insert into user(password,user_name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			ps.setInt(1, bean.getID());
-			ps.setString(2, bean.getPassword());
-			ps.setString(3, bean.getName());
-			ps.setString(4, bean.getPhoneNumber());
-			ps.setInt(5, bean.getAccessLevel());
-			ps.setString(6, bean.getStudentID());
-			ps.setString(7, bean.getAddress());
-			ps.setString(8, bean.getEmail());
+			ps.setString(1, bean.getPassword());
+			ps.setString(2, bean.getName());
+			ps.setString(3, bean.getPhoneNumber());
+			ps.setInt(4, bean.getAccessLevel());
+			ps.setString(5, bean.getStudentID());
+			ps.setString(6, bean.getAddress());
+			ps.setString(7, bean.getEmail());
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
@@ -174,7 +173,7 @@ public class SqlDAOImpl implements SqlDAO {
 	public int getTotalStudent() {
 		int total = 0;
 		try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement()) {
-			String sql = "select count(*) from Student";
+			String sql = "select count(*) from user";
 			ResultSet rs = s.executeQuery(sql);
 			if (rs.next()) {
 				total = rs.getInt(1);
@@ -591,15 +590,15 @@ public class SqlDAOImpl implements SqlDAO {
 	@Override
 	public void addManger(Manger manger) {
 		// TODO Auto-generated method stub
-		String sql = "insert into manger(id,password,name,phone_number,access_level,address,email) values(? ,? ,? ,? ,? ,? ,? )";
+		String sql = "insert into manger(password,name,phone_number,access_level,address,email) values(? ,? ,? ,? ,? ,? )";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			ps.setLong(1, manger.getID());
-			ps.setString(2, manger.getPassword());
-			ps.setString(3, manger.getName());
-			ps.setString(4, manger.getPhoneNumber());
-			ps.setInt(5, manger.getAccessLevel());
-			ps.setString(6, manger.getAddress());
-			ps.setString(7, manger.getEmail());
+//			ps.setLong(1, manger.getID());
+			ps.setString(1, manger.getPassword());
+			ps.setString(2, manger.getName());
+			ps.setString(3, manger.getPhoneNumber());
+			ps.setInt(4, manger.getAccessLevel());
+			ps.setString(5, manger.getAddress());
+			ps.setString(6, manger.getEmail());
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
