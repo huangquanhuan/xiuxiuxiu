@@ -138,10 +138,9 @@ public class SqlDAOImpl implements SqlDAO {
 		}
 	}
 
-/*该方法为排序样例
- * 
- * (non-Javadoc)
- * @see dao.DAO#searchStudent(java.lang.String)
+/**
+ * 根据条件
+ * @return 输出一个按id升序的List<Student>
  */
 	@Override
 	public List<Student> searchStudent(String condition) {

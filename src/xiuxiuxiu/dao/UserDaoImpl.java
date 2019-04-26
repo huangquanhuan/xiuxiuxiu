@@ -8,34 +8,34 @@ import xiuxiuxiu.util.*;
 
 
 /*
- * 使用PreparedStatement可以结解SQL注入的问题
+ * 使用PreparedStatement可以解决SQL注入的问题
  */
 public class UserDaoImpl implements UserDao {
 
     @Override
-    public void add(Student bean) {
+    public void add(Student student) {
 
-        String sql = "insert into user(user_id,password,user_name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? ,?)";
-        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setInt(1, bean.getID());
-            ps.setString(2, bean.getPassword());
-            ps.setString(3, bean.getName());
-            ps.setString(4, bean.getPhoneNumber());
-            ps.setInt(5, bean.getAccessLevel());
-            ps.setString(6, bean.getStudentID());
-            ps.setString(7, bean.getAddress());
-            ps.setString(8, bean.getEmail());
-            ps.execute();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                int id = rs.getInt(1);
-                bean.setID(id);
-            }
+    	String sql = "insert into user(password,user_name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setString(1, student.getPassword());
+			ps.setString(2, student.getName());
+			ps.setString(3, student.getPhoneNumber());
+			ps.setInt(4, student.getAccessLevel());
+			ps.setString(5, student.getStudentID());
+			ps.setString(6, student.getAddress());
+			ps.setString(7, student.getEmail());
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				int id = rs.getInt(1);
+				student.setID(id);
+			}
         } catch (SQLException e) {
 
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void delete(Integer id) {
@@ -56,18 +56,18 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * 只可修改用户的姓名、密码、学号、住址、电子邮箱，账户(ID)、手机号、权限等级不可修改
+     * 只可修改用户的姓名、密码、学号、住址、电子邮箱(账户(ID)、手机号、权限等级不可修改)
      */
     @Override
-    public void update(Student bean) {
+    public void update(Student student) {
         String sql = "update user set user_name=?,password=?,student_id=?,address=?,e_mail=? where id=?";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, bean.getName());
-            ps.setString(2, bean.getPassword());
-            ps.setString(3, bean.getStudentID());
-            ps.setString(4, bean.getAddress());
-            ps.setString(5, bean.getEmail());
-            ps.setInt(6, bean.getID());
+            ps.setString(1, student.getName());
+            ps.setString(2, student.getPassword());
+            ps.setString(3, student.getStudentID());
+            ps.setString(4, student.getAddress());
+            ps.setString(5, student.getEmail());
+            ps.setInt(6, student.getID());
             ps.execute();
 
         } catch (SQLException e) {
@@ -77,7 +77,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * 根据id获取整个用户信息
+     * 根据id获取User表中的整个用户信息
      */
     @Override
     public Student get(int id) {
@@ -87,16 +87,16 @@ public class UserDaoImpl implements UserDao {
             ps.execute();
             ResultSet rs = ps.getResultSet();
             if (rs.next()) {
-                Student bean = new Student();
-                bean.setID(rs.getInt("user_id"));
-                bean.setName(rs.getString("user_name"));
-                bean.setPassword(rs.getString("password"));
-                bean.setPhoneNumber(rs.getString("phone_number"));
-                bean.setAccessLevel(rs.getInt("access_level"));
-                bean.setStudentID(rs.getString("student_id"));
-                bean.setAddress(rs.getString("address"));
-                bean.setEmail(rs.getString("e_mail"));
-                return bean;
+                Student student = new Student();
+                student.setID(rs.getInt("user_id"));
+                student.setName(rs.getString("user_name"));
+                student.setPassword(rs.getString("password"));
+                student.setPhoneNumber(rs.getString("phone_number"));
+                student.setAccessLevel(rs.getInt("access_level"));
+                student.setStudentID(rs.getString("student_id"));
+                student.setAddress(rs.getString("address"));
+                student.setEmail(rs.getString("e_mail"));
+                return student;
             } else {
                 System.out.println("该id不存在！！");
                 return null;
@@ -107,8 +107,9 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    /*
-     * 可用于登录验证
+    /**
+     * 根据id和密码获取整个用户信息，可用于登录验证
+     * @return 如果无匹配
      */
     public Student get(String id, String password) {
         String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user where user_id = ? and password = ?";
@@ -118,16 +119,16 @@ public class UserDaoImpl implements UserDao {
             ps.execute();
             ResultSet rs = ps.getResultSet();
             if (rs.next()) {
-                Student bean = new Student();
-                bean.setID(rs.getInt("user_id"));
-                bean.setName(rs.getString("user_name"));
-                bean.setPassword(rs.getString("password"));
-                bean.setPhoneNumber(rs.getString("phone_number"));
-                bean.setAccessLevel(rs.getInt("access_level"));
-                bean.setStudentID(rs.getString("student_id"));
-                bean.setAddress(rs.getString("address"));
-                bean.setEmail(rs.getString("e_mail"));
-                return bean;
+                Student student = new Student();
+                student.setID(rs.getInt("user_id"));
+                student.setName(rs.getString("user_name"));
+                student.setPassword(rs.getString("password"));
+                student.setPhoneNumber(rs.getString("phone_number"));
+                student.setAccessLevel(rs.getInt("access_level"));
+                student.setStudentID(rs.getString("student_id"));
+                student.setAddress(rs.getString("address"));
+                student.setEmail(rs.getString("e_mail"));
+                return student;
             } else {
                 System.out.println("用户不存在或密码错误");
                 return null;
@@ -168,11 +169,12 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    
     @Override
-    public boolean isExist(String id) {
+    public boolean isExist(int id) {
         String sql = "select * from User where id=?";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, id);
+            ps.setInt(1, id);
             ps.execute();
             ResultSet rs = ps.getResultSet();
             if (rs.next()) {
@@ -185,4 +187,22 @@ public class UserDaoImpl implements UserDao {
             return false;
         }
     }
+
+	@Override
+	public boolean isExist(String phoneNumber) {
+		String sql = "select * from User where phoneNumber=?";
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, phoneNumber);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+	}
 }
