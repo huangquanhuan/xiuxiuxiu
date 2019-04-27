@@ -15,6 +15,7 @@ public class SqlDAOImpl implements SqlDAO {
 	@Override
 	public void addStudent(Student bean) {
 
+
 		String sql = "insert into user(password,user_name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setString(1, bean.getPassword());
@@ -173,7 +174,9 @@ public class SqlDAOImpl implements SqlDAO {
 	public int getTotalStudent() {
 		int total = 0;
 		try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement()) {
+
 			String sql = "select count(*) from user";
+
 			ResultSet rs = s.executeQuery(sql);
 			if (rs.next()) {
 				total = rs.getInt(1);
@@ -590,6 +593,7 @@ public class SqlDAOImpl implements SqlDAO {
 	@Override
 	public void addManger(Manger manger) {
 		// TODO Auto-generated method stub
+
 		String sql = "insert into manger(password,name,phone_number,access_level,address,email) values(? ,? ,? ,? ,? ,? )";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 //			ps.setLong(1, manger.getID());
@@ -599,6 +603,7 @@ public class SqlDAOImpl implements SqlDAO {
 			ps.setInt(4, manger.getAccessLevel());
 			ps.setString(5, manger.getAddress());
 			ps.setString(6, manger.getEmail());
+
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {

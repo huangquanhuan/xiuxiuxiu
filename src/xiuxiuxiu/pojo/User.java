@@ -38,9 +38,11 @@ public class User {
     protected String Email;
     
     /**
+
      * User构造函数，需输入( String password , String name , String phoneNumber , int accessLevel ,String address , String Email)
      */
     public User(String password , String name , String phoneNumber , int accessLevel ,String address , String Email){
+
     	this.password = password;
     	this.name = name;
     	this.phoneNumber = phoneNumber;

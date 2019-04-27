@@ -15,6 +15,7 @@ import com.jcraft.jsch.Session;
  * @
  */
 public class DBUtil {
+
 	static String ip = "127.0.0.1";
 	static int port = 3306;
 	static String database = "xiuxiuxiu";
