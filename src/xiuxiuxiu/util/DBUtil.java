@@ -15,16 +15,17 @@ import com.jcraft.jsch.Session;
  * @
  */
 public class DBUtil {
-    static String ip = "127.0.0.1";
-    static int port = 3306;
-    static String database = "xiuxiuxiu";
-    static String encoding = "UTF-8";
-    static String loginName = "root";
-    static String password = "123456";
+
+	static String ip = "127.0.0.1";
+	static int port = 3306;
+	static String database = "xiuxiuxiu";
+	static String encoding = "UTF-8";
+	static String loginName = "root";
+	static String password = "123456";
 
 	static {
-	    //SSH通道
-	    //go();
+//	    //SSH通道
+//	    go();
 	    //加载驱动
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

@@ -15,9 +15,11 @@ public class Manger extends User {
 	 */
 	
 	
-	public Manger(int id, String password, String name, String phoneNumber, int accessLevel, String address,
+
+	public Manger(String password, String name, String phoneNumber, int accessLevel, String address,
 			String Email) {
-		super(id, password, name, phoneNumber, accessLevel, address, Email);
+		super(password, name, phoneNumber, accessLevel, address, Email);
+
 		// TODO 自动生成的构造函数存根
 	}
 
