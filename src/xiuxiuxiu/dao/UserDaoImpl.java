@@ -96,7 +96,8 @@ public class UserDaoImpl {
         List<Object> list = new LinkedList<Object>();
         list.add(id);
         list.add(password);
-        ResultSet rs =BaseDao.executeQuery(sql, list);
+        ResultSet rs = BaseDao.executeQuery(sql, list);
+
         if (rs.next()) {
             Student bean = new Student();
             bean.setID(rs.getInt("user_id"));
