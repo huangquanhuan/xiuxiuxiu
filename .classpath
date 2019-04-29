@@ -21,5 +21,8 @@
 	<classpathentry kind="lib" path="jar/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="lib" path="jar/servlet-api.jar"/>
 	<classpathentry kind="lib" path="jar/standard.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernate5.4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/spring"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Web"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

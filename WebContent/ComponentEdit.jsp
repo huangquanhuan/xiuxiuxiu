@@ -92,14 +92,20 @@
                         </table>
 										</div>
 										<div class="agileits_banner_bottom_left">
-											<form>
+											<form action="ComponentServlet?method=add">
 												<h3><span>新增零件</span></h3>
 												<p><span>零件名称<span>
-                      	<input type="text"  class="form-control" name="componentName" />
+                      	<input type="text"  class="form-control" name="name" />
 													</p>
 												<p><span>零件数量<span>
-                        <input type="text"  class="form-control" name="componentCount" />
+                        <input type="text"  class="form-control" name="quantity" />
 													</p>
+													<p><span>零件价格<span>
+                        <input type="text"  class="form-control" name="price" />
+                                                    </p>
+                                                    <p><span>零件类型<span>
+                        <input type="text"  class="form-control" name="type" />
+                                                    </p>
 												<button type="submit" class="btn btn-primary" name="submit">提交</button>
 											</form>
 										</div>

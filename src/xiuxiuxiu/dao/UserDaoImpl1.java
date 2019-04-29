@@ -12,7 +12,7 @@ import java.util.List;
 import xiuxiuxiu.pojo.Student;
 import xiuxiuxiu.util.DBUtil;
 
-public class UserDaoImpl {
+public class UserDaoImpl1 {
 
     public void addStudent(Student bean) throws SQLException {
 

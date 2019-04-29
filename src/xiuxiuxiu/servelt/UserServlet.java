@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import xiuxiuxiu.dao.*;
-import xiuxiuxiu.dao.UserDao;
-import xiuxiuxiu.dao.UserDaoImpl;
+import xiuxiuxiu.dao.UserDao1;
+import xiuxiuxiu.dao.UserDaoImpl1;
 import xiuxiuxiu.pojo.User;
 
 /**
@@ -21,7 +21,7 @@ import xiuxiuxiu.pojo.User;
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private UserDaoImpl userDao= new UserDaoImpl();
+    private UserDaoImpl1 userDao= new UserDaoImpl1();
     /**
      * @see HttpServlet#HttpServlet()
      */

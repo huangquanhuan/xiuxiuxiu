@@ -10,6 +10,7 @@ public class Component {
     private double price;
     //零件类型
     private String type;
+    private double quantity;
     
     public Component()
     {
@@ -23,6 +24,14 @@ public class Component {
         this.name = c.name;
         this.price = c.price;
         this.type = c.type;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+    
+    public double getQuantity() {
+        return quantity;
     }
     
     public void setId(int id) {

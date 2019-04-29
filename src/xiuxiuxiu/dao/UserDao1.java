@@ -10,7 +10,7 @@ import java.util.List;
  * @author Lenovo
  * @date 2019-04-20
  */
-public interface UserDao {
+public interface UserDao1 {
     /**
      * add() - 添加一个 user 对象到表中
      *
