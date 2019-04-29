@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+
  * -Student 对应数据库的user表 继承User类
  * 
  * @author 向鹏
@@ -54,5 +55,6 @@ public class Student extends User {
 		this.equipment.clear();
 		for (int i = 0; i < equipment.size(); i++)
 			this.equipment.add(equipment.get(i));
+
 	}
 }

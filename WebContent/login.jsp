@@ -24,10 +24,7 @@
   </head>
 <body>
     <div id="base" class="">
-    
-      <form class="loginForm" action="UserServlet?method=login" method="post">
-      
-      <!-- Unnamed (其余控件) -->
+    <!-- Unnamed (其余控件) -->
       <div id="u991" class="ax_default" data-left="0" data-top="0" data-width="375" data-height="667">
 
         <!-- Unnamed (矩形) -->
@@ -142,6 +139,9 @@
           </div>
       </div>
       
+      <form class="loginForm" action="UserServlet?method=login" method="post">
+      
+      
       <!-- Unnamed (手机号) -->
       <div id="u1020" class="ax_default" data-left="0" data-top="202" data-width="368" data-height="40">
 
@@ -188,6 +188,7 @@
             </div>
           </div>
       </form>
+      
     </div>
 </body>
 </html>

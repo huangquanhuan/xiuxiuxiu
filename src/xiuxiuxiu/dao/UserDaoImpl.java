@@ -1,11 +1,16 @@
 package xiuxiuxiu.dao;
 
-import java.sql.*;
-import java.util.*;
-import xiuxiuxiu.pojo.*;
-import xiuxiuxiu.util.*;
-import xiuxiuxiu.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
+import xiuxiuxiu.pojo.Student;
+import xiuxiuxiu.util.DBUtil;
 
 /*
  * 使用PreparedStatement可以解决SQL注入的问题
@@ -79,8 +84,8 @@ public class UserDaoImpl implements UserDao {
     /**
      * 根据id获取User表中的整个用户信息
      */
-    @Override
-    public Student get(int id) {
+   
+    public Student getStudent(int id) throws SQLException {
         String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user where user_id = ?";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -111,7 +116,7 @@ public class UserDaoImpl implements UserDao {
      * 根据id和密码获取整个用户信息，可用于登录验证
      * @return 如果无匹配
      */
-    public Student get(String id, String password) {
+    public Student getStudent(int id, String password) throws SQLException {
         String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user where user_id = ? and password = ?";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, id);
@@ -138,34 +143,43 @@ public class UserDaoImpl implements UserDao {
             return null;
         }
     }
-    
-    @Override
-    public List<Student> listAll() {
-        List<Student> temp = null ;
-        return temp;
-    };
-    
-    @Override
-    public List<Student> listByPage(int pageNo, int pageSize) {
-        List<Student> temp = null ;
-        return temp;
+
+/*该方法为排序样例
+ * 
+ * (non-Javadoc)
+ * @see dao.DAO#searchStudent(java.lang.String)
+ */
+    public List<Student> searchStudent(String condition) throws SQLException {
+        String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user ORDER BY user_id";
+        List<Student> userList = new ArrayList<Student>();
+        List<Object> list = new LinkedList<Object>();
+        ResultSet rs = BaseDao.executeQuery(sql, list);
+        while (rs.next()) {
+            Student bean = new Student();
+            bean.setID(rs.getInt("user_id"));
+            bean.setName(rs.getString("user_name"));
+            bean.setPassword(rs.getString("password"));
+            bean.setPhoneNumber(rs.getString("phone_number"));
+            bean.setAccessLevel(rs.getInt("access_level"));
+            bean.setStudentID(rs.getString("student_id"));
+            bean.setAddress(rs.getString("address"));
+            bean.setEmail(rs.getString("e_mail"));
+            userList.add(bean);
+        }
+        return userList;        
     }
     
-    @Override
-    public int getTotal() {
+   
+    public int getTotalStudent() throws SQLException {
         int total = 0;
-        try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement()) {
-            String sql = "select count(*) from User";
-            ResultSet rs = s.executeQuery(sql);
-            if (rs.next()) {
-                total = rs.getInt(1);
-                return total;
-            } else {
-                return 0;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return -1;
+        String sql = "select count(*) from Student";
+        List<Object> list = new LinkedList<Object>();
+        ResultSet rs = BaseDao.executeQuery(sql, list);
+        if (rs.next()) {
+            total = rs.getInt(1);
+            return total;
+        } else {
+            return 0;
         }
     }
 

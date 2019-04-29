@@ -21,7 +21,7 @@ import xiuxiuxiu.pojo.User;
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private UserDao userDao= new UserDaoImpl();
+    private UserDaoImpl userDao= new UserDaoImpl();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -29,9 +29,9 @@ public class UserServlet extends HttpServlet {
     public void login(HttpServletRequest request, HttpServletResponse response) 
     {
         try {
-            String name = request.getParameter("phoneNumber").trim();
+            int name = Integer.parseInt( request.getParameter("phoneNumber").trim() );
             String password = request.getParameter("password").trim();
-            User user = userDao.get(name, password);
+            User user = userDao.getStudent(name, password);
             if(user == null) {
                 request.getRequestDispatcher("login.jsp?err=账号或密码错误，请重新输入").forward(request, response);
             }
