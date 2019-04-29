@@ -1,6 +1,7 @@
 package xiuxiuxiu.dao;
 
 import xiuxiuxiu.pojo.*;
+
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public interface UserDao {
     void add(Student entity);
 
     /**
-     * delete() - 以 ID 为依据从用户表中删除某一对象，
+     * delete() - 从用户表中删除某一对象，以 ID 为依据
      *
      * @param id 用户的 ID 号（不是手机号）
      */
@@ -33,7 +34,7 @@ public interface UserDao {
     void delete(Student entity);
 
     /**
-     * update() - 把对 User对象的修改写回数据库中
+     * update() - 把对 User 对象的修改写回数据库中
      *
      * @param entity 要保存的 User 对象
      */
@@ -83,16 +84,8 @@ public interface UserDao {
     /**
      * isExist() - 判断用户是否已经存在（注册验证时用）
      *
-     * @param id User表中的对应id
-     * @return 如果id对应的用户存在，则返回 true，否则返回 false
-     */
-    boolean isExist(int id);
-    
-    /**
-     * isExist() - 判断用户是否已经存在（注册验证时用）
-     *
-     * @param phoneNumber User表中的对应电话号码
-     * @return 如果对应的用户存在，则返回 true，否则返回 false
+     * @param phoneNumber 用于注册的手机号
+     * @return 如果手机号对应的用户表存在，则返回 true，否则返回 false
      */
     boolean isExist(String phoneNumber);
 }
