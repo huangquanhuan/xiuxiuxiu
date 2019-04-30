@@ -8,6 +8,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="keywords" content="">
 <script type="application/x-javascript">
+    
+    
+    
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -15,6 +18,9 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+    
+
+
 </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -37,7 +43,7 @@
     <div class="banner-bottom">
         <div class="container">
             <div class="mid_agile_bannner_top_info">
-                <h2>预约单详情</h2>
+                <h2>零件库编辑</h2>
                 <div class="heading-underline">
                     <div class="h-u1"></div>
                     <div class="h-u2"></div>
@@ -47,78 +53,68 @@
                 <!-- 两边留白 -->
 
                 <div class="wrapper">
-                    <div class="agileits_banner_bottom_left">
-                        <h3>
-                            <span>问题描述</span>
-                            
-                        </h3>
-                        <div class="clearfix"></div>
-                        <span id="error1">软件故障</span>&nbsp;<span id="error2">死机</span>
-                        <p id="errorMessage">蓝屏就在开机时出现小圆圈转圈就迅速，不能进安全模式，机箱有很多灰尘。</p>
-                    </div>
-                    <div class="clearfix"></div>評價
-                </div>
-
-                <!-- 轮播 -->
-                <div class="banner">
-                    <ul id="sb-slider" class="sb-slider" style="max-width: 1680px;">
-                        <li><img id="errorImg" src="images/banner2.jpg" alt="image2">
-                            <div class="sb-description">
-                                <h4>问题图片</h4>
-                            </div></li>
-                    </ul>
-                </div>
-                <!-- /wrapper -->
-                <div class="clearfix"></div>
-
-                <div class="agileits_banner_bottom_left">
-                    
-                    <button type="button" class="btn btn-primary"
-                        data-toggle="collapse" data-target="#partsList">所需零件列表</button>
-                    <div class="clearfix"></div>
-
-                    <div id="partsList" class="container collapse">
-                        <table class="table table-bordered table-striped">
+                    <div class="container">
+										<h2>零件列表</h2>
+											<table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>id</th>
                                     <th>零件名称</th>
                                     <th>数量</th>
+																		<th>修改</th>
+                                    <th>删除</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>零件1</td>
-                                    <td>5</td>
+                                    <td><input type="text" value="零件1" readonly /></td>
+                                    <td><input type="text" value="5" readonly /></td>
+																		<td><button type="button" class="btn btn-primary">修改</button></td>
+																		<td><button type="button" class="btn btn-primary">删除</button></td>
                                 </tr>
                                 <tr>
-                                    <td>2</td>
-                                    <td>零件2</td>
-                                    <td>2</td>
+																	<td>2</td>
+                                    <td><input type="text" value="零件2" readonly /></td>
+                                    <td><input type="text" value="4" readonly /></td>
+																		<td><button type="button" class="btn btn-primary">修改</button></td>
+																		<td><button type="button" class="btn btn-primary">删除</button></td>
                                 </tr>
                                 <tr>
-                                    <td>3</td>
-                                    <td>零件3</td>
-                                    <td>1</td>
+																	<td>3</td>
+                                    <<td><input type="text" value="零件3" readonly /></td>
+                                    <td><input type="text" value="2" readonly /></td>
+																		<td><button type="button" class="btn btn-primary">修改</button></td>
+																		<td><button type="button" class="btn btn-primary">删除</button></td>
                                 </tr>
+																	
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="row  login-center">
-									<form>
-                    <p class="text-center">
-											目前该订单维修状态为：<span id="repairStatus">已完成</span>，您可以对此评价
-                    </p>
-  										<textarea class="form-control" rows="5" id="comment"></textarea>
-										<div class="clearfix"></div>
-										<button type="submit" class="btn btn-primary">评价</button>
-										</form>
-                </div>
-            </div>
-        </div>
+										</div>
+										<div class="agileits_banner_bottom_left">
+											<form action="ComponentServlet?method=add">
+												<h3><span>新增零件</span></h3>
+												<p><span>零件名称<span>
+                      	<input type="text"  class="form-control" name="name" />
+													</p>
+												<p><span>零件数量<span>
+                        <input type="text"  class="form-control" name="quantity" />
+													</p>
+													<p><span>零件价格<span>
+                        <input type="text"  class="form-control" name="price" />
+                                                    </p>
+                                                    <p><span>零件类型<span>
+                        <input type="text"  class="form-control" name="type" />
+                                                    </p>
+												<button type="submit" class="btn btn-primary" name="submit">提交</button>
+											</form>
+										</div>
+        				</div>
+					</div>
+			</div>
+	</div>
+
+
         <!-- footer -->
         <div class="footer">
             <div class="container">
