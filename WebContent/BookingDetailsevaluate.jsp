@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,127 +24,130 @@
 </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
-    media="all">
+	media="all">
 <link href="css/slicebox.css" rel="stylesheet" type="text/css">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
 <!-- font-awesome-icons -->
 <link href="css/font-awesome.css" rel="stylesheet">
 <!-- //font-awesome-icons -->
 <link
-    href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic"
-    rel="stylesheet" type="text/css">
+	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic"
+	rel="stylesheet" type="text/css">
 <link
-    href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
-    rel="stylesheet">
+	href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
+	rel="stylesheet">
 </head>
 <body>
 
-    <!-- banner-bottom -->
-    <div class="banner-bottom">
-        <div class="container">
-            <div class="mid_agile_bannner_top_info">
-                <h2>预约单详情</h2>
-                <div class="heading-underline">
-                    <div class="h-u1"></div>
-                    <div class="h-u2"></div>
-                    <div class="h-u3"></div>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- 两边留白 -->
+	<!-- banner-bottom -->
+	<div class="banner-bottom">
+		<div class="container">
+			<div class="mid_agile_bannner_top_info">
+				<h2>预约单详情</h2>
+				<div class="heading-underline">
+					<div class="h-u1"></div>
+					<div class="h-u2"></div>
+					<div class="h-u3"></div>
+					<div class="clearfix"></div>
+				</div>
+				<!-- 两边留白 -->
 
-                <div class="wrapper">
-                    <div class="agileits_banner_bottom_left">
-                        <h3>
-                            <span>问题描述</span>
-                            
-                        </h3>
-                        <div class="clearfix"></div>
-                        <span id="error1">软件故障</span>&nbsp;<span id="error2">死机</span>
-                        <p id="errorMessage">蓝屏就在开机时出现小圆圈转圈就迅速，不能进安全模式，机箱有很多灰尘。</p>
-                    </div>
-                    <div class="clearfix"></div>評價
-                </div>
+				<div class="wrapper">
+					<div class="agileits_banner_bottom_left">
+						<h3>
+							<span>问题描述</span>
 
-                <!-- 轮播 -->
-                <div class="banner">
-                    <ul id="sb-slider" class="sb-slider" style="max-width: 1680px;">
-                        <li><img id="errorImg" src="images/banner2.jpg" alt="image2">
-                            <div class="sb-description">
-                                <h4>问题图片</h4>
-                            </div></li>
-                    </ul>
-                </div>
-                <!-- /wrapper -->
-                <div class="clearfix"></div>
+						</h3>
+						<div class="clearfix"></div>
+						<span id="error1">软件故障</span>&nbsp;<span id="error2">死机</span>
+						<p id="errorMessage">蓝屏就在开机时出现小圆圈转圈就迅速，不能进安全模式，机箱有很多灰尘。</p>
+					</div>
+					<div class="clearfix"></div>
+					評價
+				</div>
 
-                <div class="agileits_banner_bottom_left">
-                    
-                    <button type="button" class="btn btn-primary"
-                        data-toggle="collapse" data-target="#partsList">所需零件列表</button>
-                    <div class="clearfix"></div>
+				<!-- 轮播 -->
+				<div class="banner">
+					<ul id="sb-slider" class="sb-slider" style="max-width: 1680px;">
+						<li><img id="errorImg" src="images/banner2.jpg" alt="image2">
+							<div class="sb-description">
+								<h4>问题图片</h4>
+							</div></li>
+					</ul>
+				</div>
+				<!-- /wrapper -->
+				<div class="clearfix"></div>
 
-                    <div id="partsList" class="container collapse">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>零件名称</th>
-                                    <th>数量</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>零件1</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>零件2</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>零件3</td>
-                                    <td>1</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="row  login-center">
-									<form>
-                    <p class="text-center">
-											目前该订单维修状态为：<span id="repairStatus">已完成</span>，您可以对此评价
-                    </p>
-  										<textarea class="form-control" rows="5" id="comment"></textarea>
-										<div class="clearfix"></div>
-										<button type="submit" class="btn btn-primary">评价</button>
-										</form>
-                </div>
-            </div>
-        </div>
-        <!-- footer -->
-        <div class="footer">
-            <div class="container">
-                <div class="agileinfo_copyright">
-                    <p>
-                        Copyright © 2017.Company name All rights reserved.More Templates <a
-                            href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
-                        - Collect from <a href="http://www.cssmoban.com/" title="网页模板"
-                            target="_blank">网页模板</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <!-- //footer -->
-        <!-- menu -->
-        <!-- js -->
-        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
-        <!-- password-script -->
-        <script type="text/javascript">
+				<div class="agileits_banner_bottom_left">
+
+					<button type="button" class="btn btn-primary"
+						data-toggle="collapse" data-target="#partsList">所需零件列表</button>
+					<div class="clearfix"></div>
+
+					<div id="partsList" class="container collapse">
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th>id</th>
+									<th>零件名称</th>
+									<th>数量</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>零件1</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>零件2</td>
+									<td>2</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>零件3</td>
+									<td>1</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="row  login-center">
+					<form>
+						<p class="text-center">
+							目前该订单维修状态为：<span id="repairStatus">已完成</span>，您可以对此评价
+						</p>
+						<textarea class="form-control" rows="5" id="comment"></textarea>
+						<div class="clearfix"></div>
+						<button type="submit" class="btn btn-primary">评价</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="agileinfo_copyright">
+				<p>
+					Copyright © 2017.Company name All rights reserved.More Templates <a
+						href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
+					- Collect from <a href="http://www.cssmoban.com/" title="网页模板"
+						target="_blank">网页模板</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- //footer -->
+	<!-- menu -->
+	<!-- js -->
+	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
+	<!-- password-script -->
+	<script type="text/javascript">
             window.onload = function() {
                 document.getElementById("password1").onchange = validatePassword;
                 document.getElementById("password2").onchange = validatePassword;
@@ -161,12 +164,12 @@
                 //empty string means no validation error
             }
         </script>
-        <!-- //password-script -->
+	<!-- //password-script -->
 
-        <!-- //js -->
-        <script src="js/bars.js"></script>
-        <script type="text/javascript" src="js/jquery.slicebox.js"></script>
-        <script type="text/javascript">
+	<!-- //js -->
+	<script src="js/bars.js"></script>
+	<script type="text/javascript" src="js/jquery.slicebox.js"></script>
+	<script type="text/javascript">
             $(function() {
 
                 var Page = (function() {
@@ -243,10 +246,10 @@
 
             });
         </script>
-        <!-- Stats -->
-        <script src="js/waypoints.min.js"></script>
-        <script src="js/counterup.min.js"></script>
-        <script>
+	<!-- Stats -->
+	<script src="js/waypoints.min.js"></script>
+	<script src="js/counterup.min.js"></script>
+	<script>
             jQuery(document).ready(function($) {
                 $('.counter').counterUp({
                     delay : 10,
@@ -254,11 +257,11 @@
                 });
             });
         </script>
-        <!-- //Stats -->
+	<!-- //Stats -->
 
-        <script type="text/javascript" src="js/jquery.flexisel.js"></script>
-        <!-- flexisel -->
-        <script type="text/javascript">
+	<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+	<!-- flexisel -->
+	<script type="text/javascript">
             $(window).load(function() {
                 $("#flexiselDemo1").flexisel({
                     visibleItems : 4,
@@ -285,18 +288,18 @@
 
             });
         </script>
-        <!-- //flexisel -->
-        <!-- //flexisel -->
-        <!-- js for portfolio lightbox -->
-        <script src="js/jquery.chocolat.js "></script>
-        <!-- //menu -->
-        <!-- for bootstrap working -->
-        <script src="js/bootstrap.js"></script>
-        <!-- //for bootstrap working -->
-        <!-- start-smoth-scrolling -->
-        <script type="text/javascript" src="js/move-top.js"></script>
-        <script type="text/javascript" src="js/easing.js"></script>
-        <script type="text/javascript">
+	<!-- //flexisel -->
+	<!-- //flexisel -->
+	<!-- js for portfolio lightbox -->
+	<script src="js/jquery.chocolat.js "></script>
+	<!-- //menu -->
+	<!-- for bootstrap working -->
+	<script src="js/bootstrap.js"></script>
+	<!-- //for bootstrap working -->
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript">
             jQuery(document).ready(function($) {
                 $(".scroll").click(function(event) {
                     event.preventDefault();
@@ -306,9 +309,9 @@
                 });
             });
         </script>
-        <!-- start-smoth-scrolling -->
-        <!-- here stars scrolling icon -->
-        <script type="text/javascript">
+	<!-- start-smoth-scrolling -->
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
             $(document).ready(function() {
                 /*
                     var defaults = {
@@ -325,9 +328,9 @@
 
             });
         </script>
-        <!-- //here ends scrolling icon -->
+	<!-- //here ends scrolling icon -->
 
-        <a href="#" id="toTop" style="display: none;"><span
-            id="toTopHover"></span>To Top</a>
+	<a href="#" id="toTop" style="display: none;"><span id="toTopHover"></span>To
+		Top</a>
 </body>
 </html>

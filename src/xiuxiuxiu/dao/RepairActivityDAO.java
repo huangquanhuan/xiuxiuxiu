@@ -1,8 +1,5 @@
 package xiuxiuxiu.dao;
 
-import xiuxiuxiu.pojo.*;
-import java.util.List;
-
 /**
  * RepairActivityDAO - 封装有关RepairActivity表的操作
  * 对 RepairActivity表的所有操作应通过实现该接口实现
