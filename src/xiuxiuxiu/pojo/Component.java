@@ -10,13 +10,9 @@ public class Component {
     private double price;
     //零件类型
     private String type;
-<<<<<<< HEAD
     //零件数量
     private int quantity;
-=======
-    private double quantity;
->>>>>>> branch 'hqh' of https://github.com/huangquanhuan/xiuxiuxiu.git
-    
+  
     public Component()
     {
         name="未命名";
@@ -32,19 +28,12 @@ public class Component {
         this.type = c.type;
     }
 
-<<<<<<< HEAD
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     
     public int getQuantity() {
-=======
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
-    }
-    
-    public double getQuantity() {
->>>>>>> branch 'hqh' of https://github.com/huangquanhuan/xiuxiuxiu.git
         return quantity;
     }
     
