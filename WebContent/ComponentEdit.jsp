@@ -82,7 +82,7 @@
                                 </tr>
                                 <tr>
 																	<td>3</td>
-                                    <<td><input type="text" value="零件3" readonly /></td>
+                                    <td><input type="text" value="零件3" readonly /></td>
                                     <td><input type="text" value="2" readonly /></td>
 																		<td><button type="button" class="btn btn-primary">修改</button></td>
 																		<td><button type="button" class="btn btn-primary">删除</button></td>
