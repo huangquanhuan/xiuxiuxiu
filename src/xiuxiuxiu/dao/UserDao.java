@@ -89,4 +89,3 @@ public interface UserDao {
      */
     boolean isExist(String phoneNumber);
 }
-
