@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import xiuxiuxiu.pojo.*;
@@ -18,7 +16,10 @@ public class ComponentDAOImpl implements ComponentDAO{
 		// TODO Auto-generated method stub
 		String sql = "insert into component(name,price,quantity,type) values(? ,? ,? ,? )";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			//ps.setString(1, article.getID()); 
+			ps.setString(1, component.getName()); 
+			ps.setDouble(2, component.getPrice());
+			ps.setInt(3, component.getQuantity());
+			ps.setString(4, component.getType());
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
@@ -35,7 +36,7 @@ public class ComponentDAOImpl implements ComponentDAO{
 		// TODO Auto-generated method stub
 		String sql = "delete from component where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			ps.setLong(1, id);
+			ps.setInt(1, id);
 			ps.execute();
 
 		} catch (SQLException e) {
@@ -48,7 +49,11 @@ public class ComponentDAOImpl implements ComponentDAO{
 		// TODO Auto-generated method stub
 		String sql = "update component set name=?,price=?,quantity=?,type=? where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			//ps.setString(1, component.getName());
+		    ps.setString(1, component.getName()); 
+            ps.setDouble(2, component.getPrice());
+            ps.setInt(3, component.getQuantity());
+            ps.setString(4, component.getType());
+            ps.setInt(5, component.getId());
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,12 +65,17 @@ public class ComponentDAOImpl implements ComponentDAO{
 		// TODO Auto-generated method stub
 		String sql = "select name,price,quantity,type from component where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			ps.setLong(1, id);
+			ps.setInt(1, id);
 			ps.execute();
 			ResultSet rs = ps.getResultSet();
 			if (rs.next()) {
 				Component component=new Component();
 				//article.setID(rs.getString("id"));
+				component.setId(id);
+				component.setName(rs.getString("name"));
+				component.setPrice(rs.getDouble("price"));
+				component.setQuantity(rs.getInt("quantity"));
+				component.setType(rs.getString("type"));
 				return component;
 			} else {
 				System.out.println("该id不存在！！");
@@ -87,6 +97,11 @@ public class ComponentDAOImpl implements ComponentDAO{
 			while (rs.next()) {
 				Component component = new Component();
 				//reservation.setID(rs.getString("user_id"));
+				component.setId(rs.getInt("id"));
+                component.setName(rs.getString("name"));
+                component.setPrice(rs.getDouble("price"));
+                component.setQuantity(rs.getInt("quantity"));
+                component.setType(rs.getString("type"));
 				componentList.add(component);
 			}
 			return componentList;

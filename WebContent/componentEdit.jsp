@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,111 +24,200 @@
 </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
-    media="all">
+	media="all">
 <link href="css/slicebox.css" rel="stylesheet" type="text/css">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
 <!-- font-awesome-icons -->
 <link href="css/font-awesome.css" rel="stylesheet">
 <!-- //font-awesome-icons -->
 <link
-    href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic"
-    rel="stylesheet" type="text/css">
+	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic"
+	rel="stylesheet" type="text/css">
 <link
-    href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
-    rel="stylesheet">
+	href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
+	rel="stylesheet">
+<link href="dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="jquery-3.2.0.min.js"></script>
+<script src="dist/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-    <!-- banner-bottom -->
-    <div class="banner-bottom">
-        <div class="container">
-            <div class="mid_agile_bannner_top_info">
-                <h2>零件库编辑</h2>
-                <div class="heading-underline">
-                    <div class="h-u1"></div>
-                    <div class="h-u2"></div>
-                    <div class="h-u3"></div>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- 两边留白 -->
+	<!-- banner-bottom -->
+	<div class="banner-bottom">
+		<div class="container">
+			<div class="mid_agile_bannner_top_info">
+				<h2>零件库编辑</h2>
+				<div class="heading-underline">
+					<div class="h-u1"></div>
+					<div class="h-u2"></div>
+					<div class="h-u3"></div>
+					<div class="clearfix"></div>
+				</div>
+				<!-- 两边留白 -->
 
-                <div class="wrapper">
-                    <div class="container">
-										<h2>零件列表</h2>
-											<table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>零件名称</th>
-                                    <th>数量</th>
-																		<th>修改</th>
-                                    <th>删除</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><input type="text" value="零件1" readonly /></td>
-                                    <td><input type="text" value="5" readonly /></td>
-																		<td><button type="button" class="btn btn-primary">修改</button></td>
-																		<td><button type="button" class="btn btn-primary">删除</button></td>
-                                </tr>
-                                <tr>
-																	<td>2</td>
-                                    <td><input type="text" value="零件2" readonly /></td>
-                                    <td><input type="text" value="4" readonly /></td>
-																		<td><button type="button" class="btn btn-primary">修改</button></td>
-																		<td><button type="button" class="btn btn-primary">删除</button></td>
-                                </tr>
-                                <tr>
-																	<td>3</td>
-                                    <<td><input type="text" value="零件3" readonly /></td>
-                                    <td><input type="text" value="2" readonly /></td>
-																		<td><button type="button" class="btn btn-primary">修改</button></td>
-																		<td><button type="button" class="btn btn-primary">删除</button></td>
-                                </tr>
-																	
-                            </tbody>
-                        </table>
+				<div class="wrapper">
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped">
+							<caption>零件列表</caption>
+							<thead>
+								<tr>
+									<th>id</th>
+									<th>零件名称</th>
+									<th>零件类型</th>
+									<th>数量</th>
+									<th>价格</th>
+									<th>修改</th>
+									<th>删除</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>零件1</td>
+									<td>内存条</td>
+									<td>5</td>
+									<td>5.85</td>
+									<td><button type="button" class="btn btn-primary btn-lg"
+											data-toggle="modal" data-target="#myModal2">修改</button></td>
+									<td><button type="button" class="btn btn-primary btn-lg">删除</button></td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>零件2</td>
+									<td>内存条</td>
+									<td>6</td>
+									<td>52.99</td>
+									<td><button class="btn btn-primary btn-lg"
+											data-toggle="modal" data-target="#myModal2">修改</button></td>
+									<td><button type="button" class="btn btn-primary btn-lg">删除</button></td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>零件3</td>
+									<td>硬盘</td>
+									<td>2</td>
+									<td>5.85</td>
+									<td><button type="button" class="btn btn-primary btn-lg"
+											data-toggle="modal" data-target="#myModal2">修改</button></td>
+									<td><button type="button" class="btn btn-primary btn-lg">删除</button></td>
+								</tr>
+
+							</tbody>
+						</table>
+						<!-- 按钮触发模态框 -->
+						<button class="btn btn-primary btn-lg" data-toggle="modal"
+							data-target="#myModal">新增零件</button>
+						<!-- 模态框（Modal） -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content agileits_banner_bottom_left">
+									<form action="ComponentServlet?method=add" method="post">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true">&times;</button>
+											<h3>
+												<span>新增零件</span>
+											</h3>
 										</div>
-										<div class="agileits_banner_bottom_left">
-											<form>
-												<h3><span>新增零件</span></h3>
-												<p><span>零件名称<span>
-                      	<input type="text"  class="form-control" name="componentName" />
-													</p>
-												<p><span>零件数量<span>
-                        <input type="text"  class="form-control" name="componentCount" />
-													</p>
-												<button type="submit" class="btn btn-primary" name="submit">提交</button>
-											</form>
+										<div class="modal-body">
+
+											<p>
+												<span>零件名称</span> <input type="text" class="form-control"
+													name="name" />
+											</p>
+											<p>
+												<span>零件数量</span> <input type="text" class="form-control"
+													name="quantity" />
+											</p>
+											<p>
+												<span>零件价格</span> <input type="text" class="form-control"
+													name="price" />
+											</p>
+											<p>
+												<span>零件类型</span> <input type="text" class="form-control"
+													name="type" />
+											</p>
+
 										</div>
-        				</div>
+										<div class="modal-footer">
+
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">关闭</button>
+											<button type="submit" class="btn btn-primary" name="submit">提交</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- 模态框（Modal2） -->
+						<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content agileits_banner_bottom_left">
+									<form action="ComponentServlet?method=update" method="post">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true">&times;</button>
+											<h3>
+												<span>修改零件</span>
+											</h3>
+										</div>
+										<div class="modal-body">
+											<p>
+												<span>零件名称</span> <input type="text" class="form-control"
+													name="name" />
+											</p>
+											<p>
+												<span>零件数量</span> <input type="text" class="form-control"
+													name="quantity" />
+											</p>
+											<p>
+												<span>零件价格</span> <input type="text" class="form-control"
+													name="price" />
+											</p>
+											<p>
+												<span>零件类型</span> <input type="text" class="form-control"
+													name="type" />
+											</p>
+										</div>
+										<div class="modal-footer">
+
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">关闭</button>
+											<button type="submit" class="btn btn-primary" name="submit">提交</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
+				</div>
 			</div>
+		</div>
 	</div>
 
 
-        <!-- footer -->
-        <div class="footer">
-            <div class="container">
-                <div class="agileinfo_copyright">
-                    <p>
-                        Copyright © 2017.Company name All rights reserved.More Templates <a
-                            href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
-                        - Collect from <a href="http://www.cssmoban.com/" title="网页模板"
-                            target="_blank">网页模板</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <!-- //footer -->
-        <!-- menu -->
-        <!-- js -->
-        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
-        <!-- password-script -->
-        <script type="text/javascript">
+	<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="agileinfo_copyright">
+				<p>
+					Copyright © 2017.Company name All rights reserved.More Templates <a
+						href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
+					- Collect from <a href="http://www.cssmoban.com/" title="网页模板"
+						target="_blank">网页模板</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- //footer -->
+	<!-- menu -->
+	<!-- js -->
+	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
+	<!-- password-script -->
+	<script type="text/javascript">
             window.onload = function() {
                 document.getElementById("password1").onchange = validatePassword;
                 document.getElementById("password2").onchange = validatePassword;
@@ -145,12 +234,12 @@
                 //empty string means no validation error
             }
         </script>
-        <!-- //password-script -->
+	<!-- //password-script -->
 
-        <!-- //js -->
-        <script src="js/bars.js"></script>
-        <script type="text/javascript" src="js/jquery.slicebox.js"></script>
-        <script type="text/javascript">
+	<!-- //js -->
+	<script src="js/bars.js"></script>
+	<script type="text/javascript" src="js/jquery.slicebox.js"></script>
+	<script type="text/javascript">
             $(function() {
 
                 var Page = (function() {
@@ -227,10 +316,10 @@
 
             });
         </script>
-        <!-- Stats -->
-        <script src="js/waypoints.min.js"></script>
-        <script src="js/counterup.min.js"></script>
-        <script>
+	<!-- Stats -->
+	<script src="js/waypoints.min.js"></script>
+	<script src="js/counterup.min.js"></script>
+	<script>
             jQuery(document).ready(function($) {
                 $('.counter').counterUp({
                     delay : 10,
@@ -238,11 +327,11 @@
                 });
             });
         </script>
-        <!-- //Stats -->
+	<!-- //Stats -->
 
-        <script type="text/javascript" src="js/jquery.flexisel.js"></script>
-        <!-- flexisel -->
-        <script type="text/javascript">
+	<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+	<!-- flexisel -->
+	<script type="text/javascript">
             $(window).load(function() {
                 $("#flexiselDemo1").flexisel({
                     visibleItems : 4,
@@ -269,18 +358,18 @@
 
             });
         </script>
-        <!-- //flexisel -->
-        <!-- //flexisel -->
-        <!-- js for portfolio lightbox -->
-        <script src="js/jquery.chocolat.js "></script>
-        <!-- //menu -->
-        <!-- for bootstrap working -->
-        <script src="js/bootstrap.js"></script>
-        <!-- //for bootstrap working -->
-        <!-- start-smoth-scrolling -->
-        <script type="text/javascript" src="js/move-top.js"></script>
-        <script type="text/javascript" src="js/easing.js"></script>
-        <script type="text/javascript">
+	<!-- //flexisel -->
+	<!-- //flexisel -->
+	<!-- js for portfolio lightbox -->
+	<script src="js/jquery.chocolat.js "></script>
+	<!-- //menu -->
+	<!-- for bootstrap working -->
+	<script src="js/bootstrap.js"></script>
+	<!-- //for bootstrap working -->
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript">
             jQuery(document).ready(function($) {
                 $(".scroll").click(function(event) {
                     event.preventDefault();
@@ -290,9 +379,9 @@
                 });
             });
         </script>
-        <!-- start-smoth-scrolling -->
-        <!-- here stars scrolling icon -->
-        <script type="text/javascript">
+	<!-- start-smoth-scrolling -->
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
             $(document).ready(function() {
                 /*
                     var defaults = {
@@ -309,9 +398,9 @@
 
             });
         </script>
-        <!-- //here ends scrolling icon -->
+	<!-- //here ends scrolling icon -->
 
-        <a href="#" id="toTop" style="display: none;"><span
-            id="toTopHover"></span>To Top</a>
+	<a href="#" id="toTop" style="display: none;"><span id="toTopHover"></span>To
+		Top</a>
 </body>
 </html>
