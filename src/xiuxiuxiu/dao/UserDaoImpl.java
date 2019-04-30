@@ -1,16 +1,12 @@
 package xiuxiuxiu.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import xiuxiuxiu.pojo.Student;
-import xiuxiuxiu.util.DBUtil;
 
 public class UserDaoImpl {
 

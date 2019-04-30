@@ -1,11 +1,5 @@
 package xiuxiuxiu.pojo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import xiuxiuxiu.util.DBUtil;
 /**
  * ReservationComponent - 对预约零件的一条记录
  *

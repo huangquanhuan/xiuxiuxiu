@@ -1,16 +1,19 @@
 package xiuxiuxiu.servelt;
 
 import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import com.sun.javafx.scene.layout.region.Margins.Converter;
 
 import xiuxiuxiu.dao.ComponentDAOImpl;
 import xiuxiuxiu.pojo.Component;
-
+/**
+ * @author 黄权焕
+ * 零件管理
+ * add:增加
+ * delete：删除
+ * update：更新
+ * */
 @WebServlet("/ComponentServlet")
 public class ComponentServlet extends HttpServlet{
     
@@ -40,7 +43,6 @@ public class ComponentServlet extends HttpServlet{
         componentDao.addComponent(component);        
         
     }
-    
     void Delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         if (componentDao.isComponentExist(id)) {
