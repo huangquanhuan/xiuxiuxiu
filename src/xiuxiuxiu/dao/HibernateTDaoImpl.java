@@ -1,6 +1,10 @@
 package xiuxiuxiu.dao;
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'hqh' of https://github.com/huangquanhuan/xiuxiuxiu.git
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
