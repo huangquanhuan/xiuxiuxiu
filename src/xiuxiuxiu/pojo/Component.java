@@ -12,7 +12,7 @@ public class Component {
     private String type;
     //零件数量
     private int quantity;
-    
+  
     public Component()
     {
         name="未命名";
@@ -28,7 +28,9 @@ public class Component {
         this.type = c.type;
     }
 
+
     public void setQuantity(final int quantity) {
+
         this.quantity = quantity;
     }
     

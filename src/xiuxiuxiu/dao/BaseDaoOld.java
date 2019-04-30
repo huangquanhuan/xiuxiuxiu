@@ -10,7 +10,7 @@ import xiuxiuxiu.util.*;
  * 单例化程序，提高执行效率，暂未提供多线程保护
  * 将数据库代码封装，管理链接。
  * */
-public class BaseDao {
+public class BaseDaoOld {
     
     private static Connection instance = null;
     private static PreparedStatement preparedStatement;
@@ -40,7 +40,7 @@ public class BaseDao {
     */
    public static ResultSet executeQuery(String sql, List<Object> params) throws SQLException {
        int index = 1;
-       preparedStatement = BaseDao.getInstance().prepareStatement(sql);
+       preparedStatement = BaseDaoOld.getInstance().prepareStatement(sql);
        if(params!=null && !params.isEmpty() ) {
            for (int i = 0; i <params.size() ; i++) {
                preparedStatement.setObject(index++,params.get(i));
@@ -59,7 +59,7 @@ public class BaseDao {
     */
    public static ResultSet getGeneratedKeys(String sql, List<Object> params) throws SQLException {
        int index = 1;
-       preparedStatement = BaseDao.getInstance().prepareStatement(sql);
+       preparedStatement = BaseDaoOld.getInstance().prepareStatement(sql);
        if(params!=null && !params.isEmpty() ) {
            for (int i = 0; i <params.size() ; i++) {
                preparedStatement.setObject(index++,params.get(i));
@@ -78,7 +78,7 @@ public class BaseDao {
     */
    public static int executeUpdate(String sql, List<Object> params) throws SQLException {
        int index = 1;
-       preparedStatement = BaseDao.getInstance().prepareStatement(sql);
+       preparedStatement = BaseDaoOld.getInstance().prepareStatement(sql);
        if(params!=null && !params.isEmpty() ) {
            for (int i = 0; i <params.size() ; i++) {
                preparedStatement.setObject(index++,params.get(i));

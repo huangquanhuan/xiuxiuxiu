@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 
 import com.sun.javafx.scene.layout.region.Margins.Converter;
 
+<<<<<<< HEAD
 import xiuxiuxiu.dao.ComponentDAOImpl;
 import xiuxiuxiu.pojo.Component;
 
@@ -16,6 +17,16 @@ public class ComponentServlet extends HttpServlet{
     
     private static final long serialVersionUID = 1L;
     ComponentDAOImpl componentDao = new ComponentDAOImpl();
+=======
+import xiuxiuxiu.dao.ComponentDaoImpl;
+import xiuxiuxiu.pojo.Component;
+
+@WebServlet("/ComponentServlet")
+public class ComponentServlet extends HttpServlet{
+    
+    private static final long serialVersionUID = 1L;
+    ComponentDaoImpl componentDao = new ComponentDaoImpl();
+>>>>>>> branch 'hqh' of https://github.com/huangquanhuan/xiuxiuxiu.git
     
     /**
      * @see HttpServlet#HttpServlet()

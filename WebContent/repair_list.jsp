@@ -1,7 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.io.*,java.util.*" %>
+<%
+   // 获取session创建时间
+   Date createTime = new Date(session.getCreationTime());
+   // 获取最后访问页面的时间
+   Date lastAccessTime = new Date(session.getLastAccessedTime());
+
+   String title = "SessionTest";
+   Integer visitCount = new Integer(0);
+   String visitCountKey = new String("visitCount");
+   String userIDKey = new String("userID");
+   String userID = new String("ABCD");
+
+   // 检测网页是否有新的访问用户
+   if (session.isNew()){
+      title = "NewSessionTest";
+      session.setAttribute(userIDKey, userID);
+      session.setAttribute(visitCountKey,  visitCount);
+   } else {
+       visitCount = (Integer)session.getAttribute(visitCountKey);
+       visitCount += 1;
+       userID = (String)session.getAttribute(userIDKey);
+       session.setAttribute(visitCountKey,  visitCount);
+   }
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-<title>Typography</title>
+<title>修</title>
 <!-- custom-theme -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -70,20 +97,13 @@
 																	<div class="signin-form profile">
 																	<h3 class="agileinfo_sign">登录</h3>	
 																			<div class="login-form">
-																				<form action="#" method="post">
-																					<input type="email" name="email" placeholder="E-mail" required="">
-																					<input type="password" name="password" placeholder="Password" required="">
+																				<form class="loginForm" action="UserServlet?type=login" method="post">
+																					<input type="text" name="phonenumber" placeholder="phonenumber" required="required">
+																					<input type="password" name="password" placeholder="Password" required="required">
 																					<div class="tp">
 																						<input type="submit" value="Sign In">
 																					</div>
 																				</form>
-																			</div>
-																			<div class="login-social-grids">
-																				<ul>
-																					<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-																					<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-																					<li><a href="#"><i class="fa fa-rss"></i></a></li>
-																				</ul>
 																			</div>
 																			<p><a href="#" data-toggle="modal" data-target="#myModal3" > Don't have an account?</a></p>
 																		</div>
@@ -210,8 +230,8 @@
 							</ul>
 							<p>Lorem ipsum dolor sit amet, Lorem ipsum Lorem ipsum.</p>
 							<div class="read">
-								<a href="single.html" class="view resw3" data-toggle="modal" data-target="#myModal4">修改</a>
-								<a href="single.html" class="view resw3" data-toggle="modal" data-target="#myModal5">删除</a>
+								<a href="#" class="view resw3" data-toggle="modal" data-target="#myModal4">修改</a>
+								<a href="#" class="view resw3" data-toggle="modal" data-target="#myModal5">删除</a>
 							</div>
 						</div>
 						<div class="clearfix"> </div>
@@ -226,8 +246,8 @@
 							</ul>
 							<p>Lorem ipsum dolor sit amet, Lorem ipsum Lorem ipsum.</p>
 							<div class="read">
-								<a href="single.html" class="view resw3" data-toggle="modal" data-target="#myModal4">修改</a>
-								<a href="single.html" class="view resw3" data-toggle="modal" data-target="#myModal5">删除</a>
+								<a href="#" class="view resw3" data-toggle="modal" data-target="#myModal4">修改</a>
+								<a href="#" class="view resw3" data-toggle="modal" data-target="#myModal5">删除</a>
 							</div>
 						</div>
 						<div class="clearfix"> </div>
@@ -243,8 +263,8 @@
 							</ul>
 							<p>Lorem ipsum dolor sit amet, Lorem ipsum Lorem ipsum.</p>
 							<div class="read">
-								<a href="single.html" class="view resw3" data-toggle="modal" data-target="#myModal4">修改</a>
-								<a href="single.html" class="view resw3" data-toggle="modal" data-target="#myModal5">删除</a>
+								<a href="#" class="view resw3" data-toggle="modal" data-target="#myModal4">修改</a>
+								<a href="#" class="view resw3" data-toggle="modal" data-target="#myModal5">删除</a>
 							</div>
 						</div>
 						<div class="clearfix"> </div>

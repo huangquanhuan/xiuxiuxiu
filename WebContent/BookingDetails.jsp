@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="xiuxiuxiu.pojo.User" %>
+<%@page import="xiuxiuxiu.servelt.ComponentServlet" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,9 +11,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="keywords" content="">
 <script type="application/x-javascript">
-	
-	
-	
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -18,9 +18,6 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
-    
-
-
 </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -38,7 +35,7 @@
 	rel="stylesheet">
 </head>
 <body>
-
+    <%  %>>
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
 		<div class="container">
@@ -59,7 +56,7 @@
 							
 						</h3>
 						<div class="clearfix"></div>
-						<span id="error1">软件故障</span>&nbsp;<span id="error2">死机</span>
+						<span id="error1"></span>&nbsp;<span id="error2">死机</span>
 						<p id="errorMessage">蓝屏就在开机时出现小圆圈转圈就迅速，不能进安全模式，机箱有很多灰尘。</p>
 					</div>
 					<div class="clearfix"></div>
