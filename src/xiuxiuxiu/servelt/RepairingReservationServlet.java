@@ -1,8 +1,11 @@
 package xiuxiuxiu.servelt;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import xiuxiuxiu.dao.UserDao;
+import xiuxiuxiu.dao.UserDaoImpl;
 import xiuxiuxiu.util.Page;
 
 /**
@@ -13,7 +16,23 @@ import xiuxiuxiu.util.Page;
  * @author Lenovo
  *
  */
+@WebServlet(urlPatterns="/makeReservation")
 public class RepairingReservationServlet extends BaseServlet {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6196254428422180914L;
+    
+    /**
+     * confirmInformation，用于预约第一步：确认个人信息的方法
+     */
+    public String confirmInfomation(HttpServletRequest request, HttpServletResponse response) {
+        Integer uid = Integer.parseInt(request.getParameter("uid"));
+        UserDao userDao = new UserDaoImpl();
+        request.setAttribute("user", userDao.get(uid));
+        return "make-a-reservation-1.jsp";
+    }
 
     /* (non-Javadoc)
      * @see xiuxiuxiu.servelt.BaseServlet#add(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xiuxiuxiu.util.Page)
