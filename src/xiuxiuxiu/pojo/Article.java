@@ -44,28 +44,34 @@ public class Article {
     
     
     public void setId(int id) {
-        if(id >= 0)
+        if(id >= 0) {
             this.id = id;
+        }
     }
     public void setAuthorId(int authorId) {
-        if(authorId >= 0 )
+        if(authorId >= 0 ) {
             this.authorId = authorId;
+        }
     }
     public void setAuthorName(String authorName) {
-        if(!authorName.equals(""))
+        if(!authorName.equals("")) {
             this.authorName = authorName;
+        }
     }
     public void setText(String text) {
-        if(!text.equals(""))
+        if(!text.equals("")) {
             this.text = text;
+        }
     }
     public void setTitle(String title) {
-        if(!title.equals(""))
+        if(!title.equals("")) {
             this.title = title;
+        }
     }
     public void setTime(String time) {
-        if(!time.equals(""))
-            this.time = time;
+        if(!time.equals("")) {
+            this.time = time; 
+        }
     }
     
     public Article getArticle() {

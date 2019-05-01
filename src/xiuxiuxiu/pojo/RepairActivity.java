@@ -40,20 +40,24 @@ public class RepairActivity {
     }
     
     public void setId(int id) {
-        if(id >= 0)
+        if(id >= 0) {
             this.id = id;
+        }
     }
     public void setmanagerId(int managerId) {
-        if(managerId >= 0)
+        if(managerId >= 0) {
             this.managerId = managerId;
+        }
     }
     public void setPlace(String place) {
-        if(!place.equals(""))
+        if(!place.equals("")) {
             this.place = place;
+        }
     }
     public void setTime(String time) {
-        if(!time.equals(""))
-            this.time = time;
+        if(!time.equals("")) {
+            this.time = time; 
+        }
     }
     
     public RepairActivity getRepairActivity() {

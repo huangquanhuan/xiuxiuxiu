@@ -12,7 +12,7 @@ import xiuxiuxiu.pojo.Student;
 import xiuxiuxiu.util.DBUtil;
 
 public class UserDaoImpl implements UserDao {
-    
+    @Override
     public void addStudent(Student bean) {
         String sql = "insert into user(password,user_name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -36,7 +36,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    
+    @Override
     public void deleteStudent(int id) {
         String sql = "delete from user where user_id = ?";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -53,7 +53,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * 只可修改用户的姓名、密码、学号、住址、电子邮箱，账户(ID)、手机号、权限等级不可修改
      */
-    
+    @Override
     public void updateStudent(Student bean) {
         String sql = "update user set user_name=?,password=?,student_id=?,address=?,e_mail=? where id=?";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -76,7 +76,7 @@ public class UserDaoImpl implements UserDao {
      * (non-Javadoc)
      * @see dao.DAO#getStudent(java.lang.String)
      */
-    
+    @Override
     public Student getStudent(int id) {
         String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user where user_id = ?";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -109,6 +109,7 @@ public class UserDaoImpl implements UserDao {
      * (non-Javadoc)
      * @see dao.DAO#getStudent(java.lang.String, java.lang.String)
      */
+    @Override
     public Student getStudent(int id, String password) {
         String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user where user_id = ? and password = ?";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -142,7 +143,7 @@ public class UserDaoImpl implements UserDao {
  * (non-Javadoc)
  * @see dao.DAO#searchStudent(java.lang.String)
  */
-    
+    @Override
     public List<Student> searchStudent(String condition) {
         String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user ORDER BY user_id";
         List<Student> userList = new ArrayList<Student>();
@@ -168,7 +169,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
     
-    
+    @Override
     public int getTotalStudent() {
         int total = 0;
         try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement()) {
@@ -188,7 +189,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    
+    @Override
     public boolean isStudentExist(int id) {
         String sql = "select * from User where id=?";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {

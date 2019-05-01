@@ -83,7 +83,7 @@ public interface SqlDAO{
 	
 	
 	//预约单、图片url对应表操作
-	void addReservationImgUrl( String imgUrl,int reservation_id);
+	void addReservationImgUrl( String imgUrl,int reservationId);
 	void deleteReservationImgUrl(int id);
 	void updateReservationImgUrl(int id);
 	String getReservationImgUrl(int id);

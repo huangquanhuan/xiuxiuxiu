@@ -35,11 +35,11 @@ public class User {
     /**
 	 * 用户的邮箱
 	 */
-    protected String Email;
+    protected String email;
     
     /**
 
-     * User构造函数，需输入( String password , String name , String phoneNumber , int accessLevel ,String address , String Email)
+     * User构造函数，需输入( String password , String name , String phoneNumber , int accessLevel ,String address , String email)
      */
     public User(String password , String name , String phoneNumber , int accessLevel ,String address , String Email){
 
@@ -48,7 +48,7 @@ public class User {
     	this.phoneNumber = phoneNumber;
     	this.accessLevel = accessLevel;
     	this.address = address;
-    	this.Email = Email;
+    	this.email = Email;
     }
     public User(){
     	
@@ -103,10 +103,10 @@ public class User {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String Email) {
-        this.Email = Email;
+        this.email = Email;
     }
 }

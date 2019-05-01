@@ -11,7 +11,7 @@ import xiuxiuxiu.pojo.*;
 import xiuxiuxiu.util.DBUtil;
 
 public class ComponentDAOImpl implements ComponentDAO{
-
+    @Override
 	public void addComponent(Component component) {
 		// TODO Auto-generated method stub
 		String sql = "insert into component(name,price,quantity,type) values(? ,? ,? ,? )";
@@ -31,7 +31,7 @@ public class ComponentDAOImpl implements ComponentDAO{
 		}
 	}
 
-
+    @Override
 	public void deleteComponent(int id) {
 		// TODO Auto-generated method stub
 		String sql = "delete from component where id = ?";
@@ -44,7 +44,7 @@ public class ComponentDAOImpl implements ComponentDAO{
 		}
 	}
 
-
+    @Override
 	public void updateComponent(Component component) {
 		// TODO Auto-generated method stub
 		String sql = "update component set name=?,price=?,quantity=?,type=? where id=?";
@@ -60,7 +60,7 @@ public class ComponentDAOImpl implements ComponentDAO{
 		}
 	}
 
-
+    @Override
 	public Component getComponent(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select name,price,quantity,type from component where id = ?";
@@ -86,7 +86,8 @@ public class ComponentDAOImpl implements ComponentDAO{
 			return null;
 		}
 	}
-
+    
+    @Override
 	public List<Component> searchComponent(String str) {
 		// TODO Auto-generated method stub
 		String sql = "select id,name,price,quantity,type from component ORDER BY id";
@@ -110,7 +111,8 @@ public class ComponentDAOImpl implements ComponentDAO{
 			return null;
 		}
 	}
-
+    
+    @Override
 	public boolean isComponentExist(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select * from component where id=?";

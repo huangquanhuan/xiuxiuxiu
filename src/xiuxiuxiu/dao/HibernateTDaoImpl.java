@@ -45,11 +45,13 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     // -------------------- 基本检索、增加、修改、删除操作 --------------------
 
     // 根据主键获取实体。如果没有相应的实体，返回 null。
+    @Override
     public T get(PK id) {
         return (T) getHibernateTemplate().get(entityClass, id);
     }
 
     // 根据主键获取实体并加锁。如果没有相应的实体，返回 null。
+    @Override
     public T getWithLock(PK id, LockMode lock) {
         T t = (T) getHibernateTemplate().get(entityClass, id, lock);
         if (t != null) {
@@ -59,11 +61,13 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     }
 
     // 根据主键获取实体。如果没有相应的实体，抛出异常。
+    @Override
     public T load(PK id) {
         return (T) getHibernateTemplate().load(entityClass, id);
     }
 
     // 根据主键获取实体并加锁。如果没有相应的实体，抛出异常。
+    @Override
     public T loadWithLock(PK id, LockMode lock) {
         T t = (T) getHibernateTemplate().load(entityClass, id, lock);
         if (t != null) {
@@ -73,6 +77,7 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     }
 
     // 获取全部实体。
+    @Override
     public List<T> loadAll() {
         return (List<T>) getHibernateTemplate().loadAll(entityClass);
     }
@@ -80,17 +85,20 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     // loadAllWithLock() ?
 
     // 更新实体
+    @Override
     public void update(T entity) {
         getHibernateTemplate().update(entity);
     }
 
     // 更新实体并加锁
+    @Override
     public void updateWithLock(T entity, LockMode lock) {
         getHibernateTemplate().update(entity, lock);
         this.flush(); // 立即刷新，否则锁不会生效。
     }
 
     // 存储实体到数据库
+    @Override
     public void save(T entity) {
         getHibernateTemplate().save(entity);
     }
@@ -98,37 +106,45 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     // saveWithLock()？
 
     // 增加或更新实体
+    @Override
     public void saveOrUpdate(T entity) {
         getHibernateTemplate().saveOrUpdate(entity);
     }
 
     // 增加或更新集合中的全部实体
+
+    @Override
     public void saveOrUpdateAll(Collection<T> entities) {
         getHibernateTemplate().saveOrUpdate(entities);
     }
 
     // 删除指定的实体
+    @Override
     public void delete(T entity) {
         getHibernateTemplate().delete(entity);
     }
 
     // 加锁并删除指定的实体
+    @Override
     public void deleteWithLock(T entity, LockMode lock) {
         getHibernateTemplate().delete(entity, lock);
         this.flush(); // 立即刷新，否则锁不会生效。
     }
 
     // 根据主键删除指定实体
+    @Override
     public void deleteByKey(PK id) {
         this.delete(this.load(id));
     }
 
     // 根据主键加锁并删除指定的实体
+    @Override
     public void deleteByKeyWithLock(PK id, LockMode lock) {
         this.deleteWithLock(this.load(id), lock);
     }
 
     // 删除集合中的全部实体
+    @Override
     public void deleteAll(Collection<T> entities) {
         getHibernateTemplate().deleteAll(entities);
     }
@@ -136,26 +152,31 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     // -------------------- HSQL ----------------------------------------------
 
     // 使用HSQL语句直接增加、更新、删除实体
+    @Override
     public int bulkUpdate(String queryString) {
         return getHibernateTemplate().bulkUpdate(queryString);
     }
 
     // 使用带参数的HSQL语句增加、更新、删除实体
+    @Override
     public int bulkUpdate(String queryString, Object[] values) {
         return getHibernateTemplate().bulkUpdate(queryString, values);
     }
 
     // 使用HSQL语句检索数据
+    @Override
     public List find(String queryString) {
         return getHibernateTemplate().find(queryString);
     }
 
     // 使用带参数的HSQL语句检索数据
+    @Override
     public List find(String queryString, Object[] values) {
         return getHibernateTemplate().find(queryString, values);
     }
 
     // 使用带命名的参数的HSQL语句检索数据
+    @Override
     public List findByNamedParam(String queryString, String[] paramNames,
             Object[] values) {
         return getHibernateTemplate().findByNamedParam(queryString, paramNames,
@@ -163,16 +184,19 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     }
 
     // 使用命名的HSQL语句检索数据
+    @Override
     public List findByNamedQuery(String queryName) {
         return getHibernateTemplate().findByNamedQuery(queryName);
     }
 
     // 使用带参数的命名HSQL语句检索数据
+    @Override
     public List findByNamedQuery(String queryName, Object[] values) {
         return getHibernateTemplate().findByNamedQuery(queryName, values);
     }
 
     // 使用带命名参数的命名HSQL语句检索数据
+    @Override
     public List findByNamedQueryAndNamedParam(String queryName,
             String[] paramNames, Object[] values) {
         return getHibernateTemplate().findByNamedQueryAndNamedParam(queryName,
@@ -180,16 +204,19 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     }
 
     // 使用HSQL语句检索数据，返回 Iterator
+    @Override
     public Iterator iterate(String queryString) {
         return getHibernateTemplate().iterate(queryString);
     }
 
     // 使用带参数HSQL语句检索数据，返回 Iterator
+    @Override
     public Iterator iterate(String queryString, Object[] values) {
         return getHibernateTemplate().iterate(queryString, values);
     }
 
     // 关闭检索返回的 Iterator
+    @Override
     public void closeIterator(Iterator it) {
         getHibernateTemplate().closeIterator(it);
     }
@@ -197,22 +224,26 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     // -------------------------------- Criteria ------------------------------
 
     // 创建与会话无关的检索标准
+    @Override
     public DetachedCriteria createDetachedCriteria() {
         return DetachedCriteria.forClass(this.entityClass);
     }
 
     // 创建与会话绑定的检索标准
+    @Override
     public Criteria createCriteria() {
         return this.createDetachedCriteria().getExecutableCriteria(
                 this.getSession());
     }
 
     // 检索满足标准的数据
+    @Override
     public List findByCriteria(DetachedCriteria criteria) {
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
     // 检索满足标准的数据，返回指定范围的记录
+    @Override
     public List findByCriteria(DetachedCriteria criteria, int firstResult,
             int maxResults) {
         return getHibernateTemplate().findByCriteria(criteria, firstResult,
@@ -220,6 +251,7 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     }
 
     // 使用指定的实体及属性检索（满足除主键外属性＝实体值）数据
+    @Override
     public List<T> findEqualByEntity(T entity, String[] propertyNames) {
         Criteria criteria = this.createCriteria();
         Example exam = Example.create(entity);
@@ -243,6 +275,7 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     }
 
     // 使用指定的实体及属性检索（满足属性 like 串实体值）数据
+    @Override
     public List<T> findLikeByEntity(T entity, String[] propertyNames) {
         Criteria criteria = this.createCriteria();
         for (String property : propertyNames) {
@@ -264,6 +297,7 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     }
 
     // 使用指定的检索标准获取满足标准的记录数
+    @Override
     public Integer getRowCount(DetachedCriteria criteria) {
         criteria.setProjection(Projections.rowCount());
         List list = this.findByCriteria(criteria, 0, 1);
@@ -271,18 +305,24 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     }
 
     // 使用指定的检索标准检索数据，返回指定统计值(max,min,avg,sum)
+    @Override
     public Object getStatValue(DetachedCriteria criteria, String propertyName,
-            String StatName) {
-        if (StatName.toLowerCase().equals("max"))
+            String statName) {
+        if (statName.toLowerCase().equals("max")) {
             criteria.setProjection(Projections.max(propertyName));
-        else if (StatName.toLowerCase().equals("min"))
+        }
+        else if (statName.toLowerCase().equals("min")) {
             criteria.setProjection(Projections.min(propertyName));
-        else if (StatName.toLowerCase().equals("avg"))
+        }
+        else if (statName.toLowerCase().equals("avg")) {
             criteria.setProjection(Projections.avg(propertyName));
-        else if (StatName.toLowerCase().equals("sum"))
+        }
+        else if (statName.toLowerCase().equals("sum")) {
             criteria.setProjection(Projections.sum(propertyName));
-        else
+        }
+        else {
             return null;
+        }
         List list = this.findByCriteria(criteria, 0, 1);
         return list.get(0);
     }
@@ -290,16 +330,21 @@ public class HibernateTDaoImpl<T extends Serializable, PK extends Serializable> 
     // -------------------------------- Others --------------------------------
 
     // 加锁指定的实体
+    @Override
     public void lock(T entity, LockMode lock) {
         getHibernateTemplate().lock(entity, lock);
     }
 
-    // 强制初始化指定的实体
+    /**
+         * 强制初始化指定的实体
+     */ 
+    @Override
     public void initialize(Object proxy) {
         getHibernateTemplate().initialize(proxy);
     }
 
     // 强制立即更新缓冲数据到数据库（否则仅在事务提交时才更新）
+    @Override
     public void flush() {
         getHibernateTemplate().flush();
     }

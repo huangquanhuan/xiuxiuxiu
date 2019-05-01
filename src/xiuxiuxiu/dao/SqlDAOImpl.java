@@ -111,6 +111,7 @@ public class SqlDAOImpl implements SqlDAO {
 	 * (non-Javadoc)
 	 * @see dao.DAO#getStudent(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public Student getStudent(int id, String password) {
 		String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user where user_id = ? and password = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -557,9 +558,9 @@ public class SqlDAOImpl implements SqlDAO {
 			if (rs.next()) {
 				String time=rs.getString(1);
 				String place=rs.getString(2);
-				String manger_id=rs.getString(3);
-				String mess="时间是"+time+"地点为"+place+"管理员id为"+manger_id+"";
-				System.out.print("时间是"+time+"地点为"+place+"管理员id为"+manger_id+"");
+				String mangerId=rs.getString(3);
+				String mess="时间是"+time+"地点为"+place+"管理员id为"+mangerId+"";
+				System.out.print("时间是"+time+"地点为"+place+"管理员id为"+mangerId+"");
 				return mess;
 			} else {
 				System.out.println("该id不存在！！");
