@@ -34,8 +34,9 @@ public class Component {
     }
     
     public void setName(String name) {
-        if(!name.equals(""))
+        if(!name.isEmpty()) {
             this.name = name;
+        }
     }
     
     public String getName() {
@@ -43,8 +44,9 @@ public class Component {
     }
    
     public void setPrice(double price) {
-        if(price >= 0)
+        if(price >= 0) {
             this.price = price;
+        }
     }
     
     public double getPrice() {
@@ -56,8 +58,9 @@ public class Component {
     }
     
     public void setType(String type) {
-        if(!type.equals(""))
+        if(!type.isEmpty()) {
             this.type = type;
+        }
     }
     
     Component getComponent() {

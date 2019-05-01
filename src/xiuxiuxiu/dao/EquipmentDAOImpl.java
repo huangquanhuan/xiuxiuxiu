@@ -14,6 +14,7 @@ import xiuxiuxiu.util.DBUtil;
 
 public class EquipmentDAOImpl implements EquipmentDAO{
 
+    @Override
 	public void addEquipment(String equipmentName, String userID) {
 		// TODO Auto-generated method stub
 		String sql = "insert into equipment(equipment_name,user_id) values(?,?)";
@@ -31,6 +32,7 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 		}
 	}
 
+    @Override
 	public void deleteEquipment(int id) {
 		// TODO Auto-generated method stub
 		String sql = "delete from equipment where id =?";
@@ -47,6 +49,7 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 		}
 	}
 
+    @Override
 	public void updateEquipment(String equipmentName,int id) {
 		// TODO Auto-generated method stub
 		String sql="update equipment set equipment_name=? where id =?";
@@ -63,6 +66,7 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 		}
 	}
 
+    @Override
 	public String getEquipmentName(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select equipment_name from equipment where id = ?";
@@ -83,6 +87,7 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 		}
 	}
 
+    @Override
 	public String getEquipmentOwner(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select user_id from equipment where id = ?";
@@ -103,6 +108,7 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 		}
 	}
 
+    @Override
 	public boolean isEquipmentExist(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select * from equipment where id=?";

@@ -17,7 +17,7 @@ public class ReservationComponentList
      * @param ReservationComponent 单条预约零件记录
      * @return 空
      */	 
-	public void Add(ReservationComponent rc)
+	public void add(ReservationComponent rc)
 	{
 		rcList.add(rc);
 	}
@@ -28,7 +28,7 @@ public class ReservationComponentList
      * @param ReservationComponent 单条预约零件记录
      * @return 空
      */	 
-	public void Delete(ReservationComponent rc)
+	public void delete(ReservationComponent rc)
 	{
 		
 	}
@@ -38,7 +38,7 @@ public class ReservationComponentList
      * @param ReservationComponent 单条预约零件记录
      * @return 空
      */	 
-	public void Update(ReservationComponent rc)
+	public void update(ReservationComponent rc)
 	{
 
 	}

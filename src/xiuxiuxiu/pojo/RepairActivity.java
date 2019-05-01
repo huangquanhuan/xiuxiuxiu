@@ -40,20 +40,24 @@ public class RepairActivity {
     }
     
     public void setId(int id) {
-        if(id >= 0)
+        if(id >= 0) {
             this.id = id;
+        }
     }
     public void setmanagerId(int managerId) {
-        if(managerId >= 0)
+        if(managerId >= 0) {
             this.managerId = managerId;
+        }
     }
     public void setPlace(String place) {
-        if(!place.equals(""))
+        if(!place.isEmpty()) {
             this.place = place;
+        }
     }
     public void setTime(String time) {
-        if(!time.equals(""))
+        if(!time.isEmpty()) {
             this.time = time;
+        }
     }
     
     public RepairActivity getRepairActivity() {
@@ -61,7 +65,7 @@ public class RepairActivity {
     }
     
     public RepairActivity setRepairActivity(int id,String time,String place,int managerId) {
-        if (id >= 0 && !time.equals("") && !place.equals("") && id >= 0)
+        if (id >= 0 && !time.isEmpty() && !place.isEmpty() && id >= 0)
         {
             this.id = id;
             this.time = time;

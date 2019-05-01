@@ -129,8 +129,8 @@ public class Reservation {
 		return userID;
 	}
 
-	public void setUserID(int UserID) {
-		this.userID = UserID;
+	public void setUserID(int userId) {
+		this.userID = userId;
 	}
 
 	public int getApplicationType() {

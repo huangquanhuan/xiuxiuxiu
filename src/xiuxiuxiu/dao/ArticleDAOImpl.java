@@ -14,6 +14,7 @@ import xiuxiuxiu.util.DBUtil;
 
 public class ArticleDAOImpl implements ArticleDAO{
 
+    @Override
 	public void addArticle(Article article) {
 		// TODO Auto-generated method stub
 				String sql = "insert into article(author_id,author_name,title,text,time) values(? ,? ,? ,? ,? )";
@@ -31,6 +32,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 				}
 	}
 
+    @Override
 	public void deleteArticle(int id) {
 		// TODO Auto-generated method stub
 				String sql = "delete from article where id = ?";
@@ -44,6 +46,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 				}
 	}
 
+    @Override
 	public void updateArticle(Article article) {
 		// TODO Auto-generated method stub
 		String sql = "update article set author_id=?,author_name=?,title=?,text=?,time=? where id=?";
@@ -56,7 +59,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 		}
 	}
 
-
+    @Override
 	public Article getArtice(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select id,author_id,author_name,title,text,time from article where id = ?";
@@ -78,7 +81,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 		}
 	}
 
-
+    @Override
 	public List<Article> searchArticle(String str) {
 		// TODO Auto-generated method stub
 		String sql = "select id,author_id,author_name,title,text,time from article from article ORDER BY id";

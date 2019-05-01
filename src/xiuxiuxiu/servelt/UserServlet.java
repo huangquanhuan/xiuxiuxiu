@@ -49,10 +49,10 @@ public class UserServlet extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response) {
         try {
             String method = request.getParameter("method");
-            if(method.equals("login")) {
+            if("login".equals(method)) {
                 login(request,response);
             }
-            else if(method.equals("add")) {
+            else if("add".equals(method)) {
                 //处理添加
             }
         } catch (Exception e) {

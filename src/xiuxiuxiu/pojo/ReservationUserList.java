@@ -17,7 +17,7 @@ public class ReservationUserList
      * @param ReservationUser 单条预约人员记录
      * @return 空
      */	 
-	public void Add(ReservationUser ru)
+	public void add(ReservationUser ru)
 	{
 		ruList.add(ru);
 	}
@@ -28,7 +28,7 @@ public class ReservationUserList
      * @param ReservationUser 单条预约零件记录
      * @return 空
      */	 
-	public void Delete(ReservationUser ru)
+	public void delete(ReservationUser ru)
 	{
 		
 	}
@@ -38,7 +38,7 @@ public class ReservationUserList
      * @param ReservationUser 单条预约零件记录
      * @return 空
      */	 
-	public void Update(ReservationUser ru)
+	public void update(ReservationUser ru)
 	{
 
 	}

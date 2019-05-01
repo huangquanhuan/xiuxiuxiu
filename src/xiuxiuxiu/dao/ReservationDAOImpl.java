@@ -14,6 +14,7 @@ import xiuxiuxiu.util.DBUtil;
 
 public class ReservationDAOImpl implements ReservationDAO{
 	
+    @Override
 	public void addReservation(Reservation reservation) {
 		// TODO Auto-generated method stub
 		String sql = "insert into reservation(id,state,user_id,application_type,application_time,required_time,place,repair_activity_id,equipment_id,repair_type,detail,remark,feedback) values(? ,? ,? ,? ,? ,? ,? ,?,?,?,?,?,?)";
@@ -31,7 +32,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 		}
 	}
 
-
+    @Override
 	public void deleteReservation(int id) {
 		// TODO Auto-generated method stub
 		String sql = "delete from reservation where id = ?";
@@ -45,7 +46,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 		}
 	}
  
-
+    @Override
 	public void updateReservation(Reservation reservation) {
 		// TODO Auto-generated method stub
 		String sql = "update reservation set userid=?,state=?,application_type=?,application_time=?,required_time=?,place=?,repair_activity_id=?,equipment_id=?,repair_type=?,detail=?,remark=?,feedback=? where id=?";
@@ -58,7 +59,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 		}
 	}
 
-
+    @Override
 	public Reservation getReservation(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select state,user_id,application_type,application_time,required_time,place,repair_activity_id,equipment_id,repair_type,detail,remark,feedback from reservation where id = ?";
@@ -80,7 +81,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 		}
 	}
 
-
+    @Override
 	public List<Reservation> searchReservation(String condition) {
 		// TODO Auto-generated method stub
 		String sql = "select id,state,user_id,application_type,application_time,required_time,place,repair_activity_id,equipment_id,repair_type,detail,remark,feedback from reservation ORDER BY id";
@@ -100,7 +101,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 		}
 	}
 
-
+    @Override
 	public boolean isReservationExist(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select * from reservation where id=?";

@@ -48,8 +48,8 @@ public class DBUtil {
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
             System.out.println(session.getServerVersion());//这里打印SSH服务器版本信息
-            int assinged_port = session.setPortForwardingL(transmitPort, ip, port);
-            System.out.println("localhost:" + assinged_port + " -> " + ip + ":" + port);
+            int assignedPort = session.setPortForwardingL(transmitPort, ip, port);
+            System.out.println("localhost:" + assignedPort + " -> " + ip + ":" + port);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,20 +68,23 @@ public class DBUtil {
 	/* 关闭连接的方法 */
 	public static void close(ResultSet rs, Statement stmt, Connection conn) {
 		try {
-			if (rs != null)
+			if (rs != null) {
 				rs.close();
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		try {
-			if (stmt != null)
+			if (stmt != null) {
 				stmt.close();
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		try {
-			if (conn != null)
+			if (conn != null) {
 				conn.close();
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

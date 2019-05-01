@@ -27,12 +27,14 @@ public class Student extends User {
 	 * address , String Email , String studentID, List<Integer> equipment)
 	 */
 	public Student(String password, String name, String phoneNumber, int accessLevel, String address,
-			String Email, String studentID, List<Integer> equipment) {
-		super( password, name, phoneNumber, accessLevel, address, Email);
+			String email, String studentID, List<Integer> equipment) {
+		super( password, name, phoneNumber, accessLevel, address, email);
 		this.studentID = studentID;
-		if (equipment != null)
-			for (int i = 0; i < equipment.size(); i++)
+		if (equipment != null) {
+			for (int i = 0; i < equipment.size(); i++) {
 				this.equipment.add(equipment.get(i));
+			}
+		}
 	}
 
 	public Student() {
@@ -53,8 +55,8 @@ public class Student extends User {
 
 	public void setEquipment(List<Integer> equipment) {
 		this.equipment.clear();
-		for (int i = 0; i < equipment.size(); i++)
+		for (int i = 0; i < equipment.size(); i++) {
 			this.equipment.add(equipment.get(i));
-
+		}
 	}
 }

@@ -12,7 +12,8 @@ import java.util.List;
 import xiuxiuxiu.pojo.*;
 import xiuxiuxiu.util.DBUtil;
 public class ManagerDAOImpl implements ManagerDAO{
-	
+
+    @Override
 	public void addManger(Manger manger) {
 		// TODO Auto-generated method stub
 
@@ -38,7 +39,7 @@ public class ManagerDAOImpl implements ManagerDAO{
 		}
 	}
 
-
+    @Override
 	public void deleteManger(int id) {
 		// TODO Auto-generated method stub
 		String sql = "delete from user where user_id = ?";
@@ -52,7 +53,7 @@ public class ManagerDAOImpl implements ManagerDAO{
 		}
 	}
 
-
+    @Override
 	public void updateManger(Manger manger) {
 		// TODO Auto-generated method stub
 		String sql = "update manger set name=?,password=?,address=?,email=? where id=?";
@@ -69,6 +70,7 @@ public class ManagerDAOImpl implements ManagerDAO{
 		}
 	}
 
+    @Override
 	public Manger getManger(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select id,name,password,phone_number,access_level,email from manger where id = ?";
@@ -96,6 +98,7 @@ public class ManagerDAOImpl implements ManagerDAO{
 		}
 	}
 
+	@Override
 	public Manger getManger(String phoneNumber, String password) {
 		// TODO Auto-generated method stub
 		String sql = "select id,name,password,phone_number,access_level,email from manger where phone_number = ? and password = ?";
@@ -124,6 +127,7 @@ public class ManagerDAOImpl implements ManagerDAO{
 		}
 	}
 
+	@Override
 	public boolean isMangerExist(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select * from manger where id=?";

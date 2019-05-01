@@ -17,8 +17,8 @@ public class Manger extends User {
 	
 
 	public Manger(String password, String name, String phoneNumber, int accessLevel, String address,
-			String Email) {
-		super(password, name, phoneNumber, accessLevel, address, Email);
+			String email) {
+		super(password, name, phoneNumber, accessLevel, address, email);
 
 		// TODO 自动生成的构造函数存根
 	}

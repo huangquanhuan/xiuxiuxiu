@@ -17,7 +17,7 @@ public class SqlDAOImplTest {
 	String phoneNumber = "13123191992";
 	int accessLevel = 0;
 	String address = "天堂";
-	String Email = "1669598494@qq.com";
+	String email = "1669598494@qq.com";
 	String studentID = "221600303";
 	List<Integer> equipment = null;
 	SqlDAOImpl dao;
@@ -36,7 +36,7 @@ public class SqlDAOImplTest {
 
 	@Test
 	public void testAddStudent() {
-		Student bean = new Student( password, name, phoneNumber, accessLevel, address, Email, studentID, equipment);
+		Student bean = new Student( password, name, phoneNumber, accessLevel, address, email, studentID, equipment);
 		totalStudent = dao.getTotalStudent();
 		dao.addStudent(bean);
 		assertEquals(totalStudent+1, dao.getTotalStudent());

@@ -16,7 +16,7 @@ public interface ReservationImgUrlDAO {
      *
      * @param 图片url地址与相应预约单id
      */
-	void addReservationImgUrl( String imgUrl,int reservation_id);
+	void addReservationImgUrl( String imgUrl,int reservationId);
 	/**
      * delete() - 以 ID 为依据删除该链接
      *
