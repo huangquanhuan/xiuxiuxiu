@@ -120,4 +120,22 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 			return false;
 		}
 	}
+	
+	@Override
+	public List<Integer> List(int userID) {
+		String sql = "select id from equipment where user_id=?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			List<Integer> equimentList = new ArrayList<Integer>();
+			ps.setInt(1, userID);
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			while (rs.next()) {
+				equimentList.add(rs.getInt("id"));
+			}
+			return equimentList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
