@@ -1,7 +1,6 @@
 package xiuxiuxiu.dao;
 
 import xiuxiuxiu.pojo.*;
-import java.util.List;
 /**
  * ManagerDAO - 封装有关Manager表的操作
  * 对Manager表的所有操作应通过实现该接口实现

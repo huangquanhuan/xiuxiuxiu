@@ -11,7 +11,7 @@ public class Manger extends User {
 	/**
 	 * 
 	 * Manger构造函数，直接调用父类构造函数
-	 * 需输入(int id, String password, String name, String phoneNumber, int accessLevel, String address,String Email)
+	 * 需输入(int id, String password, String name, String phoneNumber, int accessLevel, String address,String email)
 	 */
 	
 	

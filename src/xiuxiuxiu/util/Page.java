@@ -46,7 +46,7 @@ public class Page {
         } else {
             totalPage = total / count + 1;
         }
-        
+
         if (0 == totalPage) {
             totalPage = 1;
         }

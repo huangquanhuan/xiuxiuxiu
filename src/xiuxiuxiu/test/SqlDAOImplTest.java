@@ -47,7 +47,7 @@ public class SqlDAOImplTest {
 //
 //	@Test
 //	public void testDeleteStudent() {
-//		Student bean = new Student( password, name, phoneNumber, accessLevel, address, Email, studentID, equipment);
+//		Student bean = new Student( password, name, phoneNumber, accessLevel, address, email, studentID, equipment);
 //		for(int i=3 ;i<=20;i++)
 //		{
 //			dao.deleteStudent(i);

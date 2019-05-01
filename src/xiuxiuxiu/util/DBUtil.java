@@ -48,8 +48,8 @@ public class DBUtil {
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
             System.out.println(session.getServerVersion());//这里打印SSH服务器版本信息
-            int assignedPort = session.setPortForwardingL(transmitPort, ip, port);
-            System.out.println("localhost:" + assignedPort + " -> " + ip + ":" + port);
+            int assingedPort = session.setPortForwardingL(transmitPort, ip, port);
+            System.out.println("localhost:" + assingedPort + " -> " + ip + ":" + port);
         } catch (Exception e) {
             e.printStackTrace();
         }

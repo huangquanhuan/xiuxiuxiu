@@ -36,6 +36,9 @@
 <link
 	href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
 	rel="stylesheet">
+<link href="dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="jquery-3.2.0.min.js"></script>
+<script src="dist/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -43,7 +46,7 @@
 	<div class="banner-bottom">
 		<div class="container">
 			<div class="mid_agile_bannner_top_info">
-				<h2>预约单详情</h2>
+				<h2>零件库编辑</h2>
 				<div class="heading-underline">
 					<div class="h-u1"></div>
 					<div class="h-u2"></div>
@@ -53,80 +56,147 @@
 				<!-- 两边留白 -->
 
 				<div class="wrapper">
-					<div class="agileits_banner_bottom_left">
-						<h3>
-							<span>问题描述</span>
-
-						</h3>
-						<div class="clearfix"></div>
-						<span id="error1">软件故障</span>&nbsp;<span id="error2">死机</span>
-						<p id="errorMessage">蓝屏就在开机时出现小圆圈转圈就迅速，不能进安全模式，机箱有很多灰尘。</p>
-					</div>
-					<div class="clearfix"></div>
-					評價
-				</div>
-
-				<!-- 轮播 -->
-				<div class="banner">
-					<ul id="sb-slider" class="sb-slider" style="max-width: 1680px;">
-						<li><img id="errorImg" src="images/banner2.jpg" alt="image2">
-							<div class="sb-description">
-								<h4>问题图片</h4>
-							</div></li>
-					</ul>
-				</div>
-				<!-- /wrapper -->
-				<div class="clearfix"></div>
-
-				<div class="agileits_banner_bottom_left">
-
-					<button type="button" class="btn btn-primary"
-						data-toggle="collapse" data-target="#partsList">所需零件列表</button>
-					<div class="clearfix"></div>
-
-					<div id="partsList" class="container collapse">
+					<div class="table-responsive">
 						<table class="table table-bordered table-striped">
+							<caption>零件列表</caption>
 							<thead>
 								<tr>
 									<th>id</th>
 									<th>零件名称</th>
+									<th>零件类型</th>
 									<th>数量</th>
+									<th>价格</th>
+									<th>修改</th>
+									<th>删除</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td>1</td>
 									<td>零件1</td>
+									<td>内存条</td>
 									<td>5</td>
+									<td>5.85</td>
+									<td><button type="button" class="btn btn-primary btn-lg"
+											data-toggle="modal" data-target="#myModal2">修改</button></td>
+									<td><button type="button" class="btn btn-primary btn-lg">删除</button></td>
 								</tr>
 								<tr>
 									<td>2</td>
 									<td>零件2</td>
-									<td>2</td>
+									<td>内存条</td>
+									<td>6</td>
+									<td>52.99</td>
+									<td><button class="btn btn-primary btn-lg"
+											data-toggle="modal" data-target="#myModal2">修改</button></td>
+									<td><button type="button" class="btn btn-primary btn-lg">删除</button></td>
 								</tr>
 								<tr>
 									<td>3</td>
 									<td>零件3</td>
-									<td>1</td>
+									<td>硬盘</td>
+									<td>2</td>
+									<td>5.85</td>
+									<td><button type="button" class="btn btn-primary btn-lg"
+											data-toggle="modal" data-target="#myModal2">修改</button></td>
+									<td><button type="button" class="btn btn-primary btn-lg">删除</button></td>
 								</tr>
+
 							</tbody>
 						</table>
+						<!-- 按钮触发模态框 -->
+						<button class="btn btn-primary btn-lg" data-toggle="modal"
+							data-target="#myModal">新增零件</button>
+						<!-- 模态框（Modal） -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content agileits_banner_bottom_left">
+									<form action="ComponentServlet?method=add" method="post">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true">&times;</button>
+											<h3>
+												<span>新增零件</span>
+											</h3>
+										</div>
+										<div class="modal-body">
+
+											<p>
+												<span>零件名称</span> <input type="text" class="form-control"
+													name="name" />
+											</p>
+											<p>
+												<span>零件数量</span> <input type="text" class="form-control"
+													name="quantity" />
+											</p>
+											<p>
+												<span>零件价格</span> <input type="text" class="form-control"
+													name="price" />
+											</p>
+											<p>
+												<span>零件类型</span> <input type="text" class="form-control"
+													name="type" />
+											</p>
+
+										</div>
+										<div class="modal-footer">
+
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">关闭</button>
+											<button type="submit" class="btn btn-primary" name="submit">提交</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- 模态框（Modal2） -->
+						<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content agileits_banner_bottom_left">
+									<form action="ComponentServlet?method=update" method="post">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true">&times;</button>
+											<h3>
+												<span>修改零件</span>
+											</h3>
+										</div>
+										<div class="modal-body">
+											<p>
+												<span>零件名称</span> <input type="text" class="form-control"
+													name="name" />
+											</p>
+											<p>
+												<span>零件数量</span> <input type="text" class="form-control"
+													name="quantity" />
+											</p>
+											<p>
+												<span>零件价格</span> <input type="text" class="form-control"
+													name="price" />
+											</p>
+											<p>
+												<span>零件类型</span> <input type="text" class="form-control"
+													name="type" />
+											</p>
+										</div>
+										<div class="modal-footer">
+
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">关闭</button>
+											<button type="submit" class="btn btn-primary" name="submit">提交</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="clearfix"></div>
-				<div class="row  login-center">
-					<form>
-						<p class="text-center">
-							目前该订单维修状态为：<span id="repairStatus">已完成</span>，您可以对此评价
-						</p>
-						<textarea class="form-control" rows="5" id="comment"></textarea>
-						<div class="clearfix"></div>
-						<button type="submit" class="btn btn-primary">评价</button>
-					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<!-- footer -->
 	<div class="footer">

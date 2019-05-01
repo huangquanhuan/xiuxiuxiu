@@ -54,23 +54,23 @@ public class Article {
         }
     }
     public void setAuthorName(String authorName) {
-        if(!authorName.isEmpty()) {
+        if(!authorName.equals("")) {
             this.authorName = authorName;
         }
     }
     public void setText(String text) {
-        if(!text.isEmpty()) {
+        if(!text.equals("")) {
             this.text = text;
         }
     }
     public void setTitle(String title) {
-        if(!title.isEmpty()) {
+        if(!title.equals("")) {
             this.title = title;
         }
     }
     public void setTime(String time) {
-        if(!time.isEmpty()) {
-            this.time = time;
+        if(!time.equals("")) {
+            this.time = time; 
         }
     }
     

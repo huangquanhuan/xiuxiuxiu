@@ -1,8 +1,5 @@
 package xiuxiuxiu.dao;
 
-import xiuxiuxiu.pojo.*;
-import java.util.List;
-
 /**
  * ReservationImgUrlDAO - 封装有关ReservationImgUrl表的操作
  * 对 ReservationImgUrl表的所有操作应通过实现该接口实现

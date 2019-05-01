@@ -24,7 +24,7 @@ public class Student extends User {
 	/**
 	 * Student类的构造函数,调用父类User的带参构造函数，再补充学号和拥有设备的设备号列表 需输入(int id , String
 	 * password , String name , String phoneNumber , int accessLevel ,String
-	 * address , String Email , String studentID, List<Integer> equipment)
+	 * address , String email , String studentID, List<Integer> equipment)
 	 */
 	public Student(String password, String name, String phoneNumber, int accessLevel, String address,
 			String email, String studentID, List<Integer> equipment) {

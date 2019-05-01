@@ -10,6 +10,8 @@ public class Component {
     private double price;
     //零件类型
     private String type;
+    //零件数量
+    private int quantity;
     
     public Component()
     {
@@ -22,7 +24,16 @@ public class Component {
         this.id = c.id;
         this.name = c.name;
         this.price = c.price;
+        this.quantity = c.quantity;
         this.type = c.type;
+    }
+
+    public void setQuantity(final int quantity) {
+        this.quantity = quantity;
+    }
+    
+    public int getQuantity() {
+        return quantity;
     }
     
     public void setId(int id) {
@@ -34,7 +45,7 @@ public class Component {
     }
     
     public void setName(String name) {
-        if(!name.isEmpty()) {
+        if(!name.equals("")) {
             this.name = name;
         }
     }
@@ -58,7 +69,7 @@ public class Component {
     }
     
     public void setType(String type) {
-        if(!type.isEmpty()) {
+        if(!type.equals("")) {
             this.type = type;
         }
     }
@@ -67,10 +78,11 @@ public class Component {
         return this;
     }
     
-    Component setComponent(final String name,final double price,final String type) {
+    Component setComponent(final String name,final double price,final String type,final int quantity) {
         this.name = name;
         this.price = price;
         this.type = type;
+        this.quantity = quantity;
         return this;
     }
     
@@ -78,6 +90,7 @@ public class Component {
         this.id = c.id;
         this.name = c.name;
         this.price = c.price;
+        this.quantity = c.quantity;
         this.type = c.type;
         return this;
     }

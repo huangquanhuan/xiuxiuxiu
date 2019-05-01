@@ -1,8 +1,5 @@
 package xiuxiuxiu.dao;
 
-import xiuxiuxiu.pojo.*;
-import java.util.List;
-
 /**
  * EquipmentDAO - 封装有关Equipment表的操作
  * 对Equipment表的所有操作应通过实现该接口实现

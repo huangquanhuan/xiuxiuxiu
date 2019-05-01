@@ -1,8 +1,5 @@
 package xiuxiuxiu.dao;
 
-import xiuxiuxiu.pojo.*;
-import java.util.List;
-
 /**
  * RepairTypeDAO - 封装有关repair_type 表的操作
  * 对repair_type 表的所有操作应通过实现该接口实现

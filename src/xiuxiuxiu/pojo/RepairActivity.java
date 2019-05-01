@@ -50,13 +50,13 @@ public class RepairActivity {
         }
     }
     public void setPlace(String place) {
-        if(!place.isEmpty()) {
+        if(!place.equals("")) {
             this.place = place;
         }
     }
     public void setTime(String time) {
-        if(!time.isEmpty()) {
-            this.time = time;
+        if(!time.equals("")) {
+            this.time = time; 
         }
     }
     

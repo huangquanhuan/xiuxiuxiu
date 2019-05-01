@@ -39,7 +39,7 @@ public class User {
     
     /**
 
-     * User构造函数，需输入( String password , String name , String phoneNumber , int accessLevel ,String address , String Email)
+     * User构造函数，需输入( String password , String name , String phoneNumber , int accessLevel ,String address , String email)
      */
     public User(String password , String name , String phoneNumber , int accessLevel ,String address , String email){
 
