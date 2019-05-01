@@ -74,7 +74,7 @@ public class RepairActivityDAOImpl implements RepairActivityDAO{
 				String time=rs.getString(1);
 				String place=rs.getString(2);
 				String mangerId=rs.getString(3);
-				String mess="时间是"+time+"地点为"+place+"管理员id为"+manger_id+"";
+				String mess="时间是"+time+"地点为"+place+"管理员id为"+mangerId+"";
 				System.out.print("时间是"+time+"地点为"+place+"管理员id为"+mangerId+"");
 				return mess;
 			} else {
