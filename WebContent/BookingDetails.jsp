@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="xiuxiuxiu.pojo.User" %>
-<%@page import="xiuxiuxiu.servelt.ComponentServlet" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +8,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="keywords" content="">
 <script type="application/x-javascript">
+	
+	
+	
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -18,6 +18,9 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+    
+
+
 </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -35,7 +38,7 @@
 	rel="stylesheet">
 </head>
 <body>
-    <%  %>>
+
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
 		<div class="container">
@@ -53,10 +56,10 @@
 					<div class="agileits_banner_bottom_left">
 						<h3>
 							<span>问题描述</span>
-							
+
 						</h3>
 						<div class="clearfix"></div>
-						<span id="error1"></span>&nbsp;<span id="error2">死机</span>
+						<span id="error1">软件故障</span>&nbsp;<span id="error2">死机</span>
 						<p id="errorMessage">蓝屏就在开机时出现小圆圈转圈就迅速，不能进安全模式，机箱有很多灰尘。</p>
 					</div>
 					<div class="clearfix"></div>
@@ -75,7 +78,7 @@
 				<div class="clearfix"></div>
 
 				<div class="agileits_banner_bottom_left">
-					
+
 					<button type="button" class="btn btn-primary"
 						data-toggle="collapse" data-target="#partsList">所需零件列表</button>
 					<div class="clearfix"></div>
@@ -111,9 +114,10 @@
 				</div>
 				<div class="clearfix"></div>
 				<div class="agileits_banner_bottom_left identity">
-	
-					<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#user">用户信息</button>
-					
+
+					<button type="button" class="btn btn-primary"
+						data-toggle="collapse" data-target="#user">用户信息</button>
+
 					<div class="clearfix"></div>
 					<div id="user" class="container collapse">
 						<table class="table table-bordered table-striped">
@@ -148,34 +152,34 @@
 				</div>
 				<div class="row  login-center">
 					<p class="text-center">
-						<a href="single.html" class="view resw3">接受预约</a> 
-						<a href="single.html" class="view resw3">取消预约</a>
+						<a href="single.html" class="view resw3">接受预约</a> <a
+							href="single.html" class="view resw3">取消预约</a>
 					</p>
 				</div>
 			</div>
 		</div>
+	</div>
 
-
-		<!-- footer -->
-		<div class="footer">
-			<div class="container">
-				<div class="agileinfo_copyright">
-					<p>
-						Copyright © 2017.Company name All rights reserved.More Templates <a
-							href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
-						- Collect from <a href="http://www.cssmoban.com/" title="网页模板"
-							target="_blank">网页模板</a>
-					</p>
-				</div>
+	<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="agileinfo_copyright">
+				<p>
+					Copyright © 2017.Company name All rights reserved.More Templates <a
+						href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
+					- Collect from <a href="http://www.cssmoban.com/" title="网页模板"
+						target="_blank">网页模板</a>
+				</p>
 			</div>
 		</div>
-		<!-- //footer -->
-		<!-- menu -->
-		<!-- js -->
-		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-		<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
-		<!-- password-script -->
-		<script type="text/javascript">
+	</div>
+	<!-- //footer -->
+	<!-- menu -->
+	<!-- js -->
+	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
+	<!-- password-script -->
+	<script type="text/javascript">
 			window.onload = function() {
 				document.getElementById("password1").onchange = validatePassword;
 				document.getElementById("password2").onchange = validatePassword;
@@ -192,12 +196,12 @@
 				//empty string means no validation error
 			}
 		</script>
-		<!-- //password-script -->
+	<!-- //password-script -->
 
-		<!-- //js -->
-		<script src="js/bars.js"></script>
-		<script type="text/javascript" src="js/jquery.slicebox.js"></script>
-		<script type="text/javascript">
+	<!-- //js -->
+	<script src="js/bars.js"></script>
+	<script type="text/javascript" src="js/jquery.slicebox.js"></script>
+	<script type="text/javascript">
 			$(function() {
 
 				var Page = (function() {
@@ -274,10 +278,10 @@
 
 			});
 		</script>
-		<!-- Stats -->
-		<script src="js/waypoints.min.js"></script>
-		<script src="js/counterup.min.js"></script>
-		<script>
+	<!-- Stats -->
+	<script src="js/waypoints.min.js"></script>
+	<script src="js/counterup.min.js"></script>
+	<script>
 			jQuery(document).ready(function($) {
 				$('.counter').counterUp({
 					delay : 10,
@@ -285,11 +289,11 @@
 				});
 			});
 		</script>
-		<!-- //Stats -->
+	<!-- //Stats -->
 
-		<script type="text/javascript" src="js/jquery.flexisel.js"></script>
-		<!-- flexisel -->
-		<script type="text/javascript">
+	<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+	<!-- flexisel -->
+	<script type="text/javascript">
 			$(window).load(function() {
 				$("#flexiselDemo1").flexisel({
 					visibleItems : 4,
@@ -316,18 +320,18 @@
 
 			});
 		</script>
-		<!-- //flexisel -->
-		<!-- //flexisel -->
-		<!-- js for portfolio lightbox -->
-		<script src="js/jquery.chocolat.js "></script>
-		<!-- //menu -->
-		<!-- for bootstrap working -->
-		<script src="js/bootstrap.js"></script>
-		<!-- //for bootstrap working -->
-		<!-- start-smoth-scrolling -->
-		<script type="text/javascript" src="js/move-top.js"></script>
-		<script type="text/javascript" src="js/easing.js"></script>
-		<script type="text/javascript">
+	<!-- //flexisel -->
+	<!-- //flexisel -->
+	<!-- js for portfolio lightbox -->
+	<script src="js/jquery.chocolat.js "></script>
+	<!-- //menu -->
+	<!-- for bootstrap working -->
+	<script src="js/bootstrap.js"></script>
+	<!-- //for bootstrap working -->
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event) {
 					event.preventDefault();
@@ -337,9 +341,9 @@
 				});
 			});
 		</script>
-		<!-- start-smoth-scrolling -->
-		<!-- here stars scrolling icon -->
-		<script type="text/javascript">
+	<!-- start-smoth-scrolling -->
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
 			$(document).ready(function() {
 				/*
 				    var defaults = {
@@ -356,9 +360,9 @@
 
 			});
 		</script>
-		<!-- //here ends scrolling icon -->
+	<!-- //here ends scrolling icon -->
 
-		<a href="#" id="toTop" style="display: none;"><span
-			id="toTopHover"></span>To Top</a>
+	<a href="#" id="toTop" style="display: none;"><span id="toTopHover"></span>To
+		Top</a>
 </body>
 </html>

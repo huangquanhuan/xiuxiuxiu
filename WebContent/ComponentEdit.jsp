@@ -8,9 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="keywords" content="">
 <script type="application/x-javascript">
-    
-    
-    
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -18,9 +15,6 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
-    
-
-
 </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -77,9 +71,9 @@
 									<td>内存条</td>
 									<td>5</td>
 									<td>5.85</td>
-									<td><button type="button" class="btn btn-primary btn-lg"
+									<td><button type="button" class="btn btn-primary btn-lg" onclick="updateFormID(2)"
 											data-toggle="modal" data-target="#myModal2">修改</button></td>
-									<td><button type="button" class="btn btn-primary btn-lg">删除</button></td>
+									<td><button type="button" onclick="CompoentEdit.jsp?method=delete&id=1" class="btn btn-primary btn-lg">删除</button></td>
 								</tr>
 								<tr>
 									<td>2</td>
@@ -87,9 +81,9 @@
 									<td>内存条</td>
 									<td>6</td>
 									<td>52.99</td>
-									<td><button class="btn btn-primary btn-lg"
+									<td><button class="btn btn-primary btn-lg" onclick="updateFormID(2)"
 											data-toggle="modal" data-target="#myModal2">修改</button></td>
-									<td><button type="button" class="btn btn-primary btn-lg">删除</button></td>
+									<td><button type="button" onclick="CompoentEdit.jsp?method=delete&id=2" class="btn btn-primary btn-lg">删除</button></td>
 								</tr>
 								<tr>
 									<td>3</td>
@@ -97,9 +91,9 @@
 									<td>硬盘</td>
 									<td>2</td>
 									<td>5.85</td>
-									<td><button type="button" class="btn btn-primary btn-lg"
+									<td><button type="button" class="btn btn-primary btn-lg" onclick="updateFormID(2)"
 											data-toggle="modal" data-target="#myModal2">修改</button></td>
-									<td><button type="button" class="btn btn-primary btn-lg">删除</button></td>
+									<td><button type="button" onclick="CompoentEdit.jsp?method=delete&id=3" class="btn btn-primary btn-lg">删除</button></td>
 								</tr>
 
 							</tbody>
@@ -164,6 +158,7 @@
 											</h3>
 										</div>
 										<div class="modal-body">
+										    <input type="hidden" name="id" id="id" value="5" />
 											<p>
 												<span>零件名称</span> <input type="text" class="form-control"
 													name="name" />
@@ -216,13 +211,19 @@
 	<!-- js -->
 	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
+	<!-- updateFormID -->
+	<script type="text/javascript">
+		function updateFormID(a) {
+	        document.getElementById("id").value = a;
+	    }
+	</script>
 	<!-- password-script -->
 	<script type="text/javascript">
             window.onload = function() {
                 document.getElementById("password1").onchange = validatePassword;
                 document.getElementById("password2").onchange = validatePassword;
             }
-
+            
             function validatePassword() {
                 var pass2 = document.getElementById("password2").value;
                 var pass1 = document.getElementById("password1").value;
@@ -402,6 +403,5 @@
 
 	<a href="#" id="toTop" style="display: none;"><span id="toTopHover"></span>To
 		Top</a>
-
 </body>
 </html>
