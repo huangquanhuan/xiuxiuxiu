@@ -1,5 +1,7 @@
 package xiuxiuxiu.dao;
 
+import java.util.List;
+
 /**
  * EquipmentDAO - 封装有关Equipment表的操作
  * 对Equipment表的所有操作应通过实现该接口实现
@@ -45,5 +47,11 @@ public interface EquipmentDAO {
      * @return 如果id对应的设备表存在，则返回 true，否则返回 false
      */
 	boolean isEquipmentExist(int id);
+	/**
+	 * 根据用户ID获取该用户的设备（id）列表
+	 * @param userID 用户ID
+	 * @return
+	 */
+	List<Integer> List(int userID);
 
 }

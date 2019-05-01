@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import xiuxiuxiu.util.DBUtil;
 
 public class EquipmentDAOImpl implements EquipmentDAO{
@@ -113,6 +116,24 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+    
+    @Override
+	public List<Integer> List(int userID) {
+		String sql = "select id from equipment where user_id=?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			List<Integer> equimentList = new ArrayList<Integer>();
+			ps.setInt(1, userID);
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			while (rs.next()) {
+				equimentList.add(rs.getInt("id"));
+			}
+			return equimentList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

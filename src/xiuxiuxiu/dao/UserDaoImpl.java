@@ -84,6 +84,7 @@ public class UserDaoImpl implements UserDao {
             ps.execute();
             ResultSet rs = ps.getResultSet();
             if (rs.next()) {
+            	EquipmentDAO equipmentDao = new  EquipmentDAOImpl();
                 Student bean = new Student();
                 bean.setID(rs.getInt("user_id"));
                 bean.setName(rs.getString("user_name"));
@@ -93,6 +94,7 @@ public class UserDaoImpl implements UserDao {
                 bean.setStudentID(rs.getString("student_id"));
                 bean.setAddress(rs.getString("address"));
                 bean.setEmail(rs.getString("e_mail"));
+                bean.setEquipment(equipmentDao.List(id));//根据用户id获取设备id列表
                 return bean;
             } else {
                 System.out.println("该id不存在！！");
@@ -118,6 +120,7 @@ public class UserDaoImpl implements UserDao {
             ps.execute();
             ResultSet rs = ps.getResultSet();
             if (rs.next()) {
+            	EquipmentDAO equipmentDao = new  EquipmentDAOImpl();
                 Student bean = new Student();
                 bean.setID(rs.getInt("user_id"));
                 bean.setName(rs.getString("user_name"));
@@ -127,6 +130,7 @@ public class UserDaoImpl implements UserDao {
                 bean.setStudentID(rs.getString("student_id"));
                 bean.setAddress(rs.getString("address"));
                 bean.setEmail(rs.getString("e_mail"));
+                bean.setEquipment(equipmentDao.List(id));//根据用户id获取设备id列表
                 return bean;
             } else {
                 System.out.println("用户不存在或密码错误");
