@@ -11,14 +11,14 @@ public class Manger extends User {
 	/**
 	 * 
 	 * Manger构造函数，直接调用父类构造函数
-	 * 需输入(int id, String password, String name, String phoneNumber, int accessLevel, String address,String Email)
+	 * 需输入(int id, String password, String name, String phoneNumber, int accessLevel, String address,String email)
 	 */
 	
 	
 
 	public Manger(String password, String name, String phoneNumber, int accessLevel, String address,
-			String Email) {
-		super(password, name, phoneNumber, accessLevel, address, Email);
+			String email) {
+		super(password, name, phoneNumber, accessLevel, address, email);
 
 		// TODO 自动生成的构造函数存根
 	}

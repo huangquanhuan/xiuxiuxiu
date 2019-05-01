@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import xiuxiuxiu.util.DBUtil;
 
 public class RepairActivityDAOImpl implements RepairActivityDAO{
-	
+    @Override
 	public void addRepairActivity(String time, String place) {
 		// TODO Auto-generated method stub
 		String sql = "insert into repair_activity(time,place) values(? ,? )";
@@ -25,7 +25,8 @@ public class RepairActivityDAOImpl implements RepairActivityDAO{
 			e.printStackTrace();
 		}
 	}
-
+    
+    @Override
 	public void deleteRepairActivity(int id) {
 		// TODO Auto-generated method stub
 		String sql = "delete from reservation where id = ?";
@@ -42,6 +43,7 @@ public class RepairActivityDAOImpl implements RepairActivityDAO{
 		}
 	}
 
+    @Override
 	public void updateRepairActivity(int id, String time, String place) {
 		// TODO Auto-generated method stub
 		String sql = "update repair_activity set time=?,place=? where id=?";
@@ -60,6 +62,7 @@ public class RepairActivityDAOImpl implements RepairActivityDAO{
 		}
 	}
 
+    @Override
 	public String getRepairActivity(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select time,place,manager_id from repair_activity where id = ?";
@@ -70,9 +73,9 @@ public class RepairActivityDAOImpl implements RepairActivityDAO{
 			if (rs.next()) {
 				String time=rs.getString(1);
 				String place=rs.getString(2);
-				String manger_id=rs.getString(3);
+				String mangerId=rs.getString(3);
 				String mess="时间是"+time+"地点为"+place+"管理员id为"+manger_id+"";
-				System.out.print("时间是"+time+"地点为"+place+"管理员id为"+manger_id+"");
+				System.out.print("时间是"+time+"地点为"+place+"管理员id为"+mangerId+"");
 				return mess;
 			} else {
 				System.out.println("该id不存在！！");
@@ -84,6 +87,7 @@ public class RepairActivityDAOImpl implements RepairActivityDAO{
 		}
 	}
 
+    @Override
 	public boolean isRepairActivityExist(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select id,time,place,manager_id from repair_activity where id=?";

@@ -128,7 +128,7 @@ public interface HibernateTDao<T extends Serializable, PK extends Serializable> 
 
     // 使用指定的检索标准检索数据，返回指定统计值
     public Object getStatValue(DetachedCriteria criteria, String propertyName,
-            String StatName);
+            String statName);
 
     // -------------------------------- Others --------------------------------
 

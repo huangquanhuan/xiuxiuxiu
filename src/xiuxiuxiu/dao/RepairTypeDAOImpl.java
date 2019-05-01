@@ -16,7 +16,7 @@ public class RepairTypeDAOImpl implements RepairTypeDAO{
 	 * (non-Javadoc)
 	 * @see dao.DAO#getRepairType(int, int)
 	 */
-
+    @Override
 	public void addRepairType(int id,int type, String content) {
 		// TODO Auto-generated method stub
 		String isnull = "select id,software,hardware from repair_type where id=? and (hardware is null or software is null)";
@@ -69,7 +69,7 @@ public class RepairTypeDAOImpl implements RepairTypeDAO{
 	 * (non-Javadoc)
 	 * @see dao.DAO#deleteRepairType(int, int, java.lang.String)
 	 */
-
+    @Override
 	public void deleteRepairType(int id, int type) {
 		// TODO Auto-generated method stub
 		String isnull = "select id,software,hardware from repair_type where id=? and (hardware is null or software is null)";
@@ -137,7 +137,7 @@ public class RepairTypeDAOImpl implements RepairTypeDAO{
 	 * (non-Javadoc)
 	 * @see dao.DAO#getRepairType(int, int)
 	 */
-
+    @Override
 	public void updateRepairType(int id, int type, String content) {
 		// TODO Auto-generated method stub
 		String sql = "";
@@ -161,7 +161,8 @@ public class RepairTypeDAOImpl implements RepairTypeDAO{
 		}
 		
 	}
-
+    
+    @Override
 	public String getRepairType(int id, int type) {
 		// TODO Auto-generated method stub
 		String sql = "select id,software,hardware from repair_type where id = ?,type= ? ";
