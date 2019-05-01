@@ -1,30 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*" %>
-<%
-   // 获取session创建时间
-   Date createTime = new Date(session.getCreationTime());
-   // 获取最后访问页面的时间
-   Date lastAccessTime = new Date(session.getLastAccessedTime());
-
-   String title = "SessionTest";
-   Integer visitCount = new Integer(0);
-   String visitCountKey = new String("visitCount");
-   String userIDKey = new String("userID");
-   String userID = new String("ABCD");
-
-   // 检测网页是否有新的访问用户
-   if (session.isNew()){
-      title = "NewSessionTest";
-      session.setAttribute(userIDKey, userID);
-      session.setAttribute(visitCountKey,  visitCount);
-   } else {
-       visitCount = (Integer)session.getAttribute(visitCountKey);
-       visitCount += 1;
-       userID = (String)session.getAttribute(userIDKey);
-       session.setAttribute(visitCountKey,  visitCount);
-   }
-%>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -61,8 +37,9 @@
 
 			</div>
 			<ul class="agile_forms">
-				<li><a class="active" href="#" data-toggle="modal" data-target="#myModal2">登录</a> </li>
-				<li><a href="#" data-toggle="modal" data-target="#myModal3"> 注册</a> </li>
+				<li><a class="active" href="#" data-toggle="modal" data-target="#myModal2" id="login" >登录</a> </li>
+				<li><a href="#" data-toggle="modal" data-target="#myModal3" id="register" > 注册</a> </li>
+				<li><a href="#" data-toggle="modal" data-target="#myModal6" id="exit" >退出登录</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#myModal1">增加维修场次</a> </li>
 			</ul>
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -98,14 +75,15 @@
 																	<h3 class="agileinfo_sign">登录</h3>	
 																			<div class="login-form">
 																				<form class="loginForm" action="UserServlet?type=login" method="post">
-																					<input type="text" name="phonenumber" placeholder="phonenumber" required="required">
-																					<input type="password" name="password" placeholder="Password" required="required">
+																					<input id="name" name="name" placeholder="手机/会员名/邮箱" type="text"required="required">
+																					
+																					<input id="password" type="password" name="password" placeholder="密码" required="required">
 																					<div class="tp">
-																						<input type="submit" value="Sign In">
+																						<input type="submit" value="登录">
 																					</div>
 																				</form>
 																			</div>
-																			<p><a href="#" data-toggle="modal" data-target="#myModal3" > Don't have an account?</a></p>
+																			<p><a href="#" data-toggle="modal" data-target="#myModal3" > 还没有账号?</a></p>
 																		</div>
 																</div>
 															</div>
@@ -122,17 +100,17 @@
 																	
 																	<div class="signin-form profile">
 																	<h3 class="agileinfo_sign">注册</h3>	
-																			<div class="login-form">
-																				<form action="#" method="post">
-																				   <input type="text" name="name" placeholder="Username" required="">
-																					<input type="email" name="email" placeholder="Email" required="">
-																					<input type="password" name="password" id="password1" placeholder="Password" required="">
-				                                                                    <input type="password" name="password" id="password2" placeholder="Confirm Password" required="">
+																			<div class="register-form">
+																				<form class="registerForm" action="UserServlet?type=register" method="post">
+																				   <input id="name"type="text" name="name" placeholder="昵称" required="required">
+																					<input id="phonenumber"type="text" name="tel" placeholder="手机号码" required="required">
+																					<input id="password"type="password" name="password" placeholder="密码" required="required">
+				                                                                    <input type="password" name="password" id="password2" placeholder="确认密码" required="required">
 
-																					<input type="submit" value="Sign Up">
+																					<input type="submit" value="注册">
 																				</form>
 																			</div>
-																			<p><a href="#"> By clicking register, I agree to your terms</a></p>
+																			<p><a href="#"> 已有账号？</a></p>
 																		</div>
 																</div>
 															</div>
@@ -207,6 +185,27 @@
 															</div>
 														</div>
 													</div>
+
+													<div class="modal fade" id="myModal6" tabindex="-1" role="dialog">
+														<div class="modal-dialog">
+														<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	
+																	<div class="signin-form profile">
+																	<h3 class="agileinfo_sign">是否退出登录？</h3>	
+																			<div class="login-form">
+																				<form action="UserServlet?type=exit" method="post">
+																					<input type="submit" value="确定">
+																				</form>
+																			</div>
+																			
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>
 					<!-- /agile_inner_banner_info -->													
 							<div class="agile_inner_banner_info">
 							  <h2>维修场次 </h2>
@@ -253,15 +252,15 @@
 						<div class="clearfix"> </div>
 					</div>
 
-					<div class="media response-info" >
+					<div class="media response-info" id="test">
 						
-						<div class="media-body response-text-right">
-							<h5>生活一区青春广场</h5>
+						<div class="media-body response-text-right" >
+							<h5>生活五区</h5>
 							<ul>
 								<li><i class="fa fa-calendar" aria-hidden="true"></i>4月6日, 9:00-12:00</li>
 								<li><i class="fa fa-users" aria-hidden="true"></i>Followers : 7485</li>
 							</ul>
-							<p>Lorem ipsum dolor sit amet, Lorem ipsum Lorem ipsum.</p>
+							<p id="test">Lorem ipsum dolor sit amet, Lorem ipsum Lorem ipsum.</p>
 							<div class="read">
 								<a href="#" class="view resw3" data-toggle="modal" data-target="#myModal4">修改</a>
 								<a href="#" class="view resw3" data-toggle="modal" data-target="#myModal5">删除</a>
@@ -280,6 +279,7 @@
 <!-- //footer -->
 <!-- menu -->
 <!-- js -->
+
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
 <!-- //js -->
@@ -304,8 +304,35 @@
 
 		}
 	</script>
-	<!-- //password-script -->
-
+	
+<!-- 由session判断是否登录成功 -->
+<%if (session.getAttribute("name")==null){%>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$("#exit").toggle( 
+				  function () {
+				    $(this).hide();
+				  }
+				);
+	});
+</script>
+  <%}else {%>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$("#login").toggle( 
+				  function () {
+				    $(this).hide();
+				  }
+				);
+		$("#register").toggle( 
+				  function () {
+				    $(this).hide();
+				  }
+				);
+	});
+</script>
+  <%}%>
+  
 <!-- for bootstrap working -->
 	<script src="js/bootstrap.js"></script>
 <!-- //for bootstrap working -->
