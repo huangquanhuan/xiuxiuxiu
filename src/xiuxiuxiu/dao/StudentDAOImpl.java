@@ -11,246 +11,241 @@ import java.util.List;
 import xiuxiuxiu.pojo.Student;
 import xiuxiuxiu.util.DBUtil;
 
-public class UserDaoImpl implements UserDao {
-    
-    public void addStudent(Student bean) {
-        String sql = "insert into user(password,user_name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
-        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, bean.getPassword());
-            ps.setString(2, bean.getName());
-            ps.setString(3, bean.getPhoneNumber());
-            ps.setInt(4, bean.getAccessLevel());
-            ps.setString(5, bean.getStudentID());
-            ps.setString(6, bean.getAddress());
-            ps.setString(7, bean.getEmail());
-            ps.execute();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                int id = rs.getInt(1);
-                bean.setID(id);
-            }
-            
-        } catch (SQLException e) {
+public class StudentDAOImpl implements StudentDAO {
 
-            e.printStackTrace();
-        }
-    }
+	public void add(Student bean) {
+		String sql = "insert into student(password,name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setString(1, bean.getPassword());
+			ps.setString(2, bean.getName());
+			ps.setString(3, bean.getPhoneNumber());
+			ps.setInt(4, bean.getAccessLevel());
+			ps.setString(5, bean.getStudentID());
+			ps.setString(6, bean.getAddress());
+			ps.setString(7, bean.getEmail());
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				int id = rs.getInt(1);
+				bean.setID(id);
+			}
 
-    
-    public void deleteStudent(int id) {
-        String sql = "delete from user where user_id = ?";
-        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setLong(1, id);
-            ps.execute();
+		} catch (SQLException e) {
 
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * 只可修改用户的姓名、密码、学号、住址、电子邮箱，账户(ID)、手机号、权限等级不可修改
-     */
-    
-    public void updateStudent(Student bean) {
-        String sql = "update user set user_name=?,password=?,student_id=?,address=?,e_mail=? where id=?";
-        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, bean.getName());
-            ps.setString(2, bean.getPassword());
-            ps.setString(3, bean.getStudentID());
-            ps.setString(4, bean.getAddress());
-            ps.setString(5, bean.getEmail());
-            ps.setInt(6, bean.getID());
-            ps.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /*
-     * 根据id获取整个用户信息
-     * (non-Javadoc)
-     * @see dao.DAO#getStudent(java.lang.String)
-     */
-    
-    public Student getStudent(int id) {
-        String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user where user_id = ?";
-        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setLong(1, id);
-            ps.execute();
-            ResultSet rs = ps.getResultSet();
-            if (rs.next()) {
-            	EquipmentDAO equipmentDao = new  EquipmentDAOImpl();
-                Student bean = new Student();
-                bean.setID(rs.getInt("user_id"));
-                bean.setName(rs.getString("user_name"));
-                bean.setPassword(rs.getString("password"));
-                bean.setPhoneNumber(rs.getString("phone_number"));
-                bean.setAccessLevel(rs.getInt("access_level"));
-                bean.setStudentID(rs.getString("student_id"));
-                bean.setAddress(rs.getString("address"));
-                bean.setEmail(rs.getString("e_mail"));
-                bean.setEquipment(equipmentDao.List(id));//根据用户id获取设备id列表
-                return bean;
-            } else {
-                System.out.println("该id不存在！！");
-                return null;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /*
-     * 可用于登录验证
-     * (non-Javadoc)
-     * @see dao.DAO#getStudent(java.lang.String, java.lang.String)
-     */
-    public Student getStudent(int id, String password) {
-        String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user where user_id = ? and password = ?";
-        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setLong(1, id);
-            ps.setString(2, password);
-            ps.execute();
-            ResultSet rs = ps.getResultSet();
-            if (rs.next()) {
-            	EquipmentDAO equipmentDao = new  EquipmentDAOImpl();
-                Student bean = new Student();
-                bean.setID(rs.getInt("user_id"));
-                bean.setName(rs.getString("user_name"));
-                bean.setPassword(rs.getString("password"));
-                bean.setPhoneNumber(rs.getString("phone_number"));
-                bean.setAccessLevel(rs.getInt("access_level"));
-                bean.setStudentID(rs.getString("student_id"));
-                bean.setAddress(rs.getString("address"));
-                bean.setEmail(rs.getString("e_mail"));
-                bean.setEquipment(equipmentDao.List(id));//根据用户id获取设备id列表
-                return bean;
-            } else {
-                System.out.println("用户不存在或密码错误");
-                return null;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-/*该方法为排序样例
- * 
- * (non-Javadoc)
- * @see dao.DAO#searchStudent(java.lang.String)
- */
-    
-    public List<Student> searchStudent(String condition) {
-        String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user ORDER BY user_id";
-        List<Student> userList = new ArrayList<Student>();
-        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.execute();
-            ResultSet rs = ps.getResultSet();
-            while (rs.next()) {
-                Student bean = new Student();
-                bean.setID(rs.getInt("user_id"));
-                bean.setName(rs.getString("user_name"));
-                bean.setPassword(rs.getString("password"));
-                bean.setPhoneNumber(rs.getString("phone_number"));
-                bean.setAccessLevel(rs.getInt("access_level"));
-                bean.setStudentID(rs.getString("student_id"));
-                bean.setAddress(rs.getString("address"));
-                bean.setEmail(rs.getString("e_mail"));
-                userList.add(bean);
-            }
-            return userList;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    
-    
-    public int getTotalStudent() {
-        int total = 0;
-        try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement()) {
-
-            String sql = "select count(*) from user";
-
-            ResultSet rs = s.executeQuery(sql);
-            if (rs.next()) {
-                total = rs.getInt(1);
-                return total;
-            } else {
-                return 0;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return -1;
-        }
-    }
-
-    
-    public boolean isStudentExist(int id) {
-        String sql = "select * from User where id=?";
-        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setLong(1, id);
-            ps.execute();
-            ResultSet rs = ps.getResultSet();
-            if (rs.next()) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-
-	@Override
-	public void add(Student entity) {
-		// TODO 自动生成的方法存根
-		
+			e.printStackTrace();
+		}
 	}
 
+	public void delete(int id) {
+		String sql = "delete from student where id = ?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			ps.execute();
 
-	@Override
-	public void delete(Integer id) {
-		// TODO 自动生成的方法存根
-		
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete(Student student) {
+		StudentDAO studentDao = new StudentDAOImpl();
+		if(!studentDao.isExist(student))	//如果没有匹配的用户
+		{
+			System.out.println("未找到相匹配用户，删除失败！");
+			return;	
+		}
+		String sql = "delete from student where id = ?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setInt(1, student.getID());
+			ps.execute();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
 	}
 
+	/**
+	 * 把对 Student 对象的修改根据id写回数据库中
+	 *  只可修改用户的姓名、密码、学号、住址、电子邮箱，账户(ID)、手机号、权限等级不可修改
+	 */
 
-	@Override
-	public void delete(Student entity) {
-		// TODO 自动生成的方法存根
-		
+	public void update(Student bean) {
+		String sql = "update studemt set name=?,password=?,student_id=?,address=?,e_mail=? where id=?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setString(1, bean.getName());
+			ps.setString(2, bean.getPassword());
+			ps.setString(3, bean.getStudentID());
+			ps.setString(4, bean.getAddress());
+			ps.setString(5, bean.getEmail());
+			ps.setInt(6, bean.getID());
+			ps.execute();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
+	/**
+	 * 根据id获取整个用户信息 
+	 */
 
-	@Override
-	public void update(Student entity) {
-		// TODO 自动生成的方法存根
-		
-	}
-
-
-	@Override
 	public Student get(int id) {
-		// TODO 自动生成的方法存根
-		return null;
+		String sql = "select id,name,password,phone_number,access_level,student_id,address,e_mail from student where id = ?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			if (rs.next()) {
+				EquipmentDAO equipmentDao = new EquipmentDAOImpl();
+				Student bean = new Student();
+				bean.setID(rs.getInt("id"));
+				bean.setName(rs.getString("name"));
+				bean.setPassword(rs.getString("password"));
+				bean.setPhoneNumber(rs.getString("phone_number"));
+				bean.setAccessLevel(rs.getInt("access_level"));
+				bean.setStudentID(rs.getString("id"));
+				bean.setAddress(rs.getString("address"));
+				bean.setEmail(rs.getString("e_mail"));
+				bean.setEquipment(equipmentDao.List(id));// 根据用户id获取设备id列表
+				return bean;
+			} else {
+				System.out.println("该id不存在！！");
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-
-	@Override
+	/**
+	 * get() - 通过手机号和密码获取 Student 对象（可用于登录验证）
+     *
+     * @param phoneNumber 用户的手机号
+     * @param password 用户的密码
+     * @return 如果找到，返回 Student 实例，否则返回 null
+	 */
 	public Student get(String phoneNumber, String password) {
-		// TODO 自动生成的方法存根
-		return null;
+		String sql = "select id,name,password,phone_number,access_level,student_id,address,e_mail from student where phone_number = ? and password = ?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setString(1, phoneNumber);
+			ps.setString(2, password);
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			if (rs.next()) {
+				EquipmentDAO equipmentDao = new EquipmentDAOImpl();
+				Student bean = new Student();
+				bean.setID(rs.getInt("id"));
+				bean.setName(rs.getString("name"));
+				bean.setPassword(rs.getString("password"));
+				bean.setPhoneNumber(rs.getString("phone_number"));
+				bean.setAccessLevel(rs.getInt("access_level"));
+				bean.setStudentID(rs.getString("student_id"));
+				bean.setAddress(rs.getString("address"));
+				bean.setEmail(rs.getString("e_mail"));
+				bean.setEquipment(equipmentDao.List(bean.getID()));// 根据用户id获取设备id列表
+				return bean;
+			} else {
+				System.out.println("用户不存在或密码错误");
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
+
+
+	public int getTotal() {
+		int total = 0;
+		try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement()) {
+
+			String sql = "select count(*) from student";
+
+			ResultSet rs = s.executeQuery(sql);
+			if (rs.next()) {
+				total = rs.getInt(1);
+				return total;
+			} else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	public boolean isExist(String phoneNumber) {
+		String sql = "select * from student where phone_number=?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setString(1, phoneNumber);
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean isExist(Student student) {
+		String sql = "select * from student where id=? and password=? and name=? and phone_number=? and student_id=?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setInt(1, student.getID());
+			ps.setString(2, student.getPassword());
+			ps.setString(3, student.getName());
+			ps.setString(4, student.getPhoneNumber());
+			ps.setString(5, student.getStudentID());
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	
+	/**
+	 * 该方法为排序样例
+	 */
+	public List<Student> searchStudent(String condition) {
+		String sql = "select id,name,password,phone_number,access_level,student_id,address,e_mail from student ORDER BY id";
+		List<Student> studentList = new ArrayList<Student>();
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			while (rs.next()) {
+				Student bean = new Student();
+				bean.setID(rs.getInt("id"));
+				bean.setName(rs.getString("name"));
+				bean.setPassword(rs.getString("password"));
+				bean.setPhoneNumber(rs.getString("phone_number"));
+				bean.setAccessLevel(rs.getInt("access_level"));
+				bean.setStudentID(rs.getString("student_id"));
+				bean.setAddress(rs.getString("address"));
+				bean.setEmail(rs.getString("e_mail"));
+				studentList.add(bean);
+			}
+			return studentList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 
 
 	@Override
@@ -259,26 +254,10 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
-
 	@Override
 	public List<Student> listByPage(int pageNo, int pageSize) {
 		// TODO 自动生成的方法存根
 		return null;
 	}
-
-
-	@Override
-	public int getTotal() {
-		// TODO 自动生成的方法存根
-		return 0;
-	}
-
-
-	@Override
-	public boolean isExist(String phoneNumber) {
-		// TODO 自动生成的方法存根
-		return false;
-	}
-    
 
 }

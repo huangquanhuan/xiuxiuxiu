@@ -51,7 +51,7 @@ public interface EquipmentDAO {
 	/**
 	 * 根据用户ID获取该用户的设备（id）列表
 	 * @param userID 用户ID
-	 * @return
+	 * @return 该用户的设备（id）列表
 	 */
 	List<Integer> List(int userID);
 
