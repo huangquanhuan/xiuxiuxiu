@@ -57,7 +57,7 @@ public interface StudentDAO {
 	Student get(String phoneNumber, String password);
 
 	/**
-	 * listAll() - 从数据库中获取所有记录，返回一个列表
+	 * listAll() - 从数据库中获取所有记录，返回一个按id升序的列表
 	 *
 	 * @return 一个包含 Student 对象的 List
 	 */
