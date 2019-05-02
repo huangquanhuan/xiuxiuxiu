@@ -6,8 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import com.sun.javafx.scene.layout.region.Margins.Converter;
-
 
 import xiuxiuxiu.dao.ComponentDAOImpl;
 import xiuxiuxiu.pojo.Component;

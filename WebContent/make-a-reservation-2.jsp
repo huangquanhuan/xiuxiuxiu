@@ -5,6 +5,7 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -97,9 +98,9 @@
                 <div class="col-sm-9">
                   <select id="session-select" class="form-control">
                    <!-- 这里装入场次时间信息 -->
-                   <option>YYYY 年 MM 月 DD 日，地点：XXXX</option>
-                   <option>YYYY 年 MM 月 DD 日，地点：XXXX</option>
-                   <option>YYYY 年 MM 月 DD 日，地点：XXXX</option>
+                   <c:forEach items="${activities}" var="activity">
+                     <option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
+                   </c:forEach>
                   </select>
                 </div>
               </div>
@@ -113,9 +114,9 @@
                 <div class="col-sm-9">
                   <select id="device-select" class="form-control">
                     <!-- 这里装入用户的设备列表 -->
-                    <option>设备 1</option>
-                    <option>设备 2</option>
-                    <option>设备 3</option>
+                    <c:forEach items="${equipments}" var="equipment">
+                      <option value="${equipment.id}">${equipment.equipmentName}</option>
+                    </c:forEach>
                   </select>
                 </div>
               </div>
@@ -130,15 +131,11 @@
                     </div>
                     <div id="component-list" class="collapse fade" data-parent="#accordion">
                       <!-- 这里装入零件列表，插入格式见下面的样例 -->
-                      <div class="card-body">
-                        <label><input type="checkbox" value="" />内存条</label>
-                      </div>
-                      <div class="card-body">
-                        <label><input type="checkbox" value="" />固态硬盘</label>
-                      </div>
-                      <div class="card-body">
-                        <label><input type="checkbox" value="" />电池</label>
-                      </div>
+                      <c:forEach items="${components}" var="component">
+                        <div class="card-body">
+                          <label><input type="checkbox" name="neededComponents" value="${component.id}">${component.name}</label>
+                        </div>
+                      </c:forEach>
                     </div>
                   </div>
                 </div>
@@ -219,9 +216,10 @@
                 <div class="col-sm-9">
                   <select id="device-select-1" class="form-control">
                     <!-- 这里装入用户的设备列表 -->
-                    <option>设备 1</option>
-                    <option>设备 2</option>
-                    <option>设备 3</option>
+                    <c:forEach items="${equipments}" var="equipment">
+                      <!-- 用户设备信息 -->
+                      <option value="${equipment.id}">${equipment.equipmentName}</option>
+                    </c:forEach>
                   </select>
                 </div>
               </div>
@@ -229,22 +227,18 @@
               <!-- 需求零件选择 -->
               <div class="form-group">
                 <label for="component-select-1" class="col-sm-3">需求零件</label>
-                <div id="accordion" class="col-sm-9">
+                <div id="accordion-1" class="col-sm-9">
                   <div class="card">
                     <div class="bg-info card-header">
-                      <a class="card-link text-muted" data-toggle="collapse" href="#component-list">可选零件</a>
+                      <a class="card-link text-muted" data-toggle="collapse" href="#component-list-1">可选零件</a>
                     </div>
-                    <div id="component-list-1" class="collapse fade" data-parent="#accordion">
+                    <div id="component-list-1" class="collapse fade" data-parent="#accordion-1">
                       <!-- 这里装入零件列表，插入格式见下面的样例 -->
-                      <div class="card-body">
-                        <label><input type="checkbox" value="" />内存条</label>
-                      </div>
-                      <div class="card-body">
-                        <label><input type="checkbox" value="" />固态硬盘</label>
-                      </div>
-                      <div class="card-body">
-                        <label><input type="checkbox" value="" />电池</label>
-                      </div>
+                      <c:forEach items="${components}" var="component">
+                        <div class="card-body">
+                          <label><input type="checkbox" name="neededComponents" value="${component.id}">${component.name}</label>
+                        </div>
+                      </c:forEach>
                     </div>
                   </div>
                 </div>

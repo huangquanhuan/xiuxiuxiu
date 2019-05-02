@@ -40,4 +40,13 @@ public interface RepairActivityDAO {
      * @return True or False
      */
 	boolean isRepairActivityExist(int id);
+	
+    /**
+     * listRecentActivity
+     * 返回最近的几个活动场次
+     * @param numberOfActivities 期待返回的活动数量
+     * @return 返回一个活动列表，列表长度小于或等于 numberOfActivities
+     * @author 刘忠燏
+     */
+    List<RepairActivity> listRecentActivities(int numberOfActivities);
 }

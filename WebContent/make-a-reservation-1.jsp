@@ -87,30 +87,30 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="name">姓名</label>
             <div class="col-sm-10">
-              <input class="form-control" type="text" id="name" name="name" readonly />
+              <input class="form-control" type="text" id="name" name="name" value="${user.name}" readonly />
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="studentId">学号</label>
             <div class="col-sm-10">
-              <input class="form-control" type="text" id="studentId" name="studentId" readonly />
+              <input class="form-control" type="text" id="studentId" name="studentId" value="${user.studentID}" readonly />
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="contact">联系方式</label>
             <div class="col-sm-10">
-              <input class="form-control" type="tel" id="contact" name="contact" readonly />
+              <input class="form-control" type="tel" id="contact" name="contact" value="${user.phoneNumber}" readonly />
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="address">地址</label>
             <div class="col-sm-10">
-              <input class="form-control" type="text" id="address" name="contact" readonly />
+              <input class="form-control" type="text" id="address" name="contact" value="${user.address}" readonly />
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <a href="make-a-reservation-2.jsp" class="btn btn-success">下一步</a>
+              <a href="make-a-reservation-2.jsp" class="label label-success">下一步</a>
             </div>
           </div>
         </form>

@@ -107,4 +107,25 @@ public class RepairActivityDAOImpl implements RepairActivityDAO{
 			return false;
 		}
 	}
+	
+    @Override
+    public List<RepairActivity> listRecentActivities(int numberOfActivities) {
+        String sql = "select `id`, `time`, `place`, `manager_id` from `repair_activity` order by `id` desc limit ?";
+        List<RepairActivity> activities = new ArrayList<RepairActivity>();
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, numberOfActivities);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                RepairActivity activity = new RepairActivity();
+                activity.setId(rs.getInt("id"));
+                activity.setTime(rs.getString("time"));
+                activity.setPlace(rs.getString("place"));
+                activity.setmanagerId(rs.getInt("manager_id"));
+                activities.add(activity);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return activities;
+    }
 }
