@@ -71,7 +71,7 @@ public class Reservation {
 	/**
 	 * 预约单中包含的图片url列表
 	 */
-	private List<Integer> imgUrltList = new ArrayList<Integer>();
+	private List<String> imgUrltList = new ArrayList<String>();
 
 	/**
 	 * Reservation类的构造函数,输入为（预约单id，提交的用户id，预约类型<0/1/2>，预约的维修时间，对应预约场次id<可null>，维修的设备id，维修的问题种类<（可能要改下存储方法）String总结描述>，详细问题的描述<String>）
@@ -90,7 +90,7 @@ public class Reservation {
 	 * @param detail           详细问题的描述
 	 */
 	public Reservation(int id, int userID, int applicationType, String requiredTime, int repairActivityID,
-			int equipmentID, String repairType, String detail,List<Integer> componentList, List<Integer> imgUrltList) {
+			int equipmentID, String repairType, String detail,List<Integer> componentList, List<String> imgUrltList) {
 		super();
 		this.id = id;
 		this.state = 0; // 刚创建的预约单状态为0
@@ -225,11 +225,11 @@ public class Reservation {
 			this.componentList.add(componentList.get(i));
 	}
 
-	public List<Integer> getImgUrltList() {
+	public List<String> getImgUrltList() {
 		return imgUrltList;
 	}
 
-	public void setImgUrltList(List<Integer> imgUrltList) {
+	public void setImgUrltList(List<String> imgUrltList) {
 		this.imgUrltList.clear();
 		for (int i = 0; i <= imgUrltList.size(); i++)
 			this.imgUrltList.add(imgUrltList.get(i));
