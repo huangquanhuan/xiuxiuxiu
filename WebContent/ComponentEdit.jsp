@@ -1,4 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page import="xiuxiuxiu.dao.*"%>
+<%@page import="xiuxiuxiu.pojo.User"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.*"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -53,6 +58,7 @@
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped">
 							<caption>零件列表</caption>
+							<caption><a href="ComponentServlet?method=list" class="view resw3">刷新</a></caption>
 							<thead>
 								<tr>
 									<th>id</th>
@@ -65,37 +71,21 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>零件1</td>
-									<td>内存条</td>
-									<td>5</td>
-									<td>5.85</td>
-									<td><button type="button" class="btn btn-primary btn-lg" onclick="updateFormID(2)"
-											data-toggle="modal" data-target="#myModal2">修改</button></td>
-									<td><button type="button" onclick="CompoentEdit.jsp?method=delete&id=1" class="btn btn-primary btn-lg">删除</button></td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>零件2</td>
-									<td>内存条</td>
-									<td>6</td>
-									<td>52.99</td>
-									<td><button class="btn btn-primary btn-lg" onclick="updateFormID(2)"
-											data-toggle="modal" data-target="#myModal2">修改</button></td>
-									<td><button type="button" onclick="CompoentEdit.jsp?method=delete&id=2" class="btn btn-primary btn-lg">删除</button></td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>零件3</td>
-									<td>硬盘</td>
-									<td>2</td>
-									<td>5.85</td>
-									<td><button type="button" class="btn btn-primary btn-lg" onclick="updateFormID(2)"
-											data-toggle="modal" data-target="#myModal2">修改</button></td>
-									<td><button type="button" onclick="CompoentEdit.jsp?method=delete&id=3" class="btn btn-primary btn-lg">删除</button></td>
-								</tr>
-
+								<c:forEach items="${components}" var="components">
+									<tr>
+										<td>${components.id}</td>
+										<td>${components.name}</td>
+										<td>${components.type}</td>
+										<td>${components.quantity}</td>
+										<td>${components.price}</td>
+										<td><button type="button" class="btn btn-primary btn-lg"
+												onclick="updateFormID(${components.id})" data-toggle="modal"
+												data-target="#myModal2">修改</button></td>
+										<td><a
+											href="ComponentServlet?method=delete&id=${components.id}"
+											class="view resw3">删除</a></td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 						<!-- 按钮触发模态框 -->
@@ -158,7 +148,7 @@
 											</h3>
 										</div>
 										<div class="modal-body">
-										    <input type="hidden" name="id" id="id" value="5" />
+											<input type="hidden" name="id" id="id" value="5" />
 											<p>
 												<span>零件名称</span> <input type="text" class="form-control"
 													name="name" />
