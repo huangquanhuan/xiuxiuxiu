@@ -60,7 +60,6 @@ public class ReservationDAOImpl implements ReservationDAO{
 
 
 	public Reservation getReservation(int id) {
-		// TODO Auto-generated method stub
 		String sql = "select state,user_id,application_type,application_time,required_time,place,repair_activity_id,equipment_id,repair_type,detail,remark,feedback from reservation where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setLong(1, id);
@@ -68,7 +67,25 @@ public class ReservationDAOImpl implements ReservationDAO{
 			ResultSet rs = ps.getResultSet();
 			if (rs.next()) {
 				Reservation reservation = new Reservation();
-				//reservation.setID(rs.getString("user_id"));
+				reservation.setID(rs.getInt("id"));
+				reservation.setState(rs.getInt("state"));
+				reservation.setUserID(rs.getInt("user_id"));
+				reservation.setApplicationType(rs.getInt("application_type"));
+				reservation.setApplicationTime(rs.getString("equipment_id"));
+				reservation.setRequiredTime(rs.getString("required_time"));
+				reservation.setPlace(rs.getString("place"));
+				reservation.setRepairActivityID(rs.getInt("repair_activity_id"));
+				reservation.setEquipmentID(rs.getInt("equipment_id"));
+				reservation.setRepairType(rs.getString("repair_type"));
+				reservation.setDetail(rs.getString("detail"));
+				reservation.setRemark(rs.getString("remark"));
+				reservation.setFeedback(rs.getString("feedback"));
+				
+				ApplyComponentDAO applyComponentDao = new ApplyComponentDAOImpl();
+				reservation.setComponentList(applyComponentDao.List(id));  // 根据预约单id获取其包含的零件id列表并将列表set进该预约单的信息中
+//				ApplyImgUrlDAO ImgUrlDao = new ApplyImgUrlDAOImpl();
+//				reservation.setImgUrltList(imgUrltList);
+				
 				return reservation;
 			} else {
 				System.out.println("该id不存在！！");
