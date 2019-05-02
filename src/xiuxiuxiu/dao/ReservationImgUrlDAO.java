@@ -41,5 +41,14 @@ public interface ReservationImgUrlDAO {
      * @param 图片链接的 ID 号
      */
 	int getReservationImgUrlOwnerID(int id);
-	boolean isReservationImgUrlExist(int id);
+	
+	/**
+	 * List() - 根据预约单id查找该预约单包含的图片的url列表
+	 * 
+	 * @param reservationID 预约单id
+	 * @return 该预约单包含的图片的url列表
+	 */
+	List<String> List(int reservationID);
+	
+	boolean isExist(int id);
 }

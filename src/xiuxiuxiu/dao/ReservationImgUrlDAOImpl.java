@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import xiuxiuxiu.util.DBUtil;
 
@@ -101,8 +103,29 @@ public class ReservationImgUrlDAOImpl implements ReservationImgUrlDAO{
 	}
 
 
-	public boolean isReservationImgUrlExist(int id) {
-		// TODO Auto-generated method stub
+
+
+	@Override
+	public List<String> List(int reservationID) {
+		String sql = "select img_url from reservation_img_url where reservation_id=?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			List<String> imgUrlList = new ArrayList<String>();
+			ps.setInt(1, reservationID);
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			while (rs.next()) {
+				imgUrlList.add(rs.getString("img_url"));
+			}
+			return imgUrlList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+	@Override
+	public boolean isExist(int id) {
 		String sql = "select * from reservation_img_url where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setLong(1, id);
