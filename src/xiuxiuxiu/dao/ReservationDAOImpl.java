@@ -83,8 +83,8 @@ public class ReservationDAOImpl implements ReservationDAO{
 				
 				ApplyComponentDAO applyComponentDao = new ApplyComponentDAOImpl();
 				reservation.setComponentList(applyComponentDao.List(id));  // 根据预约单id获取其包含的零件id列表并将列表set进该预约单的信息中
-//				ApplyImgUrlDAO ImgUrlDao = new ApplyImgUrlDAOImpl();
-//				reservation.setImgUrltList(imgUrltList);
+				ReservationImgUrlDAO ImgUrlDao = new ReservationImgUrlDAOImpl();
+				reservation.setImgUrltList(ImgUrlDao.List(id));// 根据预约单id获取其包含的图片url列表并将列表set进该预约单的信息中
 				
 				return reservation;
 			} else {
