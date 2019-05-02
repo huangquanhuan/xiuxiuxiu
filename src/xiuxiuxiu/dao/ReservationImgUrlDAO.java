@@ -41,5 +41,5 @@ public interface ReservationImgUrlDAO {
      * @param 图片链接的 ID 号
      */
 	int getReservationImgUrlOwnerID(int id);
-	boolean isReservationImgUrlExist(int id);
+	boolean isExist(int id);
 }
