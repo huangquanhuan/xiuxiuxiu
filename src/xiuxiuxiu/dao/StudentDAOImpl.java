@@ -109,7 +109,7 @@ public class StudentDAOImpl implements StudentDAO {
 				bean.setStudentID(rs.getString("id"));
 				bean.setAddress(rs.getString("address"));
 				bean.setEmail(rs.getString("e_mail"));
-				bean.setEquipment(equipmentDao.List(id));// 根据用户id获取设备id列表
+				bean.setEquipment(equipmentDao.List(id));// 根据学生id获取设备id列表并将列表set进该学生的信息中
 				return bean;
 			} else {
 				System.out.println("该id不存在！！");
@@ -146,7 +146,7 @@ public class StudentDAOImpl implements StudentDAO {
 				bean.setStudentID(rs.getString("student_id"));
 				bean.setAddress(rs.getString("address"));
 				bean.setEmail(rs.getString("e_mail"));
-				bean.setEquipment(equipmentDao.List(bean.getID()));// 根据用户id获取设备id列表
+				bean.setEquipment(equipmentDao.List(bean.getID()));// 根据学生id获取设备id列表并将列表set进该学生的信息中
 				return bean;
 			} else {
 				System.out.println("用户不存在或密码错误");
@@ -215,19 +215,16 @@ public class StudentDAOImpl implements StudentDAO {
 			return false;
 		}
 	}
-	
-	
-	
-	/**
-	 * 该方法为排序样例
-	 */
-	public List<Student> searchStudent(String condition) {
+
+	@Override
+	public List<Student> listAll() {
 		String sql = "select id,name,password,phone_number,access_level,student_id,address,e_mail from student ORDER BY id";
 		List<Student> studentList = new ArrayList<Student>();
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.execute();
 			ResultSet rs = ps.getResultSet();
 			while (rs.next()) {
+				EquipmentDAO equipmentDao = new EquipmentDAOImpl();
 				Student bean = new Student();
 				bean.setID(rs.getInt("id"));
 				bean.setName(rs.getString("name"));
@@ -237,6 +234,7 @@ public class StudentDAOImpl implements StudentDAO {
 				bean.setStudentID(rs.getString("student_id"));
 				bean.setAddress(rs.getString("address"));
 				bean.setEmail(rs.getString("e_mail"));
+				bean.setEquipment(equipmentDao.List(bean.getID()));// 根据学生id获取设备id列表并将列表set进该学生的信息中
 				studentList.add(bean);
 			}
 			return studentList;
@@ -246,17 +244,34 @@ public class StudentDAOImpl implements StudentDAO {
 		}
 	}
 
-
-
-	@Override
-	public List<Student> listAll() {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
 	@Override
 	public List<Student> listByPage(int pageNo, int pageSize) {
-		// TODO 自动生成的方法存根
+//		String sql = "select id,name,password,phone_number,access_level,student_id,address,e_mail from student ORDER BY id";
+//		List<Student> studentList = new ArrayList<Student>();
+//		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+//			ps.execute();
+//			ResultSet rs = ps.getResultSet();
+//			while (rs.next()) {
+//				EquipmentDAO equipmentDao = new EquipmentDAOImpl();
+//				Student bean = new Student();
+//				bean.setID(rs.getInt("id"));
+//				bean.setName(rs.getString("name"));
+//				bean.setPassword(rs.getString("password"));
+//				bean.setPhoneNumber(rs.getString("phone_number"));
+//				bean.setAccessLevel(rs.getInt("access_level"));
+//				bean.setStudentID(rs.getString("student_id"));
+//				bean.setAddress(rs.getString("address"));
+//				bean.setEmail(rs.getString("e_mail"));
+//				bean.setEquipment(equipmentDao.List(bean.getID()));// 根据学生id获取设备id列表并将列表set进该学生的信息中
+//				studentList.add(bean);
+//			}
+//			return studentList;
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+		
+		//这个方法目前不知道要怎么用，因此目前没实现
 		return null;
 	}
 
