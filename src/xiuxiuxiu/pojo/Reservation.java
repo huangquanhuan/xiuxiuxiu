@@ -157,11 +157,12 @@ public class Reservation {
 	}
 
 	// 0表示未受理状态，1表示已受理未完成状态，2表示已完成状态
-	public int getState() {
-		return state;
+	public int getStateInt()
+	{
+	    return state;
 	}
-
-	public String getStateString() {
+	
+	public String getState() {
 		if (state == 0) {
 			return "未受理";
 		} else if (state == 1) {
@@ -186,6 +187,7 @@ public class Reservation {
 		this.userID = UserID;
 	}
 	
+	
 	//2种预约类型：0表示活动预约，1表示上门维修预约
 	public String getApplicationType() {
 	    String ApplicationTypeString= "";
@@ -198,6 +200,9 @@ public class Reservation {
         return ApplicationTypeString;
 	}
 	
+	public int getApplicationTypeInt() {
+	    return applicationType;
+	}
 	public void setApplicationType(int applicationType) {
         this.applicationType = applicationType;
     }

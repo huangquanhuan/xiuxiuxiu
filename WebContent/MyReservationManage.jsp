@@ -1,6 +1,8 @@
 <!doctype html>
 <%@page import="xiuxiuxiu.pojo.*"%>
 <%@page import="xiuxiuxiu.dao.*"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <html lang="en">
@@ -54,30 +56,46 @@
 				<div class="row">
 					<div class="col-sm-6 col-sm-offset-3 form-box">
 
-						<c:forEach items="${ReservationList}" var="reservation"
-							varStatus="status">
+						<c:forEach items="${ReservationList}" var="reservation" varStatus="status">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<%! String applicationTimeAndState, requiredTimeAndPlace,detail;%>
-									<%! RepairActivityDAO repairActivityDAO = new RepairActivityDAOImpl()%>
-									<% 
+								<c:set var="applicationTimeAndState" value="${reservation.applicationTime}" />
+								<c:set var="requiredTimeAndPlace" value="${reservation.requiredTime} ${reservation.place}" />
+								<c:set var="detail" value="${reservation.detail}" />
+								<c:set var="detailShort" value="${fn:substring(detail, 0, 7)}..." />
+									<c:choose>
+										<c:when test="${reservation.state == 0}">
+                                           <c:set var="applicationTimeAndState" value="${applicationTimeAndState}未受理"></c:set>
+                                         </c:when>
+										<c:when test="${reservation.state == 1}">
+									       <c:set var="applicationTimeAndState" value="${applicationTimeAndState}已受理，未完成"></c:set>
+									    </c:when>
+									    <c:when test="${reservation.state == 2}">
+                                           <c:set var="applicationTimeAndState" value="${applicationTimeAndState}已完成"></c:set>
+                                        </c:when>
+										<c:otherwise>
+									        <c:out value="<script>alert('获取预约单的目前状态失败！')</script>"></c:out>
+									    </c:otherwise>
+									</c:choose>
+									<%--! String applicationTimeAndState, requiredTimeAndPlace,detail;--%>
+									<%--! RepairActivityDAO repairActivityDAO = new RepairActivityDAOImpl();--%>
+									<%-- 
 									applicationTimeAndState = reservation.getApplicationTime();
 									requiredTimeAndPlace = reservation.getRequiredTime();
-									
 									if( reservation.getState()==0)
 									{
-										applicationTimeAndState=applicationTimeAndState+"(未受理)"
-									}else if( reservation.getState()==1){
-										applicationTimeAndState=applicationTimeAndState+"(已受理，未完成)"
-									}else if( reservation.getState()==2){
-										applicationTimeAndState=applicationTimeAndState+"(已完成)"
-									}else{
+										applicationTimeAndState=applicationTimeAndState+"(未受理)";
+									} else if( reservation.getState()==1){
+										applicationTimeAndState=applicationTimeAndState+"(已受理，未完成)";
+									} else if( reservation.getState()==2){
+										applicationTimeAndState=applicationTimeAndState+"(已完成)";
+									} else{
 										out.print("<script>alert('获取预约单的目前状态失败！')</script>");
 									}
 									requiredTimeAndPlace = reservation.getRequiredTime+" "+reservation.getPlace();
 									detail = reservation.getDetail();
-									detail = detail.substring(0, 7)+"..."
-								%>
+									detail = detail.substring(0, 7)+"...";
+								--%>
 									<h3 class="panel-title">${applicationTimeAndState}</h3>
 									<div>
 										<button type="button" class="btn btn-primary">编辑</button>
