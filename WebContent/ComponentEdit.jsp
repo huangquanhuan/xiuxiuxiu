@@ -58,14 +58,16 @@
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped">
 							<caption>零件列表</caption>
-							<caption><a href="ComponentServlet?method=list" class="view resw3">刷新</a></caption>
+							<caption>
+								<a href="ComponentServlet?method=list" class="view resw3">刷新</a>
+							</caption>
 							<thead>
 								<tr>
 									<th>id</th>
 									<th>零件名称</th>
-									<th>零件类型</th>
-									<th>数量</th>
 									<th>价格</th>
+									<th>数量</th>
+									<th>零件类型</th>
 									<th>修改</th>
 									<th>删除</th>
 								</tr>
@@ -75,9 +77,9 @@
 									<tr>
 										<td>${components.id}</td>
 										<td>${components.name}</td>
-										<td>${components.type}</td>
-										<td>${components.quantity}</td>
 										<td>${components.price}</td>
+										<td>${components.quantity}</td>
+										<td>${components.type}</td>
 										<td><button type="button" class="btn btn-primary btn-lg"
 												onclick="updateFormID(${components.id})" data-toggle="modal"
 												data-target="#myModal2">修改</button></td>
@@ -105,24 +107,22 @@
 											</h3>
 										</div>
 										<div class="modal-body">
-
 											<p>
 												<span>零件名称</span> <input type="text" class="form-control"
 													name="name" />
 											</p>
 											<p>
-												<span>零件数量</span> <input type="text" class="form-control"
-													name="quantity" />
-											</p>
-											<p>
-												<span>零件价格</span> <input type="text" class="form-control"
-													name="price" />
-											</p>
-											<p>
-												<span>零件类型</span> <input type="text" class="form-control"
-													name="type" />
-											</p>
-
+                                                <span>零件价格</span> <input type="text" class="form-control"
+                                                    name="price" />
+                                            </p>
+                                            <p>
+                                                <span>零件数量</span> <input type="text" class="form-control"
+                                                    name="quantity" />
+                                            </p>
+                                            <p>
+                                                <span>零件类型</span> <input type="text" class="form-control"
+                                                    name="type" />
+                                            </p>
 										</div>
 										<div class="modal-footer">
 
@@ -150,21 +150,21 @@
 										<div class="modal-body">
 											<input type="hidden" name="id" id="id" value="5" />
 											<p>
-												<span>零件名称</span> <input type="text" class="form-control"
-													name="name" />
-											</p>
-											<p>
-												<span>零件数量</span> <input type="text" class="form-control"
-													name="quantity" />
-											</p>
-											<p>
-												<span>零件价格</span> <input type="text" class="form-control"
-													name="price" />
-											</p>
-											<p>
-												<span>零件类型</span> <input type="text" class="form-control"
-													name="type" />
-											</p>
+                                                <span>零件名称</span> <input type="text" class="form-control"
+                                                    name="name" />
+                                            </p>
+                                            <p>
+                                                <span>零件价格</span> <input type="text" class="form-control"
+                                                    name="price" />
+                                            </p>
+                                            <p>
+                                                <span>零件数量</span> <input type="text" class="form-control"
+                                                    name="quantity" />
+                                            </p>
+                                            <p>
+                                                <span>零件类型</span> <input type="text" class="form-control"
+                                                    name="type" />
+                                            </p>
 										</div>
 										<div class="modal-footer">
 

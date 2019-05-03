@@ -48,27 +48,27 @@ public class ComponentServlet extends HttpServlet {
     }
 
     void list(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        System.out.println("123456");
         List<Component> components = componentDao.getList();
         request.setAttribute("components", components);
         request.getRequestDispatcher("ComponentEdit.jsp").forward(request, response);
     }
     
-    void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
-        if (componentDao.isComponentExist(id)) {
-
-            response.sendRedirect("ComponentEdit.jsp"); // 客户端跳转
+        if (!componentDao.isComponentExist(id)) {
+            request.setAttribute("err", "错误：该零件已被删除");
+            list(request, response); // 客户端跳转
         } else {
             componentDao.deleteComponent(id);
-            response.sendRedirect("ComponentEdit.jsp"); // 客户端跳转
+            list(request, response); // 客户端跳转
         }
     }
 
-    void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    void update(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
-        if (componentDao.isComponentExist(id)) {
-            response.sendRedirect("ComponentEdit.jsp"); // 客户端跳转
+        if (!componentDao.isComponentExist(id)) {
+            request.setAttribute("err", "错误：该零件已被删除");
+            list(request, response); // 客户端跳转
         } else {
             String name = request.getParameter("name");
             int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -76,19 +76,19 @@ public class ComponentServlet extends HttpServlet {
             String type = request.getParameter("type");
 
             Component component = new Component();
+            component.setId(id);
             component.setName(name);
             component.setQuantity(quantity);
             component.setPrice(price);
             component.setType(type);
             componentDao.updateComponent(component);
-            response.sendRedirect("ComponentEdit.jsp"); // 客户端跳转
+            list(request, response); // 客户端跳转
         }
     }
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) {
         try {
-            System.out.println("接受请求");
             String method = request.getParameter("method");
             if (method.equals("add")) {
                 add(request, response);
