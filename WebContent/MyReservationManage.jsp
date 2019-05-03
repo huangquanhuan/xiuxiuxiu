@@ -1,6 +1,8 @@
 <!doctype html>
-<!-- <%@ page language="java" contentType="text/html;charset=UTF-8" -->
-<!--          pageEncoding="UTF-8" isELIgnored="false" %> -->
+<%@page import="xiuxiuxiu.pojo.*"%>
+<%@page import="xiuxiuxiu.dao.*"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <html lang="en">
 <head>
 <!-- Required meta tags -->
@@ -51,50 +53,50 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-6 col-sm-offset-3 form-box">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">2019-03-29(未受理)</h3>
-								<div>
-									<button type="button" class="btn btn-primary">编辑</button>
-									<button type="button" class="btn btn-danger">撤销</button>
+
+						<c:forEach items="${ReservationList}" var="reservation"
+							varStatus="status">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<%! String applicationTimeAndState, requiredTimeAndPlace,detail;%>
+									<%! RepairActivityDAO repairActivityDAO = new RepairActivityDAOImpl()%>
+									<% 
+									applicationTimeAndState = reservation.getApplicationTime();
+									requiredTimeAndPlace = reservation.getRequiredTime();
+									
+									if( reservation.getState()==0)
+									{
+										applicationTimeAndState=applicationTimeAndState+"(未受理)"
+									}else if( reservation.getState()==1){
+										applicationTimeAndState=applicationTimeAndState+"(已受理，未完成)"
+									}else if( reservation.getState()==2){
+										applicationTimeAndState=applicationTimeAndState+"(已完成)"
+									}else{
+										out.print("<script>alert('获取预约单的目前状态失败！')</script>");
+									}
+									requiredTimeAndPlace = reservation.getRequiredTime+" "+reservation.getPlace();
+									detail = reservation.getDetail();
+									detail = detail.substring(0, 7)+"..."
+								%>
+									<h3 class="panel-title">${applicationTimeAndState}</h3>
+									<div>
+										<button type="button" class="btn btn-primary">编辑</button>
+										<button type="button" class="btn btn-danger">撤销</button>
+										
+										<button type="button" class="btn btn-danger">联系</button>
+										<button class="btn btn-success" data-toggle="modal"
+											data-target="#evaluation-data" type="button">评价</button>
+										<button class="btn btn-danger" data-toggle="modal"
+											data-target="#feedback-data" type="button">反馈</button>
+									</div>
+								</div>
+								<div class="panel-body">
+									<p>${requiredTimeAndPlace}}</p>
+									<label>${repairActivityDAO.get(reservation.getRepairActivityID()).getTime()}</label> 
+									<label>${detail}</label>
 								</div>
 							</div>
-							<div class="panel-body">
-								<p>张三 2019-03-32( 20:00~22:00 )32#6楼活动室</p>
-								<label>联想拯救者 Y700 </label> <label>更换硬盘并且...</label>
-							</div>
-						</div>
-
-
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">2019-03-29(已受理，未完成)</h3>
-								<div>
-									<button type="button" class="btn btn-danger">联系</button>
-								</div>
-							</div>
-							<div class="panel-body">
-								<p>王五 2019-03-13(19:00~21:00) 6#407宿舍</p>
-								<label>联想拯救者 Y700</label> <label> 清灰</label>
-							</div>
-						</div>
-
-
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">2019-03-29(已完成)</h3>
-								<div>
-									<button class="btn btn-success" data-toggle="modal"
-										data-target="#evaluation-data" type="button">评价</button>
-									<button class="btn btn-danger" data-toggle="modal"
-										data-target="#feedback-data" type="button">反馈</button>
-								</div>
-							</div>
-							<div class="panel-body">
-								<p>李四 2019-02-12( 14:00~17:00 )青春广场</p>
-								<label>微软 Surface Pro </label> <label> 显示屏出问题了...</label>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -112,7 +114,8 @@
 		aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form role="form" action="..." method="post" class="registration-form">
+				<form role="form" action="..." method="post"
+					class="registration-form">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
@@ -135,7 +138,8 @@
 		aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form role="form" action="..." method="post" class="registration-form">
+				<form role="form" action="..." method="post"
+					class="registration-form">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>

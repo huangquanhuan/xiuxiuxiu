@@ -28,15 +28,15 @@ public class ReservationImgUrlDAOImpl implements ReservationImgUrlDAO{
 	}
 
 
-	public void deleteReservationImgUrl(int id) {
-		String sql = "delete from reservation_img_url where id =?";
+	public void delete(int reservationID) {
+		String sql = "delete from reservation_img_url where reservation_id =?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			ps.setLong(1, id);
+			ps.setLong(1, reservationID);
 			boolean num=ps.execute();
 			if (num) {
-				System.out.print("删除设备成功");
+				System.out.print("删除该预约单对应的图片URL成功");
 			} else {
-				System.out.print("删除设备失败");
+				System.out.print("删除该预约单对应的图片URL失败");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -51,9 +51,9 @@ public class ReservationImgUrlDAOImpl implements ReservationImgUrlDAO{
 		ps.setLong(1, id);
 		boolean num=ps.execute();
 		if (num) {
-			System.out.print("更新设备表成功");
+			System.out.print("更新图片URL成功");
 		} else {
-			System.out.print("更新设备表失败");
+			System.out.print("更新图片URL失败");
 		}
 		} catch (SQLException e) {
 			e.printStackTrace();
