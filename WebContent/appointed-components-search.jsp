@@ -101,8 +101,7 @@
 
 				<div class="table-responsive">
 					<table class="table">
-						<caption style="text-align: center;">预约类型-场次-零件类型-已完成预约零件名单</caption>
-						<p style="">总数：1</p>
+						<p style="">总数：${totalNum} </p>
 						<a href="ViewComponentServlet?method=list" class="view resw3">刷新</a>
 						<thead>
 							<tr>

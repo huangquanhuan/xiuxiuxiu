@@ -28,6 +28,7 @@ public class ViewComponentServlet extends HttpServlet{
         
         List<ViewComponent> viewComponents = viewComponentDAOImpl.getList(name,applicationType, activityId, componentType, reservationState);
         request.setAttribute("viewComponents", viewComponents);
+        request.setAttribute("totalNum", viewComponents.size());
         request.getRequestDispatcher("appointed-components-search.jsp").forward(request, response);
     }
     
