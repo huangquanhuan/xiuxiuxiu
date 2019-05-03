@@ -32,11 +32,11 @@ public interface RepairActivityDAO {
      */
 	void updateRepairActivity(int id, String time,String place);
 	/**
-     * getRepairActivity() - 返回 RepairActivity 表详细信息
+     * getRepairActivity() - 根据id在数据库查找并返回对应的repairActivity对象
      *
-     * @return 相应id的活动表详细信息
+     * @return 对应的repairActivity对象
      */
-	String getRepairActivity(int id);
+	RepairActivity getRepairActivity(int id);
 	/**
      *  isRepairActivityExist() - 判断该id的维修场次是否存在
      * @return True or False

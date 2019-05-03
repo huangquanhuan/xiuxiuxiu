@@ -30,16 +30,18 @@ public class ApplyComponentDAOImpl implements ApplyComponentDAO{
 		}
 	}
 
-	public void delete(int id) {
-		String sql = "delete from apply_component where id =?";
+	public void delete(int reservationID) {
+		String sql = "delete from apply_component where reservation_id =?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			ps.setInt(1, id);
-			boolean num=ps.execute();
-			if (num) {
+			ps.setInt(1, reservationID);
+			boolean flag=ps.execute();
+			if (flag) {
 				System.out.print("删除预约单id-零件id成功");
 			} else {
 				System.out.print("没有找到要删除的内容");
 			}
+			ps.close();
+			c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
