@@ -89,6 +89,29 @@ public class RepairActivityDAOImpl implements RepairActivityDAO{
 			return null;
 		}
 	}
+	
+    @Override
+    public RepairActivity get(Integer id) {
+        String sql = "select id, time,place,manager_id from repair_activity where id = ?";
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setLong(1,id);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()) {
+                RepairActivity activity = new RepairActivity();
+                activity.setId(rs.getInt("id"));
+                activity.setTime(rs.getString("time"));
+                activity.setPlace(rs.getString("place"));
+                activity.setManagerId(rs.getInt("manager_id"));
+                return activity;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 	public boolean isRepairActivityExist(int id) {
 		// TODO Auto-generated method stub
@@ -120,7 +143,7 @@ public class RepairActivityDAOImpl implements RepairActivityDAO{
                 activity.setId(rs.getInt("id"));
                 activity.setTime(rs.getString("time"));
                 activity.setPlace(rs.getString("place"));
-                activity.setmanagerId(rs.getInt("manager_id"));
+                activity.setManagerId(rs.getInt("manager_id"));
                 activities.add(activity);
             }
         } catch (SQLException e) {

@@ -47,7 +47,6 @@ public abstract class BaseServlet extends HttpServlet {
 
 
             String method = (String) request.getParameter("method"); //假设method = list，Servlet = CategoryServlet
-            System.out.print("456\n\n\n\n\n\n\n\n4566");
             /**
              * 借助反射，调用对应的方法利用反射，调用对应业务类的方法，注意此处的 this 并不是指本类的对象，
              * 而是具体的业务类，如 CategoryServlet 对象，为什么呢？

@@ -29,7 +29,7 @@ public class RepairActivity {
     public int getId() {
         return id;
     };
-    public int getmanagerId() {
+    public int getManagerId() {
         return managerId;
     }
     public String getPlace() {
@@ -43,7 +43,7 @@ public class RepairActivity {
         if(id >= 0)
             this.id = id;
     }
-    public void setmanagerId(int managerId) {
+    public void setManagerId(int managerId) {
         if(managerId >= 0)
             this.managerId = managerId;
     }

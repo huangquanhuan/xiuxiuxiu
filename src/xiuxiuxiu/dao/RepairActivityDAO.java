@@ -35,6 +35,12 @@ public interface RepairActivityDAO {
      * @return 相应id的活动表详细信息
      */
 	String getRepairActivity(int id);
+	
+	/**
+	 * get()
+	 */
+	RepairActivity get(Integer id);
+	
 	/**
      *
      * @return True or False
