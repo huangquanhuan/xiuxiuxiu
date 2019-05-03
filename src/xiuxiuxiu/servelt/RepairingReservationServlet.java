@@ -56,7 +56,7 @@ public class RepairingReservationServlet extends BaseServlet {
         
         // 获取零件列表
         ComponentDAO componentDAO = new ComponentDAOImpl();
-        List<Component> components = componentDAO.searchComponent(null);
+        List<Component> components = componentDAO.getList();
         request.setAttribute("components", components);
         
         // 获取设备列表
