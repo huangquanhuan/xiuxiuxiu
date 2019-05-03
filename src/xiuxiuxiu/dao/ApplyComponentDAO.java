@@ -19,11 +19,11 @@ public interface ApplyComponentDAO {
 	void add(int reservationID, int componentID);
 
 	/**
-	 * delete() - 从apply_component删除记录，以 ID 为依据
+	 * delete() - 从apply_component(预约单-零件对应表)中删除相应预约单的所有记录
 	 *
-	 * @param id apply_component（预约单-零件对应表）表中的 ID 号
+	 * @param reservationID 预约单的id
 	 */
-	void delete(int id);
+	void delete(int reservationID);
 
 	/**
 	 * getReservationID() - 获取相应id对应的预约单id
@@ -52,7 +52,7 @@ public interface ApplyComponentDAO {
 	boolean isExist(int id);
 
 	/**
-	 * 根据预约单id获取该该有预约单包含的需求零件id列表
+	 * 根据预约单id获取该预约单包含的需求零件id列表
 	 * 
 	 * @param reservationID 预约单的id
 	 * @return 该预约单包含的需求零件id列表

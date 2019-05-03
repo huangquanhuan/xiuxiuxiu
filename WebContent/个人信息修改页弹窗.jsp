@@ -1,4 +1,6 @@
 <!doctype html>
+<%@page import="xiuxiuxiu.pojo.User"%>
+<%@page import="xiuxiuxiu.pojo.Student"%>
 <!-- <%@ page language="java" contentType="text/html;charset=UTF-8" -->
 <!--          pageEncoding="UTF-8" isELIgnored="false" %> -->
 <html lang="en">
@@ -52,24 +54,24 @@
 											<tr>
 												<td>姓名</td>
 												<td><input type="text" name="name"
-													placeholder="${user.getName()}" class="form-control">
+													placeholder="${user.name}" class="form-control">
 												</td>
 											</tr>
 											<tr>
 												<td>学号</td>
 												<td><input type="text" name="name"
-													placeholder="${user.getStudentID()}" class="form-control"></td>
+													placeholder="${user.studentID}" class="form-control"></td>
 											</tr>
 											<tr>
 												<td>邮箱</td>
 												<td><input type="text" name="name"
-													placeholder="${user.getEmail()}" class="form-control">
+													placeholder="${user.Email}" class="form-control">
 												</td>
 											</tr>
 											<tr>
 												<td>地址</td>
 												<td><input type="text" name="name"
-													placeholder="${user.getAddress()}" class="form-control">
+													placeholder="${user.address}" class="form-control">
 												</td>
 											</tr>
 										</table>
