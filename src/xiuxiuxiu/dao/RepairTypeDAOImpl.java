@@ -8,12 +8,36 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import xiuxiuxiu.pojo.*;
 import xiuxiuxiu.util.DBUtil;
 
 public class RepairTypeDAOImpl implements RepairTypeDAO{
 
+    /**
+     * @param index 0=hardware 1=software
+     * @return 二级分类列表   
+     */
+    public List<String> getRepairTypeList(int index) {
+        // TODO Auto-generated method stub
+        List<String> typeLists = new LinkedList<String>();
+        String sql = (index % 2 == 0) ? "SELECT hardware FROM repair_type" : "SELECT software FROM repair_type";
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            //ps.setString(1, reservation.getID());    
+            ps.execute();
+            ResultSet rs = ps.getGeneratedKeys();
+            while (rs.next()) {
+                String temp = Optional.ofNullable(rs.getString(1)).orElse("未知问题");
+                //reservation.setID(id);
+                typeLists.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return typeLists;
+    }
+    
 	/*
 	 * isnull语句是判断该id是否存有属性值，如果存在单个属性那插入另一个属性用update语句
 	 * 如果该id不存在则用insert插入一个新行
