@@ -67,7 +67,8 @@ public class ComponentServlet extends HttpServlet {
     void update(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         if (!componentDao.isComponentExist(id)) {
-            response.sendRedirect("ComponentEdit.jsp"); // 客户端跳转
+            request.setAttribute("err", "错误：该零件已被删除");
+            list(request, response); // 客户端跳转
         } else {
             String name = request.getParameter("name");
             int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -75,6 +76,7 @@ public class ComponentServlet extends HttpServlet {
             String type = request.getParameter("type");
 
             Component component = new Component();
+            component.setId(id);
             component.setName(name);
             component.setQuantity(quantity);
             component.setPrice(price);
