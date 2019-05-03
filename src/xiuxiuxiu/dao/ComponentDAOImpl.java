@@ -70,7 +70,7 @@ public class ComponentDAOImpl implements ComponentDAO{
 			ps.execute();
 			ResultSet rs = ps.getResultSet();
 			if (rs.next()) {
-				Component component=new Component();
+				Component component = new Component();
 				//article.setID(rs.getString("id"));
 				component.setId(id);
 				component.setName(rs.getString("name"));

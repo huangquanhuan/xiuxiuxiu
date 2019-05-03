@@ -145,17 +145,9 @@ public class Reservation {
 	public void setUserID(int UserID) {
 		this.userID = UserID;
 	}
-
-	public int getApplicationType() {
-		return applicationType;
-	}
-	
-	public void setApplicationType(int applicationType) {
-        this.applicationType = applicationType;
-    }
 	
 	//2种预约类型：0表示活动预约，1表示上门维修预约
-	public String getApplicationType(int applicationType) {
+	public String getApplicationType() {
 	    String ApplicationTypeString= "";
         if(state <= 0) {
             ApplicationTypeString = "活动预约";
@@ -165,7 +157,15 @@ public class Reservation {
         }
         return ApplicationTypeString;
 	}
-
+	
+	public void setApplicationType(int applicationType) {
+        this.applicationType = applicationType;
+    }
+	
+	public String getApplicationTime() {
+        return applicationTime;
+    }
+	
 	public void setApplicationTime(String applicationTime) {
 		this.applicationTime = applicationTime;
 	}
