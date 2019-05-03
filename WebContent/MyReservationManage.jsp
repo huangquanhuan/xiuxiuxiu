@@ -1,8 +1,10 @@
 <!doctype html>
 <%@page import="xiuxiuxiu.pojo.*"%>
 <%@page import="xiuxiuxiu.dao.*"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <html lang="en">
@@ -56,6 +58,7 @@
 				<div class="row">
 					<div class="col-sm-6 col-sm-offset-3 form-box">
 
+
 						<c:forEach items="${ReservationList}" var="reservation" varStatus="status">
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -90,12 +93,15 @@
 									} else if( reservation.getState()==2){
 										applicationTimeAndState=applicationTimeAndState+"(已完成)";
 									} else{
+
 										out.print("<script>alert('获取预约单的目前状态失败！')</script>");
 									}
 									requiredTimeAndPlace = reservation.getRequiredTime+" "+reservation.getPlace();
 									detail = reservation.getDetail();
+
 									detail = detail.substring(0, 7)+"...";
 								--%>
+
 									<h3 class="panel-title">${applicationTimeAndState}</h3>
 									<div>
 										<button type="button" class="btn btn-primary">编辑</button>
