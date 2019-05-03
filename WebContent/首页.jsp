@@ -1,6 +1,8 @@
 <!doctype html>
-<!-- <%@ page language="java" contentType="text/html;charset=UTF-8" -->
-<!--          pageEncoding="UTF-8" isELIgnored="false" %> -->
+<%@page import="xiuxiuxiu.pojo.RepairActivity"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 <head>
 <!-- Required meta tags -->
@@ -22,16 +24,18 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="logotxt">
-						<br>
-						<br>
+						<br> <br>
 						<h1>
-							<a href="http://www.youzhan.org">维修活动场次</a>
+							<a href="#">维修活动场次</a>
 						</h1>
-						<br>
-						<br>
+						<br> <br>
 					</div>
 				</div>
 			</div>
+		</div>
+		<div>
+			<a href="HomePageServlet"><button type="button"
+					class="btn btn-info">刷新</button></a>
 		</div>
 		<div class="table-responsive">
 			<table class="table">
@@ -44,33 +48,26 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>2019-04-30</td>
-						<td>一区青春广场前</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>2019-04-12</td>
-						<td>一区青春广场前</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>2019-03-14</td>
-						<td>一区青春广场前</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td>2019-02-09</td>
-						<td>一区青春广场前</td>
-					</tr>
-
-
+					<c:forEach items="${repairActivityList}" var="repairActivity"
+						varStatus="status">
+						<tr>
+							<td>${status.count}</td>
+							<td>${repairActivity.time}</td>
+							<td>${repairActivity.place}</td>
+							<td>
+								<form class="ApplyActivity"
+									action="<!-- 这边记得改 ...-->ApplyServlet?type=ApplyActivity&id=${student.id}&password=${student.password}"
+									method="post">
+									<button type="submit" class="">预约此活动</button>
+								</form>
+							</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			<div>
-			
-				<a href="#"><button type="button"  class="btn btn-info">更多...</button></a>
+
+				<a href="#"><button type="button" class="btn btn-info">更多...</button></a>
 			</div>
 			<br>
 		</div>

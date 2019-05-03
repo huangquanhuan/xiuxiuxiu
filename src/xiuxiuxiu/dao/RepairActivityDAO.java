@@ -1,6 +1,8 @@
 package xiuxiuxiu.dao;
 
 import xiuxiuxiu.pojo.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,8 +38,13 @@ public interface RepairActivityDAO {
      */
 	String getRepairActivity(int id);
 	/**
-     *
+     *  isRepairActivityExist() - 判断该id的维修场次是否存在
      * @return True or False
      */
 	boolean isRepairActivityExist(int id);
+	/**
+	 * ListAll() - 返回所有的线下维修活动场次列表
+	 */
+	List<RepairActivity> ListAll();
+	
 }
