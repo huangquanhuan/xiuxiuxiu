@@ -307,7 +307,7 @@ public class Reservation {
 
 	public void setComponentIDList(List<Integer> componentIDList) {
 		this.componentIDList.clear();
-		for (int i = 0; i <= componentIDList.size(); i++)
+		for (int i = 0; i < componentIDList.size(); i++)
 			this.componentIDList.add(componentIDList.get(i));
 	}
 
@@ -317,7 +317,7 @@ public class Reservation {
 
 	public void setImgUrlList(List<String> imgUrlList) {
 		this.imgUrlList.clear();
-		for (int i = 0; i <= imgUrlList.size(); i++)
+		for (int i = 0; i < imgUrlList.size(); i++)
 			this.imgUrlList.add(imgUrlList.get(i));
 	}
 
