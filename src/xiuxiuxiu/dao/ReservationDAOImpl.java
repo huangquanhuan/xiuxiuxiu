@@ -144,7 +144,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 				reservation.setState(rs.getInt("state"));
 				reservation.setUserID(rs.getInt("user_id"));
 				reservation.setApplicationType(rs.getInt("application_type"));
-				reservation.setApplicationTime(rs.getString("equipment_id"));
+				reservation.setApplicationTime(rs.getString("application_time"));
 				reservation.setRequiredTime(rs.getString("required_time"));
 				reservation.setPlace(rs.getString("place"));
 				reservation.setRepairActivityID(rs.getInt("repair_activity_id"));

@@ -1,6 +1,9 @@
 <!doctype html>
+<%@page
+	import="javax.security.auth.message.callback.PrivateKeyCallback.Request"%>
 <%@page import="xiuxiuxiu.pojo.*"%>
 <%@page import="xiuxiuxiu.dao.*"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <html lang="en">
@@ -53,50 +56,55 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-6 col-sm-offset-3 form-box">
-
-						<c:forEach items="${ReservationList}" var="reservation"
-							varStatus="status">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<%! String applicationTimeAndState, requiredTimeAndPlace,detail;%>
-									<%! RepairActivityDAO repairActivityDAO = new RepairActivityDAOImpl()%>
-									<% 
+						<%-- 						<c:forEach items="${ReservationList}" var="reservation1" varStatus="status">--%>
+						<%
+							List<Reservation> reservationList = (List<Reservation>) request.getAttribute("ReservationList");
+							for (Reservation reservation : reservationList) {
+						%>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<%!String applicationTimeAndState, requiredTimeAndPlace, detail;%>
+								<%!EquipmentDAO equipmentDao = new EquipmentDAOImpl();%>
+								<%
 									applicationTimeAndState = reservation.getApplicationTime();
-									requiredTimeAndPlace = reservation.getRequiredTime();
-									
-									if( reservation.getState()==0)
-									{
-										applicationTimeAndState=applicationTimeAndState+"(未受理)"
-									}else if( reservation.getState()==1){
-										applicationTimeAndState=applicationTimeAndState+"(已受理，未完成)"
-									}else if( reservation.getState()==2){
-										applicationTimeAndState=applicationTimeAndState+"(已完成)"
-									}else{
-										out.print("<script>alert('获取预约单的目前状态失败！')</script>");
-									}
-									requiredTimeAndPlace = reservation.getRequiredTime+" "+reservation.getPlace();
-									detail = reservation.getDetail();
-									detail = detail.substring(0, 7)+"..."
+										requiredTimeAndPlace = reservation.getRequiredTime();
+
+										if (reservation.getState() == 0) {
+											applicationTimeAndState = applicationTimeAndState + "(未受理)";
+										} else if (reservation.getState() == 1) {
+											applicationTimeAndState = applicationTimeAndState + "(已受理，未完成)";
+										} else if (reservation.getState() == 2) {
+											applicationTimeAndState = applicationTimeAndState + "(已完成)";
+										} else {
+											out.print("<script>alert('获取预约单的目前状态失败！')</script>");
+										}
+										requiredTimeAndPlace = reservation.getRequiredTime() + " " + reservation.getPlace();
+										detail = reservation.getDetail();
+										if (detail!=null&&detail.length() > 8)
+											detail = detail.substring(0, 7) + "...";
 								%>
-									<h3 class="panel-title">${applicationTimeAndState}</h3>
-									<div>
-										<button type="button" class="btn btn-primary">编辑</button>
-										<button type="button" class="btn btn-danger">撤销</button>
-										
-										<button type="button" class="btn btn-danger">联系</button>
-										<button class="btn btn-success" data-toggle="modal"
-											data-target="#evaluation-data" type="button">评价</button>
-										<button class="btn btn-danger" data-toggle="modal"
-											data-target="#feedback-data" type="button">反馈</button>
-									</div>
-								</div>
-								<div class="panel-body">
-									<p>${requiredTimeAndPlace}}</p>
-									<label>${repairActivityDAO.get(reservation.getRepairActivityID()).getTime()}</label> 
-									<label>${detail}</label>
+								<h3 class="panel-title"><%=applicationTimeAndState%></h3>
+								<div>
+									<button type="button" class="btn btn-primary">编辑</button>
+									<button type="button" class="btn btn-danger">撤销</button>
+
+									<button type="button" class="btn btn-danger">联系</button>
+									<button class="btn btn-success" data-toggle="modal"
+										data-target="#evaluation-data" type="button">评价</button>
+									<button class="btn btn-danger" data-toggle="modal"
+										data-target="#feedback-data" type="button">反馈</button>
 								</div>
 							</div>
-						</c:forEach>
+							<div class="panel-body">
+								<p><%=requiredTimeAndPlace%></p>
+								<label><%=equipmentDao.getEquipmentName(reservation.getEquipmentID())%></label>
+								<label><%=detail%></label>
+							</div>
+						</div>
+						<%
+							}
+						%>
+						<!-- 						</c:forEach> -->
 					</div>
 				</div>
 			</div>
