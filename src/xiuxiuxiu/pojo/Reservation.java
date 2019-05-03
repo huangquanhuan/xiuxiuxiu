@@ -2,6 +2,13 @@ package xiuxiuxiu.pojo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import xiuxiuxiu.dao.RepairActivityDAO;
+import xiuxiuxiu.dao.RepairActivityDAOImpl;
+import xiuxiuxiu.dao.StudentDAO;
+import xiuxiuxiu.dao.StudentDAOImpl;
+import java.util.Date;
+
 import java.util.Date;
 import java.util.List;
 
@@ -151,11 +158,14 @@ public class Reservation {
 	}
 
 	// 0表示未受理状态，1表示已受理未完成状态，2表示已完成状态
-	public int getState() {
-		return state;
-	}
 
-	public String getStateString() {
+	public int getStateInt()
+	{
+	    return state;
+	}
+	
+	public String getState() {
+
 		if (state == 0) {
 			return "未受理";
 		} else if (state == 1) {
@@ -180,20 +190,22 @@ public class Reservation {
 		this.userID = UserID;
 	}
 
-	// 2种预约类型：0表示活动预约，1表示上门维修预约
-	public int getApplicationType() {
-		return applicationType;
+	
+	
+	//2种预约类型：0表示活动预约，1表示上门维修预约
+	public String getApplicationType() {
+	    String ApplicationTypeString= "";
+        if(state <= 0) {
+            ApplicationTypeString = "活动预约";
+        }
+        else if(state >= 1) {
+            ApplicationTypeString = "上门维修";
+        }
+        return ApplicationTypeString;
 	}
-
-	public String getApplicationTypeString() {
-		if (applicationType == 0) {
-			return "活动预约";
-		} else if (applicationType == 1) {
-			return "上门维修预约";
-		} else {
-			System.out.println("未知预约类型！");
-			return null;
-		}
+	
+	public int getApplicationTypeInt() {
+	    return applicationType;
 	}
 
 	public void setApplicationType(int applicationType) {
@@ -204,6 +216,12 @@ public class Reservation {
 		return applicationTime;
 	}
 
+	public void setApplicationTime() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		this.applicationTime = df.format(new Date());// new Date()为获取当前系统时间
+	}
+
+	
 	public void setApplicationTime() {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		this.applicationTime = df.format(new Date());// new Date()为获取当前系统时间
