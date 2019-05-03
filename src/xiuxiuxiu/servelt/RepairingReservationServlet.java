@@ -3,6 +3,7 @@ package xiuxiuxiu.servelt;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +35,8 @@ import xiuxiuxiu.pojo.RepairActivity;
 import xiuxiuxiu.pojo.Reservation;
 import xiuxiuxiu.pojo.Student;
 import xiuxiuxiu.util.Page;
+import xiuxiuxiu.util.ParamDto;
+import xiuxiuxiu.util.RequestParser;
 
 /**
  * RepairingReservationServlet
@@ -51,33 +54,18 @@ public class RepairingReservationServlet extends BaseServlet {
      */
     private static final long serialVersionUID = -6196254428422180914L;
     
-    /** 用于文件上传的相关组件 */
-    private ServletFileUpload upload = null;
-    
     /** 图片保存的位置（相对路径） */
     private static final String UPLOAD_DIRECTORY = "uploadedImages";
     
-    private static final int MEMORY_THERESHOLD = 1024 * 1024 * 3;
-    private static final int MAX_FILE_SIZE = 1024 * 1024 * 40;
-    private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50;
-    
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        DiskFileItemFactory factory = new DiskFileItemFactory();
-        factory.setSizeThreshold(MEMORY_THERESHOLD);
-        factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
-        
-        upload = new ServletFileUpload(factory);
-        upload.setFileSizeMax(MAX_FILE_SIZE);
-        upload.setSizeMax(MAX_REQUEST_SIZE);
-        upload.setHeaderEncoding("UTF-8");
-    }
     
     /**
      * confirmInformation，用于预约第一步：确认个人信息的方法
      */
     public String confirmInformation(HttpServletRequest request, HttpServletResponse response, Page page) {
+        // 如果用户信息从 session 加载，则使用以下方法
+        // Student student = (Student)request.getSession().getAttribute("user");
+        // request.setAttribute("user", student);
+        
         Integer uid = Integer.parseInt(request.getParameter("uid"));
         StudentDAO studentDAO = new StudentDAOImpl();
         request.setAttribute("user", studentDAO.get(uid));
@@ -111,25 +99,30 @@ public class RepairingReservationServlet extends BaseServlet {
      * addFieldService - 用于提交现场维修的表单的处理方法
      */
     public String addFieldService(HttpServletRequest request, HttpServletResponse response, Page page) {
+        // 如果用户信息从 session 加载，则使用以下方法
+        // Student student = (Student)request.getSession().getAttribute("user");
+        
         ApplyComponentDAO applyComponentDAO = new ApplyComponentDAOImpl();
-        
-        StudentDAO studentDAO = new StudentDAOImpl();
-        Student student = studentDAO.get(Integer.parseInt(request.getParameter("userId")));
-        
         RepairActivityDAO repairActivityDAO = new RepairActivityDAOImpl();
-        RepairActivity repairActivity = repairActivityDAO.get(Integer.parseInt(request.getParameter("activity")));
-        
+        StudentDAO studentDAO = new StudentDAOImpl();
         ReservationImgUrlDAO reservationImgUrlDAO = new ReservationImgUrlDAOImpl();
+        
+        ParamDto dto = RequestParser.parse(request);
+        Map<String, String> parameters = dto.getParamMap();
+        
+        Student student = studentDAO.get(Integer.parseInt(parameters.get("userId")));
+        RepairActivity repairActivity = repairActivityDAO.get(Integer.parseInt(parameters.get("activity")));
+        
         
         // 处理非图片部分的表单
         Reservation reservation = new Reservation();
         reservation.setState(0);    // 设置状态
-        reservation.setUserID(Integer.parseInt(request.getParameter("userId")));
+        reservation.setUserID(student.getID());
         reservation.setApplicationType(0);      // 设置其类型为活动预约
         reservation.setApplicationTime(new Date().toString());  // 设置申请提交时间
-        reservation.setEquipmentID(Integer.parseInt(request.getParameter("device")));
-        reservation.setDetail(request.getParameter("issueDetail"));
-        reservation.setRepairActivityID(Integer.parseInt(request.getParameter("activity")));
+        reservation.setEquipmentID(Integer.parseInt(parameters.get("device")));
+        reservation.setDetail(parameters.get("issueDetail"));
+        reservation.setRepairActivityID(repairActivity.getId());
         reservation.setRequiredTime(repairActivity.getTime());
         reservation.setPlace(repairActivity.getPlace());
         
@@ -137,35 +130,32 @@ public class RepairingReservationServlet extends BaseServlet {
         reservationDAO.addReservation(reservation);
         
         // 处理需求的零件信息
-        String[] neededComponents = request.getParameterValues("neededComponents");
+        String neededComponents = parameters.get("neededComponents");
         if (neededComponents != null) {
-            for (String component : neededComponents) {
-                applyComponentDAO.add(reservation.getID(), Integer.parseInt(component));
+            String[] componentList = parameters.get("neededComponents").split(",");
+            if (componentList != null) {
+                for (String component : componentList) {
+                    if (component.length() != 0) {
+                        applyComponentDAO.add(reservation.getID(), Integer.parseInt(component));
+                    }
+                }
             }
         }
         
-        // 处理图片上传
         String uploadPath = request.getServletContext().getRealPath("./") + File.separator + UPLOAD_DIRECTORY;
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdir();
         }
         
+        FileItem issueImage = dto.getFileMap().get("issueImage");
+        String fileName = new File(issueImage.getName()).getName();
+        String fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+        String filePath = uploadPath + File.separator + System.currentTimeMillis() + fileExtension;
+        File savedImage = new File(filePath);
         try {
-            @SuppressWarnings("unchecked")
-            List<FileItem> formItems = upload.parseRequest(request);
-            if (formItems != null && formItems.size() > 0) {
-                for (FileItem item : formItems) {
-                    if (!item.isFormField()) {
-                        String fileName = new File(item.getName()).getName();
-                        String fileExtension = fileName.substring(fileName.lastIndexOf('.'));
-                        String filePath = uploadPath + File.separator + System.currentTimeMillis() + fileExtension;
-                        File savedImage = new File(filePath);
-                        item.write(savedImage);
-                        reservationImgUrlDAO.addReservationImgUrl(filePath, reservation.getID());
-                    }
-                }
-            }
+            issueImage.write(savedImage);
+            reservationImgUrlDAO.addReservationImgUrl(filePath, reservation.getID());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -177,8 +167,71 @@ public class RepairingReservationServlet extends BaseServlet {
         return "reserve-result.jsp";
     }
     
+    /**
+     * addDoorToDoorService - 用于申请上门维修的表单的提交
+     */
     public String addDoorToDoorService(HttpServletRequest request, HttpServletResponse response, Page page) {
-        return null;
+        // 如果用户信息从 session 加载，则使用以下方法
+        // Student student = (Student)request.getSession().getAttribute("user");
+        
+        ApplyComponentDAO applyComponentDAO = new ApplyComponentDAOImpl();
+        RepairActivityDAO repairActivityDAO = new RepairActivityDAOImpl();
+        StudentDAO studentDAO = new StudentDAOImpl();
+        ReservationImgUrlDAO reservationImgUrlDAO = new ReservationImgUrlDAOImpl();
+        
+        ParamDto dto = RequestParser.parse(request);
+        Map<String, String> parameters = dto.getParamMap();
+        
+        Student student = studentDAO.get(Integer.parseInt(parameters.get("userId")));
+        
+        
+        // 处理非图片部分的表单
+        Reservation reservation = new Reservation();
+        reservation.setState(0);    // 设置状态
+        reservation.setUserID(student.getID());
+        reservation.setApplicationType(1);      // 设置其类型为上门预约
+        reservation.setApplicationTime(new Date().toString());  // 设置申请提交时间
+        reservation.setEquipmentID(Integer.parseInt(parameters.get("device")));
+        reservation.setDetail(parameters.get("issueDetail"));
+        reservation.setRequiredTime(parameters.get("requiredTime"));
+        reservation.setPlace(student.getAddress());
+        
+        ReservationDAO reservationDAO = new ReservationDAOImpl();
+        reservationDAO.addReservation(reservation);
+        
+        // 处理需求的零件信息
+        String[] neededComponents = parameters.get("neededComponents").split(",");
+        if (neededComponents != null) {
+            for (String component : neededComponents) {
+                if (component.length() == 0) {
+                    applyComponentDAO.add(reservation.getID(), Integer.parseInt(component));
+                }
+            }
+        }
+        
+        String uploadPath = request.getServletContext().getRealPath("./") + File.separator + UPLOAD_DIRECTORY;
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
+        
+        FileItem issueImage = dto.getFileMap().get("issueImage");
+        String fileName = new File(issueImage.getName()).getName();
+        String fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+        String filePath = uploadPath + File.separator + System.currentTimeMillis() + fileExtension;
+        File savedImage = new File(filePath);
+        try {
+            issueImage.write(savedImage);
+            reservationImgUrlDAO.addReservationImgUrl(filePath, reservation.getID());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        // 设置跳转参数
+        request.setAttribute("message", "您的预约已提交");
+        request.setAttribute("backLink", "makeReservation?method=confirmInformation&uid=" + request.getParameter("userId"));
+        
+        return "reserve-result.jsp";
     }
     
     /* (non-Javadoc)

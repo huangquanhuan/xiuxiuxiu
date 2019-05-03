@@ -91,7 +91,7 @@
         <div class="tab-content">
           <!-- 申请现场维修的表单：开始 -->
           <div id="field-service" class="container tab-pane active"><br />
-            <form action="makeReservation?method=addFieldService" method="post">
+            <form action="makeReservation?method=addFieldService" method="post" enctype="multipart/form-data">
               <input type="hidden" name="userId" value="1" />
               <!-- 场次选择 -->
               <div class="form-group">
@@ -179,7 +179,7 @@
               <div class="form-group">
                 <label for="issue-image" class="col-sm-3">为问题描述提供图片</label>
                 <div class="col-sm-9">
-                  <input id="issue-image" type="file" class="form-control" />
+                  <input id="issue-image" name="issueImage" type="file" class="form-control" />
                 </div>
               </div>
 
@@ -203,12 +203,13 @@
           
           <!-- 申请上门服务的表单：开始 -->
           <div id="door-to-door-service" class="container tab-pane fade"><br />
-            <form action="*" method="post">
+            <form action="makeReservation?method=addDoorToDoorService" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="userId" value="1" />
               <!-- 时间选择 -->
               <div class="form-group">
                 <label for="datetime-select" class="col-sm-3">预约时间</label>
                 <div class="col-sm-9">
-                  <input class="form-control" type="datetime-local" />
+                  <input class="form-control" type="datetime-local" name="requiredTime" />
                 </div>
               </div>
 
@@ -219,7 +220,7 @@
                   <a href="#" class="btn btn-link">添加设备</a>
                 </div>
                 <div class="col-sm-9">
-                  <select id="device-select-1" class="form-control">
+                  <select id="device-select-1" class="form-control" name="device">
                     <!-- 这里装入用户的设备列表 -->
                     <c:forEach items="${equipments}" var="equipment">
                       <!-- 用户设备信息 -->
@@ -279,7 +280,7 @@
               <div class="form-group">
                 <label for="issue-detail-1" class="col-sm-3">问题描述</label>
                 <div id="issue-detail-1" class="col-sm-9">
-                  <textarea class="form-control" rows="3"></textarea>
+                  <textarea class="form-control" name="issueDetail" rows="3"></textarea>
                 </div>
               </div>
               
@@ -287,7 +288,7 @@
               <div class="form-group">
                 <label for="issue-image-1" class="col-sm-3">为问题描述提供图片</label>
                 <div class="col-sm-9">
-                  <input id="issue-image-1" type="file" class="form-control" />
+                  <input id="issue-image-1" name="issueImage" type="file" class="form-control" />
                 </div>
               </div>
 
