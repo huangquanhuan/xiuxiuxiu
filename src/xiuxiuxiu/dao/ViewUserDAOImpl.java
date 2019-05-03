@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import xiuxiuxiu.util.*;
-import xiuxiuxiu.pojo.*;
 
-public class ViewComponentDAOImpl {
-    
-    
+import xiuxiuxiu.pojo.Reservation;
+import xiuxiuxiu.pojo.ViewDataGrid;
+import xiuxiuxiu.util.DBUtil;
+
+public class ViewUserDAOImpl {
     /**
      * 查询视图
      * @param reservationState 3种状态：0表示未受理状态，1表示已受理未完成状态，2表示已完成状态
@@ -20,12 +20,12 @@ public class ViewComponentDAOImpl {
     public List<ViewDataGrid> getList(String name,int applicationType,int activityID,String componentType, int reservationState) {
         List<ViewDataGrid> lists = new LinkedList<ViewDataGrid>();
         Reservation reservation = new Reservation();
-        String sql = "SELECT U.user_name, U.student_id, U.phone_number, RV.application_type, RA.time, concat(C.name,\"-\",C.type), RV.state, RV.id "
+        String sql = "SELECT U.user_name, U.student_id, U.phone_number, RV.application_type,RA.time, GROUP_CONCAT(C.name ,\"-\",C.type), RV.state, RV.id "
                 + "FROM\r\n" + "    repair_activity AS RA\r\n"
                 + "    LEFT JOIN reservation AS RV ON RA.id = RV.repair_activity_id\r\n"
                 + "    LEFT JOIN `user` AS U ON RV.user_id = U.user_id\r\n"
-                + "    LEFT JOIN apply_component AS AC ON RV.id = AC.reservation_id\r\n"
-                + "    LEFT JOIN component AS C ON AC.component_id = C.id \r\n" + "WHERE 1=1 ";
+                + "    LEFT JOIN apply_component AS AC ON RV.id = AC.reservation_id\r\n" 
+                + "    LEFT JOIN component AS C ON AC.component_id = C.id \r\n" + " WHERE 1=1 ";
         if(!name.equals("")) {
             sql += " U.user_name=?";
         }
@@ -41,7 +41,7 @@ public class ViewComponentDAOImpl {
         if(reservationState <= 2 && reservationState >= 0) {
             sql += " RV.state=?";
         }
-        sql += "ORDER BY C.id";
+        sql += "GROUP BY RA.id ORDER BY U.student_id";
         try {
                 Connection c = DBUtil.getConnection(); 
                 PreparedStatement ps = c.prepareStatement(sql) ;
@@ -74,7 +74,7 @@ public class ViewComponentDAOImpl {
                 bean.setPhoneNumber(rs.getString("U.phone_number"));
                 bean.setApplicationType(reservation.getApplicationType());
                 bean.setActiveTime(rs.getString("RA.time"));
-                bean.setComponentType(rs.getString("concat(C.name,\"-\",C.type)"));
+                bean.setComponentType(rs.getString("GROUP_CONCAT(C.name ,\"-\",C.type)"));
                 bean.setReservationState(reservation.getState());
                 bean.setReservationID(rs.getInt("RV.id"));
 

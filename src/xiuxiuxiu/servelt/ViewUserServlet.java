@@ -1,6 +1,7 @@
 package xiuxiuxiu.servelt;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,13 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import xiuxiuxiu.dao.ViewComponentDAOImpl;
+import xiuxiuxiu.dao.ViewUserDAOImpl;
 import xiuxiuxiu.pojo.ViewDataGrid;
 
-@WebServlet("/ViewComponentServlet")
-public class ViewComponentServlet extends HttpServlet{
-    private static ViewComponentDAOImpl viewComponentDAOImpl = new ViewComponentDAOImpl();
+@WebServlet("/ViewUserServlet")
+public class ViewUserServlet extends HttpServlet{
+    private static ViewUserDAOImpl viewUserDAOImpl = new ViewUserDAOImpl();
+    List<ViewDataGrid> viewUsers = new ArrayList<ViewDataGrid>();
     private static final long serialVersionUID = 1L;
     
     void list(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -25,11 +26,10 @@ public class ViewComponentServlet extends HttpServlet{
         int activityId = Integer.parseInt(Optional.ofNullable(request.getParameter("activityID")).orElse("-1"));
         String componentType = Optional.ofNullable(request.getParameter("componentsTypeSelect")).orElse("");
         int reservationState = Integer.parseInt(Optional.ofNullable(request.getParameter("StateSelect")).orElse("-1"));
-        
-        List<ViewDataGrid> viewComponents = viewComponentDAOImpl.getList(name,applicationType, activityId, componentType, reservationState);
-        request.setAttribute("viewComponents", viewComponents);
-        request.setAttribute("totalNum", Optional.ofNullable(viewComponents).map(u->u.size()).orElse(0));
-        request.getRequestDispatcher("appointed-components-search.jsp").forward(request, response);
+        viewUsers = viewUserDAOImpl.getList(name,applicationType, activityId, componentType, reservationState);
+        request.setAttribute("viewUsers", viewUsers);
+        request.setAttribute("totalNum", Optional.ofNullable(viewUsers).map(u->u.size()).orElse(0));
+        request.getRequestDispatcher("appointments-search.jsp").forward(request, response);
     }
     
     @Override

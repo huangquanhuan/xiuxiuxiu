@@ -1,7 +1,6 @@
 <%@page import="xiuxiuxiu.dao.*"%>
 <%@page import="xiuxiuxiu.pojo.*"%>
 <%@page import="java.util.*"%>
-<%@page import="xiuxiuxiu.dao.ViewComponentDAOImpl.ViewComponent"%>;
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -118,20 +117,21 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${viewComponents}" var="viewComponents">
-								<tr>
-									<td>${viewComponents.userName}</td>
-									<td>${viewComponents.studentID}</td>
-									<td>${viewComponents.phoneNumber}</td>
-									<td>1</td>
-									<td>${viewComponents.applicationType}</td>
-									<td>${viewComponents.activeTime}</td>
-									<td>${viewComponents.reservationState}</td>
-									<td>${viewComponents.reservationID}</td>
-									<td><a
-										href="ViewComponentServlet?method=list&id=${ViewComponents.id}"
-										class="view resw3">详情</a></td>
-								</tr>
-							</c:forEach>
+                                <tr>
+                                    <td>${viewComponents.userName}</td>
+                                    <td>${viewComponents.studentID}</td>
+                                    <td>${viewComponents.phoneNumber}</td>
+                                    <td>1</td>
+                                    <td>${viewComponents.applicationType}</td>
+                                    <td>${viewComponents.activeTime}</td>
+                                    <td>${viewComponents.componentType}</td>
+                                    <td>${viewComponents.reservationState}</td>
+                                    
+                                    <td><a
+                                        href="ViewComponentServlet?method=list&id=${viewComponents.reservationID}"
+                                        class="view resw3">详情</a></td>
+                                </tr>
+                        </c:forEach>
 						</tbody>
 					</table>
 				</div>

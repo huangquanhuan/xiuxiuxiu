@@ -1,3 +1,9 @@
+<%@page import="xiuxiuxiu.dao.*"%>
+<%@page import="xiuxiuxiu.pojo.*"%>
+<%@page import="java.util.*"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,30 +90,34 @@
 
             <div class="table-responsive">
                 <table class="table">
-                    <caption style="text-align:center;">场次-类型-已完成预约人员名单</caption>
+                    <p style="">总数：${totalNum} </p>
+                        <a href="ViewUserServlet?method=list" class="view resw3">刷新</a>
                     <thead>
-                    <tr>
-                        <th>姓名</th>
-                        <th>学号</th>
-                        <th>联系电话</th></tr>
+                            <tr>
+                                <th>姓名</th>
+                                <th>学号</th>
+                                <th>联系电话</th>
+                                <th>预约场次</th>
+                                <th>所需零件</th>
+                                <th>当前状态</th>
+                                <th>详情</th>
+                            </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>阿三</td>
-                        <td>123456</td>
-                        <td>854231</td></tr>
-                    <tr>
-                        <td>阿三</td>
-                        <td>123456</td>
-                        <td>854231</td></tr>
-                    <tr>
-                        <td>阿三</td>
-                        <td>123456</td>
-                        <td>854231</td></tr>
-                    <tr>
-                        <td>阿三</td>
-                        <td>123456</td>
-                        <td>854231</td></tr>
+                    
+                        <c:forEach items="${viewUsers}" var="viewUsers">
+                                <tr>
+                                    <td>${viewUsers.userName}</td>
+                                    <td>${viewUsers.studentID}</td>
+                                    <td>${viewUsers.phoneNumber}</td>
+                                    <td>${viewUsers.activeTime}</td>
+                                    <td>${viewUsers.componentType}</td>
+                                    <td>${viewUsers.reservationState}</td>
+                                    <td><a
+                                        href="ViewComponentServlet?method=list&id=${viewUsers.reservationID}"
+                                        class="view resw3">详情</a></td>
+                                </tr>
+                            </c:forEach>
                     </tbody>
                 </table>
             </div>

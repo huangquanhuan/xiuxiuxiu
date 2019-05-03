@@ -144,6 +144,7 @@
 											<c:forEach items="${activities}" var="activity">
 												<option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
 											</c:forEach>
+											<option value="-1">全部</option>
 										</select>
 									</div>
 								</div>
@@ -159,7 +160,7 @@
 											<!-- 这里装入预约类型列表 -->
 											<option>内存条8G</option>
 											<option>内存条4G</option>
-											<option>全部</option>
+											<option value="-1">全部</option>
 										</select>
 									</div>
 								</div>
