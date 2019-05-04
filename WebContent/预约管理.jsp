@@ -3,10 +3,7 @@
 <%@page import="xiuxiuxiu.pojo.*"%>
 <%@page import="xiuxiuxiu.dao.*"%>
 <%@page import="java.util.List"%>
-<%@include file="注册弹窗.jsp"%>
-<%@include file="个人信息修改弹窗.jsp"%>
-<%@include file="登录弹窗.jsp"%>
-<%@include file="退出登录弹窗.jsp"%>
+
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -74,7 +71,7 @@
 											out.print("<script>alert('获取预约单的目前状态失败！')</script>");
 										}
 										requiredTimeAndPlace = reservation.getRequiredTime() + " " + reservation.getPlace();
-										detail = "详情:"+reservation.getDetail();
+										detail = "详情:" + reservation.getDetail();
 										if (detail != null && detail.length() > 8)
 											detail = detail.substring(0, 7) + "...";
 								%>
@@ -93,7 +90,7 @@
 							</div>
 							<div class="panel-body">
 								<p><%=requiredTimeAndPlace%></p>
-								<label><%="设备："+equipmentDao.getEquipmentName(reservation.getEquipmentID())%></label>
+								<label><%="设备：" + equipmentDao.getEquipmentName(reservation.getEquipmentID())%></label>
 								<label><%=detail%></label>
 							</div>
 						</div>
@@ -105,12 +102,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	<!-- data-target触发模态弹出窗元素 -->
-	<button class="btn btn-primary" data-toggle="modal"
-		data-target="#mymodal-data" type="button">通过data-target触发</button>
-
 
 	<!-- 评价弹出窗内容 -->
 	<div class="modal" id="evaluation-data" tabindex="-1" role="dialog"
@@ -160,6 +151,10 @@
 			</div>
 		</div>
 	</div>
+	<%@include file="注册弹窗.jsp"%>
+	<%@include file="个人信息修改弹窗.jsp"%>
+	<%@include file="登录弹窗.jsp"%>
+	<%@include file="退出登录弹窗.jsp"%>
 	<%@include file="动态js代码.jsp"%>
 </body>
 

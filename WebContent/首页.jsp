@@ -3,10 +3,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ page import="java.io.*,java.util.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="注册弹窗.jsp"%>
-<%@include file="个人信息修改弹窗.jsp"%>
-<%@include file="登录弹窗.jsp"%>
-<%@include file="退出登录弹窗.jsp"%>
+
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -18,6 +15,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
 <script type="application/x-javascript">
+	
+	
 		addEventListener("load", function () {
 			setTimeout(hideURLbar, 0);
 		}, false);
@@ -26,6 +25,8 @@
 			window.scrollTo(0, 1);
 		}
 	
+
+
 </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -225,6 +226,10 @@
 		</div>
 	</div>
 
+	<%@include file="注册弹窗.jsp"%>
+	<%@include file="个人信息修改弹窗.jsp"%>
+	<%@include file="登录弹窗.jsp"%>
+	<%@include file="退出登录弹窗.jsp"%>
 	<%@include file="动态js代码.jsp"%>
 </body>
 </html>

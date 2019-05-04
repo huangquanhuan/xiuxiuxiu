@@ -5,10 +5,7 @@
 <%@ page import="java.io.*,java.util.*"%>
 <%@page import="xiuxiuxiu.servelt.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="注册弹窗.jsp"%>
-<%@include file="个人信息修改弹窗.jsp"%>
-<%@include file="登录弹窗.jsp"%>
-<%@include file="退出登录弹窗.jsp"%>
+
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -37,7 +34,7 @@
 </head>
 <body>
 	<%@include file="导航栏.jsp"%>
-	
+
 	<div class="agile_inner_banner_info">
 		<h2>文章列表</h2>
 	</div>
@@ -69,15 +66,84 @@
 						</div>
 						<div class="clearfix"></div>
 					</div>
-          <div class="col-xs-6 event-left1-right w3-agileits-event-left1-right">
+					<div
+						class="col-xs-6 event-left1-right w3-agileits-event-left1-right">
 						<h4>${article.time}</h4>
-						<h5><a href="ArticleServlet?type=single&id=${article.id}">${article.title}</a></h5>
+						<h5>
+							<a href="ArticleServlet?type=single&id=${article.id}">${article.title}</a>
+						</h5>
 						<p>${article.authorName}</p>
 					</div>
-					<div class="clearfix"> </div>
-				</div>
-
+					<div class="clearfix"></div>
 				</c:forEach>
+			</div>
+
+
+		</div>
+		<div class="col-md-4 event-right wthree-event-right">
+			<div class="event-right1 agileinfo-event-right1">
+				<div class="search1 agileits-search1">
+					<form action="#" method="post">
+						<input type="search" name="Search" placeholder="搜索文章/通知"
+							required=""> <input type="submit" value="检索">
+					</form>
+				</div>
+				<div class="posts w3l-posts">
+					<h3>通知</h3>
+					<div class="posts-grids w3-posts-grids">
+						<div class="posts-grid w3-posts-grid">
+							<div class="posts-grid-left w3-posts-grid-left">
+								<a href="single.html"><img src="images/1.jpg" alt=" "
+									class="img-responsive" /></a>
+							</div>
+							<div class="posts-grid-right w3-posts-grid-right">
+								<h4>
+									<a href="single.html">维修场次变更通知</a>
+								</h4>
+								<ul class="wthree_blog_events_list">
+									<li><i class="fa fa-calendar" aria-hidden="true"></i>10/5/2017</li>
+									<li><i class="fa fa-user" aria-hidden="true"></i><a
+										href="single.html">管理员</a></li>
+								</ul>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="posts-grid w3-posts-grid">
+							<div class="posts-grid-left w3-posts-grid-left">
+								<a href="single.html"><img src="images/6.jpg" alt=" "
+									class="img-responsive" /></a>
+							</div>
+							<div class="posts-grid-right w3-posts-grid-right">
+								<h4>
+									<a href="single.html">维修场地变更通知</a>
+								</h4>
+								<ul class="wthree_blog_events_list">
+									<li><i class="fa fa-calendar" aria-hidden="true"></i>12/5/2017</li>
+									<li><i class="fa fa-user" aria-hidden="true"></i><a
+										href="single.html">管理员</a></li>
+								</ul>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="posts-grid w3-posts-grid">
+							<div class="posts-grid-left w3-posts-grid-left">
+								<a href="single.html"><img src="images/7.jpg" alt=" "
+									class="img-responsive" /></a>
+							</div>
+							<div class="posts-grid-right w3-posts-grid-right">
+								<h4>
+									<a href="single.html">零件库更新通知</a>
+								</h4>
+								<ul class="wthree_blog_events_list">
+									<li><i class="fa fa-calendar" aria-hidden="true"></i>13/5/2017</li>
+									<li><i class="fa fa-user" aria-hidden="true"></i><a
+										href="single.html">管理员</a></li>
+								</ul>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
 				<nav class="paging1 agileits-w3layouts-paging1">
 					<ul class="pagination paging w3-agileits-paging">
 						<li><a href="#" aria-label="Previous"> <span
@@ -93,88 +159,26 @@
 						</a></li>
 					</ul>
 				</nav>
-			</div>
-			<div class="col-md-4 event-right wthree-event-right">
-				<div class="event-right1 agileinfo-event-right1">
-					<div class="search1 agileits-search1">
-						<form action="#" method="post">
-							<input type="search" name="Search" placeholder="搜索文章/通知"
-								required=""> <input type="submit" value="检索">
-						</form>
-					</div>
-					<div class="posts w3l-posts">
-						<h3>通知</h3>
-						<div class="posts-grids w3-posts-grids">
-							<div class="posts-grid w3-posts-grid">
-								<div class="posts-grid-left w3-posts-grid-left">
-									<a href="single.html"><img src="images/1.jpg" alt=" "
-										class="img-responsive" /></a>
-								</div>
-								<div class="posts-grid-right w3-posts-grid-right">
-									<h4>
-										<a href="single.html">维修场次变更通知</a>
-									</h4>
-									<ul class="wthree_blog_events_list">
-										<li><i class="fa fa-calendar" aria-hidden="true"></i>10/5/2017</li>
-										<li><i class="fa fa-user" aria-hidden="true"></i><a
-											href="single.html">管理员</a></li>
-									</ul>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="posts-grid w3-posts-grid">
-								<div class="posts-grid-left w3-posts-grid-left">
-									<a href="single.html"><img src="images/6.jpg" alt=" "
-										class="img-responsive" /></a>
-								</div>
-								<div class="posts-grid-right w3-posts-grid-right">
-									<h4>
-										<a href="single.html">维修场地变更通知</a>
-									</h4>
-									<ul class="wthree_blog_events_list">
-										<li><i class="fa fa-calendar" aria-hidden="true"></i>12/5/2017</li>
-										<li><i class="fa fa-user" aria-hidden="true"></i><a
-											href="single.html">管理员</a></li>
-									</ul>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="posts-grid w3-posts-grid">
-								<div class="posts-grid-left w3-posts-grid-left">
-									<a href="single.html"><img src="images/7.jpg" alt=" "
-										class="img-responsive" /></a>
-								</div>
-								<div class="posts-grid-right w3-posts-grid-right">
-									<h4>
-										<a href="single.html">零件库更新通知</a>
-									</h4>
-									<ul class="wthree_blog_events_list">
-										<li><i class="fa fa-calendar" aria-hidden="true"></i>13/5/2017</li>
-										<li><i class="fa fa-user" aria-hidden="true"></i><a
-											href="single.html">管理员</a></li>
-									</ul>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-					</div>
-					<div class="tags tags1 w3layouts-tags">
-						<h3>关键词检索</h3>
-						<ul>
-							<li><a href="single.html">网络故障</a></li>
-							<li><a href="single.html">无法开机</a></li>
-							<li><a href="single.html">蓝屏</a></li>
-							<li><a href="single.html">自动重启</a></li>
-							<li><a href="single.html">病毒常识</a></li>
-							<li><a href="single.html">系统变慢</a></li>
-						</ul>
-					</div>
+				<div class="tags tags1 w3layouts-tags">
+					<h3>关键词检索</h3>
+					<ul>
+						<li><a href="single.html">网络故障</a></li>
+						<li><a href="single.html">无法开机</a></li>
+						<li><a href="single.html">蓝屏</a></li>
+						<li><a href="single.html">自动重启</a></li>
+						<li><a href="single.html">病毒常识</a></li>
+						<li><a href="single.html">系统变慢</a></li>
+					</ul>
 				</div>
 			</div>
-			<div class="clearfix"></div>
 		</div>
+		<div class="clearfix"></div>
 	</div>
 
+	<%@include file="注册弹窗.jsp"%>
+	<%@include file="个人信息修改弹窗.jsp"%>
+	<%@include file="登录弹窗.jsp"%>
+	<%@include file="退出登录弹窗.jsp"%>
 	<%@include file="动态js代码.jsp"%>
 </body>
 </html>
