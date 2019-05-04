@@ -94,7 +94,7 @@ public class RepairingReservationServlet extends BaseServlet {
         List<Equipment> equipments = equipmentDAO.listEquipmentsByUser(userId);
         request.setAttribute("equipments", equipments);
         
-        return "make-a-reservation-2.jsp";
+        return "预约2.jsp";
     }
 
     /**

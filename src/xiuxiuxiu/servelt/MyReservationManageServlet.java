@@ -39,7 +39,7 @@ public class MyReservationManageServlet extends HttpServlet {
 		ReservationDAO reservationDao = new ReservationDAOImpl();
 		reservationList = reservationDao.List(student.getID());
 		request.setAttribute("ReservationList", reservationList);
-		request.getRequestDispatcher("MyReservationManage.jsp").forward(request, response);
+		request.getRequestDispatcher("预约管理.jsp").forward(request, response);
 
 	}
 
