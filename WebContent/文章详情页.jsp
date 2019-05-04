@@ -57,23 +57,12 @@
 			<div class="col-md-8 single-left">
 				<div class="single-left1">
 					<img src="images/banner2.jpg" alt=" " class="img-responsive" />
-					<h3>Sed ut perspiciatis unde omnis iste natus error sit facilisis erat posuere erat</h3>
+					
 					<ul>
-						<li><span class="fa fa-user" aria-hidden="true"></span><a href="#">Michael Smith</a></li>
+						<li><h3>${article.title}</h3><span class="fa fa-user" aria-hidden="true"></span><a href="#">${article.authorName}</a></li>
 						
 					</ul>
-					<p>In consectetur, elit in scelerisque malesuada, tellus leo viverra massa, 
-						nec malesuada turpis lectus ac urna. Suspendisse ut neque orci. Phasellus tellus 
-						diam, pulvinar sit amet elit sit amet, fermentum viverra eros. Praesent neque purus, 
-						rhoncus nec nibh non, mollis sodales odio. Nullam facilisis diam non magna porta 
-						luctus. Aenean facilisis erat posuere erat ornare ultrices. Aliquam ac arcu interdum, 
-						dapibus nibh convallis, semper augue.
-						<i>Nunc a urna turpis. Aenean vestibulum elementum nisi. Aenean aliquet nec mi et 
-							lacinia. Aliquam maximus iaculis mi elit in scelerisque malesuada, tellus leo viverra massa, sed efficitur orci efficitur nec.</i>
-							In consectetur, elit in scelerisque malesuada, tellus leo viverra massa, 
-						nec malesuada turpis lectus ac urna. Suspendisse ut neque orci. Phasellus tellus 
-						diam, pulvinar sit amet elit sit amet, fermentum viverra eros. Praesent neque purus, 
-						rhoncus nec nibh non, mollis sodales odio.</p>
+					<p>${article.text}</p>
 				</div>
 				<div class="admin">
 					<p>CPU的性能是引起死机的一个常见原因，如果CPU的温度过高就会导致死机或重启现象，可考虑更换一个好的散热风扇，解决CPU温度过高导致的情况。 </p>

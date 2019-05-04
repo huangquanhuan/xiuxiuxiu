@@ -69,6 +69,14 @@
 						</div>
 						<div class="clearfix"></div>
 					</div>
+          <div class="col-xs-6 event-left1-right w3-agileits-event-left1-right">
+						<h4>${article.time}</h4>
+						<h5><a href="ArticleServlet?type=single&id=${article.id}">${article.title}</a></h5>
+						<p>${article.authorName}</p>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+
 				</c:forEach>
 				<nav class="paging1 agileits-w3layouts-paging1">
 					<ul class="pagination paging w3-agileits-paging">
