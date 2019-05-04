@@ -53,7 +53,7 @@ public class StudentServlet extends HttpServlet {
 		RequestDispatcher rd;
 		student.setPhoneNumber(request.getParameter("phonenumber"));
 		student.setPassword(request.getParameter("password"));
-
+		
 		if (student.getPhoneNumber().length() < 1) {
 			request.setAttribute("err", "请输入登录名！");
 			// 获取转发对象
@@ -75,14 +75,14 @@ public class StudentServlet extends HttpServlet {
 			rd.forward(request, response);
 		} else {
 			// 登陆成功
+			
 			HttpSession session = request.getSession(true);
-			session.setAttribute("name", student.getPhoneNumber());
+			student = StudentDAO.get(student.getPhoneNumber(), student.getPassword());
+			session.setAttribute("name", student);
+			
 			//登录成功后刷新首页维修活动
 			//后续需要跳转到HomePageServlet
 			request.getRequestDispatcher("/HomePageServlet").forward(request,response);
-			//rd = request.getRequestDispatcher("首页.jsp");
-			// 转发请求
-			//rd.forward(request, response);
 		}
 
 	}
