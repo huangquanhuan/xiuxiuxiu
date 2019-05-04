@@ -19,6 +19,7 @@ import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import com.sun.nio.sctp.MessageInfo;
 
 import java.io.IOException;
+import java.rmi.dgc.Lease;
 import java.util.List;
 
 @WebServlet(name = "StudentServlet", urlPatterns = { "/StudentServlet" })
@@ -34,12 +35,15 @@ public class StudentServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 
 			if (request.getParameter("type") != null) {
-				if (request.getParameter("type").equals("login"))
+				if (request.getParameter("type").equals("login")) {
 					login(request, response);
-				if (request.getParameter("type").equals("register"))
-					register(request, response);
-				if (request.getParameter("type").equals("exit"))
+				}
+				else if (request.getParameter("type").equals("register")) {
+				    register(request, response);
+				}
+				else if (request.getParameter("type").equals("exit")) {
 					exit(request, response);
+				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

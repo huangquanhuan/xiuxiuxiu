@@ -13,7 +13,7 @@ import xiuxiuxiu.pojo.*;
 import xiuxiuxiu.util.DBUtil;
 
 public class RepairActivityDAOImpl implements RepairActivityDAO {
-
+    @Override
 	public void addRepairActivity(String time, String place) {
 		// TODO Auto-generated method stub
 		String sql = "insert into repair_activity(time,place) values(? ,? )";
@@ -32,6 +32,7 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 		}
 	}
 
+    @Override
 	public void deleteRepairActivity(int id) {
 		// TODO Auto-generated method stub
 		String sql = "delete from reservation where id = ?";
@@ -48,6 +49,7 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 		}
 	}
 
+    @Override
 	public void updateRepairActivity(int id, String time, String place) {
 		// TODO Auto-generated method stub
 		String sql = "update repair_activity set time=?,place=? where id=?";
@@ -66,6 +68,7 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 		}
 	}
 
+    @Override
 	public RepairActivity getRepairActivity(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select time,place,manager_id from repair_activity where id = ?";
@@ -118,7 +121,8 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
             return null;
         }
     }
-
+    
+    @Override
 	public boolean isRepairActivityExist(int id) {
 		String sql = "select id,time,place,manager_id from repair_activity where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -135,7 +139,8 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 			return false;
 		}
 	}
-
+    
+    @Override
 	public List<RepairActivity> ListAll() {
 		List<RepairActivity> repairActivityList = new ArrayList<RepairActivity>();
 		String sql = "select id,time,place,manager_id from repair_activity";

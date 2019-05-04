@@ -111,6 +111,7 @@ public class SqlDAOImpl implements SqlDAO {
      * (non-Javadoc)
      * @see dao.DAO#getStudent(java.lang.String, java.lang.String)
      */
+    @Override
     public Student getStudent(int id, String password) {
         String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from user where user_id = ? and password = ?";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {

@@ -10,7 +10,7 @@ import java.util.List;
 import xiuxiuxiu.util.DBUtil;
 
 public class ReservationImgUrlDAOImpl implements ReservationImgUrlDAO{
-
+    @Override
 	public void addReservationImgUrl(String imgUrl, int reservationID) {
 		String sql = "insert into reservation_img_url(img_url,reservation_id) values(?,?)";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -27,7 +27,7 @@ public class ReservationImgUrlDAOImpl implements ReservationImgUrlDAO{
 		}
 	}
 
-
+    @Override
 	public void delete(int reservationID) {
 		String sql = "delete from reservation_img_url where reservation_id =?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -43,7 +43,7 @@ public class ReservationImgUrlDAOImpl implements ReservationImgUrlDAO{
 		}
 	}
 
-
+    @Override
 	public void updateReservationImgUrl(int id) {
 		// TODO Auto-generated method stub
 		String sql="update repair_activity set id=?";
@@ -60,7 +60,7 @@ public class ReservationImgUrlDAOImpl implements ReservationImgUrlDAO{
 		}
 	}
 
-
+    @Override
 	public String getReservationImgUrl(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select img_url from reservation_img_url where id = ?";
@@ -81,7 +81,7 @@ public class ReservationImgUrlDAOImpl implements ReservationImgUrlDAO{
 		}
 	}
 
-
+    @Override
 	public int getReservationImgUrlOwnerID(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select reservation_id from reservation_img_url where id = ?";
