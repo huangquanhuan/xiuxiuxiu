@@ -1,19 +1,16 @@
 <%--
-    make-a-reservation-1.jsp
-    用户端预约界面（第一步：确认个人信息）
+    reserve-result.jsp
+    预约提交成功后的页面
     author: 刘忠燏
  --%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="" />
-    <title>维修预约 - 第一步</title>
-    
+    <title>预约结果</title>
     <script type="application/x-javascript">
       addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
@@ -35,6 +32,7 @@
     <link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i" rel="stylesheet" />
   </head>
   <body>
+    <!-- 页面的头部导航：开始（这部分只是占位符，之后统一更换） -->
     <div class="agileits_w3layouts_banner_nav">
       <nav class="navbar navbar-default">
         <div class="navbar-header navbar-left">
@@ -69,51 +67,19 @@
               <li><a href="contact.html" class="hvr-underline-from-center">Contact</a></li>
             </ul>
           </nav>
-
         </div>
       </nav>
-
       <div class="clearfix"> </div>
     </div>
+    <!-- 页面的头部导航：结束 -->
     
     <!-- 主体内容：开始 -->
     <div class="services">
       <div class="container">
-        <h1>第一步：基本信息</h1>
-        <p>个人基本信息必须与本人账户对应，不提供修改</p>
-        <br />
-        
-        <form class="form-horizontal" action="*" method="post" role="form">
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="name">姓名</label>
-            <div class="col-sm-10">
-              <input class="form-control" type="text" id="name" name="name" value="${user.name}" readonly />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="studentId">学号</label>
-            <div class="col-sm-10">
-              <input class="form-control" type="text" id="studentId" name="studentId" value="${user.studentID}" readonly />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="contact">联系方式</label>
-            <div class="col-sm-10">
-              <input class="form-control" type="tel" id="contact" name="contact" value="${user.phoneNumber}" readonly />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="address">地址</label>
-            <div class="col-sm-10">
-              <input class="form-control" type="text" id="address" name="contact" value="${user.address}" readonly />
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <a href="make-a-reservation-2.jsp" class="label label-success">下一步</a>
-            </div>
-          </div>
-        </form>
+        <div class="alert alert-info">
+          <p>${message}</p>
+        </div>
+        <a href="${backLink}" class="btn btn-lg btn-primary">返回</a>
       </div>
     </div>
     <!-- 主体内容：结束 -->
@@ -142,33 +108,25 @@
 
     <!-- //js -->
     <script src="js/bars.js"></script>
-
     <script type="text/javascript" src="js/jquery.slicebox.js"></script>
     <script type="text/javascript">
       $(function () {
-
         var Page = (function () {
-
           var $navArrows = $('#nav-arrows').hide(),
             $navDots = $('#nav-dots').hide(),
             $nav = $navDots.children('span'),
             $shadow = $('#shadow').hide(),
             slicebox = $('#sb-slider').slicebox({
               onReady: function () {
-
                 $navArrows.show();
                 $navDots.show();
                 $shadow.show();
-
               },
               onBeforeChange: function (pos) {
-
                 $nav.removeClass('nav-dot-current');
                 $nav.eq(pos).addClass('nav-dot-current');
-
               }
             }),
-
             init = function () {
               initEvents();
             },
@@ -182,7 +140,6 @@
                 slicebox.previous();
                 return false;
               });
-
               $nav.each(function (i) {
                 $(this).on('click', function (event) {
                   var $dot = $(this);

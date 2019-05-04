@@ -38,7 +38,7 @@ public interface ReservationDAO {
      */
 	Reservation getReservation(int id);
 	/**
-	 * List() - 根据学生id查找对应的预约单
+	 * List() - 根据学生id查找对应的预约单列表
 	 * 
      *@return 该学生的预约单(对象)列表
      */

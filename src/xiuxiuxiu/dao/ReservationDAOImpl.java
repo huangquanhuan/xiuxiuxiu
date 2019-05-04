@@ -20,9 +20,11 @@ public class ReservationDAOImpl implements ReservationDAO {
 		String sql = "insert into reservation(state,user_id,application_type,application_time,required_time"
 				+ ",place,repair_activity_id,equipment_id,repair_type,detail,remark,feedback) values(? ,? ,? ,? ,? ,? ,? ,?,?,?,?,?)";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+
 			ps.setInt(1, reservation.getStateInt());
 			ps.setInt(2, reservation.getUserID());
 			ps.setInt(3, reservation.getApplicationTypeInt());
+
 			ps.setString(4, reservation.getApplicationTime());
 			ps.setString(5, reservation.getRequiredTime());
 			ps.setString(6, reservation.getPlace());
@@ -86,8 +88,10 @@ public class ReservationDAOImpl implements ReservationDAO {
 				+ "required_time=?,place=?,repair_activity_id=?,equipment_id=?,repair_type=?,detail=?,remark=?,feedback=? where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setInt(1, reservation.getUserID());
+
 			ps.setInt(2, reservation.getStateInt());
 			ps.setInt(3, reservation.getApplicationTypeInt());
+
 			ps.setString(4, reservation.getApplicationTime());
 			ps.setString(5, reservation.getRequiredTime());
 			ps.setString(6, reservation.getPlace());
@@ -144,7 +148,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 				reservation.setState(rs.getInt("state"));
 				reservation.setUserID(rs.getInt("user_id"));
 				reservation.setApplicationType(rs.getInt("application_type"));
-				reservation.setApplicationTime(rs.getString("equipment_id"));
+				reservation.setApplicationTime(rs.getString("application_time"));
 				reservation.setRequiredTime(rs.getString("required_time"));
 				reservation.setPlace(rs.getString("place"));
 				reservation.setRepairActivityID(rs.getInt("repair_activity_id"));

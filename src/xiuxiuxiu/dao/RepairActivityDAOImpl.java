@@ -95,6 +95,29 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 			return null;
 		}
 	}
+	
+    @Override
+    public RepairActivity get(Integer id) {
+        String sql = "select id, time,place,manager_id from repair_activity where id = ?";
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setLong(1,id);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()) {
+                RepairActivity activity = new RepairActivity();
+                activity.setID(rs.getInt("id"));
+                activity.setTime(rs.getString("time"));
+                activity.setPlace(rs.getString("place"));
+                activity.setManagerID(rs.getInt("manager_id"));
+                return activity;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 	public boolean isRepairActivityExist(int id) {
 		String sql = "select id,time,place,manager_id from repair_activity where id=?";
@@ -133,4 +156,25 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 			return null;
 		}
 	}
+	
+    @Override
+    public List<RepairActivity> listRecentActivities(int numberOfActivities) {
+        String sql = "select `id`, `time`, `place`, `manager_id` from `repair_activity` order by `id` desc limit ?";
+        List<RepairActivity> activities = new ArrayList<RepairActivity>();
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, numberOfActivities);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                RepairActivity activity = new RepairActivity();
+                activity.setID(rs.getInt("id"));
+                activity.setTime(rs.getString("time"));
+                activity.setPlace(rs.getString("place"));
+                activity.setManagerID(rs.getInt("manager_id"));
+                activities.add(activity);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return activities;
+    }
 }
