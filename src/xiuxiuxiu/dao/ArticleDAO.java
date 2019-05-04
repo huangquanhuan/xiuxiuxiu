@@ -45,16 +45,19 @@ public interface ArticleDAO {
      *
      * @return 相应id的文章详细信息
      */
-	public Article getArtice(int id);
+	Article getArtice(int id);
 	/**
      *@return 一个包含文章对象的List
      * 
      */
-
-	public List<Article> searchArticle(String str);//返回id的List
+	List<Article> searchArticle(String str);//返回id的List
 	
+	List<Article> list();
+	
+
 	public List<Article> getList(); //获取文章列表
 
 	public List<Article> list(int start,int count);
 	public List<Article> list();
+
 }
