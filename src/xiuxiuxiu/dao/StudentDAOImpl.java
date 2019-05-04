@@ -14,12 +14,13 @@ import xiuxiuxiu.util.DBUtil;
 public class StudentDAOImpl implements StudentDAO {
 
 	public void add(Student bean) {
-		String sql = "insert into student(password,name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
+		String sql = "insert into student(password,user_name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setString(1, bean.getPassword());
 			ps.setString(2, bean.getName());
 			ps.setString(3, bean.getPhoneNumber());
-			ps.setInt(4, bean.getAccessLevel());
+	 		//设置用户等级，目前默认为0
+			ps.setInt(4, 0);
 			ps.setString(5, bean.getStudentID());
 			ps.setString(6, bean.getAddress());
 			ps.setString(7, bean.getEmail());
@@ -129,7 +130,7 @@ public class StudentDAOImpl implements StudentDAO {
      * @return 如果找到，返回 Student 实例，否则返回 null
 	 */
 	public Student get(String phoneNumber, String password) {
-		String sql = "select id,name,password,phone_number,access_level,student_id,address,e_mail from student where phone_number = ? and password = ?";
+		String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from student where phone_number = ? and password = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setString(1, phoneNumber);
 			ps.setString(2, password);
@@ -138,8 +139,8 @@ public class StudentDAOImpl implements StudentDAO {
 			if (rs.next()) {
 				EquipmentDAO equipmentDao = new EquipmentDAOImpl();
 				Student bean = new Student();
-				bean.setID(rs.getInt("id"));
-				bean.setName(rs.getString("name"));
+				bean.setID(rs.getInt("user_id"));
+				bean.setName(rs.getString("user_name"));
 				bean.setPassword(rs.getString("password"));
 				bean.setPhoneNumber(rs.getString("phone_number"));
 				bean.setAccessLevel(rs.getInt("access_level"));
@@ -149,7 +150,7 @@ public class StudentDAOImpl implements StudentDAO {
 				bean.setEquipment(equipmentDao.List(bean.getID()));// 根据学生id获取设备id列表并将列表set进该学生的信息中
 				return bean;
 			} else {
-				System.out.println("用户不存在或密码错误");
+				System.out.println("用户不存在");
 				return null;
 			}
 		} catch (SQLException e) {
