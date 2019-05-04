@@ -81,6 +81,10 @@ public class ComponentServlet extends HttpServlet {
             list(request, response); // 客户端跳转
         }
     }
+    
+     void reservationShow (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+     
+     }
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) {
@@ -91,6 +95,8 @@ public class ComponentServlet extends HttpServlet {
             } else if (method.equals("update")) {
                 update(request, response);
             } else if (method.equals("delete")) {
+                delete(request, response);
+            } else if (method.equals("reservationShow")) {
                 delete(request, response);
             } else {
                 list(request, response);
