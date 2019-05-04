@@ -17,6 +17,8 @@
 <script type="application/x-javascript">
 	
 	
+	
+	
 		addEventListener("load", function () {
 			setTimeout(hideURLbar, 0);
 		}, false);
@@ -25,6 +27,8 @@
 			window.scrollTo(0, 1);
 		}
 	
+
+
 
 
 </script>
@@ -225,11 +229,13 @@
 			</div>
 		</div>
 	</div>
-
 	<%@include file="注册弹窗.jsp"%>
 	<%@include file="个人信息修改弹窗.jsp"%>
 	<%@include file="登录弹窗.jsp"%>
 	<%@include file="退出登录弹窗.jsp"%>
 	<%@include file="动态js代码.jsp"%>
+	<%@include file="错误提示窗口.jsp"%>
+
+
 </body>
 </html>
