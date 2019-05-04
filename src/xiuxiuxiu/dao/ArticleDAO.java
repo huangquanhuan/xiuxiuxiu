@@ -55,6 +55,6 @@ public interface ArticleDAO {
 	
 	public List<Article> getList(); //获取文章列表
 
-	List<Article> list(int start,int count);
-
+	public List<Article> list(int start,int count);
+	public List<Article> list();
 }
