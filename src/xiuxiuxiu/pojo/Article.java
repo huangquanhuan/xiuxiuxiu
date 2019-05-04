@@ -1,5 +1,11 @@
 package xiuxiuxiu.pojo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import xiuxiuxiu.util.DBUtil;
 public class Article {
     //文章id
     private int id;
@@ -95,4 +101,24 @@ public class Article {
         this.time = a.time;
         return this;
     }
+    public int getid(String authorName) {
+		String sql ="select id from manger where name = ?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setString(1, authorName);
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			if (rs.next()) {
+				int id=rs.getInt("id");
+				System.out.println("cao"+id);
+				return id;
+			} else {
+				System.out.println("该id不存在！！");
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+	}
 }
