@@ -4,7 +4,6 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 
 
-<!doctype html>
 
 <!-- 个人信息修改弹出页窗内容 -->
 <div class="modal" id="changeinfo-data" tabindex="-1" role="dialog"
