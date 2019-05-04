@@ -1,4 +1,4 @@
-<%-- <%@page import="xiuxiuxiu.pojo.*,xiuxiuxiu.dao.*"%> --%>
+
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ page import="java.io.*,java.util.*"%>
@@ -30,9 +30,6 @@
 			window.scrollTo(0, 1);
 		}
 	
-
-
-
 </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -48,6 +45,7 @@
 <link
 	href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
 	rel="stylesheet">
+
 
 </head>
 
@@ -231,8 +229,6 @@
 		</div>
 	</div>
 
-	
 	<%@include file="动态js代码.jsp"%>
-	<!-- //here ends scrolling icon -->
 </body>
 </html>

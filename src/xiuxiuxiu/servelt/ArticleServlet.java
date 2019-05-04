@@ -43,10 +43,14 @@ public class ArticleServlet extends HttpServlet {
 
 			if (request.getParameter("page.start") != null)
 				list(request, response, page);
-			if (request.getParameter("type") != null) {	
+			if (request.getParameter("type") != null) 
+			{	
 			if (request.getParameter("type").equals("list"))
 					list(request, response, page);
+			if(request.getParameter("type").equals("single"))
+				single(request,response,page);
 			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,6 +71,18 @@ public class ArticleServlet extends HttpServlet {
 		// 获取转发对象
 		rd = request.getRequestDispatcher("文章&通知.jsp");
 		// 转发请求
+		rd.forward(request, response);
+	}
+	
+	//用户点击进入详细文章页面
+	public void single(HttpServletRequest request, HttpServletResponse response, Page page)
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		System.out.print(id);
+		article = articleDAO.getArticle(id);
+		request.setAttribute("article", article);
+		RequestDispatcher rd;
+		rd = request.getRequestDispatcher("文章详情页.jsp");
 		rd.forward(request, response);
 	}
 

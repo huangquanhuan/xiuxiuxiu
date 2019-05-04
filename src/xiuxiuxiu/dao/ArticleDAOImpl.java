@@ -20,7 +20,11 @@ public class ArticleDAOImpl implements ArticleDAO{
 		// TODO Auto-generated method stub
 				String sql = "insert into article(author_id,author_name,title,text,time) values(? ,? ,? ,? ,? )";
 				try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-					//ps.setString(1, article.getID()); 
+					ps.setInt(1, article.getAuthorId()); 
+					ps.setString(2, article.getAuthorName());
+					ps.setString(3, article.getTitle());
+					ps.setString(4, article.getText());
+					ps.setString(5, article.getTime());
 					ps.execute();
 					ResultSet rs = ps.getGeneratedKeys();
 					if (rs.next()) {
@@ -50,13 +54,20 @@ public class ArticleDAOImpl implements ArticleDAO{
 		// TODO Auto-generated method stub
 		String sql = "update article set author_id=?,author_name=?,title=?,text=?,time=? where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			//ps.setString(1, article.getName());
+			
+			ps.setInt(1, article.getAuthorId());
+			ps.setString(2, article.getAuthorName());
+			ps.setString(3, article.getTitle());
+			ps.setString(4, article.getText());
+			ps.setString(5, article.getTime());
+			ps.setInt(6, article.getId());
 			ps.execute();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
 
 
 	public Article getArtice(int id) {
@@ -68,7 +79,12 @@ public class ArticleDAOImpl implements ArticleDAO{
 			ResultSet rs = ps.getResultSet();
 			if (rs.next()) {
 				Article article=new Article();
-				//article.setID(rs.getString("id"));
+				article.setId(rs.getInt("id"));
+				article.setAuthorName(rs.getString("author_name"));
+				article.setText(rs.getString("text"));
+				article.setTitle(rs.getString("title"));
+				article.setAuthorId(rs.getInt("author_id"));
+				article.setTime(rs.getString("time"));
 				return article;
 			} else {
 				System.out.println("该id不存在！！");
@@ -130,9 +146,11 @@ public class ArticleDAOImpl implements ArticleDAO{
             	Article bean = new Article();
             	if( n>=start && n<(start+count) )
             	{
+            		bean.setId(rs.getInt(1));
             		bean.setTime(rs.getString(6));
                		bean.setTitle(rs.getString(4));
             		bean.setAuthorName(rs.getString(3));
+            		bean.setText(rs.getString(5));
             		articleList.add(bean);
             	}          
             	n++;
