@@ -166,4 +166,28 @@ public class ArticleDAOImpl implements ArticleDAO{
         }
         return null;
 	}
+	public List<Article> getList() {
+		// TODO Auto-generated method stub
+				String sql = "select id,author_id,author_name,title,text,time from article ORDER BY id";
+				List<Article> articleList = new ArrayList<Article>();
+				try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+					ps.execute();
+					ResultSet rs = ps.getResultSet();
+					while (rs.next()) {
+						Article article = new Article();
+						//reservation.setID(rs.getString("user_id"));
+						article.setId(rs.getInt("id"));
+						article.setAuthorId(rs.getInt("author_id"));
+						article.setAuthorName(rs.getString("author_name"));
+						article.setTitle(rs.getString("title"));
+						article.setText(rs.getString("text"));
+						article.setTime(rs.getString("time"));
+						articleList.add(article);
+					}
+					return articleList;
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+		}
 }
