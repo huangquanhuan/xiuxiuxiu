@@ -3,6 +3,8 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ page import="java.io.*,java.util.*" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@include file="注册弹窗.jsp"%>
+<%@include file="个人信息修改弹窗.jsp"%>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -105,34 +107,33 @@
 		</div>
 	</div>
 	</div>
-													<!-- //Modal1 -->	
-													<!-- Modal2 -->
-													<div class="modal fade" id="myModal3" tabindex="-1" role="dialog">
-														<div class="modal-dialog">
-														<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+<!-- 													注册Modal -->
+<!-- 													<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"> -->
+<!-- 														<div class="modal-dialog"> -->
+<!-- 														Modal content -->
+<!-- 															<div class="modal-content"> -->
+<!-- 																<div class="modal-header"> -->
+<!-- 																	<button type="button" class="close" data-dismiss="modal">&times;</button> -->
 																	
-																	<div class="signin-form profile">
-																	<h3 class="agileinfo_sign">注册</h3>	
-																			<div class="register-form">
-																				<form class="registerForm" action="StudentServlet?type=register" method="post">
-																				   <input id="name"type="text" name="name" placeholder="姓名" required="required">
-																					<input id="phonenumber"type="text" name="phonenumber" placeholder="手机号码" required="required">
-																					<input id="address"type="text" name="address" placeholder="地址(例如：1#101)" required="required">
-																					<input id="password"type="password" name="password" placeholder="密码" required="required">
-				                                                                    <input type="password" name="password" id="password2" placeholder="确认密码" required="required">
+<!-- 																	<div class="signin-form profile"> -->
+<!-- 																	<h3 class="agileinfo_sign">注册</h3>	 -->
+<!-- 																			<div class="register-form"> -->
+<!-- 																				<form class="registerForm" action="StudentServlet?type=register" method="post"> -->
+<!-- 																				   <input id="name"type="text" name="name" placeholder="姓名" required="required"> -->
+<!-- 																					<input id="phonenumber"type="text" name="phonenumber" placeholder="手机号码" required="required"> -->
+<!-- 																					<input id="address"type="text" name="address" placeholder="地址(例如：1#101)" required="required"> -->
+<!-- 																					<input id="password"type="password" name="password" placeholder="密码" required="required"> -->
+<!-- 				                                                                    <input type="password" name="password" id="password2" placeholder="确认密码" required="required"> -->
 
-																					<input type="submit" value="注册">
-																				</form>
-																			</div>
+<!-- 																					<input type="submit" value="注册"> -->
+<!-- 																				</form> -->
+<!-- 																			</div> -->
 																			
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>
+<!-- 																		</div> -->
+<!-- 																</div> -->
+<!-- 															</div> -->
+<!-- 														</div> -->
+<!-- 													</div> -->
 													<div class="modal fade" id="myModal6" tabindex="-1" role="dialog">
 														<div class="modal-dialog">
 														<!-- Modal content-->
@@ -153,70 +154,7 @@
 															</div>
 														</div>
 													</div>
-	<div class="modal" id="changeinfo-data" tabindex="-1" role="dialog"
-		aria-labelledby="mySmallModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form role="form" action="..." method="post"
-					class="registration-form">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title">个人信息修改</h4>
-					</div>
-					<div class="modal-body">
-						<!-- Top content -->
-						<div class="top-content">
-							<div class="row">
-								<div class="col-sm-8 col-sm-offset-2 text">
-									<div class="description">
-										<h3>13123191995</h3>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-6 col-sm-offset-3 form-box">
-									<div class="table-responsive">
-										<table class="table">
-											<tr>
-												<td>姓名</td>
-												<td><input type="text" name="name"
-													placeholder="${user.getName()}" class="form-control">
-												</td>
-											</tr>
-											<tr>
-												<td>学号</td>
-												<td><input type="text" name="name"
-													placeholder="${user.getStudentID()}" class="form-control"></td>
-											</tr>
-											<tr>
-												<td>邮箱</td>
-												<td><input type="text" name="name"
-													placeholder="${user.getEmail()}" class="form-control">
-												</td>
-											</tr>
-											<tr>
-												<td>地址</td>
-												<td><input type="text" name="name"
-													placeholder="${user.getAddress()}" class="form-control">
-												</td>
-											</tr>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
 
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="submit" class="btn btn-success">确认修改</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 	<!-- //Modal2 -->
 
 	<div class="banner">
