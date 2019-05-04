@@ -59,7 +59,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 	}
 
 
-	public Article getArtice(int id) {
+	public Article getArticle(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select id,author_id,author_name,title,text,time from article where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -68,7 +68,12 @@ public class ArticleDAOImpl implements ArticleDAO{
 			ResultSet rs = ps.getResultSet();
 			if (rs.next()) {
 				Article article=new Article();
-				//article.setID(rs.getString("id"));
+				article.setId(rs.getInt("id"));
+				article.setAuthorName(rs.getString("author_name"));
+				article.setText(rs.getString("text"));
+				article.setTitle(rs.getString("title"));
+				article.setAuthorId(rs.getInt("author_id"));
+				article.setTime(rs.getString("time"));
 				return article;
 			} else {
 				System.out.println("该id不存在！！");
@@ -130,9 +135,11 @@ public class ArticleDAOImpl implements ArticleDAO{
             	Article bean = new Article();
             	if( n>=start && n<(start+count) )
             	{
+            		bean.setId(rs.getInt(1));
             		bean.setTime(rs.getString(6));
                		bean.setTitle(rs.getString(4));
             		bean.setAuthorName(rs.getString(3));
+            		bean.setText(rs.getString(5));
             		articleList.add(bean);
             	}          
             	n++;

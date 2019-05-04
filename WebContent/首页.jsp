@@ -1,4 +1,5 @@
 <%@page import="xiuxiuxiu.pojo.RepairActivity"%>
+<%@page import="xiuxiuxiu.pojo.User" %>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ page import="java.io.*,java.util.*" %>
@@ -62,13 +63,15 @@
 						<li><a href="预约.jsp" class="hvr-underline-from-center">预约</a></li>
 						<li><a href="ArticleServlet?type=list" class="hvr-underline-from-center">文章&通知</a></li>
 						<li class="dropdown">
-            			<a href="#" class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown">我的<b class="fa fa-caret-down"></b></a>
-            			<ul class="dropdown-menu agile_short_dropdown">
-             			<li><a href="icons.html">姓名</a></li>
-              			<li><a href="icons.html">学号</a></li>
-              			<li><a href="icons.html">手机号</a></li>
-              			<li><a href="icons.html">邮箱</a></li>
-              			<li><a href="icons.html">地址</a></li>
+            			<a id="my_messsage" href="#" class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown">我的信息<b class="fa fa-caret-down"></b></a>
+            			<ul id="my_message" class="dropdown-menu agile_short_dropdown">
+						<%User user=(User)session.getAttribute("name"); %>
+						<%String name="null",tel="null",address="null";%>
+						<%if (session.getAttribute("name")!=null){%>
+						<%name=user.getName();tel=user.getPhoneNumber();address=user.getAddress();}%>
+             			<li><a href="icons.html">姓名:<%= name%></a></li>
+              			<li><a href="icons.html">手机号:<%= tel%></a></li>
+              			<li><a href="icons.html">地址:<%= address%></a></li>
               			<li><a class="active" data-toggle="modal" data-target="#changeinfo-data" href="#"  id="update" >修改个人信息</a></li>
 		                <li><a class="active" href="预约管理.jsp"  id="appointment" >预约管理</a></li>
            				</ul>
@@ -518,6 +521,11 @@
 				    $(this).hide();
 				  }
 				);
+				$("#my_messsage").toggle( 
+						  function () {
+						    $(this).hide();
+						  }
+						);
 	});
 </script>
   <%}else {%>
