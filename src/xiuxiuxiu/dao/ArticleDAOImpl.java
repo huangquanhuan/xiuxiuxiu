@@ -20,7 +20,11 @@ public class ArticleDAOImpl implements ArticleDAO{
 		// TODO Auto-generated method stub
 				String sql = "insert into article(author_id,author_name,title,text,time) values(? ,? ,? ,? ,? )";
 				try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-					//ps.setString(1, article.getID()); 
+					ps.setInt(1, article.getAuthorId()); 
+					ps.setString(2, article.getAuthorName());
+					ps.setString(3, article.getTitle());
+					ps.setString(4, article.getText());
+					ps.setString(5, article.getTime());
 					ps.execute();
 					ResultSet rs = ps.getGeneratedKeys();
 					if (rs.next()) {
@@ -50,16 +54,23 @@ public class ArticleDAOImpl implements ArticleDAO{
 		// TODO Auto-generated method stub
 		String sql = "update article set author_id=?,author_name=?,title=?,text=?,time=? where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			//ps.setString(1, article.getName());
+			
+			ps.setInt(1, article.getAuthorId());
+			ps.setString(2, article.getAuthorName());
+			ps.setString(3, article.getTitle());
+			ps.setString(4, article.getText());
+			ps.setString(5, article.getTime());
+			ps.setInt(6, article.getId());
 			ps.execute();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 
-	public Article getArticle(int id) {
+
+	public Article getArtice(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select id,author_id,author_name,title,text,time from article where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {

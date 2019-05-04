@@ -37,6 +37,7 @@ public class ArticlesServlet extends HttpServlet {
 
     void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
+    	request.setCharacterEncoding("UTF-8");
         String title = request.getParameter("title");
         String authorName = request.getParameter("authorName");
         String text = request.getParameter("text");
@@ -47,6 +48,9 @@ public class ArticlesServlet extends HttpServlet {
         Article article = new Article();
         article.setTitle(title);
         article.setAuthorName(authorName);
+        int id=article.getid(authorName);
+        System.out.println(id);
+        article.setAuthorId(id);
         article.setTime(time);
         article.setText(text);
        
@@ -86,9 +90,14 @@ public class ArticlesServlet extends HttpServlet {
         String time=df.format(day);
        
         Article article = new Article();
+        
+        int authorId=article.getid(authorName);
+        System.out.println(authorId);
+        article.setAuthorId(id);
         article.setId(id);
         article.setTitle(title);
         article.setAuthorName(authorName);
+        article.setAuthorId(authorId);
         article.setTime(time);
         article.setText(text);
         
@@ -121,6 +130,7 @@ public class ArticlesServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) {
         try {
+        	request.setCharacterEncoding("UTF-8");
             String method = request.getParameter("method");
           
             if (method.equals("add")) {
