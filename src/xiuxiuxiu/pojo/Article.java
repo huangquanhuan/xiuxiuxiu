@@ -109,7 +109,7 @@ public class Article {
 			ResultSet rs = ps.getResultSet();
 			if (rs.next()) {
 				int id=rs.getInt("id");
-				System.out.println("cao"+id);
+				//System.out.println("cao"+id);
 				return id;
 			} else {
 				System.out.println("该id不存在！！");
