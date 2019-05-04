@@ -15,6 +15,7 @@ import xiuxiuxiu.util.DBUtil;
 public class ApplyComponentDAOImpl implements ApplyComponentDAO{
 
 	public void add(int reservationID, int componentID) {
+		System.out.println("add");
 		String sql = "insert into apply_component(reservation_id,component_id) values(?,?)";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setInt(1, reservationID);
@@ -31,6 +32,7 @@ public class ApplyComponentDAOImpl implements ApplyComponentDAO{
 	}
 
 	public void delete(int id) {
+		System.out.println("delete");
 		String sql = "delete from apply_component where id =?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setInt(1, id);

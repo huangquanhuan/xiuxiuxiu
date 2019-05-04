@@ -42,10 +42,12 @@ public interface ArticleDAO {
      *
      * @return 相应id的文章详细信息
      */
-	Article getArtice(int id);
+	public Article getArtice(int id);
 	/**
      *@return 一个包含文章对象的List
      * 
      */
-	List<Article> searchArticle(String str);//返回id的List
+	public List<Article> searchArticle(String str);//返回id的List
+	
+	public List<Article> getList(); //获取文章列表
 }
