@@ -5,6 +5,8 @@
 <%@ page import="java.io.*,java.util.*" %>
 <%@page import="xiuxiuxiu.servelt.*" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@include file="注册弹窗.jsp"%>
+
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -94,33 +96,7 @@
 															</div>
 														</div>
 													</div>
-													<!-- //Modal1 -->	
-													<!-- Modal2 -->
-													<div class="modal fade" id="myModal3" tabindex="-1" role="dialog">
-														<div class="modal-dialog">
-														<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>
-																	
-																	<div class="signin-form profile">
-																	<h3 class="agileinfo_sign">注册</h3>	
-																			<div class="register-form">
-																				<form class="registerForm" action="UserServlet?type=register" method="post">
-																				   <input id="name"type="text" name="name" placeholder="昵称" required="required">
-																					<input id="phonenumber"type="text" name="tel" placeholder="手机号码" required="required">
-																					<input id="password"type="password" name="password" placeholder="密码" required="required">
-				                                                                    <input type="password" name="password" id="password2" placeholder="确认密码" required="required">
-
-																					<input type="submit" value="注册">
-																				</form>
-																			</div>
-																			<p><a href="#"> 已有账号？</a></p>
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>
+													
 													<div class="modal fade" id="myModal6" tabindex="-1" role="dialog">
 														<div class="modal-dialog">
 														<!-- Modal content-->

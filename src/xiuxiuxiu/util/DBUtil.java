@@ -18,8 +18,8 @@ public class DBUtil {
 	static String database = "xiuxiuxiu";
 	static String encoding = "UTF-8";
 	static String loginName = "root";
-	// static String password = "123456";
-	static String password = "Liu_Zhongyu";
+	static String password = "123456";
+	//static String password = "Liu_Zhongyu";
 
 	static {
 //	    //SSH通道
