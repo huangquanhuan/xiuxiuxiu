@@ -70,7 +70,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 
 
 
-	public Article getArtice(int id) {
+	public Article getArticle(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select id,author_id,author_name,title,text,time from article where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -208,4 +208,6 @@ public class ArticleDAOImpl implements ArticleDAO{
 					return null;
 				}
 		}
+
+	
 }

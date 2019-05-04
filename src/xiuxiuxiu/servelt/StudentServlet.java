@@ -57,20 +57,20 @@ public class StudentServlet extends HttpServlet {
 		if (student.getPhoneNumber().length() < 1) {
 			request.setAttribute("err", "请输入登录名！");
 			// 获取转发对象
-			rd = request.getRequestDispatcher("login.jsp");
+			rd = request.getRequestDispatcher("首页.jsp");
 			// 转发请求
 			rd.forward(request, response);
 		} else if (student.getPassword().length() < 2) {
 			request.setAttribute("err", "请输入密码！");
 			// 获取转发对象
-			rd = request.getRequestDispatcher("login.jsp");
+			rd = request.getRequestDispatcher("首页.jsp");
 			// 转发请求
 			rd.forward(request, response);
 		}  else if (StudentDAO.get(student.getPhoneNumber(), student.getPassword()) == null) {
 			// 登陆失败
 			request.setAttribute("err", "密码错误！");
 			// 获取转发对象
-			rd = request.getRequestDispatcher("login.jsp");
+			rd = request.getRequestDispatcher("首页.jsp");
 			// 转发请求
 			rd.forward(request, response);
 		} else {

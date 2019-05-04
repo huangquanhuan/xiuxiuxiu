@@ -35,9 +35,9 @@ public class MyReservationManageServlet extends HttpServlet {
     @Override
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Reservation> reservationList;
-		Student student = (Student) request.getSession().getAttribute("user");
+		Student student = (Student) request.getSession().getAttribute("name");
 		ReservationDAO reservationDao = new ReservationDAOImpl();
-		reservationList = reservationDao.List(/*student.getID()*/1);
+		reservationList = reservationDao.List(student.getID());
 		request.setAttribute("ReservationList", reservationList);
 		request.getRequestDispatcher("MyReservationManage.jsp").forward(request, response);
 

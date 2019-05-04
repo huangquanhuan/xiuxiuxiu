@@ -6,6 +6,8 @@
 
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
+	
+<%@page import="xiuxiuxiu.pojo.User"%>
 
 <%@include file="注册弹窗.jsp"%>
 <%@include file="个人信息修改弹窗.jsp"%>
@@ -62,31 +64,31 @@
 
 			<form class="form-horizontal" action="*" method="post" role="form">
 				<div class="form-group">
-					<label class="col-sm-2 control-label" for="name">姓名</label>
+					<label class="col-sm-2 control-label" for="name" >姓名</label>
 					<div class="col-sm-10">
-						<input class="form-control" type="text" id="name" name="name"
+						<input class="form-control" type="tel" id="name" name="name" value="<%=name%>" 
 							readonly />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="studentId">学号</label>
 					<div class="col-sm-10">
-						<input class="form-control" type="text" id="studentId"
+						<input class="form-control" type="tel" id="studentId" value="<%=studentID%>" 
 							name="studentId" readonly />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="contact">联系方式</label>
 					<div class="col-sm-10">
-						<input class="form-control" type="tel" id="contact" name="contact"
+						<input class="form-control" type="tel" id="contact" name="contact" value="<%=tel%>"
 							readonly />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="address">地址</label>
 					<div class="col-sm-10">
-						<input class="form-control" type="text" id="address"
-							name="contact" readonly />
+						<input class="form-control" type="tel" id="address"
+							name="contact" value="<%=address%>"  readonly />
 					</div>
 				</div>
 				<div class="form-group">
