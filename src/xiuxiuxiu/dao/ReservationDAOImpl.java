@@ -12,66 +12,143 @@ import java.util.List;
 import xiuxiuxiu.pojo.*;
 import xiuxiuxiu.util.DBUtil;
 
-public class ReservationDAOImpl implements ReservationDAO{
+public class ReservationDAOImpl implements ReservationDAO {
+
 	
 	public void addReservation(Reservation reservation) {
-		// TODO Auto-generated method stub
-		String sql = "insert into reservation(id,state,user_id,application_type,application_time,required_time,place,repair_activity_id,equipment_id,repair_type,detail,remark,feedback) values(? ,? ,? ,? ,? ,? ,? ,?,?,?,?,?,?)";
+
+		String sql = "insert into reservation(state,user_id,application_type,application_time,required_time"
+				+ ",place,repair_activity_id,equipment_id,repair_type,detail,remark,feedback) values(? ,? ,? ,? ,? ,? ,? ,?,?,?,?,?)";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			//ps.setString(1, reservation.getID());    
-			ps.execute();
+
+			ps.setInt(1, reservation.getStateInt());
+			ps.setInt(2, reservation.getUserID());
+			ps.setInt(3, reservation.getApplicationTypeInt());
+
+			ps.setString(4, reservation.getApplicationTime());
+			ps.setString(5, reservation.getRequiredTime());
+			ps.setString(6, reservation.getPlace());
+			ps.setInt(7, reservation.getRepairActivityID());
+			ps.setInt(8, reservation.getEquipmentID());
+			ps.setString(9, reservation.getRepairType());
+			ps.setString(10, reservation.getDetail());
+			ps.setString(11, reservation.getRemark());
+			ps.setString(12, reservation.getFeedback());
+			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
+			ps.close();
 			if (rs.next()) {
-				int id = rs.getInt(1);
-				//reservation.setID(id);
+				int id = rs.getInt(1);	//获取被加入的预约单的id
+				reservation.setID(id);
+				
+				//插入apply_component（预约单-零件对应表）
+				sql = "insert into apply_component(reservation_id,component_id) values(?,?)";
+				PreparedStatement ps2 = c.prepareStatement(sql);
+				for(int ComponentID : reservation.getComponentIDList()) {
+					ps2.setInt(1, id);
+					ps2.setInt(2, ComponentID);
+					ps2.executeUpdate();
+				}
+				ps2.close();
+				
+				//插入reservation_img_url（预约单-图片URL对应表）
+				sql = "insert into reservation_img_url(reservation_id,img_url) values(?,?)";
+				PreparedStatement ps3 = c.prepareStatement(sql);
+				for(String imgUrl : reservation.getImgUrlList()) {
+					ps3.setInt(1, id);
+					ps3.setString(2, imgUrl);
+					ps3.executeUpdate();
+				}
+				ps3.close();
 			}
+			ps.close();
+			c.close();
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
 	}
-
 
 	public void deleteReservation(int id) {
-		// TODO Auto-generated method stub
 		String sql = "delete from reservation where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			ps.setLong(1, id);
-			ps.execute();
-
+			ps.setInt(1, id);
+			ps.executeUpdate();
+			ps.close();
+			c.close();
 		} catch (SQLException e) {
-
+			System.out.println("删除预约单失败！");
 			e.printStackTrace();
 		}
 	}
- 
 
 	public void updateReservation(Reservation reservation) {
-		// TODO Auto-generated method stub
-		String sql = "update reservation set userid=?,state=?,application_type=?,application_time=?,required_time=?,place=?,repair_activity_id=?,equipment_id=?,repair_type=?,detail=?,remark=?,feedback=? where id=?";
-		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			//ps.setString(1, bean.getName());
-			ps.execute();
 
+		String sql = "update reservation set userid=?,state=?,application_type=?,application_time=?,"
+				+ "required_time=?,place=?,repair_activity_id=?,equipment_id=?,repair_type=?,detail=?,remark=?,feedback=? where id=?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setInt(1, reservation.getUserID());
+
+			ps.setInt(2, reservation.getStateInt());
+			ps.setInt(3, reservation.getApplicationTypeInt());
+
+			ps.setString(4, reservation.getApplicationTime());
+			ps.setString(5, reservation.getRequiredTime());
+			ps.setString(6, reservation.getPlace());
+			ps.setInt(7, reservation.getRepairActivityID());
+			ps.setInt(8, reservation.getEquipmentID());
+			ps.setString(9, reservation.getRepairType());
+			ps.setString(10, reservation.getDetail());
+			ps.setString(11, reservation.getRemark());
+			ps.setString(12, reservation.getFeedback());
+			ps.setInt(13, reservation.getID());
+			ps.executeUpdate();
+			
+			//更新apply_component（预约单-零件对应表）-其实就是先删除原有记录，在添加修改后的记录
+			ApplyComponentDAO applyComponentDao = new ApplyComponentDAOImpl();
+			applyComponentDao.delete(reservation.getID());	//删除
+			sql = "insert into apply_component(reservation_id,component_id) values(?,?)";
+			PreparedStatement ps2 = c.prepareStatement(sql);
+			for(int ComponentID : reservation.getComponentIDList()) {
+				ps2.setInt(1, reservation.getID());
+				ps2.setInt(2, ComponentID);
+				ps2.executeUpdate();	//添加
+			}
+			ps2.close();
+			
+			//更新reservation_img_url（预约单-图片URL对应表）-其实就是先删除原有记录，在添加修改后的记录
+			ReservationImgUrlDAO reservationImgUrlDao = new ReservationImgUrlDAOImpl();
+			reservationImgUrlDao.delete(reservation.getID());	//删除
+			sql = "insert into reservation_img_url(reservation_id,img_url) values(?,?)";
+			PreparedStatement ps3 = c.prepareStatement(sql);
+			for(String imgUrl : reservation.getImgUrlList()) {
+				ps3.setInt(1, reservation.getID());
+				ps3.setString(2, imgUrl);
+				ps3.executeUpdate();	//添加
+			}
+			ps3.close();
+			
+			ps.close();
+			c.close();
 		} catch (SQLException e) {
+			System.out.println("更新预约单失败！");
 			e.printStackTrace();
 		}
 	}
-
 
 	public Reservation getReservation(int id) {
 		String sql = "select state,user_id,application_type,application_time,required_time,place,repair_activity_id,equipment_id,repair_type,detail,remark,feedback from reservation where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			ps.setLong(1, id);
+			ps.setInt(1, id);
 			ps.execute();
 			ResultSet rs = ps.getResultSet();
 			if (rs.next()) {
 				Reservation reservation = new Reservation();
-				reservation.setID(rs.getInt("id"));
+				reservation.setID(id);
 				reservation.setState(rs.getInt("state"));
 				reservation.setUserID(rs.getInt("user_id"));
 				reservation.setApplicationType(rs.getInt("application_type"));
-				reservation.setApplicationTime(rs.getString("equipment_id"));
+				reservation.setApplicationTime(rs.getString("application_time"));
 				reservation.setRequiredTime(rs.getString("required_time"));
 				reservation.setPlace(rs.getString("place"));
 				reservation.setRepairActivityID(rs.getInt("repair_activity_id"));
@@ -80,12 +157,12 @@ public class ReservationDAOImpl implements ReservationDAO{
 				reservation.setDetail(rs.getString("detail"));
 				reservation.setRemark(rs.getString("remark"));
 				reservation.setFeedback(rs.getString("feedback"));
-				
+
 				ApplyComponentDAO applyComponentDao = new ApplyComponentDAOImpl();
-				reservation.setComponentList(applyComponentDao.List(id));  // 根据预约单id获取其包含的零件id列表并将列表set进该预约单的信息中
+				reservation.setComponentIDList(applyComponentDao.List(id)); // 根据预约单id获取其包含的零件id列表并将列表set进该预约单的信息中
 				ReservationImgUrlDAO ImgUrlDao = new ReservationImgUrlDAOImpl();
-				reservation.setImgUrltList(ImgUrlDao.List(id));// 根据预约单id获取其包含的图片url列表并将列表set进该预约单的信息中
-				
+				reservation.setImgUrlList(ImgUrlDao.List(id));// 根据预约单id获取其包含的图片url列表并将列表set进该预约单的信息中
+
 				return reservation;
 			} else {
 				System.out.println("该id不存在！！");
@@ -97,18 +174,16 @@ public class ReservationDAOImpl implements ReservationDAO{
 		}
 	}
 
-
-	public List<Reservation> searchReservation(String condition) {
-		// TODO Auto-generated method stub
-		String sql = "select id,state,user_id,application_type,application_time,required_time,place,repair_activity_id,equipment_id,repair_type,detail,remark,feedback from reservation ORDER BY id";
-		List<Reservation> reservationList = new ArrayList<Reservation>();
+	@Override
+	public List<Reservation> List(int userID) {
+		String sql = "select id from reservation where user_id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setInt(1, userID);
 			ps.execute();
 			ResultSet rs = ps.getResultSet();
+			List<Reservation> reservationList = new ArrayList<Reservation>();
 			while (rs.next()) {
-				Reservation reservation = new Reservation();
-				//reservation.setID(rs.getString("user_id"));
-				reservationList.add(reservation);
+				reservationList.add(getReservation(rs.getInt("id")));
 			}
 			return reservationList;
 		} catch (SQLException e) {
@@ -117,12 +192,12 @@ public class ReservationDAOImpl implements ReservationDAO{
 		}
 	}
 
+	@Override
+	public boolean isExist(int id) {
 
-	public boolean isReservationExist(int id) {
-		// TODO Auto-generated method stub
 		String sql = "select * from reservation where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			ps.setLong(1, id);
+			ps.setInt(1, id);
 			ps.execute();
 			ResultSet rs = ps.getResultSet();
 			if (rs.next()) {
@@ -136,10 +211,21 @@ public class ReservationDAOImpl implements ReservationDAO{
 		}
 	}
 
-
 	@Override
-	public int getTotalReservation() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getTotal() {
+		int total = 0;
+		try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement()) {
+			String sql = "select count(*) from reservation";
+			ResultSet rs = s.executeQuery(sql);
+			if (rs.next()) {
+				total = rs.getInt(1);
+				return total;
+			} else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
 	}
 }

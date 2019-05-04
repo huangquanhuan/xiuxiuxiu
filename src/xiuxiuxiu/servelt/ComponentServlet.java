@@ -1,19 +1,15 @@
 package xiuxiuxiu.servelt;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import com.sun.javafx.scene.layout.region.Margins.Converter;
-
 import xiuxiuxiu.dao.ComponentDAOImpl;
 import xiuxiuxiu.pojo.Component;
-import xiuxiuxiu.util.Page;
 
 @WebServlet("/ComponentServlet")
 public class ComponentServlet extends HttpServlet {
@@ -89,7 +85,7 @@ public class ComponentServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) {
         try {
-            String method = request.getParameter("method");
+            String method = Optional.ofNullable(request.getParameter("method")).orElse("");
             if (method.equals("add")) {
                 add(request, response);
             } else if (method.equals("update")) {

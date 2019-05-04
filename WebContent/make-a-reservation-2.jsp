@@ -91,12 +91,13 @@
         <div class="tab-content">
           <!-- 申请现场维修的表单：开始 -->
           <div id="field-service" class="container tab-pane active"><br />
-            <form action="*" method="post">
+            <form action="makeReservation?method=addFieldService" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="userId" value="1" />
               <!-- 场次选择 -->
               <div class="form-group">
                 <label for="session-select" class="col-sm-3">预约场次</label>
                 <div class="col-sm-9">
-                  <select id="session-select" class="form-control">
+                  <select id="session-select" class="form-control" name="activity">
                    <!-- 这里装入场次时间信息 -->
                    <c:forEach items="${activities}" var="activity">
                      <option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
@@ -112,7 +113,7 @@
                   <a href="#" class="btn btn-link">添加设备</a>
                 </div>
                 <div class="col-sm-9">
-                  <select id="device-select" class="form-control">
+                  <select id="device-select" class="form-control" name="device">
                     <!-- 这里装入用户的设备列表 -->
                     <c:forEach items="${equipments}" var="equipment">
                       <option value="${equipment.id}">${equipment.equipmentName}</option>
@@ -141,6 +142,14 @@
                 </div>
               </div>
               
+              <%-- 
+              此部分内容暂缓实现，原因如下：
+                1. 凭借个人所学知识，暂时无法解决下拉框动态刷新问题
+                  （即在你选择了硬件或软件问题后，另一个下拉框自动更新二级选项）
+                2. 即使改成一级菜单，数据库那边的衔接也有问题，数据表里一个 id 同时对应一个硬件问题种类和一个软件问题种类，
+                   导致后台无法处理（除非修改这个表的结构，那样代价太大）
+              故暂时不用，等待解决之后重新实现
+              by 刘忠燏 2019-05-03
               <!-- 问题类型 -->
               <div class="form-group">
                 <label for="issue-type-select" class="col-sm-3">问题种类</label>
@@ -156,11 +165,12 @@
                   </select>
                 </div>
               </div>
+              --%>
               
               <!-- 详细描述问题 -->
               <div class="form-group">
                 <label for="issue-detail" class="col-sm-3">问题描述</label>
-                <div id="issue-detail" class="col-sm-9">
+                <div id="issue-detail" name="issueDetail" class="col-sm-9">
                   <textarea class="form-control" rows="3"></textarea>
                 </div>
               </div>
@@ -169,7 +179,7 @@
               <div class="form-group">
                 <label for="issue-image" class="col-sm-3">为问题描述提供图片</label>
                 <div class="col-sm-9">
-                  <input id="issue-image" type="file" class="form-control" />
+                  <input id="issue-image" name="issueImage" type="file" class="form-control" />
                 </div>
               </div>
 
@@ -193,17 +203,13 @@
           
           <!-- 申请上门服务的表单：开始 -->
           <div id="door-to-door-service" class="container tab-pane fade"><br />
-            <form action="*" method="post">
+            <form action="makeReservation?method=addDoorToDoorService" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="userId" value="1" />
               <!-- 时间选择 -->
               <div class="form-group">
                 <label for="datetime-select" class="col-sm-3">预约时间</label>
                 <div class="col-sm-9">
-                  <select id="datetime-select" class="form-control">
-                   <!-- 这里装入场次时间信息 -->
-                   <option>YYYY 年 MM 月 DD 日</option>
-                   <option>YYYY 年 MM 月 DD 日</option>
-                   <option>YYYY 年 MM 月 DD 日</option>
-                  </select>
+                  <input class="form-control" type="datetime-local" name="requiredTime" />
                 </div>
               </div>
 
@@ -214,7 +220,7 @@
                   <a href="#" class="btn btn-link">添加设备</a>
                 </div>
                 <div class="col-sm-9">
-                  <select id="device-select-1" class="form-control">
+                  <select id="device-select-1" class="form-control" name="device">
                     <!-- 这里装入用户的设备列表 -->
                     <c:forEach items="${equipments}" var="equipment">
                       <!-- 用户设备信息 -->
@@ -244,6 +250,15 @@
                 </div>
               </div>
               
+              <%-- 
+              此部分内容暂缓实现，原因如下：
+                1. 凭借个人所学知识，暂时无法解决下拉框动态刷新问题
+                  （即在你选择了硬件或软件问题后，另一个下拉框自动更新二级选项）
+                2. 即使改成一级菜单，数据库那边的衔接也有问题，数据表里一个 id 同时对应一个硬件问题种类和一个软件问题种类，
+                   导致后台无法处理（除非修改这个表的结构，那样代价太大）
+              故暂时不用，等待解决之后重新实现
+              by 刘忠燏 2019-05-03
+              
               <!-- 问题类型 -->
               <div class="form-group">
                 <label for="issue-type-select-1" class="col-sm-3">问题种类</label>
@@ -259,12 +274,13 @@
                   </select>
                 </div>
               </div>
+              --%>
               
               <!-- 详细描述问题 -->
               <div class="form-group">
                 <label for="issue-detail-1" class="col-sm-3">问题描述</label>
                 <div id="issue-detail-1" class="col-sm-9">
-                  <textarea class="form-control" rows="3"></textarea>
+                  <textarea class="form-control" name="issueDetail" rows="3"></textarea>
                 </div>
               </div>
               
@@ -272,7 +288,7 @@
               <div class="form-group">
                 <label for="issue-image-1" class="col-sm-3">为问题描述提供图片</label>
                 <div class="col-sm-9">
-                  <input id="issue-image-1" type="file" class="form-control" />
+                  <input id="issue-image-1" name="issueImage" type="file" class="form-control" />
                 </div>
               </div>
 

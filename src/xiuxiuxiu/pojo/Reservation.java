@@ -1,7 +1,21 @@
 package xiuxiuxiu.pojo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import xiuxiuxiu.dao.RepairActivityDAO;
+import xiuxiuxiu.dao.RepairActivityDAOImpl;
+import xiuxiuxiu.dao.StudentDAO;
+import xiuxiuxiu.dao.StudentDAOImpl;
+import java.util.Date;
+
+import java.util.Date;
 import java.util.List;
+
+import xiuxiuxiu.dao.RepairActivityDAO;
+import xiuxiuxiu.dao.RepairActivityDAOImpl;
+import xiuxiuxiu.dao.StudentDAO;
+import xiuxiuxiu.dao.StudentDAOImpl;
 
 /**
  * 
@@ -17,7 +31,7 @@ public class Reservation {
 	 */
 	private int id;
 	/**
-	 * 预约单的3种状态：0表示未受理状态，1表示已受理未完成状态，2表示已完成状态
+	 * 预约单的3种状态：0对应"未受理"状态，1对应"已受理,未完成"状态，2对应"已完成"状态
 	 */
 	private int state;
 	/**
@@ -25,7 +39,7 @@ public class Reservation {
 	 */
 	private int userID;
 	/**
-	 * 2种预约类型：0表示活动预约，1表示上门维修预约
+	 * 预约单的2种预约类型：0表示"活动预约"，1表示"上门维修预约"
 	 */
 	private int applicationType;
 	/**
@@ -49,7 +63,7 @@ public class Reservation {
 	 */
 	private int equipmentID;
 	/**
-	 * 维修类型，根据用户选择的维修的问题类型填入字符串
+	 * 维修的问题类型，根据用户选择的维修的问题类型填入的字符串
 	 */
 	private String repairType;
 	/**
@@ -67,11 +81,11 @@ public class Reservation {
 	/**
 	 * 预约单中的需求零件（id）列表
 	 */
-	private List<Integer> componentList = new ArrayList<Integer>();
+	private List<Integer> componentIDList = new ArrayList<Integer>();
 	/**
 	 * 预约单中包含的图片url列表
 	 */
-	private List<String> imgUrltList = new ArrayList<String>();
+	private List<String> imgUrlList = new ArrayList<String>();
 
 	/**
 	 * Reservation类的构造函数,输入为（预约单id，提交的用户id，预约类型<0/1/2>，预约的维修时间，对应预约场次id<可null>，维修的设备id，维修的问题种类<（可能要改下存储方法）String总结描述>，详细问题的描述<String>）
@@ -80,7 +94,7 @@ public class Reservation {
 	 * @param id               在数据库中对应的id
 	 * @param state            3种状态：0表示未受理状态，1表示已受理未完成状态，2表示已完成状态
 	 * @param userID           提交该预约单的用户对应的ID
-	 * @param applicationType  2种预约类型：0表示活动预约，1表示上门维修预约
+	 * @param applicationType  2种预约类型：0表示活动预约，1表示上门维修预约(注意！如果使用该构造函数中输入的预约类型参数不符合规定，将无法正确设置维修地点和活动场次)
 	 * @param applicationTime  提交预约申请的时间
 	 * @param requiredTime     预约的维修时间
 	 * @param place            维修地点，若预约类型type为0-活动预约，place自动设置为活动地点；若预约类型type为1-上门维修预约，place自动设置为user_address
@@ -90,21 +104,45 @@ public class Reservation {
 	 * @param detail           详细问题的描述
 	 */
 	public Reservation(int id, int userID, int applicationType, String requiredTime, int repairActivityID,
-			int equipmentID, String repairType, String detail,List<Integer> componentList, List<String> imgUrltList) {
+			int equipmentID, String repairType, String detail, List<Integer> componentIDList, List<String> imgUrlList) {
 		super();
 		this.id = id;
-		this.state = 0; // 刚创建的预约单状态为0
+		this.state = 0; // 刚创建的预约单状态为0(未受理)
 		this.userID = userID;
-		this.applicationType = applicationType;
-		// this.applicationTime = 当前时间;
+		
+		if(applicationType == 0||(applicationType == 1) )
+		{
+			this.applicationType = applicationType;
+		} else {
+			System.out.println("预约类型设置错误！（0表示活动预约，1表示上门维修预约）");
+		}
+		
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		this.applicationTime = df.format(new Date());// new Date()为获取当前系统时间
 		this.requiredTime = requiredTime;
-		// this.place = 根据applicationType决定;
-		this.repairActivityID = repairActivityID;
+		
+		if(applicationType == 0)
+		{
+			this.repairActivityID = repairActivityID;
+		} else if(applicationType == 1) {
+			System.out.println("预约类型为上门维修预约，设置的维修活动场次将无效");
+		} 
+		
+		if(applicationType == 0)
+		{
+			RepairActivityDAO repairActivityDao = new RepairActivityDAOImpl();
+			this.place = repairActivityDao.getRepairActivity(repairActivityID).getPlace();
+		}else if(applicationType == 1) {
+			StudentDAO studentDao = new StudentDAOImpl();
+			this.place = studentDao.get(userID).getAddress();
+		}
+		
 		this.equipmentID = equipmentID;
 		this.repairType = repairType;
 		this.detail = detail;
-		setComponentList(componentList);
-		setImgUrltList(imgUrltList);
+		setComponentIDList(componentIDList);
+		setImgUrlList(imgUrlList);
 	}
 
 	public Reservation() {
@@ -118,20 +156,26 @@ public class Reservation {
 	public void setID(int id) {
 		this.id = id;
 	}
+
+	// 0表示未受理状态，1表示已受理未完成状态，2表示已完成状态
+
+	public int getStateInt()
+	{
+	    return state;
+	}
 	
-	//0表示未受理状态，1表示已受理未完成状态，2表示已完成状态
 	public String getState() {
-	    String stateString= "";
-	    if(state <= 0) {
-	        stateString = "未受理";
-	    }
-	    else if(state == 1) {
-	        stateString = "已受理未完成";
-	    }
-	    else if(state >= 2) {
-	        stateString = "已完成";
-	    }
-		return stateString;
+
+		if (state == 0) {
+			return "未受理";
+		} else if (state == 1) {
+			return "已受理,未完成";
+		} else if (state == 2) {
+			return "已完成";
+		} else {
+			System.out.println("未知状态!");
+			return null;
+		}
 	}
 
 	public void setState(int state) {
@@ -146,16 +190,10 @@ public class Reservation {
 		this.userID = UserID;
 	}
 
-	public int getApplicationType() {
-		return applicationType;
-	}
 	
-	public void setApplicationType(int applicationType) {
-        this.applicationType = applicationType;
-    }
 	
 	//2种预约类型：0表示活动预约，1表示上门维修预约
-	public String getApplicationType(int applicationType) {
+	public String getApplicationType() {
 	    String ApplicationTypeString= "";
         if(state <= 0) {
             ApplicationTypeString = "活动预约";
@@ -165,7 +203,24 @@ public class Reservation {
         }
         return ApplicationTypeString;
 	}
+	
+	public int getApplicationTypeInt() {
+	    return applicationType;
+	}
 
+	public void setApplicationType(int applicationType) {
+		this.applicationType = applicationType;
+	}
+
+	public String getApplicationTime() {
+		return applicationTime;
+	}
+
+	public void setApplicationTime() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		this.applicationTime = df.format(new Date());// new Date()为获取当前系统时间
+	}
+	
 	public void setApplicationTime(String applicationTime) {
 		this.applicationTime = applicationTime;
 	}
@@ -202,10 +257,16 @@ public class Reservation {
 		this.equipmentID = equipmentID;
 	}
 
+	/**
+	 * 获取维修的问题类型
+	 */
 	public String getRepairType() {
 		return repairType;
 	}
 
+	/**
+	 * 设置维修的问题类型
+	 */
 	public void setRepairType(String repairType) {
 		this.repairType = repairType;
 	}
@@ -234,24 +295,24 @@ public class Reservation {
 		this.feedback = feedback;
 	}
 
-	public List<Integer> getComponentList() {
-		return componentList;
+	public List<Integer> getComponentIDList() {
+		return componentIDList;
 	}
 
-	public void setComponentList(List<Integer> componentList) {
-		this.componentList.clear();
-		for (int i = 0; i <= componentList.size(); i++)
-			this.componentList.add(componentList.get(i));
+	public void setComponentIDList(List<Integer> componentIDList) {
+		this.componentIDList.clear();
+		for (int i = 0; i < componentIDList.size(); i++)
+			this.componentIDList.add(componentIDList.get(i));
 	}
 
-	public List<String> getImgUrltList() {
-		return imgUrltList;
+	public List<String> getImgUrlList() {
+		return imgUrlList;
 	}
 
-	public void setImgUrltList(List<String> imgUrltList) {
-		this.imgUrltList.clear();
-		for (int i = 0; i <= imgUrltList.size(); i++)
-			this.imgUrltList.add(imgUrltList.get(i));
+	public void setImgUrlList(List<String> imgUrlList) {
+		this.imgUrlList.clear();
+		for (int i = 0; i < imgUrlList.size(); i++)
+			this.imgUrlList.add(imgUrlList.get(i));
 	}
 
 }

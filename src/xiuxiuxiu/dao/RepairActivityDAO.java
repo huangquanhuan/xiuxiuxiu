@@ -32,19 +32,34 @@ public interface RepairActivityDAO {
      */
 	void updateRepairActivity(int id, String time,String place);
 	/**
-     * getRepairActivity() - 返回 RepairActivity 表详细信息
+     * getRepairActivity() - 根据id在数据库查找并返回对应的repairActivity对象
      *
-     * @return 相应id的活动表详细信息
+     * @return 对应的repairActivity对象
      */
-	String getRepairActivity(int id);
+	RepairActivity getRepairActivity(int id);
+	
+	/**
+	 * get()
+	 */
+	RepairActivity get(Integer id);
+	
 	/**
      *  isRepairActivityExist() - 判断该id的维修场次是否存在
      * @return True or False
      */
 	boolean isRepairActivityExist(int id);
+	
 	/**
 	 * ListAll() - 返回所有的线下维修活动场次列表
 	 */
 	List<RepairActivity> ListAll();
 	
+    /**
+     * listRecentActivity
+     * 返回最近的几个活动场次
+     * @param numberOfActivities 期待返回的活动数量
+     * @return 返回一个活动列表，列表长度小于或等于 numberOfActivities
+     * @author 刘忠燏
+     */
+    List<RepairActivity> listRecentActivities(int numberOfActivities);
 }

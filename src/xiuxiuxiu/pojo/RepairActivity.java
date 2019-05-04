@@ -46,7 +46,7 @@ public class RepairActivity {
 			this.id = id;
 	}
 
-	public void setmanagerID(int managerID) {
+	public void setManagerID(int managerID) {
 		if (managerID >= 0)
 			this.managerID = managerID;
 	}

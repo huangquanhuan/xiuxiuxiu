@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface ReservationDAO {
 	/**
-     * add() - 添加一个 Reservation 对象到表中
+     * add() - 将 Reservation 对象的信息插入到reservation表、apply_component表以及reservation_img_url表中
      *
      * @param reservation 实例化后的 Reservation 对象
      */
@@ -24,13 +24,7 @@ public interface ReservationDAO {
      * @param id 预约表的 ID 号
      */
 	void deleteReservation(int id);
-	/**
-     * getTotal() - 返回 Reservation 表的总记录数
-     *
-     * @return 一个整数，表示 reservation 表的记录数，也就是预约表总数
-     * TODO: 斟酌该方法的返回值应该设为 int 还是 long
-     */
-	public int getTotalReservation();
+	
 	/**
      * update() - 把对 Reservation 对象的修改写回数据库中
      *
@@ -38,21 +32,28 @@ public interface ReservationDAO {
      */
 	void updateReservation(Reservation reservation);
 	/**
-     * getReservation() - 返回 Reservation 表详细信息
+     * getReservation() - 根据id从数据库获取对应Reservation(预约单)对象
      *
-     * @return 相应id的预约表详细信息
+     * @return 相应id的Reservation(预约单)对象
      */
 	Reservation getReservation(int id);
 	/**
-     *@return 一个包含预约表对象的List
-     * 
+	 * List() - 根据学生id查找对应的预约单列表
+	 * 
+     *@return 该学生的预约单(对象)列表
      */
-	List<Reservation> searchReservation(String condition);//返回id的List
+	List<Reservation> List(int userID);
 	/**
      * isExist() - 判断预约表是否已经存在
      *
      * @param id 预约表的相应id
      * @return 如果预约表存在，则返回 true，否则返回 false
      */
-	boolean isReservationExist(int id);
+	boolean isExist(int id);
+	/**
+     * getTotal() - 返回 Reservation 表的总记录数
+     *
+     * @return 一个整数，表示 reservation 表的记录数，也就是预约表总数
+     */
+	public int getTotal();
 }

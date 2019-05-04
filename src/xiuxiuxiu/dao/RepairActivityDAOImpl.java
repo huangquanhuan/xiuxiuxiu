@@ -66,7 +66,7 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 		}
 	}
 
-	public String getRepairActivity(int id) {
+	public RepairActivity getRepairActivity(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select time,place,manager_id from repair_activity where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -74,12 +74,18 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 			ps.execute();
 			ResultSet rs = ps.getResultSet();
 			if (rs.next()) {
+				RepairActivity repairActivity = new RepairActivity();
 				String time = rs.getString(1);
 				String place = rs.getString(2);
-				String manger_id = rs.getString(3);
-				String mess = "时间是" + time + "地点为" + place + "管理员id为" + manger_id + "";
-				System.out.print("时间是" + time + "地点为" + place + "管理员id为" + manger_id + "");
-				return mess;
+				int managerID = rs.getInt(3);
+				String mess = "时间是" + time + "地点为" + place + "管理员id为" + managerID + "";
+				System.out.print("时间是" + time + "地点为" + place + "管理员id为" + managerID + "");
+				
+				repairActivity.setID(id);
+				repairActivity.setTime(time);
+				repairActivity.setPlace(place);
+				repairActivity.setManagerID(managerID);
+				return repairActivity;
 			} else {
 				System.out.println("该id不存在！！");
 				return null;
@@ -89,6 +95,29 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 			return null;
 		}
 	}
+	
+    @Override
+    public RepairActivity get(Integer id) {
+        String sql = "select id, time,place,manager_id from repair_activity where id = ?";
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setLong(1,id);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()) {
+                RepairActivity activity = new RepairActivity();
+                activity.setID(rs.getInt("id"));
+                activity.setTime(rs.getString("time"));
+                activity.setPlace(rs.getString("place"));
+                activity.setManagerID(rs.getInt("manager_id"));
+                return activity;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 	public boolean isRepairActivityExist(int id) {
 		String sql = "select id,time,place,manager_id from repair_activity where id=?";
@@ -118,7 +147,7 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 				repairActivity.setID(rs.getInt("id"));
 				repairActivity.setTime(rs.getString("time"));
 				repairActivity.setPlace(rs.getString("place"));
-				repairActivity.setmanagerID(rs.getInt("manager_id"));
+				repairActivity.setManagerID(rs.getInt("manager_id"));
 				repairActivityList.add(repairActivity);
 			}
 			return repairActivityList;
@@ -127,4 +156,25 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 			return null;
 		}
 	}
+	
+    @Override
+    public List<RepairActivity> listRecentActivities(int numberOfActivities) {
+        String sql = "select `id`, `time`, `place`, `manager_id` from `repair_activity` order by `id` desc limit ?";
+        List<RepairActivity> activities = new ArrayList<RepairActivity>();
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, numberOfActivities);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                RepairActivity activity = new RepairActivity();
+                activity.setID(rs.getInt("id"));
+                activity.setTime(rs.getString("time"));
+                activity.setPlace(rs.getString("place"));
+                activity.setManagerID(rs.getInt("manager_id"));
+                activities.add(activity);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return activities;
+    }
 }

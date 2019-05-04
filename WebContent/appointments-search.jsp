@@ -1,10 +1,16 @@
+<%@page import="xiuxiuxiu.dao.*"%>
+<%@page import="xiuxiuxiu.pojo.*"%>
+<%@page import="java.util.*"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="" />
-    <title>预约零件</title>
+    <title>预约人员</title>
 
     <script type="application/x-javascript">
         addEventListener("load", function () {
@@ -67,118 +73,66 @@
 
     <div class="clearfix"> </div>
 </div>
-
+<p></p>
 <!-- 主体内容：开始 -->
 <div class="services">
     <div class="container">
         <ul id="formTab" class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a class="hvr-underline-from-center" data-toggle="tab" href="#field-service">检索预约零件名单</a>
+                <a class="hvr-underline-from-center" data-toggle="tab" href="#field-service">检索预约人员名单</a>
             </li>
             <li>
-                <a class="hvr-underline-from-center" data-toggle="tab" href="#door-to-door-service">导入预约零件名单</a>
+                <a class="hvr-underline-from-center" data-toggle="tab" href="#door-to-door-service">导入预约人员名单</a>
             </li>
         </ul>
 
         <div class="tab-content">
-            <!-- 预约零件的表单：开始 -->
-            <div id="field-service" class="container tab-pane active"><br />
-                <form action="*" method="post">
 
-                    <!-- 搜索框 -->
-                    <div id="field-search" class="container tab-pane active"><br />
-                        <form action="*" method="post">
-
-                            <div class="input-group col-md-12"
-                                 style="margin-top:0px;positon:relative; padding-left:1em;padding-right:1em;">
-                                <input type="text" class="form-control"placeholder="请输入字段名"  >
-
-                                <span class="input-group-btn">
-
-                        <button class="btn btn-info btn-search" style="margin-left:3px">搜索</button>
-                        </span>
-                            </div>
-
-                            <!-- 预约类型选择 -->
-                    <div class="form-group">
-                        <div class="col-sm-3">
-                            <label for="type-select">预约类型</label>
-
-                        </div>
-                        <div class="col-sm-9">
-                            <select id="type-select" class="form-control">
-                                <!-- 这里装入预约类型列表 -->
-                                <option>场次预约</option>
-                                <option>上门服务</option>
-                                <option>全部</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- 场次选择 -->
-                    <div class="form-group">
-                        <label for="session-select" class="col-sm-3">预约场次</label>
-                        <div class="col-sm-9">
-                            <select id="session-select" class="form-control">
-                                <!-- 这里装入场次时间信息 -->
-                                <option>YYYY 年 MM 月 DD 日，地点：XXXX</option>
-                                <option>YYYY 年 MM 月 DD 日，地点：XXXX</option>
-                                <option>YYYY 年 MM 月 DD 日，地点：XXXX</option>
-                                <option>全部</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- 预约类型选择 -->
-                    <div class="form-group">
-                        <div class="col-sm-3">
-                            <label for="components-select">预约类型</label>
-
-                        </div>
-                        <div class="col-sm-9">
-                            <select id="components-select" class="form-control">
-                                <!-- 这里装入预约类型列表 -->
-                                <option>内存条8G</option>
-                                <option>内存条4G</option>
-                                <option>全部</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- 是否已完成 -->
-                    <div class="form-group">
-                        <label for="finished-select" class="col-sm-3">是否已完成</label>
-                        <div class="col-sm-9">
-                            <select id="finished-select" class="form-control">
-                                <option>已完成</option>
-                                <option>未完成</option>
-                                <option>全部</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-
-
-
-
-                    <!-- 搜索按钮 -->
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9">
-                            <input type="submit" class="btn btn-info"  style="margin-top:1em" value="搜索" />
-                        </div>
-                    </div>
-                </form>
-                    </div></form>
-
-
+            <div class="table-responsive">
+                <table class="table">
+                    <p style="">总数：${totalNum} </p>
+                        <a href="ViewUserServlet?method=list" class="view resw3">刷新</a>
+                    <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>学号</th>
+                                <th>联系电话</th>
+                                <th>预约场次</th>
+                                <th>所需零件</th>
+                                <th>当前状态</th>
+                                <th>详情</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                    
+                        <c:forEach items="${viewUsers}" var="viewUsers">
+                                <tr>
+                                    <td>${viewUsers.userName}</td>
+                                    <td>${viewUsers.studentID}</td>
+                                    <td>${viewUsers.phoneNumber}</td>
+                                    <td>${viewUsers.activeTime}</td>
+                                    <td>${viewUsers.componentType}</td>
+                                    <td>${viewUsers.reservationState}</td>
+                                    <td><a
+                                        href="ViewComponentServlet?method=list&id=${viewUsers.reservationID}"
+                                        class="view resw3">详情</a></td>
+                                </tr>
+                            </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 按钮 -->
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <input type="submit" class="btn btn-primary" value="导出" />
+                    <input type="submit" class="btn btn-primary" value="返回" />
+                </div>
+            </div>
         </div>
-        </div></div></div>
+        </div>
+</div>
 
-
-
-
-<!-- 预约零件的表单：结束 -->
+<!-- 预约人员搜索的表单：结束 -->
 
 <!-- 主体内容：结束 -->
 

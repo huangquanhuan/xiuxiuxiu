@@ -55,4 +55,13 @@ public interface EquipmentDAO {
 	 */
 	List<Integer> List(int userID);
 
+    /**
+     * listEquipmentsByUser
+     * 返回给定用户所拥有的设备 ID 列表
+     * 
+     * @param userId 用户的 ID
+     * @return 一个设备实体的列表，表示该用户拥有的所有设备
+     * @author 刘忠燏
+     */
+    List<Equipment> listEquipmentsByUser(Integer userId);
 }

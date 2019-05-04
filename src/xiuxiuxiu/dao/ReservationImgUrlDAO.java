@@ -18,11 +18,11 @@ public interface ReservationImgUrlDAO {
      */
 	void addReservationImgUrl( String imgUrl,int reservation_id);
 	/**
-     * delete() - 以 ID 为依据删除该链接
+     * delete() - 从apply_component(预约单-零件对应表)中删除相应预约单的所有记录
      *
-     * @param id 图片链接的 ID 号
+     * @param reservationID 预约单id
      */
-	void deleteReservationImgUrl(int id);
+	void delete(int reservationID);
 	/**
      * update() - 更新图片链接
      *
