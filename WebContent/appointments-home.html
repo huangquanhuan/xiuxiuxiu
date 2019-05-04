@@ -89,7 +89,7 @@
 
                     <div class="input-group col-md-12"
                          style="margin-top:0px;positon:relative; padding-left:1em;padding-right:1em;">
-                        <input type="text" class="form-control"placeholder="请输入字段名"  >
+                        <input type="text" class="form-control"placeholder="请输入要搜索的用户名"  >
 
                         <span class="input-group-btn">
 
@@ -106,10 +106,10 @@
                         </div>
                         <div class="col-sm-9">
                             <select id="type-select" class="form-control">
-                                <!-- 这里装入预约类型列表 -->
-                                <option>场次预约</option>
-                                <option>上门服务</option>
-                                <option>全部</option>
+                               <!-- 这里装入预约类型列表 -->
+										<option value="0">场次预约</option>
+										<option value="1">上门服务</option>
+										<option value="2" selected="selected">全部</option>
                             </select>
                         </div>
                     </div>
@@ -119,11 +119,12 @@
                         <label for="session-select" class="col-sm-3">预约场次</label>
                         <div class="col-sm-9">
                             <select id="session-select" class="form-control">
-                                <!-- 这里装入场次时间信息 -->
-                                <option>YYYY 年 MM 月 DD 日，地点：XXXX</option>
-                                <option>YYYY 年 MM 月 DD 日，地点：XXXX</option>
-                                <option>YYYY 年 MM 月 DD 日，地点：XXXX</option>
-                                <option>全部</option>
+                               <!-- 这里装入场次时间信息 -->
+										<c:forEach items="${activities}" var="activity">
+											<option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
+										</c:forEach>
+										<option value="-1">全部预约场次</option>
+										<option value="-2">上门服务</option>
                             </select>
                         </div>
                     </div>
@@ -135,9 +136,10 @@
                         <label for="finished-select" class="col-sm-3">是否已完成</label>
                         <div class="col-sm-9">
                             <select id="finished-select" class="form-control">
-                                <option>已完成</option>
-                                <option>未完成</option>
-                                <option>全部</option>
+                               <option value="0">未受理</option>
+										<option value="1">已受理未完成</option>
+										<option value="2">已完成</option>
+										<option value="3" selected="selected">全部</option>
                             </select>
                         </div>
                     </div>

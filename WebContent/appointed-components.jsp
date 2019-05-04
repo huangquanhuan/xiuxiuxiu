@@ -144,7 +144,8 @@
 											<c:forEach items="${activities}" var="activity">
 												<option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
 											</c:forEach>
-											<option value="-1">全部</option>
+											<option value="-1">全部预约场次</option>
+											<option value="-2">上门服务</option>
 										</select>
 									</div>
 								</div>
@@ -158,8 +159,10 @@
 									<div class="col-sm-9">
 										<select id="components-select" name="componentsTypeSelect" class="form-control">
 											<!-- 这里装入预约类型列表 -->
+											<c:forEach items="${components}" var="component">
+												<option value="${component.id}">${component.type}</option>
+											</c:forEach>
 											<option>内存条8G</option>
-											<option>内存条4G</option>
 											<option value="-1">全部</option>
 										</select>
 									</div>
