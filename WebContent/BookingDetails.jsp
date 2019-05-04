@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -51,16 +52,15 @@
 					<div class="clearfix"></div>
 				</div>
 				<!-- 两边留白 -->
-
+    <a href="makeReservation?method=getForID?id=1" class="view resw3">刷新</a>
 				<div class="wrapper">
 					<div class="agileits_banner_bottom_left">
 						<h3>
 							<span>问题描述</span>
-
 						</h3>
 						<div class="clearfix"></div>
-						<span id="error1">软件故障</span>&nbsp;<span id="error2">死机</span>
-						<p id="errorMessage">蓝屏就在开机时出现小圆圈转圈就迅速，不能进安全模式，机箱有很多灰尘。</p>
+						<span id="error1"> </span>&nbsp;<span id="error2">${reservation.repairType}</span>
+						<p id="errorMessage">${reservation.detail}</p>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -68,10 +68,12 @@
 				<!-- 轮播 -->
 				<div class="banner">
 					<ul id="sb-slider" class="sb-slider" style="max-width: 1680px;">
-						<li><img id="errorImg" src="images/banner2.jpg" alt="image2">
+					<c:forEach items="${reservation.imgUrlList}" var="reservation.imgUrl" >
+						<li><img id="errorImg" src="${reservation.imgUrl}" alt="image">
 							<div class="sb-description">
 								<h4>问题图片</h4>
 							</div></li>
+					</c:forEach>
 					</ul>
 				</div>
 				<!-- /wrapper -->
@@ -83,31 +85,26 @@
 						data-toggle="collapse" data-target="#partsList">所需零件列表</button>
 					<div class="clearfix"></div>
 
-					<div id="partsList" class="container collapse">
+					<div id="partsList" class="container collapse in">
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th>id</th>
 									<th>零件名称</th>
-									<th>数量</th>
+									<th>价格</th>
+									<th>类型</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>零件1</td>
-									<td>5</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>零件2</td>
-									<td>2</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>零件3</td>
-									<td>1</td>
-								</tr>
+							<c:forEach items="${components}" var="components">
+                                    <tr>
+                                        <td>${components.id}</td>
+                                        <td>${components.name}</td>
+                                        <td>${components.price}</td>
+                                        <td>${components.type}</td>
+                                    </tr>
+                                </c:forEach>
+								
 							</tbody>
 						</table>
 					</div>
@@ -119,32 +116,32 @@
 						data-toggle="collapse" data-target="#user">用户信息</button>
 
 					<div class="clearfix"></div>
-					<div id="user" class="container collapse">
+					<div id="user" class="container collapse in">
 						<table class="table table-bordered table-striped">
 							<tbody>
 								<tr>
 									<td>姓名</td>
-									<td>王五</td>
+									<td>${student.name}</td>
 								</tr>
 								<tr>
 									<td>学号</td>
-									<td>221600207</td>
+									<td>${student.studentID}</td>
 								</tr>
 								<tr>
 									<td>地址</td>
-									<td>一区6#306</td>
+									<td>${student.address}</td>
 								</tr>
 								<tr>
 									<td>设备类型</td>
-									<td>联想笔记本</td>
+									<td>${reservation.repairActivityID}</td>
 								</tr>
 								<tr>
 									<td>联系方式</td>
-									<td>13295975528</td>
+									<td>${student.phoneNumber}</td>
 								</tr>
 								<tr>
 									<td>维修方式</td>
-									<td>上门服务</td>
+									<td>${reservation.applicationType}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -152,8 +149,8 @@
 				</div>
 				<div class="row  login-center">
 					<p class="text-center">
-						<a href="single.html" class="view resw3">接受预约</a> <a
-							href="single.html" class="view resw3">取消预约</a>
+						<a href="single.html" class="view resw3">接受预约</a> 
+						<a href="single.html" class="view resw3">取消预约</a>
 					</p>
 				</div>
 			</div>

@@ -1,11 +1,8 @@
-<!doctype html>
-<%@page
-	import="javax.security.auth.message.callback.PrivateKeyCallback.Request"%>
+<!DOCTYPE html>
+<%@page import="javax.security.auth.message.callback.PrivateKeyCallback.Request"%>
 <%@page import="xiuxiuxiu.pojo.*"%>
 <%@page import="xiuxiuxiu.dao.*"%>
-
 <%@page import="java.util.List"%>
-
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <html lang="en">
@@ -43,7 +40,7 @@
 			<button type="button" class="btn btn-default  pull-left">
 				<span class="glyphicon glyphicon-chevron-left"></span> 返回我的信息
 			</button>
-			<br> <br>
+			<br /> <br />
 		</div>
 
 		<!-- Top content -->
@@ -58,32 +55,32 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-6 col-sm-offset-3 form-box">
-						<%-- 						<c:forEach items="${ReservationList}" var="reservation1" varStatus="status">--%>
+
 						<%
-							List<Reservation> reservationList = (List<Reservation>) request.getAttribute("ReservationList");
-							for (Reservation reservation : reservationList) {
+						    List<Reservation> reservationList = (List<Reservation>) request.getAttribute("ReservationList");
+						    for (Reservation reservation : reservationList) {
 						%>
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<%!String applicationTimeAndState, requiredTimeAndPlace, detail;%>
 								<%!EquipmentDAO equipmentDao = new EquipmentDAOImpl();%>
 								<%
-									applicationTimeAndState = reservation.getApplicationTime();
-										requiredTimeAndPlace = reservation.getRequiredTime();
+								    applicationTimeAndState = reservation.getApplicationTime();
+								        requiredTimeAndPlace = reservation.getRequiredTime();
 
-										if (reservation.getState() == 0) {
-											applicationTimeAndState = applicationTimeAndState + "(未受理)";
-										} else if (reservation.getState() == 1) {
-											applicationTimeAndState = applicationTimeAndState + "(已受理，未完成)";
-										} else if (reservation.getState() == 2) {
-											applicationTimeAndState = applicationTimeAndState + "(已完成)";
-										} else {
-											out.print("<script>alert('获取预约单的目前状态失败！')</script>");
-										}
-										requiredTimeAndPlace = reservation.getRequiredTime() + " " + reservation.getPlace();
-										detail = reservation.getDetail();
-										if (detail!=null&&detail.length() > 8)
-											detail = detail.substring(0, 7) + "...";
+								        if (reservation.getStateInt() == 0) {
+								            applicationTimeAndState = applicationTimeAndState + "(未受理)";
+								        } else if (reservation.getStateInt() == 1) {
+								            applicationTimeAndState = applicationTimeAndState + "(已受理，未完成)";
+								        } else if (reservation.getStateInt() == 2) {
+								            applicationTimeAndState = applicationTimeAndState + "(已完成)";
+								        } else {
+								            out.print("<script>alert('获取预约单的目前状态失败！')</script>");
+								        }
+								        requiredTimeAndPlace = reservation.getRequiredTime() + " " + reservation.getPlace();
+								        detail = reservation.getDetail();
+								        if (detail != null && detail.length() > 8)
+								            detail = detail.substring(0, 7) + "...";
 								%>
 								<h3 class="panel-title"><%=applicationTimeAndState%></h3>
 								<div>
@@ -95,6 +92,7 @@
 										data-target="#evaluation-data" type="button">评价</button>
 									<button class="btn btn-danger" data-toggle="modal"
 										data-target="#feedback-data" type="button">反馈</button>
+
 								</div>
 							</div>
 							<div class="panel-body">
@@ -104,9 +102,8 @@
 							</div>
 						</div>
 						<%
-							}
+						    }
 						%>
-						<!-- 						</c:forEach> -->
 					</div>
 				</div>
 			</div>

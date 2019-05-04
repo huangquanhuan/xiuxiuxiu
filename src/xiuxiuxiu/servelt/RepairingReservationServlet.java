@@ -1,6 +1,7 @@
 package xiuxiuxiu.servelt;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
 import xiuxiuxiu.dao.ApplyComponentDAO;
 import xiuxiuxiu.dao.ApplyComponentDAOImpl;
@@ -232,6 +234,31 @@ public class RepairingReservationServlet extends BaseServlet {
         request.setAttribute("backLink", "makeReservation?method=confirmInformation&uid=" + request.getParameter("userId"));
         
         return "reserve-result.jsp";
+    }
+    
+    //利用表单查看详细信息
+    public String getForID(HttpServletRequest request, HttpServletResponse response, Page page) {
+        ReservationDAOImpl reservationDAO = new ReservationDAOImpl();
+        ComponentDAOImpl componentDAO = new ComponentDAOImpl();
+        StudentDAOImpl studentDAO = new StudentDAOImpl();
+        
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        Reservation reservation = reservationDAO.getReservation(id);
+        request.setAttribute("reservation", reservation);
+        
+        List<Integer> componentList = reservation.getComponentIDList();
+        List<Component> components = new ArrayList<Component>();
+        for(Integer cID : componentList)
+        {
+            Component component = componentDAO.getComponent(cID);
+            components.add(component);
+        }
+        request.setAttribute("components", components);
+        
+        Integer uid = reservation.getUserID();
+        Student student = studentDAO.get(uid);
+        request.setAttribute("student", student);
+        return "BookingDetails.jsp";
     }
     
     /* (non-Javadoc)
