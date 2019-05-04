@@ -32,10 +32,10 @@
 				<li><a href="预约.jsp" class="hvr-underline-from-center">预约</a></li>
 				<li><a href="ArticleServlet?type=list"
 					class="hvr-underline-from-center">文章&通知</a></li>
-				<li class="dropdown"><a href="#"
+				<li class="dropdown"><a id="my_message" href="#"
 					class="dropdown-toggle hvr-underline-from-center"
 					data-toggle="dropdown">我的<b class="fa fa-caret-down"></b></a>
-					<ul id="my_message" class="dropdown-menu agile_short_dropdown">
+					<ul  class="dropdown-menu agile_short_dropdown">
 						<%
 							User user = (User) session.getAttribute("name");
 						%>
@@ -60,6 +60,9 @@
 					</ul></li>
 			</ul>
 		</nav>
-
 	</div>
+	
+	
+	
+
 </nav>

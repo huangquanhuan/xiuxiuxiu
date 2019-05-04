@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+
 <%@include file="注册弹窗.jsp"%>
 <%@include file="个人信息修改弹窗.jsp"%>
 <%@include file="登录弹窗.jsp"%>
@@ -9,21 +9,26 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<title>修咻咻维修平台</title>
-	<!-- custom-theme -->
+<title>修咻咻维修平台</title>
+<!-- custom-theme -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/jsp; charset=utf-8" />
 <meta name="keywords" content="" />
 <!-- //custom-theme -->
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css"
+	media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/blog.css" rel="stylesheet" type="text/css" media="all" />
 
 <!-- font-awesome-icons -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="css/font-awesome.css" rel="stylesheet">
 <!-- //font-awesome-icons -->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-<link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i" rel="stylesheet">
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+	rel='stylesheet' type='text/css'>
+<link
+	href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
+	rel="stylesheet">
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script
 	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -31,90 +36,17 @@
 </head>
 
 <body>
-		<%@include file="导航栏.jsp"%>
-		
-		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
-	<div class="modal-dialog">
-	<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>													
-				<div class="signin-form profile">
-				<h3 class="agileinfo_sign">登录</h3>	
-						<div class="login-form">
-							<form class="loginForm" action="UserServlet?type=login" method="post">
-								<input id="name" name="name" placeholder="手机/会员名/邮箱" type="text"required="required">								
-																					<input id="password" type="password" name="password" placeholder="密码" required="required">
-																					<div class="tp">
-																						<input type="submit" value="登录">
-																					</div>
-																				</form>
-																			</div>
-																			<p><a href="#" data-toggle="modal" data-target="#myModal3" > 还没有账号?</a></p>
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<!-- //Modal1 -->	
-													<!-- Modal2 -->
-													<div class="modal fade" id="myModal3" tabindex="-1" role="dialog">
-														<div class="modal-dialog">
-														<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>
-																	
-																	<div class="signin-form profile">
-																	<h3 class="agileinfo_sign">注册</h3>	
-																			<div class="register-form">
-																				<form class="registerForm" action="UserServlet?type=register" method="post">
-																				   <input id="name"type="text" name="name" placeholder="昵称" required="required">
-																					<input id="phonenumber"type="text" name="tel" placeholder="手机号码" required="required">
-																					<input id="password"type="password" name="password" placeholder="密码" required="required">
-				                                                                    <input type="password" name="password" id="password2" placeholder="确认密码" required="required">
+	<%@include file="导航栏.jsp"%>
 
-																					<input type="submit" value="注册">
-																				</form>
-																			</div>
-																			<p><a href="#"> 已有账号？</a></p>
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="modal fade" id="myModal6" tabindex="-1" role="dialog">
-														<div class="modal-dialog">
-														<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>
-																	
-																	<div class="signin-form profile">
-																	<h3 class="agileinfo_sign">是否退出登录？</h3>	
-																			<div class="login-form">
-																				<form action="UserServlet?type=exit" method="post">
-																					<input type="submit" value="确定">
-																				</form>
-																			</div>
-																			
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>
-	<!-- //Modal2 -->
 	<div class="agile_inner_banner_info">
-	<h2>已提交的预约</h2>
-</div>
+		<h2>已提交的预约</h2>
+	</div>
 	<div class="container text-center">
 
 		<!-- Top content -->
 		<div class="top-content">
 			<div class="container">
-				<div class="row">
-					
-				</div>
+				<div class="row"></div>
 				<div class="row">
 					<div class="col-sm-6 col-sm-offset-3 form-box">
 						<div class="panel panel-default">
@@ -178,7 +110,8 @@
 		aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form role="form" action="..." method="post" class="registration-form">
+				<form role="form" action="..." method="post"
+					class="registration-form">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
@@ -201,7 +134,8 @@
 		aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form role="form" action="..." method="post" class="registration-form">
+				<form role="form" action="..." method="post"
+					class="registration-form">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>

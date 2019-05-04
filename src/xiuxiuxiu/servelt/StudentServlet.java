@@ -80,9 +80,6 @@ public class StudentServlet extends HttpServlet {
 			//登录成功后刷新首页维修活动
 			//后续需要跳转到HomePageServlet
 			request.getRequestDispatcher("/HomePageServlet").forward(request,response);
-			//rd = request.getRequestDispatcher("首页.jsp");
-			// 转发请求
-			//rd.forward(request, response);
 		}
 
 	}
