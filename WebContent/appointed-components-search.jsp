@@ -84,7 +84,7 @@
                                     <td>${viewComponents.reservationState}</td>
                                     
                                     <td><a
-                                        href="makeReservation?method=getForID?id=${viewComponents.reservationID}"
+                                        href="makeReservation?method=getForID&id=${viewComponents.reservationID}"
                                         class="view resw3">详情</a></td>
                                 </tr>
                         </c:forEach>
