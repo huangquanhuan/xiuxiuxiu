@@ -15,7 +15,7 @@ public class ViewComponentDAOImpl {
     /**
      * 查询视图
      * @param reservationState 3种状态：0表示未受理状态，1表示已受理未完成状态，2表示已完成状态
-     * @param applicationType 2种预约类型：0表示活动预约，1表示上门维修预约
+     * @param applicationType 2种预约类型：0表示活动预约，1表示上门维修预约,2表示全部
      * */
     public List<ViewDataGrid> getList(String name,int applicationType,int activityID,String componentType, int reservationState) {
         List<ViewDataGrid> lists = new LinkedList<ViewDataGrid>();
