@@ -1,4 +1,4 @@
-package xiuxiuxiu.dao;
+package xiuxiuxiu.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import xiuxiuxiu.dao.StudentDAOImpl;
 import xiuxiuxiu.pojo.Student;
 
 class StudentDAOImplTest {
