@@ -138,4 +138,27 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 			return null;
 		}
 	}
+	
+    /**
+     * @author 刘忠燏
+     */
+    @Override
+    public List<Equipment> listEquipmentsByUser(Integer userId) {
+        List<Equipment> equipments = new ArrayList<Equipment>();
+        String sql = "select id, equipment_name from equipment where user_id = ?";
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Equipment entity = new Equipment();
+                entity.setId(rs.getInt("id"));
+                entity.setEquipmentName(rs.getString("equipment_name"));
+                entity.setUserId(userId);
+                equipments.add(entity);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return equipments;
+    }
 }

@@ -220,12 +220,6 @@ public class Reservation {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		this.applicationTime = df.format(new Date());// new Date()为获取当前系统时间
 	}
-
-	
-	public void setApplicationTime() {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-		this.applicationTime = df.format(new Date());// new Date()为获取当前系统时间
-	}
 	
 	public void setApplicationTime(String applicationTime) {
 		this.applicationTime = applicationTime;
