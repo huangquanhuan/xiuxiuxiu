@@ -19,7 +19,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 	public void addArticle(Article article) {
 		// TODO Auto-generated method stub
 				String sql = "insert into article(author_id,author_name,title,text,time) values(? ,? ,? ,? ,? )";
-				try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+				try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
 					ps.setInt(1, article.getAuthorId()); 
 					ps.setString(2, article.getAuthorName());
 					ps.setString(3, article.getTitle());
@@ -27,6 +27,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 					ps.setString(5, article.getTime());
 					ps.execute();
 					ResultSet rs = ps.getGeneratedKeys();
+					//System.out.println("coanima");
 					if (rs.next()) {
 						int id = rs.getInt(1);
 						//article.setID(id);
