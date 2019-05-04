@@ -1,3 +1,12 @@
+
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page import="java.io.*,java.util.*"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@include file="注册弹窗.jsp"%>
+<%@include file="个人信息修改弹窗.jsp"%>
+<%@include file="登录弹窗.jsp"%>
+<%@include file="退出登录弹窗.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +19,6 @@
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
-
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
@@ -27,46 +35,7 @@
     <link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i" rel="stylesheet" />
 </head>
 <body>
-<div class="agileits_w3layouts_banner_nav">
-    <nav class="navbar navbar-default">
-        <div class="navbar-header navbar-left">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <h1><a class="navbar-brand" href="index.html"><i class="fa fa-crosshairs" aria-hidden="true"></i> 修！咻咻！</a></h1>
-
-        </div>
-        <ul class="agile_forms">
-            <li><a class="active" href="#" data-toggle="modal" data-target="#myModal2"> Sign In</a> </li>
-            <li><a href="#" data-toggle="modal" data-target="#myModal3"> Sign Up</a> </li>
-        </ul>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-            <nav>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html" class="hvr-underline-from-center">主页</a></li>
-                    <li><a href="#" class="hvr-underline-from-center">预约</a></li>
-                    <li><a href="#" class="hvr-underline-from-center">文章 &amp; 通知</a></li>
-                    <li><a href="#" class="hvr-underline-from-center">我的</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown">Short Codes <b class="fa fa-caret-down"></b></a>
-                        <ul class="dropdown-menu agile_short_dropdown">
-                            <li><a href="icons.html">Web Icons</a></li>
-                            <li><a href="typography.html">Typography</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="contact.html" class="hvr-underline-from-center">Contact</a></li>
-                </ul>
-            </nav>
-
-        </div>
-    </nav>
-
-    <div class="clearfix"> </div>
-</div>
+<%@include file="导航栏.jsp"%>
 
 <!-- 主体内容：开始 -->
 <div class="services">
@@ -85,7 +54,7 @@
 
             <!-- 搜索框 -->
             <div id="field-search" class="container tab-pane active"><br />
-                <form action="*" method="post">
+                <form action="ViewUserServlet?method=list" method="post">
 
                     <div class="input-group col-md-12"
                          style="margin-top:0px;positon:relative; padding-left:1em;padding-right:1em;">
@@ -107,9 +76,9 @@
                         <div class="col-sm-9">
                             <select id="type-select" class="form-control">
                                <!-- 这里装入预约类型列表 -->
-										<option value="0">场次预约</option>
-										<option value="1">上门服务</option>
-										<option value="2" selected="selected">全部</option>
+                                        <option value="0">场次预约</option>
+                                        <option value="1">上门服务</option>
+                                        <option value="2" selected="selected">全部</option>
                             </select>
                         </div>
                     </div>
@@ -120,11 +89,11 @@
                         <div class="col-sm-9">
                             <select id="session-select" class="form-control">
                                <!-- 这里装入场次时间信息 -->
-										<c:forEach items="${activities}" var="activity">
-											<option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
-										</c:forEach>
-										<option value="-1">全部预约场次</option>
-										<option value="-2">上门服务</option>
+                                        <c:forEach items="${activities}" var="activity">
+                                            <option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
+                                        </c:forEach>
+                                        <option value="-1">全部预约场次</option>
+                                        <option value="-2">上门服务</option>
                             </select>
                         </div>
                     </div>
@@ -137,9 +106,9 @@
                         <div class="col-sm-9">
                             <select id="finished-select" class="form-control">
                                <option value="0">未受理</option>
-										<option value="1">已受理未完成</option>
-										<option value="2">已完成</option>
-										<option value="3" selected="selected">全部</option>
+                                        <option value="1">已受理未完成</option>
+                                        <option value="2">已完成</option>
+                                        <option value="3" selected="selected">全部</option>
                             </select>
                         </div>
                     </div>
@@ -171,7 +140,6 @@
                     document.getElementById("password1").onchange = validatePassword;
                     document.getElementById("password2").onchange = validatePassword;
                 }
-
                 function validatePassword() {
                     var pass2 = document.getElementById("password2").value;
                     var pass1 = document.getElementById("password1").value;
@@ -215,12 +183,10 @@
                                     slicebox.next();
                                     return false;
                                 });
-
                                 $navArrows.children(':last').on('click', function () {
                                     slicebox.previous();
                                     return false;
                                 });
-
                                 $nav.each(function (i) {
                                     $(this).on('click', function (event) {
                                         var $dot = $(this);
@@ -279,7 +245,6 @@
                             }
                         }
                     });
-
                 });
             </script>
             <!-- //flexisel -->
@@ -315,11 +280,9 @@
                       easingType: 'linear'
                       };
                     */
-
                     $().UItoTop({
                         easingType: 'easeOutQuart'
                     });
-
                 });
             </script>
             <!-- //here ends scrolling icon -->
