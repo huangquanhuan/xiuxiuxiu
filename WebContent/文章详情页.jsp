@@ -1,24 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@page import="xiuxiuxiu.dao.*"%>
+<%@page import="xiuxiuxiu.pojo.User"%>
+<%@page import="java.util.List"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-<title>管理文章</title>
+<title>文章详细信息</title>
 <!-- custom-theme -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/jsp; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/blog.css" rel="stylesheet" type="text/css" media="all" />
-
+<link href="css/single.css" rel="stylesheet" type="text/css" media="all" />
 <!-- font-awesome-icons -->
 <link href="css/font-awesome.css" rel="stylesheet"> 
 <!-- //font-awesome-icons -->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i" rel="stylesheet">
-
 </head>
-	
 <body>
 <!-- banner -->
    <div class="agileits_w3layouts_banner_nav">
@@ -30,133 +37,84 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-				<h1><a class="navbar-brand" href="index.jsp"><i class="fa fa-crosshairs" aria-hidden="true"></i> Treasurer</a></h1>
+				<h1><a class="navbar-brand" href="index.html"><i class="fa fa-crosshairs" aria-hidden="true"></i> Treasurer</a></h1>
 
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-					<nav>
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="blog.jsp" class="hvr-underline-from-center">Blog</a></li>
-						</ul>
-					</nav>
-
-				</div>
-			</nav>	
-			
-	<div class="clearfix"> </div> 
-</div> 							
-												
-<div class="agile_inner_banner_info">
-	<h2>管理文章</h2>
-
-
-</div>
-
-  <a href="articles-list.jsp" style="font-size: 1em; float:right;
-  padding-right:2em;
-  padding-bottom:1em;">文章列表</a> 
-  				<!-- //agile_inner_banner_info -->
-					<!-- blog -->
+				
+			</nav>		
+	  <div class="clearfix"> </div> 
+    </div> 
+<!-- Modal1 -->
+					<!-- /agile_inner_banner_info -->													
+							<div class="agile_inner_banner_info">
+							   <h2>详细文章</h2>
+							</div>
+					<!-- //agile_inner_banner_info -->
+			<!-- single -->
 	<div class="services">
 		<div class="container">
-			<div class="col-md-8 event-left w3-agile-event-left">
-				<c:forEach items="${users}" var="user">
-				<div class="event-left1 w3-agile-event-left1">
-					<div class="col-xs-6 event-left1-left agile-event-left1-left">
-						<a href=Single.jsp><img src="images/7.jpg" alt=" " class="img-responsive" /></a>
-						<div class="event-left1-left-pos agileits-w3layouts-event-left1-left-pos">
-							<ul>
-								<li><a href="#"><span class="fa fa-tags" aria-hidden="true"></span>5 Tags</a></li>
-								<li><a href="#"><span class="fa fa-heart-o" aria-hidden="true"></span>200 Likes</a></li>
-								<li><a href="#"><span class="fa fa-user" aria-hidden="true"></span> Leo Paul</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-xs-6 event-left1-right w3-agileits-event-left1-right">
-						<h4>2nd / May 2017</h4>
-						<h5><a href=Single.jsp>${user.id}</a></h5>
-
-						<p>${user.name}</p>
+			<div class="col-md-8 single-left">
+				<div class="single-left1">
+					<img src="images/banner2.jpg" alt=" " class="img-responsive" />
 					
-					</div>
-					<div class="clearfix"> </div>
+					<ul>
+						<li><h3>${article.title}</h3><span class="fa fa-user" aria-hidden="true"></span><a href="#">${article.authorName}</a></li>
+						
+					</ul>
+					<p>${article.text}</p>
 				</div>
-				</c:forEach>
-				<nav class="paging1 agileits-w3layouts-paging1">
-				  <ul class="pagination paging w3-agileits-paging">
-					<li>
-					  <a href="#" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					  </a>
-					</li>
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li>
-					  <a href="#" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					  </a>
-					</li>
-				  </ul>
-				</nav>
+				<div class="admin">
+					<p>CPU的性能是引起死机的一个常见原因，如果CPU的温度过高就会导致死机或重启现象，可考虑更换一个好的散热风扇，解决CPU温度过高导致的情况。 </p>
+					<a href="#"><i>电脑维修小提示</i></a>
+				</div>
 			</div>
 			<div class="col-md-4 event-right wthree-event-right">
 				<div class="event-right1 agileinfo-event-right1">
 					<div class="search1 agileits-search1">
 						<form action="#" method="post">
-							<table width="100%">
-								<tr>
-									<th width="70%">
-										<input type="search" float="event-left" name="Search" placeholder="搜索文章/通知" required="">
-									</th>
-									<th width="30%">
-										<input type="submit" value="搜索">
-									</th>
-								</tr>								
-							</table>
+							<input type="search" name="Search" placeholder="搜索文章/通知" required="">
+							<input type="submit" value="检索">
 						</form>
 					</div>
-					<div class="posts w3l-posts">
+						<div class="posts w3l-posts">
 						<h3>通知</h3>
 						<div class="posts-grids w3-posts-grids">
 							<div class="posts-grid w3-posts-grid">
 								<div class="posts-grid-left w3-posts-grid-left">
-									<a href=Single.jsp><img src="images/1.jpg" alt=" " class="img-responsive" /></a>
+									<a href="single.html"><img src="images/1.jpg" alt=" " class="img-responsive" /></a>
 								</div>
 								<div class="posts-grid-right w3-posts-grid-right">
-									<h4><a href=Single.jsp>维修场次变更通知</a></h4>
+									<h4><a href="single.html">维修场次变更通知</a></h4>
 									<ul class="wthree_blog_events_list">
 										<li><i class="fa fa-calendar" aria-hidden="true"></i>10/5/2017</li>
-										<li><i class="fa fa-user" aria-hidden="true"></i><a href=Single.jsp>管理员</a></li>
+										<li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">管理员</a></li>
 									</ul>
 								</div>
 								<div class="clearfix"> </div>
 							</div>
 							<div class="posts-grid w3-posts-grid">
 								<div class="posts-grid-left w3-posts-grid-left">
-									<a href="<%=request.getContextPath() %>/forward/Single.jsp" target="_blank"><img src="images/6.jpg" alt=" " class="img-responsive" /></a>
+									<a href="single.html"><img src="images/6.jpg" alt=" " class="img-responsive" /></a>
 								</div>
 								<div class="posts-grid-right w3-posts-grid-right">
-									<h4><a href=Single.jsp>维修场地变更通知</a></h4>
+									<h4><a href="single.html">维修场地变更通知</a></h4>
 									<ul class="wthree_blog_events_list">
 										<li><i class="fa fa-calendar" aria-hidden="true"></i>12/5/2017</li>
-										<li><i class="fa fa-user" aria-hidden="true"></i><a href=Single.jsp>管理员</a></li>
+										<li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">管理员</a></li>
 									</ul>
 								</div>
 								<div class="clearfix"> </div>
 							</div>
 							<div class="posts-grid w3-posts-grid">
 								<div class="posts-grid-left w3-posts-grid-left">
-									<a href=Single.jsp><img src="images/7.jpg" alt=" " class="img-responsive" /></a>
+									<a href="single.html"><img src="images/7.jpg" alt=" " class="img-responsive" /></a>
 								</div>
 								<div class="posts-grid-right w3-posts-grid-right">
-									<h4><a href=Single.jsp>零件库更新通知</a></h4>
+									<h4><a href="single.html">零件库更新通知</a></h4>
 									<ul class="wthree_blog_events_list">
 										<li><i class="fa fa-calendar" aria-hidden="true"></i>13/5/2017</li>
-										<li><i class="fa fa-user" aria-hidden="true"></i><a href=Single.jsp>管理员</a></li>
+										<li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">管理员</a></li>
 									</ul>
 								</div>
 								<div class="clearfix"> </div>
@@ -166,12 +124,12 @@
 					<div class="tags tags1 w3layouts-tags">
 						<h3>关键词检索</h3>
 						<ul>
-							<li><a href=Single.jsp>网络故障</a></li>
-							<li><a href=Single.jsp>无法开机</a></li>
-							<li><a href=Single.jsp>>蓝屏</a></li>
-							<li><a href=Single.jsp>自动重启</a></li>
-							<li><a href=Single.jsp>病毒常识</a></li>
-							<li><a href=Single.jsp>系统变慢</a></li>
+							<li><a href="single.html">网络故障</a></li>
+							<li><a href="single.html">无法开机</a></li>
+							<li><a href="single.html">蓝屏</a></li>
+							<li><a href="single.html">自动重启</a></li>
+							<li><a href="single.html">病毒常识</a></li>
+							<li><a href="single.html">系统变慢</a></li>
 						</ul>
 					</div>
 				</div>
@@ -179,17 +137,34 @@
 			<div class="clearfix"> </div>
 		</div>
 	</div>
-<!-- //blog -->	
-
-<!-- footer -->
+<!-- //single -->
 <!-- //footer -->
 <!-- menu -->
 <!-- js -->
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
+	<!-- password-script -->
+	<script type="text/javascript">
+		window.onload = function () {
+			document.getElementById("password1").onchange = validatePassword;
+			document.getElementById("password2").onchange = validatePassword;
+		}
 
+		function validatePassword() {
+			var pass2 = document.getElementById("password2").value;
+			var pass1 = document.getElementById("password1").value;
+			if (pass1 != pass2)
+				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+			else
+				document.getElementById("password2").setCustomValidity('');
+			//empty string means no validation error
+		}
+	</script>
+	<!-- //password-script -->
+
+<!-- //js -->
 <script src="js/bars.js"></script>
-    <!-- pop-up-box -->    
+<!-- pop-up-box -->    
 	<link href="css/popuo-box.css" rel="stylesheet" type="text/css" property="" media="all" />
 	<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
 <!--//pop-up-box -->
@@ -223,7 +198,7 @@
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
 			event.preventDefault();
-			$('jsp,body').animate({scrollTop:$(this.hash).offset().top},1000);
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
 </script>

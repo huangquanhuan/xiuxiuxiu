@@ -45,7 +45,7 @@ public interface ArticleDAO {
      *
      * @return 相应id的文章详细信息
      */
-	Article getArticle(int id);
+	Article getArtice(int id);
 	/**
      *@return 一个包含文章对象的List
      * 

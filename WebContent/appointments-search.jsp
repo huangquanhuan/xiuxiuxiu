@@ -1,9 +1,12 @@
-<%@page import="xiuxiuxiu.dao.*"%>
-<%@page import="xiuxiuxiu.pojo.*"%>
-<%@page import="java.util.*"%>
+
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page import="java.io.*,java.util.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@include file="注册弹窗.jsp"%>
+<%@include file="个人信息修改弹窗.jsp"%>
+<%@include file="登录弹窗.jsp"%>
+<%@include file="退出登录弹窗.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,47 +36,7 @@
     <link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i" rel="stylesheet" />
 </head>
 <body>
-<div class="agileits_w3layouts_banner_nav">
-    <nav class="navbar navbar-default">
-        <div class="navbar-header navbar-left">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <h1><a class="navbar-brand" href="index.html"><i class="fa fa-crosshairs" aria-hidden="true"></i> 修！咻咻！</a></h1>
-
-        </div>
-        <ul class="agile_forms">
-            <li><a class="active" href="#" data-toggle="modal" data-target="#myModal2"> Sign In</a> </li>
-            <li><a href="#" data-toggle="modal" data-target="#myModal3"> Sign Up</a> </li>
-        </ul>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-            <nav>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html" class="hvr-underline-from-center">主页</a></li>
-                    <li><a href="#" class="hvr-underline-from-center">预约</a></li>
-                    <li><a href="#" class="hvr-underline-from-center">文章 &amp; 通知</a></li>
-                    <li><a href="#" class="hvr-underline-from-center">我的</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown">Short Codes <b class="fa fa-caret-down"></b></a>
-                        <ul class="dropdown-menu agile_short_dropdown">
-                            <li><a href="icons.html">Web Icons</a></li>
-                            <li><a href="typography.html">Typography</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="contact.html" class="hvr-underline-from-center">Contact</a></li>
-                </ul>
-            </nav>
-
-        </div>
-    </nav>
-
-    <div class="clearfix"> </div>
-</div>
-<p></p>
+<%@include file="导航栏.jsp"%>
 <!-- 主体内容：开始 -->
 <div class="services">
     <div class="container">
@@ -90,7 +53,7 @@
 
             <div class="table-responsive">
                 <table class="table">
-                    <p style="">总数：${totalNum} </p>
+                        <p>总数：${totalNum} </p>
                         <a href="ViewUserServlet?method=list" class="view resw3">刷新</a>
                     <thead>
                             <tr>

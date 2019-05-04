@@ -15,19 +15,20 @@ public class ViewComponentDAOImpl {
     /**
      * 查询视图
      * @param reservationState 3种状态：0表示未受理状态，1表示已受理未完成状态，2表示已完成状态
-     * @param applicationType 2种预约类型：0表示活动预约，1表示上门维修预约
+     * @param applicationType 2种预约类型：0表示活动预约，1表示上门维修预约,2表示全部
      * */
     public List<ViewDataGrid> getList(String name,int applicationType,int activityID,String componentType, int reservationState) {
         List<ViewDataGrid> lists = new LinkedList<ViewDataGrid>();
         Reservation reservation = new Reservation();
-        String sql = "SELECT U.user_name, U.student_id, U.phone_number, RV.application_type, RA.time, concat(C.name,\"-\",C.type), RV.state, RV.id "
-                + "FROM\r\n" + "    repair_activity AS RA\r\n"
-                + "    LEFT JOIN reservation AS RV ON RA.id = RV.repair_activity_id\r\n"
-                + "    LEFT JOIN `user` AS U ON RV.user_id = U.user_id\r\n"
-                + "    LEFT JOIN apply_component AS AC ON RV.id = AC.reservation_id\r\n"
-                + "    LEFT JOIN component AS C ON AC.component_id = C.id \r\n" + "WHERE 1=1 ";
+        String sql = "SELECT U.name, U.student_id, U.phone_number, RV.application_type, RA.time,concat(C.name,\"-\",C.type), RV.state, RV.id FROM\r\n" + 
+                "    repair_activity AS RA\r\n" + 
+                "    LEFT JOIN reservation AS RV ON RA.id = RV.repair_activity_id\r\n" + 
+                "    LEFT JOIN student AS U ON RV.user_id = U.id\r\n" + 
+                "    LEFT JOIN apply_component AS AC ON RV.id = AC.reservation_id\r\n" + 
+                "    LEFT JOIN component AS C ON AC.component_id = C.id \r\n" + 
+                "WHERE 1=1 ";
         if(!name.equals("")) {
-            sql += " U.user_name=?";
+            sql += " U.name=?";
         }
         if(applicationType <= 1 && applicationType >= 0) {
             sql += " RV.application_type=?";
@@ -69,7 +70,7 @@ public class ViewComponentDAOImpl {
                 reservation.setState(rs.getInt("RV.state"));
                 // 填充数据
                 ViewDataGrid bean = new ViewDataGrid();
-                bean.setUserName(rs.getString("U.user_name"));
+                bean.setUserName(rs.getString("U.name"));
                 bean.setStudentID(rs.getString("U.student_id"));
                 bean.setPhoneNumber(rs.getString("U.phone_number"));
                 bean.setApplicationType(reservation.getApplicationType());

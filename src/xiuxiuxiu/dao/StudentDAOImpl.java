@@ -15,11 +15,12 @@ public class StudentDAOImpl implements StudentDAO {
 
 	public void add(Student bean) {
 		String sql = "insert into student(password,name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
-		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql ,Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, bean.getPassword());
 			ps.setString(2, bean.getName());
 			ps.setString(3, bean.getPhoneNumber());
-			ps.setInt(4, bean.getAccessLevel());
+	 		//设置用户等级，目前默认为0
+			ps.setInt(4, 0);
 			ps.setString(5, bean.getStudentID());
 			ps.setString(6, bean.getAddress());
 			ps.setString(7, bean.getEmail());
@@ -41,7 +42,6 @@ public class StudentDAOImpl implements StudentDAO {
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setInt(1, id);
 			ps.execute();
-
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -72,7 +72,7 @@ public class StudentDAOImpl implements StudentDAO {
 	 */
 
 	public void update(Student bean) {
-		String sql = "update studemt set name=?,password=?,student_id=?,address=?,e_mail=? where id=?";
+		String sql = "update student set name=?,password=?,student_id=?,address=?,e_mail=? where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setString(1, bean.getName());
 			ps.setString(2, bean.getPassword());
@@ -106,7 +106,7 @@ public class StudentDAOImpl implements StudentDAO {
 				bean.setPassword(rs.getString("password"));
 				bean.setPhoneNumber(rs.getString("phone_number"));
 				bean.setAccessLevel(rs.getInt("access_level"));
-				bean.setStudentID(rs.getString("id"));
+				bean.setStudentID(rs.getString("student_id"));
 				bean.setAddress(rs.getString("address"));
 				bean.setEmail(rs.getString("e_mail"));
 				bean.setEquipment(equipmentDao.List(id));// 根据学生id获取设备id列表并将列表set进该学生的信息中
@@ -149,7 +149,7 @@ public class StudentDAOImpl implements StudentDAO {
 				bean.setEquipment(equipmentDao.List(bean.getID()));// 根据学生id获取设备id列表并将列表set进该学生的信息中
 				return bean;
 			} else {
-				System.out.println("用户不存在或密码错误");
+				System.out.println("用户不存在");
 				return null;
 			}
 		} catch (SQLException e) {

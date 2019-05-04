@@ -1,16 +1,14 @@
-
-<%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ page import="java.io.*,java.util.*"%>
+<%@page import="xiuxiuxiu.dao.*"%>
+<%@page import="xiuxiuxiu.pojo.User"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="注册弹窗.jsp"%>
-<%@include file="个人信息修改弹窗.jsp"%>
-<%@include file="登录弹窗.jsp"%>
-<%@include file="退出登录弹窗.jsp"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>预约详情</title>
+<title>文章列表</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="keywords" content="">
@@ -42,12 +40,12 @@
 <script src="dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-<%@include file="导航栏.jsp"%>
+
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
 		<div class="container">
 			<div class="mid_agile_bannner_top_info">
-				<h2>零件库编辑</h2>
+				<h2>文章编辑</h2>
 				<div class="heading-underline">
 					<div class="h-u1"></div>
 					<div class="h-u2"></div>
@@ -59,34 +57,45 @@
 				<div class="wrapper">
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped">
-							<caption>零件列表</caption>
+							<caption>文章列表</caption>
 							<caption>
-								<a href="ComponentServlet?method=list" class="view resw3">刷新</a>
+								<a href="ArticlesServlet?method=list" class="view resw3">刷新</a>
 							</caption>
+							<!--<caption>
+							<div class="container" style="width: 30em;margin-top: 2em">
+								<form action="ArticlesServlet?method=search" method="post">
+									<div class="input-group form-group">
+										 <input type="text" class="form-control" placeholder="请输入文章标题"  name="title"/>
+											<span class="input-group-btn">
+												<button class="btn btn-primary btn-lg" style="position: relative;left:1px;bottom: 1px;">搜索</button>
+											</span>
+									</div>
+								</form>
+							</div>
+							</caption>!-->
 							<thead>
 								<tr>
 									<th>id</th>
-									<th>零件名称</th>
-									<th>价格</th>
-									<th>数量</th>
-									<th>零件类型</th>
+									<th>文章名</th>
+									<th>作者</th>
+									<th>发布时间</th>
 									<th>修改</th>
 									<th>删除</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${components}" var="components">
+								<c:forEach items="${articles}" var="articles">
 									<tr>
-										<td>${components.id}</td>
-										<td>${components.name}</td>
-										<td>${components.price}</td>
-										<td>${components.quantity}</td>
-										<td>${components.type}</td>
-										<td><button type="button" class="btn btn-primary btn-lg"
-												onclick="updateFormID(${components.id})" data-toggle="modal"
+										<td>${articles.id}</td>
+										<td>${articles.title}</td>
+										<td>${articles.authorName}</td>
+										<td>${articles.time}</td>
+										
+									<td><button type="button" class="btn btn-primary btn-lg"
+											onclick="updateFormID(${articles.id})" data-toggle="modal"
 												data-target="#myModal2">修改</button></td>
 										<td><a
-											href="ComponentServlet?method=delete&id=${components.id}"
+											href="ArticlesServlet?method=delete&id=${articles.id}"
 											class="view resw3">删除</a></td>
 									</tr>
 								</c:forEach>
@@ -94,36 +103,33 @@
 						</table>
 						<!-- 按钮触发模态框 -->
 						<button class="btn btn-primary btn-lg" data-toggle="modal"
-							data-target="#myModal">新增零件</button>
+							data-target="#myModal">新增文章</button>
 						<!-- 模态框（Modal） -->
 						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content agileits_banner_bottom_left">
-									<form action="ComponentServlet?method=add" method="post">
+									
+									<form action="ArticlesServlet?method=add" method="post">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal"
 												aria-hidden="true">&times;</button>
 											<h3>
-												<span>新增零件</span>
+												<span>新增文章</span>
 											</h3>
 										</div>
 										<div class="modal-body">
 											<p>
-												<span>零件名称</span> <input type="text" class="form-control"
-													name="name" />
+												<span>文章名</span> <input type="text" class="form-control"
+													name="title" />
 											</p>
 											<p>
-                                                <span>零件价格</span> <input type="text" class="form-control"
-                                                    name="price" />
+                                                <span>作者</span> <input type="text" class="form-control"
+                                                    name="authorName" />
                                             </p>
-                                            <p>
-                                                <span>零件数量</span> <input type="text" class="form-control"
-                                                    name="quantity" />
-                                            </p>
-                                            <p>
-                                                <span>零件类型</span> <input type="text" class="form-control"
-                                                    name="type" />
+                                           	<p>
+                                                <span>内容</span> <input type="text" class="form-control"
+                                                    name="text" />
                                             </p>
 										</div>
 										<div class="modal-footer">
@@ -133,6 +139,7 @@
 											<button type="submit" class="btn btn-primary" name="submit">提交</button>
 										</div>
 									</form>
+									
 								</div>
 							</div>
 						</div>
@@ -141,32 +148,29 @@
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content agileits_banner_bottom_left">
-									<form action="ComponentServlet?method=update" method="post">
+									<form action="ArticlesServlet?method=update" method="post">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal"
 												aria-hidden="true">&times;</button>
 											<h3>
-												<span>修改零件</span>
+												<span>修改文章</span>
 											</h3>
 										</div>
 										<div class="modal-body">
-											<input type="hidden" name="id" id="id" value="5" />
+											<input type="hidden" name="id" id="id" value="4" />
 											<p>
-                                                <span>零件名称</span> <input type="text" class="form-control"
-                                                    name="name" />
+                                                <span>文章名称</span> <input type="text" class="form-control"
+                                                    name="title" />
                                             </p>
                                             <p>
-                                                <span>零件价格</span> <input type="text" class="form-control"
-                                                    name="price" />
+                                                <span>文章作者</span> <input type="text" class="form-control"
+                                                    name="authorName" />
                                             </p>
                                             <p>
-                                                <span>零件数量</span> <input type="text" class="form-control"
-                                                    name="quantity" />
+                                                <span>文章内容</span> <input type="text" class="form-control"
+                                                    name="text" />
                                             </p>
-                                            <p>
-                                                <span>零件类型</span> <input type="text" class="form-control"
-                                                    name="type" />
-                                            </p>
+                                            
 										</div>
 										<div class="modal-footer">
 
@@ -189,12 +193,7 @@
 	<div class="footer">
 		<div class="container">
 			<div class="agileinfo_copyright">
-				<p>
-					Copyright © 2017.Company name All rights reserved.More Templates <a
-						href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
-					- Collect from <a href="http://www.cssmoban.com/" title="网页模板"
-						target="_blank">网页模板</a>
-				</p>
+				
 			</div>
 		</div>
 	</div>
