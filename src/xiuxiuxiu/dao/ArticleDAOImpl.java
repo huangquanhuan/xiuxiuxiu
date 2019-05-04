@@ -67,8 +67,9 @@ public class ArticleDAOImpl implements ArticleDAO{
 			e.printStackTrace();
 		}
 	}
-	
-	@Override
+
+
+
 	public Article getArticle(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select id,author_id,author_name,title,text,time from article where id = ?";
@@ -207,6 +208,5 @@ public class ArticleDAOImpl implements ArticleDAO{
 					return null;
 				}
 		}
-
 }
 
