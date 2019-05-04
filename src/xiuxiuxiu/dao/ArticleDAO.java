@@ -1,7 +1,10 @@
 package xiuxiuxiu.dao;
 
 import xiuxiuxiu.pojo.*;
+
 import java.util.List;
+
+import xiuxiuxiu.pojo.Article;
 
 
 /**
@@ -48,4 +51,8 @@ public interface ArticleDAO {
      * 
      */
 	List<Article> searchArticle(String str);//返回id的List
+	
+	List<Article> list();
+	
+	List<Article> list(int start,int count);
 }

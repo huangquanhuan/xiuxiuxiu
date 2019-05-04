@@ -1,6 +1,7 @@
 package xiuxiuxiu.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import xiuxiuxiu.pojo.Article;
 import xiuxiuxiu.pojo.*;
 import xiuxiuxiu.util.DBUtil;
 
@@ -101,6 +103,67 @@ public class ArticleDAOImpl implements ArticleDAO{
 	@Override
 	public int getTotalArticle() {
 		// TODO Auto-generated method stub
-		return 0;
+		int total = 0;
+        try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement()) {
+            String sql = "select count(*) from article";
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+                total = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total;
+	}
+
+	@Override
+	public List<Article> list(int start, int count) {
+		// TODO Auto-generated method stub
+		String sql = "select * from article";
+		List<Article> articleList = new ArrayList<Article>();
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            int n=0;
+            while(rs.next()) 
+            {
+            	Article bean = new Article();
+            	if( n>=start && n<(start+count) )
+            	{
+            		bean.setTime(rs.getString(6));
+               		bean.setTitle(rs.getString(4));
+            		bean.setAuthorName(rs.getString(3));
+            		articleList.add(bean);
+            	}          
+            	n++;
+            }
+            return articleList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		return null;
+	}
+
+	@Override
+	public List<Article> list() {
+		// TODO Auto-generated method stub
+		String sql = "select * from article";
+		List<Article> articleList = new ArrayList<Article>();
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            while (rs.next()) 
+            {
+            	Article bean = new Article();
+            	bean.setTime(rs.getString(6));
+           		bean.setTitle(rs.getString(4));
+        		bean.setAuthorName(rs.getString(3));
+        		articleList.add(bean);
+            }
+            return articleList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
 	}
 }
