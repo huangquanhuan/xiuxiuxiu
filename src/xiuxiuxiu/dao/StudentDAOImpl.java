@@ -14,8 +14,8 @@ import xiuxiuxiu.util.DBUtil;
 public class StudentDAOImpl implements StudentDAO {
 
 	public void add(Student bean) {
-		String sql = "insert into student(password,user_name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
-		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+		String sql = "insert into student(password,name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql ,Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, bean.getPassword());
 			ps.setString(2, bean.getName());
 			ps.setString(3, bean.getPhoneNumber());
@@ -42,7 +42,6 @@ public class StudentDAOImpl implements StudentDAO {
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setInt(1, id);
 			ps.execute();
-
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -73,7 +72,7 @@ public class StudentDAOImpl implements StudentDAO {
 	 */
 
 	public void update(Student bean) {
-		String sql = "update studemt set name=?,password=?,student_id=?,address=?,e_mail=? where id=?";
+		String sql = "update student set name=?,password=?,student_id=?,address=?,e_mail=? where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setString(1, bean.getName());
 			ps.setString(2, bean.getPassword());
@@ -107,7 +106,7 @@ public class StudentDAOImpl implements StudentDAO {
 				bean.setPassword(rs.getString("password"));
 				bean.setPhoneNumber(rs.getString("phone_number"));
 				bean.setAccessLevel(rs.getInt("access_level"));
-				bean.setStudentID(rs.getString("id"));
+				bean.setStudentID(rs.getString("student_id"));
 				bean.setAddress(rs.getString("address"));
 				bean.setEmail(rs.getString("e_mail"));
 				bean.setEquipment(equipmentDao.List(id));// 根据学生id获取设备id列表并将列表set进该学生的信息中
@@ -130,7 +129,7 @@ public class StudentDAOImpl implements StudentDAO {
      * @return 如果找到，返回 Student 实例，否则返回 null
 	 */
 	public Student get(String phoneNumber, String password) {
-		String sql = "select user_id,user_name,password,phone_number,access_level,student_id,address,e_mail from student where phone_number = ? and password = ?";
+		String sql = "select id,name,password,phone_number,access_level,student_id,address,e_mail from student where phone_number = ? and password = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setString(1, phoneNumber);
 			ps.setString(2, password);
@@ -139,8 +138,8 @@ public class StudentDAOImpl implements StudentDAO {
 			if (rs.next()) {
 				EquipmentDAO equipmentDao = new EquipmentDAOImpl();
 				Student bean = new Student();
-				bean.setID(rs.getInt("user_id"));
-				bean.setName(rs.getString("user_name"));
+				bean.setID(rs.getInt("id"));
+				bean.setName(rs.getString("name"));
 				bean.setPassword(rs.getString("password"));
 				bean.setPhoneNumber(rs.getString("phone_number"));
 				bean.setAccessLevel(rs.getInt("access_level"));
