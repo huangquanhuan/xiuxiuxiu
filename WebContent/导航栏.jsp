@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
   pageEncoding="UTF-8" isELIgnored="false"%>
     
-<%@page import="xiuxiuxiu.pojo.User"%>
+<%@page import="xiuxiuxiu.pojo.Student"%>
 
 <!-- 导航栏 -->
 <nav class="navbar navbar-default">
