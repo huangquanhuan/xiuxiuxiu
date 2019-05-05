@@ -34,21 +34,25 @@ public class ArticleServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 
 			/* 获取分页信息 */
-			if (request.getParameter("page.start") != null)
+			if (request.getParameter("page.start") != null) {
 				start = Integer.parseInt(request.getParameter("page.start"));
-			if (request.getParameter("page.count") != null)
+			}
+			if (request.getParameter("page.count") != null) {
 				count = Integer.parseInt(request.getParameter("page.count"));
+			}
 			Page page = new Page(start, count);
 			page.setTotal(3);
 
-			if (request.getParameter("page.start") != null)
+			if (request.getParameter("page.start") != null) {
 				list(request, response, page);
-			if (request.getParameter("type") != null) 
-			{	
-			if (request.getParameter("type").equals("list"))
-					list(request, response, page);
-			if(request.getParameter("type").equals("single"))
-				single(request,response,page);
+			}
+			if (request.getParameter("type") != null) {	
+    			if (request.getParameter("type").equals("list")) {
+    					list(request, response, page);
+    			}
+    			if(request.getParameter("type").equals("single")) {
+    				single(request,response,page);
+    			}
 			}
 			
 		} catch (Exception e) {

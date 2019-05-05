@@ -58,13 +58,15 @@ public abstract class BaseServlet extends HttpServlet {
             String redirect = m.invoke(this, request, response, page).toString(); // redirect = "admin/listCategory.jsp";
 
             /*根据方法的返回值，进行相应的客户端跳转，服务端跳转，或者仅仅是输出字符串*/
-            if (redirect.startsWith("@"))
+            if (redirect.startsWith("@")) {
                 response.sendRedirect(redirect.substring(1)); // 客户端跳转，即重定向，原 request 会失效
-            else if (redirect.startsWith("%"))
+            }
+            else if (redirect.startsWith("%")) {
                 response.getWriter().print(redirect.substring(1)); // 输出字符串
-            else
+            }
+            else {
                 request.getRequestDispatcher(redirect).forward(request, response); //服务端跳转
-
+            }
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

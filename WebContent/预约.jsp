@@ -7,10 +7,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 
-<%@include file="注册弹窗.jsp"%>
-<%@include file="个人信息修改弹窗.jsp"%>
-<%@include file="登录弹窗.jsp"%>
-<%@include file="退出登录弹窗.jsp"%>
+<%@page import="xiuxiuxiu.pojo.User"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -23,6 +21,7 @@
 <script type="application/x-javascript">
 	
 	
+	
       addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
       }, false);
@@ -31,6 +30,7 @@
         window.scrollTo(0, 1);
       }
     
+
 
 </script>
 <!-- //custom-theme -->
@@ -64,29 +64,29 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="name">姓名</label>
 					<div class="col-sm-10">
-						<input class="form-control" type="text" id="name" name="name"
-							readonly />
+						<input class="form-control" type="tel" id="name" name="name"
+							value="<%=name%>" readonly />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="studentId">学号</label>
 					<div class="col-sm-10">
-						<input class="form-control" type="text" id="studentId"
-							name="studentId" readonly />
+						<input class="form-control" type="tel" id="studentId"
+							value="<%=studentID%>" name="studentId" readonly />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="contact">联系方式</label>
 					<div class="col-sm-10">
 						<input class="form-control" type="tel" id="contact" name="contact"
-							readonly />
+							value="<%=tel%>" readonly />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="address">地址</label>
 					<div class="col-sm-10">
-						<input class="form-control" type="text" id="address"
-							name="contact" readonly />
+						<input class="form-control" type="tel" id="address" name="contact"
+							value="<%=address%>" readonly />
 					</div>
 				</div>
 				<div class="form-group">
@@ -99,6 +99,10 @@
 	</div>
 	<!-- 主体内容：结束 -->
 
+	<%@include file="注册弹窗.jsp"%>
+	<%@include file="个人信息修改弹窗.jsp"%>
+	<%@include file="登录弹窗.jsp"%>
+	<%@include file="退出登录弹窗.jsp"%>
 	<%@include file="动态js代码.jsp"%>
 </body>
 </html>

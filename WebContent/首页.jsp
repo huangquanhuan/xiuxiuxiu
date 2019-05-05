@@ -3,10 +3,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ page import="java.io.*,java.util.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="注册弹窗.jsp"%>
-<%@include file="个人信息修改弹窗.jsp"%>
-<%@include file="登录弹窗.jsp"%>
-<%@include file="退出登录弹窗.jsp"%>
+
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -30,6 +27,10 @@
 			window.scrollTo(0, 1);
 		}
 	
+
+
+
+
 </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -228,7 +229,13 @@
 			</div>
 		</div>
 	</div>
-
+	<%@include file="注册弹窗.jsp"%>
+	<%@include file="个人信息修改弹窗.jsp"%>
+	<%@include file="登录弹窗.jsp"%>
+	<%@include file="退出登录弹窗.jsp"%>
 	<%@include file="动态js代码.jsp"%>
+	<%@include file="错误提示窗口.jsp"%>
+
+
 </body>
 </html>

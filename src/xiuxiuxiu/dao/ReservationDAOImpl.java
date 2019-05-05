@@ -14,7 +14,7 @@ import xiuxiuxiu.util.DBUtil;
 
 public class ReservationDAOImpl implements ReservationDAO {
 
-	
+    @Override
 	public void addReservation(Reservation reservation) {
 
 		String sql = "insert into reservation(state,user_id,application_type,application_time,required_time"
@@ -68,7 +68,8 @@ public class ReservationDAOImpl implements ReservationDAO {
 			e.printStackTrace();
 		}
 	}
-
+    
+    @Override
 	public void deleteReservation(int id) {
 		String sql = "delete from reservation where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -82,6 +83,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 		}
 	}
 
+    @Override
 	public void updateReservation(Reservation reservation) {
 
 		String sql = "update reservation set userid=?,state=?,application_type=?,application_time=?,"
@@ -135,7 +137,8 @@ public class ReservationDAOImpl implements ReservationDAO {
 			e.printStackTrace();
 		}
 	}
-
+    
+    @Override
 	public Reservation getReservation(int id) {
 		String sql = "select state,user_id,application_type,application_time,required_time,place,repair_activity_id,equipment_id,repair_type,detail,remark,feedback from reservation where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
