@@ -87,6 +87,9 @@
 
 							</div>
 						</div>
+						<a
+                                        href="makeReservation?method=getForID?id=${viewComponents.reservationID}"
+                                        class="view resw3">详情</a>
 						<div class="panel-body">
 							<p><%=requiredTimeAndPlace%></p>
 							<label><%="设备：" + equipmentDao.getEquipmentName(reservation.getEquipmentID())%></label>

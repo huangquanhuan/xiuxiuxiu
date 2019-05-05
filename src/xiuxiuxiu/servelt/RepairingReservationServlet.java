@@ -65,12 +65,12 @@ public class RepairingReservationServlet extends BaseServlet {
      */
     public String confirmInformation(HttpServletRequest request, HttpServletResponse response, Page page) {
         // 如果用户信息从 session 加载，则使用以下方法
-        // Student student = (Student)request.getSession().getAttribute("user");
-        // request.setAttribute("user", student);
+         Student student = (Student)request.getSession().getAttribute("name");
+         request.setAttribute("user", student);
         
-        Integer uid = Integer.parseInt(request.getParameter("uid"));
-        StudentDAO studentDAO = new StudentDAOImpl();
-        request.setAttribute("user", studentDAO.get(uid));
+//        Integer uid = Integer.parseInt(request.getParameter("uid"));
+//        StudentDAO studentDAO = new StudentDAOImpl();
+//        request.setAttribute("user", studentDAO.get(uid));
         return "make-a-reservation-1.jsp";
     }
     
@@ -87,9 +87,9 @@ public class RepairingReservationServlet extends BaseServlet {
         ComponentDAO componentDAO = new ComponentDAOImpl();
         List<Component> components = componentDAO.getList();
         request.setAttribute("components", components);
-        
+        Student student = (Student)request.getSession().getAttribute("name");
         // 获取设备列表
-        Integer userId = Integer.parseInt(request.getParameter("uid"));
+        Integer userId = student.getID();
         EquipmentDAO equipmentDAO = new EquipmentDAOImpl();
         List<Equipment> equipments = equipmentDAO.listEquipmentsByUser(userId);
         request.setAttribute("equipments", equipments);
@@ -102,7 +102,7 @@ public class RepairingReservationServlet extends BaseServlet {
      */
     public String addFieldService(HttpServletRequest request, HttpServletResponse response, Page page) {
         // 如果用户信息从 session 加载，则使用以下方法
-        // Student student = (Student)request.getSession().getAttribute("user");
+         Student student = (Student)request.getSession().getAttribute("name");
         
         ApplyComponentDAO applyComponentDAO = new ApplyComponentDAOImpl();
         RepairActivityDAO repairActivityDAO = new RepairActivityDAOImpl();
@@ -112,7 +112,7 @@ public class RepairingReservationServlet extends BaseServlet {
         ParamDto dto = RequestParser.parse(request);
         Map<String, String> parameters = dto.getParamMap();
         
-        Student student = studentDAO.get(Integer.parseInt(parameters.get("userId")));
+//        Student student = studentDAO.get(Integer.parseInt(parameters.get("userId")));
         RepairActivity repairActivity = repairActivityDAO.get(Integer.parseInt(parameters.get("activity")));
         
         
@@ -173,8 +173,8 @@ public class RepairingReservationServlet extends BaseServlet {
      * addDoorToDoorService - 用于申请上门维修的表单的提交
      */
     public String addDoorToDoorService(HttpServletRequest request, HttpServletResponse response, Page page) {
-        // 如果用户信息从 session 加载，则使用以下方法
-        // Student student = (Student)request.getSession().getAttribute("user");
+         //如果用户信息从 session 加载，则使用以下方法
+         Student student = (Student)request.getSession().getAttribute("name");
         
         ApplyComponentDAO applyComponentDAO = new ApplyComponentDAOImpl();
         RepairActivityDAO repairActivityDAO = new RepairActivityDAOImpl();
@@ -184,7 +184,7 @@ public class RepairingReservationServlet extends BaseServlet {
         ParamDto dto = RequestParser.parse(request);
         Map<String, String> parameters = dto.getParamMap();
         
-        Student student = studentDAO.get(Integer.parseInt(parameters.get("userId")));
+//        Student student = studentDAO.get(Integer.parseInt(parameters.get("userId")));
         
         
         // 处理非图片部分的表单
