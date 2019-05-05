@@ -30,8 +30,8 @@
         id="bs-example-navbar-collapse-1">
         <nav>
             <ul class="nav navbar-nav">
-                <li><a href="ViewComponentServlet?method=show" class="hvr-underline-from-center">预约零件</a></li>
                 <li><a href="ViewUserServlet?method=show" class="hvr-underline-from-center">预约人员</a></li>
+                <li><a href="ViewComponentServlet?method=show" class="hvr-underline-from-center">预约零件</a></li>
                 <li><a href="repair_list.jsp" class="hvr-underline-from-center">维修场次管理</a></li>
                 <li><a href="managers_list.jsp" class="hvr-underline-from-center">维修人员管理</a></li>
                 <li><a href="ArticlesServlet?method=list" class="hvr-underline-from-center">文章管理</a></li>
