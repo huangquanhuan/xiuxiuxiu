@@ -36,7 +36,7 @@
 	rel="stylesheet" />
 </head>
 <body>
-<%@include file="导航栏.jsp"%>
+<%@include file="导航栏-管理.jsp"%>
 	
 	<!-- 主体内容：开始 -->
 	<div class="services">
@@ -267,6 +267,7 @@
 <%@include file="个人信息修改弹窗.jsp"%>
 <%@include file="登录弹窗.jsp"%>
 <%@include file="退出登录弹窗.jsp"%>
+<%@include file="动态js代码.jsp"%>
 </body>
 
 </html>

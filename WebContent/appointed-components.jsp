@@ -3,10 +3,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ page import="java.io.*,java.util.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="注册弹窗.jsp"%>
-<%@include file="个人信息修改弹窗.jsp"%>
-<%@include file="登录弹窗.jsp"%>
-<%@include file="退出登录弹窗.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +37,7 @@
 	rel="stylesheet" />
 </head>
 <body>
-	<%@include file="导航栏.jsp"%>
+	<%@include file="导航栏-管理.jsp"%>
 
 	<!-- 主体内容：开始 -->
 	<div class="services">
@@ -57,7 +54,7 @@
 				<div id="field-service" class="container tab-pane active">
 					<br />
 					<form action="ViewComponentServlet?method=list" method="post">
-
+    <a href="ViewComponentServlet?method=show" class="view resw3">刷新</a>
 						<!-- 搜索框 -->
 						<div id="field-search" class="container tab-pane active">
 							<br />
@@ -71,21 +68,6 @@
 							</span>
 						</div>
 
-						<!-- 预约类型选择 -->
-						<div class="form-group">
-							<div class="col-sm-3">
-								<label for="type-select">预约类型</label>
-							</div>
-							<div class="col-sm-9">
-								<select id="type-select" name="MethodTypeSelect"
-									class="form-control">
-									<!-- 这里装入预约类型列表 -->
-									<option value="0">场次预约</option>
-									<option value="1">上门服务</option>
-									<option value="2" selected="selected">全部</option>
-								</select>
-							</div>
-						</div>
 
 						<!-- 场次选择 -->
 						<div class="form-group">
@@ -95,26 +77,25 @@
 									class="form-control">
 									<!-- 这里装入场次时间信息 -->
 									<c:forEach items="${activities}" var="activity">
-										<option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
-									</c:forEach>
+                                        <option value="${activity.ID}">${activity.time}，地点：${activity.place}</option>
+                                    </c:forEach>
 									<option value="-1" selected="selected">全部预约场次</option>
 									<option value="-2">上门服务</option>
 								</select>
 							</div>
 						</div>
 
-						<!-- 预约类型选择 -->
+						<!-- 零件类型选择 -->
 						<div class="form-group">
 							<div class="col-sm-3">
-								<label for="components-select">预约类型</label>
-
+								<label for="components-select">零件类型</label>
 							</div>
 							<div class="col-sm-9">
 								<select id="components-select" name="componentsTypeSelect"
 									class="form-control">
 									<!-- 这里装入预约类型列表 -->
 									<c:forEach items="${components}" var="component">
-										<option value="${component.type}">${component.type}</option>
+										<option value="${component.type}">${component.name}-${component.type}</option>
 									</c:forEach>
 									<option value="" selected="selected">全部</option>
 								</select>
@@ -320,7 +301,11 @@
     });
 </script>
 	<!-- //here ends scrolling icon -->
-
+<%@include file="动态js代码.jsp"%>
+<%@include file="注册弹窗.jsp"%>
+<%@include file="个人信息修改弹窗.jsp"%>
+<%@include file="登录弹窗.jsp"%>
+<%@include file="退出登录弹窗.jsp"%>
 </body>
 
 </html>

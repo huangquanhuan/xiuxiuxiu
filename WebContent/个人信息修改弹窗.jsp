@@ -24,7 +24,7 @@
 						<div class="row">
 							<div class="col-sm-8 col-sm-offset-2 text">
 								<div class="description">
-									<h3><%=tel%></h3>
+									<h3><%=student.getPhoneNumber()%></h3>
 								</div>
 							</div>
 						</div>

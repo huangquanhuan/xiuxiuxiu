@@ -68,7 +68,7 @@
 								<select id="session-select" class="form-control">
 									<!-- 这里装入场次时间信息 -->
 									<c:forEach items="${activities}" var="activity">
-										<option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
+										<option value="${activity.ID}">${activity.time}，地点：${activity.place}</option>
 									</c:forEach>
 								</select>
 							</div>
