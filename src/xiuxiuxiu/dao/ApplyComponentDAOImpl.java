@@ -13,7 +13,7 @@ import xiuxiuxiu.pojo.*;
 import xiuxiuxiu.util.DBUtil;
 
 public class ApplyComponentDAOImpl implements ApplyComponentDAO{
-
+    @Override
 	public void add(int reservationID, int componentID) {
 		System.out.println("add");
 		String sql = "insert into apply_component(reservation_id,component_id) values(?,?)";
@@ -31,7 +31,7 @@ public class ApplyComponentDAOImpl implements ApplyComponentDAO{
 		}
 	}
 
-
+    @Override
 	public void delete(int reservationID) {
 		String sql = "delete from apply_component where reservation_id =?";
 
@@ -50,7 +50,7 @@ public class ApplyComponentDAOImpl implements ApplyComponentDAO{
 		}
 	}
 
-
+    @Override
 	public int getReservationID(int id) {
 		String sql = "select reservation_id from apply_component where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -71,7 +71,7 @@ public class ApplyComponentDAOImpl implements ApplyComponentDAO{
 		}
 	}
 	
-	
+    @Override
 	public int getComponentID(int id) {
 		String sql = "select component_id from apply_component where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -91,7 +91,8 @@ public class ApplyComponentDAOImpl implements ApplyComponentDAO{
 			return -1;
 		}
 	}
-
+    
+    @Override
 	public boolean isExist(int id) {
 		String sql = "select * from apply_component where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {

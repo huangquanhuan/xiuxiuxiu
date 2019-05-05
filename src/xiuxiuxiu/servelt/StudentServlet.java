@@ -19,6 +19,7 @@ import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import com.sun.nio.sctp.MessageInfo;
 
 import java.io.IOException;
+import java.rmi.dgc.Lease;
 import java.util.List;
 
 @WebServlet(name = "StudentServlet", urlPatterns = { "/StudentServlet" })
@@ -34,12 +35,15 @@ public class StudentServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 
 			if (request.getParameter("type") != null) {
-				if (request.getParameter("type").equals("login"))
+				if (request.getParameter("type").equals("login")) {
 					login(request, response);
-				if (request.getParameter("type").equals("register"))
-					register(request, response);
-				if (request.getParameter("type").equals("exit"))
+				}
+				else if (request.getParameter("type").equals("register")) {
+				    register(request, response);
+				}
+				else if (request.getParameter("type").equals("exit")) {
 					exit(request, response);
+				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -53,42 +57,41 @@ public class StudentServlet extends HttpServlet {
 		RequestDispatcher rd;
 		student.setPhoneNumber(request.getParameter("phonenumber"));
 		student.setPassword(request.getParameter("password"));
-		
+
 		if (student.getPhoneNumber().length() < 1) {
 			request.setAttribute("err", "请输入登录名！");
 			// 获取转发对象
-			rd = request.getRequestDispatcher("login.jsp");
+			rd = request.getRequestDispatcher("首页.jsp");
 			// 转发请求
 			rd.forward(request, response);
 		} else if (student.getPassword().length() < 2) {
 			request.setAttribute("err", "请输入密码！");
 			// 获取转发对象
-			rd = request.getRequestDispatcher("login.jsp");
+			rd = request.getRequestDispatcher("首页.jsp");
 			// 转发请求
 			rd.forward(request, response);
-		}  else if (StudentDAO.get(student.getPhoneNumber(), student.getPassword()) == null) {
+		} else if (StudentDAO.get(student.getPhoneNumber(), student.getPassword()) == null) {
 			// 登陆失败
-			request.setAttribute("err", "密码错误！");
+			request.setAttribute("err", "账户或密码错误！");
+			System.out.println("账户或密码错误！");
 			// 获取转发对象
-			rd = request.getRequestDispatcher("login.jsp");
+			rd = request.getRequestDispatcher("首页.jsp");
 			// 转发请求
 			rd.forward(request, response);
 		} else {
 			// 登陆成功
-			
+
 			HttpSession session = request.getSession(true);
 			student = StudentDAO.get(student.getPhoneNumber(), student.getPassword());
 			session.setAttribute("name", student);
-			
-			//登录成功后刷新首页维修活动
-			//后续需要跳转到HomePageServlet
-			request.getRequestDispatcher("/HomePageServlet").forward(request,response);
-			//rd = request.getRequestDispatcher("首页.jsp");
-			// 转发请求
-			//rd.forward(request, response);
+
+			// 登录成功后刷新首页维修活动
+			// 后续需要跳转到HomePageServlet
+			request.getRequestDispatcher("/HomePageServlet").forward(request, response);
 		}
 
 	}
+
 	public void exit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Servlet本身并不输出响应到客户端，因此必须将请求转发到视图页面
 		RequestDispatcher rd;
@@ -110,15 +113,19 @@ public class StudentServlet extends HttpServlet {
 		student.setAddress(request.getParameter("address"));
 		student.setPassword(request.getParameter("password"));
 		String password_repeat = request.getParameter("password2");
-		
+		if (password_repeat.equals(student.getPassword())) {
+			System.out.println("注册成功");
 			StudentDAO.add(student);
-			// 获取转发对象
-			rd = request.getRequestDispatcher("首页.jsp");
-			// 转发请求
-			rd.forward(request, response);
-		
+		}
+		else {
+			request.setAttribute("err","两次输入密码不一致！！");
+			System.out.println("注册失败");
+		}
+		// 获取转发对象
+		rd = request.getRequestDispatcher("首页.jsp");
+		// 转发请求
+		rd.forward(request, response);
 
 	}
 
 }
-

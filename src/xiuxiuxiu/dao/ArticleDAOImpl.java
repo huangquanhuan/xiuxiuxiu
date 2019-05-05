@@ -15,12 +15,16 @@ import xiuxiuxiu.pojo.*;
 import xiuxiuxiu.util.DBUtil;
 
 public class ArticleDAOImpl implements ArticleDAO{
-
+    @Override
 	public void addArticle(Article article) {
 		// TODO Auto-generated method stub
 				String sql = "insert into article(author_id,author_name,title,text,time) values(? ,? ,? ,? ,? )";
 				try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-					//ps.setString(1, article.getID()); 
+					ps.setInt(1, article.getAuthorId()); 
+					ps.setString(2, article.getAuthorName());
+					ps.setString(3, article.getTitle());
+					ps.setString(4, article.getText());
+					ps.setString(5, article.getTime());
 					ps.execute();
 					ResultSet rs = ps.getGeneratedKeys();
 					if (rs.next()) {
@@ -32,7 +36,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 					e.printStackTrace();
 				}
 	}
-
+    @Override
 	public void deleteArticle(int id) {
 		// TODO Auto-generated method stub
 				String sql = "delete from article where id = ?";
@@ -45,20 +49,27 @@ public class ArticleDAOImpl implements ArticleDAO{
 					e.printStackTrace();
 				}
 	}
-
+    @Override
 	public void updateArticle(Article article) {
 		// TODO Auto-generated method stub
 		String sql = "update article set author_id=?,author_name=?,title=?,text=?,time=? where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			//ps.setString(1, article.getName());
+			
+			ps.setInt(1, article.getAuthorId());
+			ps.setString(2, article.getAuthorName());
+			ps.setString(3, article.getTitle());
+			ps.setString(4, article.getText());
+			ps.setString(5, article.getTime());
+			ps.setInt(6, article.getId());
 			ps.execute();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 
+    @Override
 	public Article getArticle(int id) {
 		// TODO Auto-generated method stub
 		String sql = "select id,author_id,author_name,title,text,time from article where id = ?";
@@ -85,7 +96,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 		}
 	}
 
-
+    @Override
 	public List<Article> searchArticle(String str) {
 		// TODO Auto-generated method stub
 		String sql = "select id,author_id,author_name,title,text,time from article from article ORDER BY id";
@@ -173,6 +184,8 @@ public class ArticleDAOImpl implements ArticleDAO{
         }
         return null;
 	}
+	
+	@Override
 	public List<Article> getList() {
 		// TODO Auto-generated method stub
 				String sql = "select id,author_id,author_name,title,text,time from article ORDER BY id";
@@ -198,3 +211,4 @@ public class ArticleDAOImpl implements ArticleDAO{
 				}
 		}
 }
+
