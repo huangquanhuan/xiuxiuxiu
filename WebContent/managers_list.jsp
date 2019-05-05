@@ -225,8 +225,8 @@
     <div class="agile_inner_banner_info">
         <h2>维修人员</h2>
     </div>
-    <a href="addrepair_list" data-toggle="modal" calss="view resw3" data-target="#myModal1">增加维修人员</a>
-    <a href="addrepair_list" data-toggle="modal" calss="view resw3" data-target="#myModal6">清理账户</a>
+    <a href="addrepair_list" data-toggle="modal" class="view resw3" data-target="#myModal1">增加维修人员</a>
+    <a href="addrepair_list" data-toggle="modal" class="view resw3" data-target="#myModal6">清理账户</a>
     <!-- //agile_inner_banner_info -->
     <!-- typo -->
     <div id="fh5co-pricing">
