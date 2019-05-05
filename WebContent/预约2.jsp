@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
-<title>维修预约 - 第一步</title>
+<title>维修预约 - 第二步</title>
 
 <script type="application/x-javascript">
 	
@@ -60,15 +60,15 @@
 				<!-- 申请现场维修的表单：开始 -->
 				<div id="field-service" class="container tab-pane active">
 					<br />
-					<form action="*" method="post">
+					<form action="makeReservation?method=addFieldService" method="post" enctype="multipart/form-data">
 						<!-- 场次选择 -->
 						<div class="form-group">
 							<label for="session-select" class="col-sm-3">预约场次</label>
 							<div class="col-sm-9">
-								<select id="session-select" class="form-control">
+								<select id="session-select" class="form-control" name="activity">
 									<!-- 这里装入场次时间信息 -->
 									<c:forEach items="${activities}" var="activity">
-										<option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
+										<option value="${activity.ID}">${activity.time}，地点：${activity.place}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -81,7 +81,7 @@
 									class="btn btn-link">添加设备</a>
 							</div>
 							<div class="col-sm-9">
-								<select id="device-select" class="form-control">
+								<select id="device-select" class="form-control" name="device">
 									<!-- 这里装入用户的设备列表 -->
 									<c:forEach items="${equipments}" var="equipment">
 										<option value="${equipment.id}">${equipment.equipmentName}</option>
@@ -132,7 +132,7 @@
 						<div class="form-group">
 							<label for="issue-detail" class="col-sm-3">问题描述</label>
 							<div id="issue-detail" class="col-sm-9">
-								<textarea class="form-control" rows="3"></textarea>
+								<textarea class="form-control" rows="3" name="issueDetail"></textarea>
 							</div>
 						</div>
 
@@ -140,17 +140,17 @@
 						<div class="form-group">
 							<label for="issue-image" class="col-sm-3">为问题描述提供图片</label>
 							<div class="col-sm-9">
-								<input id="issue-image" type="file" class="form-control" />
+								<input id="issue-image" name="issueImage"  type="file" class="form-control" />
 							</div>
 						</div>
 
-						<!-- 备注 -->
-						<div class="form-group">
-							<label for="issue-comment" class="col-sm-3">备注</label>
-							<div class="col-sm-9">
-								<textarea id="issue-comment" class="form-control" rows="3"></textarea>
-							</div>
-						</div>
+<!-- 						备注 -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="issue-comment" class="col-sm-3" name="">备注</label> -->
+<!-- 							<div class="col-sm-9"> -->
+<!-- 								<textarea id="issue-comment" class="form-control" rows="3"></textarea> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 
 						<!-- 提交按钮 -->
 						<div class="form-group">
@@ -165,17 +165,12 @@
 				<!-- 申请上门服务的表单：开始 -->
 				<div id="door-to-door-service" class="container tab-pane fade">
 					<br />
-					<form action="*" method="post">
+					<form action="makeReservation?method=addDoorToDoorService" method="post" enctype="multipart/form-data">
 						<!-- 时间选择 -->
 						<div class="form-group">
 							<label for="datetime-select" class="col-sm-3">预约时间</label>
 							<div class="col-sm-9">
-								<select id="datetime-select" class="form-control">
-									<!-- 这里装入场次时间信息 -->
-									<option>YYYY 年 MM 月 DD 日</option>
-									<option>YYYY 年 MM 月 DD 日</option>
-									<option>YYYY 年 MM 月 DD 日</option>
-								</select>
+								<input class="form-control" type="datetime-local" name="requiredTime" />
 							</div>
 						</div>
 
@@ -186,7 +181,7 @@
 									class="btn btn-link">添加设备</a>
 							</div>
 							<div class="col-sm-9">
-								<select id="device-select-1" class="form-control">
+								<select id="device-select-1" class="form-control"  name="device">
 									<!-- 这里装入用户的设备列表 -->
 									<c:forEach items="${equipments}" var="equipment">
 										<!-- 用户设备信息 -->
@@ -238,7 +233,7 @@
 						<div class="form-group">
 							<label for="issue-detail-1" class="col-sm-3">问题描述</label>
 							<div id="issue-detail-1" class="col-sm-9">
-								<textarea class="form-control" rows="3"></textarea>
+								<textarea class="form-control" rows="3" name="issueDetail"></textarea>
 							</div>
 						</div>
 
@@ -246,17 +241,17 @@
 						<div class="form-group">
 							<label for="issue-image-1" class="col-sm-3">为问题描述提供图片</label>
 							<div class="col-sm-9">
-								<input id="issue-image-1" type="file" class="form-control" />
+								<input id="issue-image-1" name="issueImage" type="file" class="form-control" />
 							</div>
 						</div>
 
 						<!-- 备注 -->
-						<div class="form-group">
-							<label for="issue-comment-1" class="col-sm-3">备注</label>
-							<div class="col-sm-9">
-								<textarea id="issue-comment-1" class="form-control" rows="3"></textarea>
-							</div>
-						</div>
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="issue-comment-1" class="col-sm-3">备注</label> -->
+<!-- 							<div class="col-sm-9"> -->
+<!-- 								<textarea id="issue-comment-1" class="form-control" rows="3"></textarea> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 
 						<!-- 提交按钮 -->
 						<div class="form-group">
