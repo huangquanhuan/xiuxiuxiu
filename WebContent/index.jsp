@@ -1,6 +1,6 @@
 
 <%
-    response.sendRedirect("/HomePageServlet");
+    response.sendRedirect("HomePageServlet");
 %>
 <!-- <form class="ApplyActivity" -->
 <!-- action="HomePageServlet" -->
