@@ -281,7 +281,7 @@
 				});
 			</script>
 	<!-- Stats -->
-	<script src="js/waypoints.min.js"></script>
+	<script src="js/waypoints.min.js"></script>；
 	<script src="js/counterup.min.js"></script>
 	<script>
 				jQuery(document).ready(function($) {
