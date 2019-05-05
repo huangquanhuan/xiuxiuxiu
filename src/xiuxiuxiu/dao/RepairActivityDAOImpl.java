@@ -159,7 +159,7 @@ public class RepairActivityDAOImpl implements RepairActivityDAO {
 	
     @Override
     public List<RepairActivity> listRecentActivities(int numberOfActivities) {
-        String sql = "select `id`, `time`, `place`, `manager_id` from `repair_activity` order by `id` desc limit ?";
+        String sql = "select id,time,place,manager_id from repair_activity order by id desc limit ?";
         List<RepairActivity> activities = new ArrayList<RepairActivity>();
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, numberOfActivities);

@@ -5,7 +5,7 @@
 		String errMessage = (String) request.getAttribute("err");
 %>
 <script type="text/javascript">
-	alert(errMessage);
+	alert("<%=errMessage%>");
 </script>
 <%
 	}

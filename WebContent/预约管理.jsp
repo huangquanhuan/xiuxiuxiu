@@ -46,13 +46,13 @@
 		<div class="top-content">
 			<div class="container">
 				<div class="row"></div>
+				<%
+					List<Reservation> reservationList = (List<Reservation>) request.getAttribute("ReservationList");
+					for (Reservation reservation : reservationList) {
+				%>
 				<div class="row">
 					<div class="col-sm-6 col-sm-offset-3 form-box">
 
-						<%
-							List<Reservation> reservationList = (List<Reservation>) request.getAttribute("ReservationList");
-							for (Reservation reservation : reservationList) {
-						%>
 						<div class="panel-heading">
 							<%!String applicationTimeAndState, requiredTimeAndPlace, detail;%>
 							<%!EquipmentDAO equipmentDao = new EquipmentDAOImpl();%>
@@ -88,21 +88,20 @@
 							</div>
 						</div>
 						<a
-                                        href="makeReservation?method=getForID?id=${viewComponents.reservationID}"
-                                        class="view resw3">详情</a>
+							href="makeReservation?method=getForID?id=${viewComponents.reservationID}"
+							class="view resw3">详情</a>
 						<div class="panel-body">
 							<p><%=requiredTimeAndPlace%></p>
 							<label><%="设备：" + equipmentDao.getEquipmentName(reservation.getEquipmentID())%></label>
 							<label><%=detail%></label>
 						</div>
 					</div>
-					<%
-						}
-					%>
 				</div>
+				<%
+					}
+				%>
 			</div>
 		</div>
-	</div>
 	</div>
 
 	<!-- 评价弹出窗内容 -->
