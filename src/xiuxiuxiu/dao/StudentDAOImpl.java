@@ -12,7 +12,7 @@ import xiuxiuxiu.pojo.Student;
 import xiuxiuxiu.util.DBUtil;
 
 public class StudentDAOImpl implements StudentDAO {
-
+    @Override
 	public void add(Student bean) {
 		String sql = "insert into student(password,name,phone_number,access_level,student_id,address,e_mail) values(? ,? ,? ,? ,? ,? ,? )";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql ,Statement.RETURN_GENERATED_KEYS)) {
@@ -37,6 +37,7 @@ public class StudentDAOImpl implements StudentDAO {
 		}
 	}
 
+    @Override
 	public void delete(int id) {
 		String sql = "delete from student where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -48,6 +49,7 @@ public class StudentDAOImpl implements StudentDAO {
 		}
 	}
 	
+    @Override
 	public void delete(Student student) {
 		StudentDAO studentDao = new StudentDAOImpl();
 		if(!studentDao.isExist(student))	//如果没有匹配的用户
@@ -70,7 +72,7 @@ public class StudentDAOImpl implements StudentDAO {
 	 * 把对 Student 对象的修改根据id写回数据库中
 	 *  只可修改用户的姓名、密码、学号、住址、电子邮箱，账户(ID)、手机号、权限等级不可修改
 	 */
-
+    @Override
 	public void update(Student bean) {
 		String sql = "update student set name=?,password=?,student_id=?,address=?,e_mail=? where id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -91,7 +93,7 @@ public class StudentDAOImpl implements StudentDAO {
 	/**
 	 * 根据id获取整个用户信息 
 	 */
-
+    @Override
 	public Student get(int id) {
 		String sql = "select id,name,password,phone_number,access_level,student_id,address,e_mail from student where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -128,6 +130,7 @@ public class StudentDAOImpl implements StudentDAO {
      * @param password 用户的密码
      * @return 如果找到，返回 Student 实例，否则返回 null
 	 */
+    @Override
 	public Student get(String phoneNumber, String password) {
 		String sql = "select id,name,password,phone_number,access_level,student_id,address,e_mail from student where phone_number = ? and password = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -158,7 +161,7 @@ public class StudentDAOImpl implements StudentDAO {
 		}
 	}
 
-
+    @Override
 	public int getTotal() {
 		int total = 0;
 		try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement()) {
@@ -177,7 +180,8 @@ public class StudentDAOImpl implements StudentDAO {
 			return -1;
 		}
 	}
-
+    
+    @Override
 	public boolean isExist(String phoneNumber) {
 		String sql = "select * from student where phone_number=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -194,7 +198,8 @@ public class StudentDAOImpl implements StudentDAO {
 			return false;
 		}
 	}
-
+    
+	@Override
 	public boolean isExist(Student student) {
 		String sql = "select * from student where id=? and password=? and name=? and phone_number=? and student_id=?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {

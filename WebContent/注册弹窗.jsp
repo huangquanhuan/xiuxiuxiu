@@ -21,7 +21,7 @@
 								placeholder="地址(例如：1#101)" required="required"> <input
 								id="password" type="password" name="password" placeholder="密码"
 								required="required"> <input type="password"
-								name="password" id="password2" placeholder="确认密码"
+								name="password2" id="password2" placeholder="确认密码"
 								required="required"> <input type="submit" value="注册">
 						</form>
 					</div>

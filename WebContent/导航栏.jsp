@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
-<%@page import="xiuxiuxiu.pojo.User"%>
+  pageEncoding="UTF-8" isELIgnored="false"%>
+    
+<%@page import="xiuxiuxiu.pojo.Student"%>
+
 <!-- 导航栏 -->
 <nav class="navbar navbar-default">
 	<div class="navbar-header navbar-left">
@@ -28,41 +30,39 @@
 		id="bs-example-navbar-collapse-1">
 		<nav>
 			<ul class="nav navbar-nav">
-				<li><a href="首页.jsp" class="hvr-underline-from-center">首页</a></li>
+				<li><a href="HomePageServlet" class="hvr-underline-from-center">首页</a></li>
 				<li><a href="预约.jsp" class="hvr-underline-from-center">预约</a></li>
 				<li><a href="ArticleServlet?type=list"
 					class="hvr-underline-from-center">文章&通知</a></li>
 				<li class="dropdown"><a id="my_message" href="#"
 					class="dropdown-toggle hvr-underline-from-center"
 					data-toggle="dropdown">我的<b class="fa fa-caret-down"></b></a>
-					<ul  class="dropdown-menu agile_short_dropdown">
+					<ul class="dropdown-menu agile_short_dropdown">
 						<%
-							User user = (User) session.getAttribute("name");
-						%>
-						<%
-							String name = "null", tel = "null", address = "null";
-						%>
-						<%
+							Student user = (Student) session.getAttribute("name");
+							String name = "null", tel = "null", address = "null", studentID = "null", email = "null";
 							if (session.getAttribute("name") != null) {
-						%>
-						<%
-							name = user.getName();
+								name = user.getName();
 								tel = user.getPhoneNumber();
 								address = user.getAddress();
+								studentID = user.getStudentID();
+								email = user.getEmail();
 							}
 						%>
 						<li><a href="icons.html">姓名:<%=name%></a></li>
 						<li><a href="icons.html">手机号:<%=tel%></a></li>
+						<li><a href="icons.html">邮箱:<%=email%></a></li>
 						<li><a href="icons.html">地址:<%=address%></a></li>
 						<li><a class="active" data-toggle="modal"
 							data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
-						<li><a class="active" href="预约管理.jsp" id="appointment">预约管理</a></li>
+						<li><a class="active" href="MyReservationManageServlet"
+							id="appointment">预约管理</a></li>
 					</ul></li>
 			</ul>
 		</nav>
 	</div>
-	
-	
-	
+
+
+
 
 </nav>
