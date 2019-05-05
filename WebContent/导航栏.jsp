@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
   pageEncoding="UTF-8" isELIgnored="false"%>
     
-<%@page import="xiuxiuxiu.pojo.User"%>
+<%@page import="xiuxiuxiu.pojo.Student"%>
 
 <!-- 导航栏 -->
 <nav class="navbar navbar-default">
@@ -50,6 +50,7 @@
 							}
 						%>
 						<li><a href="icons.html">姓名:<%=name%></a></li>
+						<li><a href="icons.html">学号:<%=studentID%></a></li>
 						<li><a href="icons.html">手机号:<%=tel%></a></li>
 						<li><a href="icons.html">邮箱:<%=email%></a></li>
 						<li><a href="icons.html">地址:<%=address%></a></li>
