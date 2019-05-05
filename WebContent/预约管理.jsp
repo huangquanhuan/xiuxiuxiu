@@ -53,54 +53,53 @@
 							List<Reservation> reservationList = (List<Reservation>) request.getAttribute("ReservationList");
 							for (Reservation reservation : reservationList) {
 						%>
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<%!String applicationTimeAndState, requiredTimeAndPlace, detail;%>
-								<%!EquipmentDAO equipmentDao = new EquipmentDAOImpl();%>
-								<%
-									applicationTimeAndState = reservation.getApplicationTime();
-										requiredTimeAndPlace = reservation.getRequiredTime();
+						<div class="panel-heading">
+							<%!String applicationTimeAndState, requiredTimeAndPlace, detail;%>
+							<%!EquipmentDAO equipmentDao = new EquipmentDAOImpl();%>
+							<%
+								applicationTimeAndState = reservation.getApplicationTime();
+									requiredTimeAndPlace = reservation.getRequiredTime();
 
-										if (reservation.getStateInt() == 0) {
-											applicationTimeAndState = applicationTimeAndState + "(未受理)";
-										} else if (reservation.getStateInt() == 1) {
-											applicationTimeAndState = applicationTimeAndState + "(已受理，未完成)";
-										} else if (reservation.getStateInt() == 2) {
-											applicationTimeAndState = applicationTimeAndState + "(已完成)";
-										} else {
-											out.print("<script>alert('获取预约单的目前状态失败！')</script>");
-										}
-										requiredTimeAndPlace = reservation.getRequiredTime() + " " + reservation.getPlace();
-										detail = "详情:" + reservation.getDetail();
-										if (detail != null && detail.length() > 8)
-											detail = detail.substring(0, 7) + "...";
-								%>
-								<h3 class="panel-title"><%=applicationTimeAndState%></h3>
-								<div>
-									<button type="button" class="btn btn-primary">编辑</button>
-									<button type="button" class="btn btn-danger">撤销</button>
+									if (reservation.getStateInt() == 0) {
+										applicationTimeAndState = applicationTimeAndState + "(未受理)";
+									} else if (reservation.getStateInt() == 1) {
+										applicationTimeAndState = applicationTimeAndState + "(已受理，未完成)";
+									} else if (reservation.getStateInt() == 2) {
+										applicationTimeAndState = applicationTimeAndState + "(已完成)";
+									} else {
+										out.print("<script>alert('获取预约单的目前状态失败！')</script>");
+									}
+									requiredTimeAndPlace = reservation.getRequiredTime() + " " + reservation.getPlace();
+									detail = "详情:" + reservation.getDetail();
+									if (detail != null && detail.length() > 8)
+										detail = detail.substring(0, 7) + "...";
+							%>
+							<h3 class="panel-title"><%=applicationTimeAndState%></h3>
+							<div>
+								<button type="button" class="btn btn-primary">编辑</button>
+								<button type="button" class="btn btn-danger">撤销</button>
 
-									<button type="button" class="btn btn-danger">联系</button>
-									<button class="btn btn-success" data-toggle="modal"
-										data-target="#evaluation-data" type="button">评价</button>
-									<button class="btn btn-danger" data-toggle="modal"
-										data-target="#feedback-data" type="button">反馈</button>
+								<button type="button" class="btn btn-danger">联系</button>
+								<button class="btn btn-success" data-toggle="modal"
+									data-target="#evaluation-data" type="button">评价</button>
+								<button class="btn btn-danger" data-toggle="modal"
+									data-target="#feedback-data" type="button">反馈</button>
 
-								</div>
-							</div>
-							<div class="panel-body">
-								<p><%=requiredTimeAndPlace%></p>
-								<label><%="设备：" + equipmentDao.getEquipmentName(reservation.getEquipmentID())%></label>
-								<label><%=detail%></label>
 							</div>
 						</div>
-						<%
-							}
-						%>
+						<div class="panel-body">
+							<p><%=requiredTimeAndPlace%></p>
+							<label><%="设备：" + equipmentDao.getEquipmentName(reservation.getEquipmentID())%></label>
+							<label><%=detail%></label>
+						</div>
 					</div>
+					<%
+						}
+					%>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 
 	<!-- 评价弹出窗内容 -->

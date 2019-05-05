@@ -50,6 +50,7 @@
 							}
 						%>
 						<li><a href="icons.html">姓名:<%=name%></a></li>
+						<li><a href="icons.html">学号:<%=studentID%></a></li>
 						<li><a href="icons.html">手机号:<%=tel%></a></li>
 						<li><a href="icons.html">邮箱:<%=email%></a></li>
 						<li><a href="icons.html">地址:<%=address%></a></li>
