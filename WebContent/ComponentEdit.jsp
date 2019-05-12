@@ -1,12 +1,10 @@
 
 <%@ page language="java" contentType="text/html;charset=UTF-8"
+
     pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ page import="java.io.*,java.util.*"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="注册弹窗.jsp"%>
-<%@include file="个人信息修改弹窗.jsp"%>
-<%@include file="登录弹窗.jsp"%>
-<%@include file="退出登录弹窗.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +13,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="keywords" content="">
 <script type="application/x-javascript">
+	
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -22,6 +21,7 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+
 </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -42,7 +42,7 @@
 <script src="dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-<%@include file="导航栏.jsp"%>
+	<%@include file="导航栏.jsp"%>
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
 		<div class="container">
@@ -114,17 +114,17 @@
 													name="name" />
 											</p>
 											<p>
-                                                <span>零件价格</span> <input type="text" class="form-control"
-                                                    name="price" />
-                                            </p>
-                                            <p>
-                                                <span>零件数量</span> <input type="text" class="form-control"
-                                                    name="quantity" />
-                                            </p>
-                                            <p>
-                                                <span>零件类型</span> <input type="text" class="form-control"
-                                                    name="type" />
-                                            </p>
+												<span>零件价格</span> <input type="text" class="form-control"
+													name="price" />
+											</p>
+											<p>
+												<span>零件数量</span> <input type="text" class="form-control"
+													name="quantity" />
+											</p>
+											<p>
+												<span>零件类型</span> <input type="text" class="form-control"
+													name="type" />
+											</p>
 										</div>
 										<div class="modal-footer">
 
@@ -152,21 +152,21 @@
 										<div class="modal-body">
 											<input type="hidden" name="id" id="id" value="5" />
 											<p>
-                                                <span>零件名称</span> <input type="text" class="form-control"
-                                                    name="name" />
-                                            </p>
-                                            <p>
-                                                <span>零件价格</span> <input type="text" class="form-control"
-                                                    name="price" />
-                                            </p>
-                                            <p>
-                                                <span>零件数量</span> <input type="text" class="form-control"
-                                                    name="quantity" />
-                                            </p>
-                                            <p>
-                                                <span>零件类型</span> <input type="text" class="form-control"
-                                                    name="type" />
-                                            </p>
+												<span>零件名称</span> <input type="text" class="form-control"
+													name="name" />
+											</p>
+											<p>
+												<span>零件价格</span> <input type="text" class="form-control"
+													name="price" />
+											</p>
+											<p>
+												<span>零件数量</span> <input type="text" class="form-control"
+													name="quantity" />
+											</p>
+											<p>
+												<span>零件类型</span> <input type="text" class="form-control"
+													name="type" />
+											</p>
 										</div>
 										<div class="modal-footer">
 
@@ -185,20 +185,7 @@
 	</div>
 
 
-	<!-- footer -->
-	<div class="footer">
-		<div class="container">
-			<div class="agileinfo_copyright">
-				<p>
-					Copyright © 2017.Company name All rights reserved.More Templates <a
-						href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
-					- Collect from <a href="http://www.cssmoban.com/" title="网页模板"
-						target="_blank">网页模板</a>
-				</p>
-			</div>
-		</div>
-	</div>
-	<!-- //footer -->
+	
 	<!-- menu -->
 	<!-- js -->
 	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
@@ -395,5 +382,11 @@
 
 	<a href="#" id="toTop" style="display: none;"><span id="toTopHover"></span>To
 		Top</a>
+		<%@include file="注册弹窗.jsp"%>
+    <%@include file="个人信息修改弹窗.jsp"%>
+    <%@include file="登录弹窗.jsp"%>
+    <%@include file="退出登录弹窗.jsp"%>
+    <%@include file="动态js代码.jsp"%>
+
 </body>
 </html>

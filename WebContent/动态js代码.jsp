@@ -136,6 +136,12 @@
 		$("#my_message").toggle(function() {
 			$(this).hide();
 		});
+		$("#appaly").toggle(function() {
+			$(this).hide();
+		});
+		$("#applythis").toggle(function() {
+			$(this).hide();
+		});
 	});
 </script>
 <%

@@ -1,6 +1,7 @@
 package xiuxiuxiu.servelt;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,8 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import xiuxiuxiu.dao.ComponentDAOImpl;
+import xiuxiuxiu.dao.RepairActivityDAO;
+import xiuxiuxiu.dao.RepairActivityDAOImpl;
+import xiuxiuxiu.dao.ReservationDAOImpl;
 import xiuxiuxiu.dao.ViewComponentDAOImpl;
+import xiuxiuxiu.pojo.Component;
+import xiuxiuxiu.pojo.RepairActivity;
+import xiuxiuxiu.pojo.Reservation;
 import xiuxiuxiu.pojo.ViewDataGrid;
 
 @WebServlet("/ViewComponentServlet")
@@ -32,6 +39,16 @@ public class ViewComponentServlet extends HttpServlet{
         request.getRequestDispatcher("appointed-components-search.jsp").forward(request, response);
     }
     
+    void show(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+        RepairActivityDAO repairActivityDAO = new RepairActivityDAOImpl();
+        List<RepairActivity> activities = repairActivityDAO.listRecentActivities(5);
+        request.setAttribute("activities", activities);
+        
+        ComponentDAOImpl components = new ComponentDAOImpl();
+        request.setAttribute("components", components.getList());
+        request.getRequestDispatcher("appointed-components.jsp").forward(request, response);
+    }
+    
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -39,6 +56,8 @@ public class ViewComponentServlet extends HttpServlet{
             if (method.equals("")) {
                 //处理
                 list(request, response);
+            } else if(method.equals("show")){
+                show(request, response);
             } else {
                 list(request, response);
             }

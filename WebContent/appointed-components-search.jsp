@@ -1,12 +1,8 @@
 
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ page import="java.io.*,java.util.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="注册弹窗.jsp"%>
-<%@include file="个人信息修改弹窗.jsp"%>
-<%@include file="登录弹窗.jsp"%>
-<%@include file="退出登录弹窗.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +36,7 @@
 	rel="stylesheet" />
 </head>
 <body>
-<%@include file="导航栏.jsp"%>
+<%@include file="导航栏-管理.jsp"%>
 	
 	<!-- 主体内容：开始 -->
 	<div class="services">
@@ -267,6 +263,11 @@
     });
 </script>
 	<!-- //here ends scrolling icon -->
+<%@include file="注册弹窗.jsp"%>
+<%@include file="个人信息修改弹窗.jsp"%>
+<%@include file="登录弹窗.jsp"%>
+<%@include file="退出登录弹窗.jsp"%>
+<%@include file="动态js代码.jsp"%>
 
 </body>
 
