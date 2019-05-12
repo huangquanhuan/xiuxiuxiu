@@ -16,7 +16,7 @@ public interface ReservationImgUrlDAO {
      *
      * @param 图片url地址与相应预约单id
      */
-	void addReservationImgUrl( String imgUrl,int reservation_id);
+	void addReservationImgUrl( String imgUrl,int reservationID);
 	/**
      * delete() - 从apply_component(预约单-零件对应表)中删除相应预约单的所有记录
      *

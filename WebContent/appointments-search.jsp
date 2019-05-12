@@ -74,7 +74,7 @@
                                     <td>${viewUsers.componentType}</td>
                                     <td>${viewUsers.reservationState}</td>
                                     <td><a
-                                        href="ViewComponentServlet?method=list&id=${viewUsers.reservationID}"
+                                        href="makeReservation?method=getForID&id=${viewUsers.reservationID}"
                                         class="view resw3">详情</a></td>
                                 </tr>
                             </c:forEach>
