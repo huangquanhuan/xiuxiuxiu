@@ -1,9 +1,9 @@
 
 <%
-//     response.sendRedirect("首页.jsp");
+    response.sendRedirect("HomePageServlet");
 %>
-<form class="ApplyActivity"
-action="HomePageServlet"
-method="post">
-<button type="submit" class="" >goto HomePage</button>
-</form>
+<!-- <form class="ApplyActivity" -->
+<!-- action="HomePageServlet" -->
+<!-- method="post"> -->
+<!-- <button type="submit" class="" >goto HomePage</button> -->
+<!-- </form> -->

@@ -61,13 +61,13 @@ public class StudentServlet extends HttpServlet {
 		if (student.getPhoneNumber().length() < 1) {
 			request.setAttribute("err", "请输入登录名！");
 			// 获取转发对象
-			rd = request.getRequestDispatcher("首页.jsp");
+			rd = request.getRequestDispatcher("/HomePageServlet");
 			// 转发请求
 			rd.forward(request, response);
 		} else if (student.getPassword().length() < 2) {
 			request.setAttribute("err", "请输入密码！");
 			// 获取转发对象
-			rd = request.getRequestDispatcher("首页.jsp");
+			rd = request.getRequestDispatcher("/HomePageServlet");
 			// 转发请求
 			rd.forward(request, response);
 		} else if (StudentDAO.get(student.getPhoneNumber(), student.getPassword()) == null) {
@@ -75,7 +75,7 @@ public class StudentServlet extends HttpServlet {
 			request.setAttribute("err", "账户或密码错误！");
 			System.out.println("账户或密码错误！");
 			// 获取转发对象
-			rd = request.getRequestDispatcher("首页.jsp");
+			rd = request.getRequestDispatcher("/HomePageServlet");
 			// 转发请求
 			rd.forward(request, response);
 		} else {
@@ -97,7 +97,7 @@ public class StudentServlet extends HttpServlet {
 		RequestDispatcher rd;
 		HttpSession session = request.getSession(true);
 		session.invalidate();
-		rd = request.getRequestDispatcher("首页.jsp");
+		rd = request.getRequestDispatcher("/HomePageServlet");
 		// 转发请求
 		rd.forward(request, response);
 
@@ -122,7 +122,7 @@ public class StudentServlet extends HttpServlet {
 			System.out.println("注册失败");
 		}
 		// 获取转发对象
-		rd = request.getRequestDispatcher("首页.jsp");
+		rd = request.getRequestDispatcher("/HomePageServlet");
 		// 转发请求
 		rd.forward(request, response);
 

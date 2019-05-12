@@ -257,7 +257,9 @@
     });
 </script>
 <!-- //here ends scrolling icon -->
+
 <%@include file="动态js代码.jsp"%>
+
 <%@include file="注册弹窗.jsp"%>
 <%@include file="个人信息修改弹窗.jsp"%>
 <%@include file="登录弹窗.jsp"%>

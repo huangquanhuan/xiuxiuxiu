@@ -111,13 +111,13 @@
 								<td>${status.count}</td>
 								<td>${repairActivity.time}</td>
 								<td>${repairActivity.place}</td>
-								<td>
-									<form class="ApplyActivity"
-										action="<!-- 这边记得改 ...-->ApplyServlet?type=ApplyActivity&id=${student.id}&password=${student.password}"
-										method="post">
-										<button type="submit" class="">预约此活动</button>
-									</form>
-								</td>
+<!-- 								<td> -->
+<!-- 									<form  id="applythis" class="ApplyActivity" -->
+<!-- 										action="makeReservation?method=beforeReserve" -->
+<!-- 										method="post"> -->
+<!-- 										<button  type="submit" class="">预约此活动</button> -->
+<!-- 									</form> -->
+<!-- 								</td> -->
 							</tr>
 						</c:forEach>
 					</tbody>

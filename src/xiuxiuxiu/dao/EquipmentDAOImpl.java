@@ -68,6 +68,7 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 		// TODO Auto-generated method stub
 		String sql = "select equipment_name from equipment where id = ?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setInt(1,id);
 			ps.execute();
 			ResultSet rs = ps.getResultSet();
 			if (rs.next()) {

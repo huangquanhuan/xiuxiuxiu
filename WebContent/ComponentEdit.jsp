@@ -1,6 +1,8 @@
 
 <%@ page language="java" contentType="text/html;charset=UTF-8"
+
     pageEncoding="UTF-8" isELIgnored="false"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -11,6 +13,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="keywords" content="">
 <script type="application/x-javascript">
+	
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -18,6 +21,7 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+
 </script>
 <!-- //custom-theme -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -38,7 +42,7 @@
 <script src="dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-<%@include file="导航栏.jsp"%>
+	<%@include file="导航栏.jsp"%>
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
 		<div class="container">
@@ -110,17 +114,17 @@
 													name="name" />
 											</p>
 											<p>
-                                                <span>零件价格</span> <input type="text" class="form-control"
-                                                    name="price" />
-                                            </p>
-                                            <p>
-                                                <span>零件数量</span> <input type="text" class="form-control"
-                                                    name="quantity" />
-                                            </p>
-                                            <p>
-                                                <span>零件类型</span> <input type="text" class="form-control"
-                                                    name="type" />
-                                            </p>
+												<span>零件价格</span> <input type="text" class="form-control"
+													name="price" />
+											</p>
+											<p>
+												<span>零件数量</span> <input type="text" class="form-control"
+													name="quantity" />
+											</p>
+											<p>
+												<span>零件类型</span> <input type="text" class="form-control"
+													name="type" />
+											</p>
 										</div>
 										<div class="modal-footer">
 
@@ -148,21 +152,21 @@
 										<div class="modal-body">
 											<input type="hidden" name="id" id="id" value="5" />
 											<p>
-                                                <span>零件名称</span> <input type="text" class="form-control"
-                                                    name="name" />
-                                            </p>
-                                            <p>
-                                                <span>零件价格</span> <input type="text" class="form-control"
-                                                    name="price" />
-                                            </p>
-                                            <p>
-                                                <span>零件数量</span> <input type="text" class="form-control"
-                                                    name="quantity" />
-                                            </p>
-                                            <p>
-                                                <span>零件类型</span> <input type="text" class="form-control"
-                                                    name="type" />
-                                            </p>
+												<span>零件名称</span> <input type="text" class="form-control"
+													name="name" />
+											</p>
+											<p>
+												<span>零件价格</span> <input type="text" class="form-control"
+													name="price" />
+											</p>
+											<p>
+												<span>零件数量</span> <input type="text" class="form-control"
+													name="quantity" />
+											</p>
+											<p>
+												<span>零件类型</span> <input type="text" class="form-control"
+													name="type" />
+											</p>
 										</div>
 										<div class="modal-footer">
 
@@ -383,5 +387,6 @@
     <%@include file="登录弹窗.jsp"%>
     <%@include file="退出登录弹窗.jsp"%>
     <%@include file="动态js代码.jsp"%>
+
 </body>
 </html>
