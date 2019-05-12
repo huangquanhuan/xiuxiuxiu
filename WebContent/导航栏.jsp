@@ -41,6 +41,7 @@
 						<%
 							Student user = (Student) session.getAttribute("name");
 							String name = "null", tel = "null", address = "null", studentID = "null", email = "null";
+			
 							if (session.getAttribute("name") != null) {
 								name = user.getName();
 								tel = user.getPhoneNumber();
@@ -49,11 +50,12 @@
 								email = user.getEmail();
 							}
 						%>
-						<li><a href="icons.html">姓名:<%=name%></a></li>
-						<li><a href="icons.html">学号:<%=studentID%></a></li>
-						<li><a href="icons.html">手机号:<%=tel%></a></li>
-						<li><a href="icons.html">邮箱:<%=email%></a></li>
-						<li><a href="icons.html">地址:<%=address%></a></li>
+						<li><p>姓名:<%=name%></p></li>
+						<li><p>学号:<%=studentID%></p></li>
+						<li><p>手机号:<%=tel%></p></li>
+						<li><p>住址:<%=address%></p></li>
+						<li><p>邮箱:<%=email%></p></li>
+						<li><a></a></li>
 						<li><a class="active" data-toggle="modal"
 							data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
 						<li><a class="active" href="MyReservationManageServlet"
