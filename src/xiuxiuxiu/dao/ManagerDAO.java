@@ -56,6 +56,7 @@ public interface ManagerDAO {
      * @return 如果手机号对应的管理员表存在，则返回 true，否则返回 false
      */
 	boolean isMangerExist(int id);
+	public List<Manger> list(int start,int count);
 	/**
 	 * listAll() - 从数据库中获取所有记录，返回一个按id升序的列表
 	 *
