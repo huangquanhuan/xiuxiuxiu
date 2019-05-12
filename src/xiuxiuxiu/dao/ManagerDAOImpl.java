@@ -148,8 +148,85 @@ public class ManagerDAOImpl implements ManagerDAO{
 
 	@Override
 	public int getTotalManger() {
+		int total = 0;
+		try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement()) {
+
+			String sql = "select count(*) from manger";
+
+			ResultSet rs = s.executeQuery(sql);
+			if (rs.next()) {
+				total = rs.getInt(1);
+				return total;
+			} else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	@Override
+	public List<Manger> listAll() {
 		// TODO Auto-generated method stub
-		return 0;
+		String sql = "select id,name,password,phone_number,access_level,student_id,address,e_mail from student ORDER BY id";
+		List<Manger> mangerList = new ArrayList<Manger>();
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			while (rs.next()) {
+				EquipmentDAO equipmentDao = new EquipmentDAOImpl();
+				Manger bean = new Manger();
+				bean.setID(rs.getInt("id"));
+				bean.setName(rs.getString("name"));
+				bean.setPassword(rs.getString("password"));
+				bean.setPhoneNumber(rs.getString("phone_number"));
+				bean.setAccessLevel(rs.getInt("access_level"));
+				bean.setAddress(rs.getString("address"));
+				bean.setEmail(rs.getString("e_mail"));
+				mangerList.add(bean);
+			}
+			return mangerList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Manger> listByPage(int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Manger> list(int start, int count) {
+		// TODO Auto-generated method stub
+				String sql = "select * from manger";
+				List<Manger> managerList = new ArrayList<Manger>();
+		        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+		            ps.execute();
+		            ResultSet rs = ps.getResultSet();
+		            int n=0;
+		            while(rs.next()) 
+		            {
+		            	Manger bean = new Manger();
+		            	if( n>=start && n<(start+count) )
+		            	{
+		            		bean.setID(rs.getInt(1));
+		            		bean.setName(rs.getString(2));
+		               		bean.setPhoneNumber(rs.getString(4));
+		            		bean.setAddress(rs.getString(6));
+		            		bean.setEmail(rs.getString(7));
+		            		managerList.add(bean);
+		            	}          
+		            	n++;
+		            }
+		            return managerList;
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+				return null;
 	}
 
 
