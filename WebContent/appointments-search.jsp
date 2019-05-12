@@ -33,7 +33,7 @@
     <link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i" rel="stylesheet" />
 </head>
 <body>
-<%@include file="导航栏.jsp"%>
+<%@include file="导航栏-管理.jsp"%>
 <!-- 主体内容：开始 -->
 <div class="services">
     <div class="container">
@@ -257,6 +257,9 @@
     });
 </script>
 <!-- //here ends scrolling icon -->
+
+<%@include file="动态js代码.jsp"%>
+
 <%@include file="注册弹窗.jsp"%>
 <%@include file="个人信息修改弹窗.jsp"%>
 <%@include file="登录弹窗.jsp"%>

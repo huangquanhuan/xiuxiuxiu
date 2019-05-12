@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import xiuxiuxiu.dao.RepairActivityDAO;
+import xiuxiuxiu.dao.RepairActivityDAOImpl;
 import xiuxiuxiu.dao.ViewUserDAOImpl;
+import xiuxiuxiu.pojo.RepairActivity;
 import xiuxiuxiu.pojo.ViewDataGrid;
 
 @WebServlet("/ViewUserServlet")
@@ -32,6 +35,13 @@ public class ViewUserServlet extends HttpServlet{
         request.getRequestDispatcher("appointments-search.jsp").forward(request, response);
     }
     
+    void show(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+        RepairActivityDAO repairActivityDAO = new RepairActivityDAOImpl();
+        List<RepairActivity> activities = repairActivityDAO.listRecentActivities(5);
+        request.setAttribute("activities", activities);
+        request.getRequestDispatcher("appointments-home.jsp").forward(request, response);
+    }
+    
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -39,6 +49,8 @@ public class ViewUserServlet extends HttpServlet{
             if (method.equals("")) {
                 //处理
                 list(request, response);
+            } else if(method.equals("show")){
+                show(request, response);
             } else {
                 list(request, response);
             }

@@ -56,4 +56,25 @@ public interface ManagerDAO {
      * @return 如果手机号对应的管理员表存在，则返回 true，否则返回 false
      */
 	boolean isMangerExist(int id);
+	/**
+	 * listAll() - 从数据库中获取所有记录，返回一个按id升序的列表
+	 *
+	 * @return 一个包含 Student 对象的 List
+	 */
+	List<Manger> listAll();
+
+	/**
+	 * listByPage() - （分页查询用）从数据库中获取部分记录
+	 *
+	 * @param pageNo   起始页码
+	 * @param pageSize 每个页面的记录数目
+	 * @return 一个包含 Student 对象的 List，且该 List 的长度小于或等于 pageSize
+	 */
+	List<Manger> listByPage(int pageNo, int pageSize);
+
+	/**
+	 * getTotal() - 返回 student 表的总记录数
+	 *
+	 * @return 一个整数，表示 student 表的记录数，也就是用户总数 TODO: 斟酌该方法的返回值应该设为 int 还是 long
+	 */
 }

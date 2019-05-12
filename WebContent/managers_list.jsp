@@ -1,7 +1,11 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-<title>Typography</title>
+<title>人员管理</title>
 <!-- custom-theme -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -27,49 +31,7 @@
 <body>
 	<!-- banner -->
 	<div class="agileits_w3layouts_banner_nav">
-		<nav class="navbar navbar-default">
-			<div class="navbar-header navbar-left">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<h1>
-					<a class="navbar-brand" href="index.html"><i
-						class="fa fa-crosshairs" aria-hidden="true"></i> Treasurer</a>
-				</h1>
-
-			</div>
-			<ul class="agile_forms">
-				<li><a class="active" href="#" data-toggle="modal"
-					data-target="#myModal2"> 登录</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#myModal3">
-						注册</a></li>
-				<li><a href="addrepair_list" data-toggle="modal"
-					data-target="#myModal1">增加维修人员</a></li>
-				<li><a href="addrepair_list" data-toggle="modal"
-					data-target="#myModal6">清理账户</a></li>
-			</ul>
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse navbar-right"
-				id="bs-example-navbar-collapse-1">
-				<nav>
-					<ul class="nav navbar-nav">
-						<li class="dropdown"><a href="#"
-							class="dropdown-toggle hvr-underline-from-center"
-							data-toggle="dropdown">管理人员/场次<b class="fa fa-caret-down"></b></a>
-							<ul class="dropdown-menu agile_short_dropdown">
-								<li><a href="repair_list.html">维修场次管理</a></li>
-								<li><a href="managers_list.html">维修人员管理</a></li>
-
-							</ul></li>
-						<li><a href="contact.html" class="hvr-underline-from-center">Contact</a></li>
-					</ul>
-				</nav>
-
-			</div>
-		</nav>
+		<%@include file="导航栏-管理.jsp"%>
 
 		<div class="clearfix"></div>
 	</div>
@@ -86,8 +48,8 @@
 						<div class="login-form">
 							<form action="#" method="post">
 								<input type="email" name="email" placeholder="E-mail"
-									required=""> <input type="password" name="password"
-									placeholder="Password" required="">
+									required="required"> <input type="password"
+									name="password" placeholder="Password" required="required">
 								<div class="tp">
 									<input type="submit" value="Sign In">
 								</div>
@@ -162,10 +124,10 @@
 									placeholder="地址" required="required">
 
 								<!--<input id="access_level" type="text" list="accesslist" placeholder="权限等级">
-				                                                                    <datalist id="accesslist">
-                																	<option>维修人员</option>
-               																		<option>女</option>
-            																		</datalist> -->
+                                                                                    <datalist id="accesslist">
+                                                                                    <option>维修人员</option>
+                                                                                    <option>女</option>
+                                                                                    </datalist> -->
 
 								<input type="submit" value="确定">
 							</form>
@@ -198,10 +160,10 @@
 									placeholder="地址" required="required">
 
 								<!--<input id="access_level" type="text" list="accesslist" placeholder="权限等级">
-				                                                                    <datalist id="accesslist">
-                																	<option>维修人员</option>
-               																		<option>女</option>
-            																		</datalist> -->
+                                                                                    <datalist id="accesslist">
+                                                                                    <option>维修人员</option>
+                                                                                    <option>女</option>
+                                                                                    </datalist> -->
 
 								<input type="submit" value="确定">
 							</form>
@@ -265,6 +227,10 @@
 	<div class="agile_inner_banner_info">
 		<h2>维修人员</h2>
 	</div>
+	<a href="addrepair_list" data-toggle="modal" class="view resw3"
+		data-target="#myModal1">增加维修人员</a>
+	<a href="addrepair_list" data-toggle="modal" class="view resw3"
+		data-target="#myModal6">清理账户</a>
 	<!-- //agile_inner_banner_info -->
 	<!-- typo -->
 	<div id="fh5co-pricing">
@@ -273,79 +239,27 @@
 				<div class="pricing">
 					<div class="col-md-3 animate-box">
 						<div class="price-box">
-							<h2 class="pricing-plan">维修人员</h2>
+						<h2 class="pricing-plan">维修人员</h2>
 
-							<ul class="classes">
-								<li>姓名：</li>
-								<li class="color">张三</li>
-								<li>号码：</li>
-								<li class="color">16547382345</li>
-								<li>地址：</li>
-								<li class="color">6#532</li>
-								<li>邮箱：</li>
-								<li class="color">yhsng@gmail.com</li>
-							</ul>
-							<a href="#" class="btn btn-select-plan btn-sm"
-								data-toggle="modal" data-target="#myModal4">修改</a> <a href="#"
-								class="btn btn-select-plan btn-sm" data-toggle="modal"
-								data-target="#myModal5">删除</a>
-						</div>
-					</div>
+							<c:forEach items="${mangers}" var="mangers">
+								<h2 class="pricing-plan">维修人员</h2>
 
-					<div class="col-md-3 animate-box">
-						<div class="price-box">
-							<h2 class="pricing-plan">维修人员</h2>
+								<ul class="classes">
+									<li>姓名：</li>
+									<li class="color">${mangers.name}</li>
+									<li>号码：</li>
+									<li class="color">${mangers.phoneNumber}</li>
+									<li>地址：</li>
+									<li class="color">${mangers.address}</li>
+									<li>邮箱：</li>
+									<li class="color">${mangers.Email}</li>
+								</ul>
+								<a href="#" class="btn btn-select-plan btn-sm"
+									data-toggle="modal" data-target="#myModal4">修改</a>
+								<a href="#" class="btn btn-select-plan btn-sm"
+									data-toggle="modal" data-target="#myModal5">删除</a>
+							</c:forEach>
 
-							<ul class="classes">
-								<li>姓名：</li>
-								<li class="color">张三</li>
-								<li>号码：</li>
-								<li class="color">16547382345</li>
-								<li>地址：</li>
-								<li class="color">6#532</li>
-								<li>邮箱：</li>
-								<li class="color">yhsng@gmail.com</li>
-							</ul>
-							<a href="#" class="btn btn-select-plan btn-sm">修改</a> <a href="#"
-								class="btn btn-select-plan btn-sm">删除</a>
-						</div>
-					</div>
-
-					<div class="col-md-3 animate-box">
-						<div class="price-box">
-							<h2 class="pricing-plan">维修人员</h2>
-
-							<ul class="classes">
-								<li>姓名：</li>
-								<li class="color">张三</li>
-								<li>号码：</li>
-								<li class="color">16547382345</li>
-								<li>地址：</li>
-								<li class="color">6#532</li>
-								<li>邮箱：</li>
-								<li class="color">yhsng@gmail.com</li>
-							</ul>
-							<a href="#" class="btn btn-select-plan btn-sm">修改</a> <a href="#"
-								class="btn btn-select-plan btn-sm">删除</a>
-						</div>
-					</div>
-
-					<div class="col-md-3 animate-box">
-						<div class="price-box">
-							<h2 class="pricing-plan">维修人员</h2>
-
-							<ul class="classes">
-								<li>姓名：</li>
-								<li class="color">张三</li>
-								<li>号码：</li>
-								<li class="color">16547382345</li>
-								<li>地址：</li>
-								<li class="color">6#532</li>
-								<li>邮箱：</li>
-								<li class="color">yhsng@gmail.com</li>
-							</ul>
-							<a href="#" class="btn btn-select-plan btn-sm">修改</a> <a href="#"
-								class="btn btn-select-plan btn-sm">删除</a>
 						</div>
 					</div>
 				</div>
@@ -362,25 +276,23 @@
 	<!-- //js -->
 	<!-- password-script -->
 	<script type="text/javascript">
-		window.onload = function () {
-			document.getElementById("password1").onchange = validatePassword;
-			document.getElementById("password2").onchange = validatePassword;
-		}
-
-		function validatePassword() {
-			var pass2 = document.getElementById("password2").value;
-			var pass1 = document.getElementById("password1").value;
-			if (pass1 != pass2)
-				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
-			else
-				document.getElementById("password2").setCustomValidity('');
-			//empty string means no validation error
-		}
-		//管理员删除时弹出警告
-		function showDelMessage(){
-
-		}
-	</script>
+        window.onload = function () {
+            document.getElementById("password1").onchange = validatePassword;
+            document.getElementById("password2").onchange = validatePassword;
+        }
+        function validatePassword() {
+            var pass2 = document.getElementById("password2").value;
+            var pass1 = document.getElementById("password1").value;
+            if (pass1 != pass2)
+                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+            else
+                document.getElementById("password2").setCustomValidity('');
+            //empty string means no validation error
+        }
+        //管理员删除时弹出警告
+        function showDelMessage(){
+        }
+    </script>
 	<!-- //password-script -->
 
 	<!-- for bootstrap working -->
@@ -390,30 +302,35 @@
 	<script type="text/javascript" src="js/move-top.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
 	<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){		
-			event.preventDefault();
-			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-		});
-	});
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){     
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+        });
+    });
 </script>
 	<!-- start-smoth-scrolling -->
 	<!-- here stars scrolling icon -->
 	<script type="text/javascript">
-		$(document).ready(function() {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-				};
-			*/
-								
-			$().UItoTop({ easingType: 'easeOutQuart' });
-								
-			});
-	</script>
+        $(document).ready(function() {
+            /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear' 
+                };
+            */
+                                
+            $().UItoTop({ easingType: 'easeOutQuart' });
+                                
+            });
+    </script>
 	<!-- //here ends scrolling icon -->
+	<%@include file="动态js代码.jsp"%>
+	<%@include file="注册弹窗.jsp"%>
+	<%@include file="个人信息修改弹窗.jsp"%>
+	<%@include file="登录弹窗.jsp"%>
+	<%@include file="退出登录弹窗.jsp"%>
 </body>
 </html>

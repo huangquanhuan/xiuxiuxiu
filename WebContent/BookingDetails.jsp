@@ -283,7 +283,7 @@
 		});
 	</script>
 	<!-- Stats -->
-	<script src="js/waypoints.min.js"></script>
+	<script src="js/waypoints.min.js"></script>；
 	<script src="js/counterup.min.js"></script>
 	<script>
 		jQuery(document).ready(function($) {
@@ -368,8 +368,12 @@
 
 	<a href="#" id="toTop" style="display: none;"><span id="toTopHover"></span>To
 		Top</a>
-	<%@include file="注册弹窗.jsp"%>
-	<%@include file="个人信息修改弹窗.jsp"%>
-	<%@include file="登录弹窗.jsp"%>
+
+		<%@include file="动态js代码.jsp"%>
+		<%@include file="注册弹窗.jsp"%>
+<%@include file="个人信息修改弹窗.jsp"%>
+<%@include file="登录弹窗.jsp"%>
+<%@include file="退出登录弹窗.jsp"%>
+
 </body>
 </html>

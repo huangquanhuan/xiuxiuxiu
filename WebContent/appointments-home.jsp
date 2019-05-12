@@ -3,10 +3,7 @@
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ page import="java.io.*,java.util.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="注册弹窗.jsp"%>
-<%@include file="个人信息修改弹窗.jsp"%>
-<%@include file="登录弹窗.jsp"%>
-<%@include file="退出登录弹窗.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +32,7 @@
     <link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i" rel="stylesheet" />
 </head>
 <body>
-<%@include file="导航栏.jsp"%>
+<%@include file="导航栏-管理.jsp"%>
 
 <!-- 主体内容：开始 -->
 <div class="services">
@@ -51,7 +48,7 @@
 
         <div class="tab-content">
             <!-- 预约人员的表单：开始 -->
-
+<a href="ViewUserServlet?method=show" class="view resw3">刷新</a>
             <!-- 搜索框 -->
             <div id="field-search" class="container tab-pane active"><br />
                 <form action="ViewUserServlet?method=list" method="post">
@@ -67,21 +64,6 @@
                     </div>
 
 
-                    <!-- 类型选择 -->
-                    <div class="form-group">
-                        <div class="col-sm-3">
-                            <label for="type-select">预约类型</label>
-
-                        </div>
-                        <div class="col-sm-9">
-                            <select id="type-select" class="form-control">
-                               <!-- 这里装入预约类型列表 -->
-                                        <option value="0">场次预约</option>
-                                        <option value="1">上门服务</option>
-                                        <option value="2" selected="selected">全部</option>
-                            </select>
-                        </div>
-                    </div>
 
                     <!-- 场次选择 -->
                     <div class="form-group">
@@ -90,7 +72,7 @@
                             <select id="session-select" class="form-control">
                                <!-- 这里装入场次时间信息 -->
                                         <c:forEach items="${activities}" var="activity">
-                                            <option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
+                                            <option value="${activity.ID}">${activity.time}，地点：${activity.place}</option>
                                         </c:forEach>
                                         <option value="-1">全部预约场次</option>
                                         <option value="-2">上门服务</option>
@@ -286,7 +268,11 @@
                 });
             </script>
             <!-- //here ends scrolling icon -->
-
+<%@include file="动态js代码.jsp"%>
+<%@include file="注册弹窗.jsp"%>
+<%@include file="个人信息修改弹窗.jsp"%>
+<%@include file="登录弹窗.jsp"%>
+<%@include file="退出登录弹窗.jsp"%>
 </body>
 
 </html>
