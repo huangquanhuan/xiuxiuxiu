@@ -31,7 +31,7 @@
 		<nav>
 			<ul class="nav navbar-nav">
 				<li><a href="HomePageServlet" class="hvr-underline-from-center">首页</a></li>
-				<li><a href="预约.jsp" class="hvr-underline-from-center">预约</a></li>
+				<li><a href="预约.jsp" id="appaly" class="hvr-underline-from-center">预约</a></li>
 				<li><a href="ArticleServlet?type=list"
 					class="hvr-underline-from-center">文章&通知</a></li>
 				<li class="dropdown"><a id="my_message" href="#"
