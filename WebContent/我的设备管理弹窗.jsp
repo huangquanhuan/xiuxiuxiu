@@ -3,9 +3,9 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 
-
-<!-- 个人信息修改弹出页窗内容 -->
-<div class="modal" id="changeinfo-data" tabindex="-1" role="dialog"
+%>
+<!-- 我的设备管理弹出页窗内容 -->
+<div class="modal" id="myDevice-data" tabindex="-1" role="dialog"
 	aria-labelledby="mySmallModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -15,7 +15,7 @@
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 					</button>
-					<h4 class="modal-title">个人信息修改</h4>
+					<h4 class="modal-title">我的设备管理</h4>
 				</div>
 				<div class="modal-body">
 					<!-- Top content -->
