@@ -58,6 +58,8 @@
 						<li><a></a></li>
 						<li><a class="active" data-toggle="modal"
 							data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
+						<li><a class="active" data-toggle="modal"
+							data-target="#myDevice-data" href="#" id="device">我的设备</a></li>
 						<li><a class="active" href="MyReservationManageServlet"
 							id="appointment">预约管理</a></li>
 					</ul></li>

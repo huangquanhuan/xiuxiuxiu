@@ -32,7 +32,7 @@ public class HomePageServlet extends HttpServlet {
 		List<RepairActivity> repairActivityList;
 		RepairActivityDAO repairActivityDao = new RepairActivityDAOImpl();
 		repairActivityList = repairActivityDao.ListAll();
-		request.setAttribute("activities", repairActivityList);
+		request.setAttribute("repairActivityList", repairActivityList);
 		request.getRequestDispatcher("首页.jsp").forward(request, response);
 
 	}
