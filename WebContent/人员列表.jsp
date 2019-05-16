@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@page import="xiuxiuxiu.dao.*"%>
+<%@page import="xiuxiuxiu.pojo.Manger"%>
+<%@ page import="java.io.*,java.util.*" %>
+<%@page import="xiuxiuxiu.servelt.*" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -271,19 +278,19 @@
 		<div class="container">
 			<div class="row">
 				<div class="pricing">
+				<c:forEach items="${mangers}" var="mangers">
 					<div class="col-md-3 animate-box">
 						<div class="price-box">
+							
 							<h2 class="pricing-plan">维修人员</h2>
 
 							<ul class="classes">
 								<li>姓名：</li>
-								<li class="color">张三</li>
+								<li class="color">${mangers.name}</li>
 								<li>号码：</li>
-								<li class="color">16547382345</li>
+								<li class="color">${mangers.phoneNumber}</li>
 								<li>地址：</li>
-								<li class="color">6#532</li>
-								<li>邮箱：</li>
-								<li class="color">yhsng@gmail.com</li>
+								<li class="color">${mangers.address}</li>
 							</ul>
 							<a href="#" class="btn btn-select-plan btn-sm"
 								data-toggle="modal" data-target="#myModal4">修改</a> <a href="#"
@@ -291,63 +298,7 @@
 								data-target="#myModal5">删除</a>
 						</div>
 					</div>
-
-					<div class="col-md-3 animate-box">
-						<div class="price-box">
-							<h2 class="pricing-plan">维修人员</h2>
-
-							<ul class="classes">
-								<li>姓名：</li>
-								<li class="color">张三</li>
-								<li>号码：</li>
-								<li class="color">16547382345</li>
-								<li>地址：</li>
-								<li class="color">6#532</li>
-								<li>邮箱：</li>
-								<li class="color">yhsng@gmail.com</li>
-							</ul>
-							<a href="#" class="btn btn-select-plan btn-sm">修改</a> <a href="#"
-								class="btn btn-select-plan btn-sm">删除</a>
-						</div>
-					</div>
-
-					<div class="col-md-3 animate-box">
-						<div class="price-box">
-							<h2 class="pricing-plan">维修人员</h2>
-
-							<ul class="classes">
-								<li>姓名：</li>
-								<li class="color">张三</li>
-								<li>号码：</li>
-								<li class="color">16547382345</li>
-								<li>地址：</li>
-								<li class="color">6#532</li>
-								<li>邮箱：</li>
-								<li class="color">yhsng@gmail.com</li>
-							</ul>
-							<a href="#" class="btn btn-select-plan btn-sm">修改</a> <a href="#"
-								class="btn btn-select-plan btn-sm">删除</a>
-						</div>
-					</div>
-
-					<div class="col-md-3 animate-box">
-						<div class="price-box">
-							<h2 class="pricing-plan">维修人员</h2>
-
-							<ul class="classes">
-								<li>姓名：</li>
-								<li class="color">张三</li>
-								<li>号码：</li>
-								<li class="color">16547382345</li>
-								<li>地址：</li>
-								<li class="color">6#532</li>
-								<li>邮箱：</li>
-								<li class="color">yhsng@gmail.com</li>
-							</ul>
-							<a href="#" class="btn btn-select-plan btn-sm">修改</a> <a href="#"
-								class="btn btn-select-plan btn-sm">删除</a>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
