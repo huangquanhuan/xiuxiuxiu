@@ -38,6 +38,7 @@
 					class="dropdown-toggle hvr-underline-from-center"
 					data-toggle="dropdown">我的<b class="fa fa-caret-down"></b></a>
 					<ul class="dropdown-menu agile_short_dropdown">
+					<!-- 这里获取已登录用户的session -->
 						<%
 							Student user = (Student) session.getAttribute("name");
 							String name = "null", tel = "null", address = "null", studentID = "null", email = "null";

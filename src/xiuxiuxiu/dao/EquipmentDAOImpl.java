@@ -14,12 +14,12 @@ import xiuxiuxiu.util.DBUtil;
 
 public class EquipmentDAOImpl implements EquipmentDAO{
     @Override
-	public void addEquipment(String equipmentName, String userID) {
+	public void addEquipment(String equipmentName, Integer userID) {
 		// TODO Auto-generated method stub
 		String sql = "insert into equipment(equipment_name,user_id) values(?,?)";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setString(1, equipmentName);
-			ps.setString(2, userID);
+			ps.setInt(2, userID);
 			boolean num=ps.execute();
 			if (num) {
 				System.out.print("插入成功");
@@ -52,7 +52,8 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 		// TODO Auto-generated method stub
 		String sql="update equipment set equipment_name=? where id =?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-		ps.setLong(1, id);
+		ps.setString(1,equipmentName);
+		ps.setInt(2, id);
 		boolean num=ps.execute();
 		if (num) {
 			System.out.print("更新设备表成功");

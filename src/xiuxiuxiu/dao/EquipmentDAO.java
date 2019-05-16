@@ -16,7 +16,7 @@ public interface EquipmentDAO {
      *
      * @param 设备名称与用户id
      */
-	void addEquipment( String equipmentName,String userID);
+	void addEquipment( String equipmentName,Integer userID);
 	/**
      * delete() - 从设备表中删除某一对象，以 ID 为依据
      *
