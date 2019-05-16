@@ -111,7 +111,7 @@ public class StudentDAOImpl implements StudentDAO {
 				bean.setStudentID(rs.getString("student_id"));
 				bean.setAddress(rs.getString("address"));
 				bean.setEmail(rs.getString("e_mail"));
-				bean.setEquipment(equipmentDao.List(id));// 根据学生id获取设备id列表并将列表set进该学生的信息中
+				bean.setEquipment(equipmentDao.listEquipmentsByUser(id));// 根据学生id获取设备列表并将列表set进该学生的信息中
 				return bean;
 			} else {
 				System.out.println("该id不存在！！");
@@ -149,7 +149,7 @@ public class StudentDAOImpl implements StudentDAO {
 				bean.setStudentID(rs.getString("student_id"));
 				bean.setAddress(rs.getString("address"));
 				bean.setEmail(rs.getString("e_mail"));
-				bean.setEquipment(equipmentDao.List(bean.getID()));// 根据学生id获取设备id列表并将列表set进该学生的信息中
+				bean.setEquipment(equipmentDao.listEquipmentsByUser(bean.getID()));// 根据学生id获取设备列表并将列表set进该学生的信息中
 				return bean;
 			} else {
 				System.out.println("用户不存在");
@@ -239,7 +239,7 @@ public class StudentDAOImpl implements StudentDAO {
 				bean.setStudentID(rs.getString("student_id"));
 				bean.setAddress(rs.getString("address"));
 				bean.setEmail(rs.getString("e_mail"));
-				bean.setEquipment(equipmentDao.List(bean.getID()));// 根据学生id获取设备id列表并将列表set进该学生的信息中
+				bean.setEquipment(equipmentDao.listEquipmentsByUser(bean.getID()));// 根据学生id获取设备列表并将列表set进该学生的信息中
 				studentList.add(bean);
 			}
 			return studentList;
@@ -267,7 +267,7 @@ public class StudentDAOImpl implements StudentDAO {
 //				bean.setStudentID(rs.getString("student_id"));
 //				bean.setAddress(rs.getString("address"));
 //				bean.setEmail(rs.getString("e_mail"));
-//				bean.setEquipment(equipmentDao.List(bean.getID()));// 根据学生id获取设备id列表并将列表set进该学生的信息中
+//				bean.setEquipment(equipmentDao.List(bean.getID()));// 根据学生id获取设备列表并将列表set进该学生的信息中
 //				studentList.add(bean);
 //			}
 //			return studentList;

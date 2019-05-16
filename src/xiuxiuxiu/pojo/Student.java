@@ -19,7 +19,7 @@ public class Student extends User {
 	/**
 	 * 学生拥有的设备列表,每个元素为设备表中的设备号
 	 */
-	private List<Integer> equipment = new ArrayList<Integer>();
+	private List<Equipment> equipment = new ArrayList<Equipment>();
 
 	/**
 	 * Student类的构造函数,调用父类User的带参构造函数，再补充学号和拥有设备的设备号列表 需输入(int id , String
@@ -27,7 +27,7 @@ public class Student extends User {
 	 * address , String Email , String studentID, List<Integer> equipment)
 	 */
 	public Student(String password, String name, String phoneNumber, int accessLevel, String address,
-			String Email, String studentID, List<Integer> equipment) {
+			String Email, String studentID, List<Equipment> equipment) {
 		super( password, name, phoneNumber, accessLevel, address, Email);
 		this.studentID = studentID;
 		if (equipment != null) {
@@ -49,14 +49,14 @@ public class Student extends User {
 		this.studentID = studentID;
 	}
 
-	public List<Integer> getEquipment() {
+	public List<Equipment> getEquipment() {
 		return equipment;
 	}
 
-	public void setEquipment(List<Integer> equipment) {
+	public void setEquipment(List<Equipment> list) {
 		this.equipment.clear();
-		for (int i = 0; i < equipment.size(); i++) {
-			this.equipment.add(equipment.get(i));
+		for (int i = 0; i < list.size(); i++) {
+			this.equipment.add(list.get(i));
 		}
 	}
 }
