@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
+
+<!-- 注意！！该文档别删除或增加行，用了dom的元素查找，有点迷~ -->
 	<!-- 我的设备管理弹出页窗内容 -->
 	<div class="modal" id="myDevice-data" tabindex="-1" role="dialog"
 		aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -21,7 +23,7 @@
 					<!-- Top content -->
 					<div class="top-content text-center">
 
-						<%
+						<% 
 							Student student = (Student) session.getAttribute("name");
 							if (student != null) {
 						%>
@@ -40,16 +42,17 @@
 							</form>
 							<br>
 						</c:forEach>
+						
+						
 
-						<form role="form" action="MyEquipmentServlet?method=add"
+						<form class="form-inline asd" role="form" action="MyEquipmentServlet?method=add"
 							method="post">
-							<button class="btn btn-info btn-lg text-center" type="button"
-								data-toggle="tooltip" title="新增" id="addCenterIpGrpBtn"
-								onclick="addCenterIpGrp(this)" disabled>
-							写到这了	<span class="glyphicon glyphicon-plus">添加设备</span>
-							</button>
 						</form>
-
+						<br>
+						<button class="btn btn-info btn-lg" type="button"
+							onclick="addInput(this)" >
+							<span class="glyphicon glyphicon-plus">添加设备</span>
+						</button>
 
 						<%
 							}
@@ -66,34 +69,72 @@
 
 </body>
 <script type="text/javascript">
-	function changeDisabled(btn, id) {
+	var map={};
+	function changeDisabled(btn,id) {
 		var btn_text = btn.firstChild;
 		var form = btn.parentNode;
-		var input = btn.parentNode.childNodes[1];
+		var input = form.childNodes[1];//输入框
+		var btn1 = form.childNodes[3];//第一个按钮
+		var btn2 = form.childNodes[5];//第二个按钮
+		var btn1_text = btn1.firstChild;
+		var btn2_text = btn2.firstChild;
 
 		if (btn_text.nodeValue == "修改") {
-			input.removeAttribute("disabled");
-			btn_text.nodeValue = "确定";
-			btn.setAttribute("class", "btn btn-danger");
-			btn.setAttribute("type", "button");
-		} else {
-			input.setAttribute("disabled", "disabled");
-			btn_text.nodeValue = "修改";
-			btn.setAttribute("class", "btn btn-success");
-			
+			map[id]=input.value;
+			input.removeAttribute("disabled");//将输入框设为可编辑
+			//将第一个button变为红色确定按钮
+			btn1_text.nodeValue = "确定";
+			btn1.setAttribute("class", "btn btn-danger");
+			btn1.setAttribute("type", "button");
+			//将第二个button变为绿色取消按钮
+			btn2_text.nodeValue = "取消";
+			btn2.setAttribute("class", "btn btn-success");
+			btn2.setAttribute("type", "button");
+			btn2.setAttribute("onclick", "changeDisabled(this,"+id+")");
+		} else if(btn_text.nodeValue == "取消"){
+			input.value=map[id];//还原输入框的值
+			input.setAttribute("disabled", "disabled");//将输入框设为不可编辑
+			//将第一个button变为绿色色修改按钮
+			btn1_text.nodeValue = "修改";
+			btn1.setAttribute("class", "btn btn-success");
+			btn1.setAttribute("type", "button");
+			//将第一个button变为绿色色修改按钮
+			btn2_text.nodeValue = "删除";
+			btn2.setAttribute("class", "btn btn-danger");
+			btn2.setAttribute("type", "button");
+			btn2.setAttribute("onclick", "del(this,"+id+")");
+		} else if(btn_text.nodeValue == "确定"){
+			//修改action
 			form.action="MyEquipmentServlet?id="+id+"&method=edit";
-			
-			btn.setAttribute("type", "submit");
+			//提交修改
+			btn1.setAttribute("type", "submit");
 		}
 	}
 
 	function del(btn, id) {
 		var form = btn.parentNode;
-			
 		form.action="MyEquipmentServlet?id="+id+"&method=delete";
-			
 		btn.setAttribute("type", "submit");
+	}
+	
+	function addInput(btn) {
+		//获取前一个form元素
+		var form = btn.previousSibling.previousSibling.previousSibling.previousSibling;
+		var input=document.createElement("input");
+		input.setAttribute("type","text");
+		input.setAttribute("class","form-control");
+		input.setAttribute("name","equipmentName");
 		
+		
+		var button=document.createElement("button");
+		button.setAttribute("type","submit");
+		button.setAttribute("class","btn btn-success");
+		button.setAttribute("style","margin-left:15px");
+		var node=document.createTextNode("确认添加");
+		button.appendChild(node);
+		
+		form.appendChild(input);
+		form.appendChild(button);
 	}
 </script>
 
