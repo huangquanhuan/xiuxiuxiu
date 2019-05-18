@@ -5,9 +5,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- 看要不要改变按钮的样式，要按钮变方的话就引用新的3.37版本的bootstrap -->
+<!-- <link -->
+<!-- 	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" -->
+<!-- 	rel="stylesheet"> -->
 <body>
 
-<!-- 注意！！该文档别删除或增加行，用了dom的元素查找，有点迷~ -->
+	<!-- 注意！！该文档别删除或增加行，用了dom的元素查找，有点迷~ -->
 	<!-- 我的设备管理弹出页窗内容 -->
 	<div class="modal" id="myDevice-data" tabindex="-1" role="dialog"
 		aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -23,7 +28,7 @@
 					<!-- Top content -->
 					<div class="top-content text-center">
 
-						<% 
+						<%
 							Student student = (Student) session.getAttribute("name");
 							if (student != null) {
 						%>
@@ -42,15 +47,19 @@
 							</form>
 							<br>
 						</c:forEach>
-						
-						
 
-						<form class="form-inline asd" role="form" action="MyEquipmentServlet?method=add"
-							method="post">
+
+
+						<form id="form-add" class="form-inline asd" role="form"
+							action="MyEquipmentServlet?method=add" method="post"
+							style="display: none">
+							<input type="text" class="form-control" name="equipmentName">
+							<button type="submit" class="btn btn-info">确认添加</button>
+							<button type="button" class="btn btn-default">取消</button>
 						</form>
 						<br>
 						<button class="btn btn-info btn-lg" type="button"
-							onclick="addInput(this)" >
+							onclick="addInput()">
 							<span class="glyphicon glyphicon-plus">添加设备</span>
 						</button>
 
@@ -119,22 +128,8 @@
 	
 	function addInput(btn) {
 		//获取前一个form元素
-		var form = btn.previousSibling.previousSibling.previousSibling.previousSibling;
-		var input=document.createElement("input");
-		input.setAttribute("type","text");
-		input.setAttribute("class","form-control");
-		input.setAttribute("name","equipmentName");
-		
-		
-		var button=document.createElement("button");
-		button.setAttribute("type","submit");
-		button.setAttribute("class","btn btn-success");
-		button.setAttribute("style","margin-left:15px");
-		var node=document.createTextNode("确认添加");
-		button.appendChild(node);
-		
-		form.appendChild(input);
-		form.appendChild(button);
+		var form = document.getElementById("form-add")
+		form.style.display="block";
 	}
 </script>
 
