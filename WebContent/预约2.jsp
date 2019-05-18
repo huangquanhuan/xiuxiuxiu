@@ -33,6 +33,10 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!-- font-awesome-icons -->
 <link href="css/font-awesome.css" rel="stylesheet" />
+
+<link
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
 <!-- //font-awesome-icons -->
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
@@ -96,8 +100,8 @@
 							<div id="accordion" class="col-sm-9">
 								<div class="card">
 									<div class="bg-info card-header">
-										<a class="card-link text-muted" data-toggle="collapse"
-											href="#component-list">可选零件</a>
+										<a class="card-link text-muted btn" data-toggle="collapse"
+											href="#component-list">点击可选零件</a>
 									</div>
 									<div id="component-list" class="collapse fade"
 										data-parent="#accordion">
@@ -114,7 +118,7 @@
 						</div>
 
 						<!-- 问题类型 -->
-						<div class="form-group">
+						<div class="form-inline">
 							<label for="issue-type-select" class="col-sm-3">问题种类</label>
 							<div id="issue-type-select" class="col-sm-9">
 								<select class="form-control">
@@ -137,9 +141,9 @@
 						</div>
 
 						<!-- 图片上传 -->
-						<div class="form-group">
+						<div class="form-inline">
 							<label for="issue-image" class="col-sm-3">为问题描述提供图片</label>
-							<div class="col-sm-9">
+							<div  class="col-sm-9">
 								<input id="issue-image" name="issueImage"  type="file" class="form-control" />
 							</div>
 						</div>
@@ -153,10 +157,9 @@
 <!-- 						</div> -->
 
 						<!-- 提交按钮 -->
-						<div class="form-group">
-							<div class="col-sm-offset-3 col-sm-9">
-								<input type="submit" class="btn btn-primary" value="提交" />
-							</div>
+						<div class="col-sm-offset-3 col-sm-9">
+							<br>
+							<button type="submit" class="btn btn-primary" >提交预约</button> 
 						</div>
 					</form>
 				</div>
@@ -197,8 +200,8 @@
 							<div id="accordion-1" class="col-sm-9">
 								<div class="card">
 									<div class="bg-info card-header">
-										<a class="card-link text-muted" data-toggle="collapse"
-											href="#component-list-1">可选零件</a>
+										<a class="card-link text-muted btn" data-toggle="collapse"
+											href="#component-list-1">点击可选零件</a>
 									</div>
 									<div id="component-list-1" class="collapse fade"
 										data-parent="#accordion-1">
@@ -215,7 +218,7 @@
 						</div>
 
 						<!-- 问题类型 -->
-						<div class="form-group">
+						<div class="form-inline">
 							<label for="issue-type-select-1" class="col-sm-3">问题种类</label>
 							<div id="issue-type-select-1" class="col-sm-9">
 								<select class="form-control">
@@ -238,7 +241,7 @@
 						</div>
 
 						<!-- 图片上传 -->
-						<div class="form-group">
+						<div class="form-inline">
 							<label for="issue-image-1" class="col-sm-3">为问题描述提供图片</label>
 							<div class="col-sm-9">
 								<input id="issue-image-1" name="issueImage" type="file" class="form-control" />
@@ -254,10 +257,9 @@
 <!-- 						</div> -->
 
 						<!-- 提交按钮 -->
-						<div class="form-group">
-							<div class="col-sm-offset-3 col-sm-9">
-								<input type="submit" class="btn btn-primary" value="提交" />
-							</div>
+						<div class="col-sm-offset-3 col-sm-9">
+							<br>
+							<button type="submit" class="btn btn-primary" >提交预约</button> 
 						</div>
 					</form>
 				</div>
