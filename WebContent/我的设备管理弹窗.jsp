@@ -55,7 +55,7 @@
 							style="display: none">
 							<input type="text" class="form-control" name="equipmentName">
 							<button type="submit" class="btn btn-info">确认添加</button>
-							<button type="button" class="btn btn-default">取消</button>
+							<button type="button" class="btn btn-default" onclick="removeInput()">取消</button>
 						</form>
 						<br>
 						<button class="btn btn-info btn-lg" type="button"
@@ -126,10 +126,16 @@
 		btn.setAttribute("type", "submit");
 	}
 	
-	function addInput(btn) {
+	function addInput() {
 		//获取前一个form元素
 		var form = document.getElementById("form-add")
 		form.style.display="block";
+	}
+	
+	function removeInput() {
+		//获取前一个form元素
+		var form = document.getElementById("form-add")
+		form.style.display="none";
 	}
 </script>
 

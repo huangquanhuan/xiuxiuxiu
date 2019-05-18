@@ -56,7 +56,6 @@
 						<li><p>手机号:<%=tel%></p></li>
 						<li><p>住址:<%=address%></p></li>
 						<li><p>邮箱:<%=email%></p></li>
-						<li><a></a></li>
 						<li><a class="active" data-toggle="modal"
 							data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
 						<li><a class="active" data-toggle="modal"
