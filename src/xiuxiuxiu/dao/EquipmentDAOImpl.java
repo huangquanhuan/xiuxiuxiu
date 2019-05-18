@@ -20,12 +20,9 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setString(1, equipmentName);
 			ps.setInt(2, userID);
-			boolean num=ps.execute();
-			if (num) {
-				System.out.print("插入成功");
-			} else {
-				System.out.print("插入失败");
-			}
+			ps.execute();
+			ps.close();
+			c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -37,12 +34,9 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 		String sql = "delete from equipment where id =?";
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 			ps.setLong(1, id);
-			boolean num=ps.execute();
-			if (num) {
-				System.out.print("删除设备成功");
-			} else {
-				System.out.print("删除设备失败");
-			}
+			ps.execute();
+			ps.close();
+			c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,12 +48,9 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 		ps.setString(1,equipmentName);
 		ps.setInt(2, id);
-		boolean num=ps.execute();
-		if (num) {
-			System.out.print("更新设备表成功");
-		} else {
-			System.out.print("更新设备表失败");
-		}
+		ps.execute();
+		ps.close();
+		c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -75,9 +66,13 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 			if (rs.next()) {
 				String equipmentName=rs.getString(1);
 				System.out.print("设备名是"+equipmentName+"");
+				ps.close();
+				c.close();
 				return equipmentName;
 			} else {
 				System.out.println("该id不存在！！");
+				ps.close();
+				c.close();
 				return null;
 			}
 		} catch (SQLException e) {
@@ -95,9 +90,13 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 			if (rs.next()) {
 				String userID=rs.getString(1);
 				System.out.print("用户id是"+userID+"");
+				ps.close();
+				c.close();
 				return userID;
 			} else {
 				System.out.println("该id不存在！！");
+				ps.close();
+				c.close();
 				return null;
 			}
 		} catch (SQLException e) {
@@ -114,8 +113,12 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 			ps.execute();
 			ResultSet rs = ps.getResultSet();
 			if (rs.next()) {
+				ps.close();
+				c.close();
 				return true;
 			} else {
+				ps.close();
+				c.close();
 				return false;
 			}
 		} catch (SQLException e) {
@@ -135,6 +138,8 @@ public class EquipmentDAOImpl implements EquipmentDAO{
 			while (rs.next()) {
 				equimentList.add(rs.getInt("id"));
 			}
+			ps.close();
+			c.close();
 			return equimentList;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -159,9 +164,12 @@ public class EquipmentDAOImpl implements EquipmentDAO{
                 entity.setUserId(userId);
                 equipments.add(entity);
             }
+            ps.close();
+    		c.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
         return equipments;
     }
 }
