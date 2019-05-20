@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import xiuxiuxiu.dao.StudentDAOImpl;
+import xiuxiuxiu.pojo.Equipment;
 import xiuxiuxiu.pojo.Student;
 
 class StudentDAOImplTest {
@@ -18,7 +19,7 @@ class StudentDAOImplTest {
 	String address = "天堂";
 	String Email = "1669598494@qq.com";
 	String studentID = "221600303";
-	List<Integer> equipment = null;
+	List<Equipment> equipment = null;
 	StudentDAOImpl dao = new StudentDAOImpl();
 	Student student;
 	int totalStudent;
