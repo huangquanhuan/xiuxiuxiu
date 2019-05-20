@@ -14,16 +14,16 @@ import xiuxiuxiu.dao.RepairActivityDAOImpl;
 import xiuxiuxiu.pojo.RepairActivity;
 
 /**
- * 响应首页请求的servlet
+ * 响应场次请求的servlet
  */
-@WebServlet("/HomePageServlet")
-public class HomePageServlet extends HttpServlet {
+@WebServlet("/RepairListServlet")
+public class RepairListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public HomePageServlet() {
+	public RepairListServlet() {
 		super();
 	}
 
@@ -33,7 +33,7 @@ public class HomePageServlet extends HttpServlet {
 		RepairActivityDAO repairActivityDao = new RepairActivityDAOImpl();
 		repairActivityList = repairActivityDao.ListAll();
 		request.setAttribute("repairActivityList", repairActivityList);
-		request.getRequestDispatcher("首页.jsp").forward(request, response);
+		request.getRequestDispatcher("场次列表.jsp").forward(request, response);
 
 	}
 

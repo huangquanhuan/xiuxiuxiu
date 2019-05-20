@@ -38,6 +38,7 @@
 					class="dropdown-toggle hvr-underline-from-center"
 					data-toggle="dropdown">我的<b class="fa fa-caret-down"></b></a>
 					<ul class="dropdown-menu agile_short_dropdown">
+					<!-- 这里获取已登录用户的session -->
 						<%
 							Student user = (Student) session.getAttribute("name");
 							String name = "null", tel = "null", address = "null", studentID = "null", email = "null";
@@ -55,9 +56,10 @@
 						<li><p>手机号:<%=tel%></p></li>
 						<li><p>住址:<%=address%></p></li>
 						<li><p>邮箱:<%=email%></p></li>
-						<li><a></a></li>
 						<li><a class="active" data-toggle="modal"
 							data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
+						<li><a class="active" data-toggle="modal"
+							data-target="#myDevice-data" href="#" id="device">我的设备</a></li>
 						<li><a class="active" href="MyReservationManageServlet"
 							id="appointment">预约管理</a></li>
 					</ul></li>

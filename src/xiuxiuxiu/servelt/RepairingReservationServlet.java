@@ -151,8 +151,8 @@ public class RepairingReservationServlet extends BaseServlet {
 		}
 
 		FileItem issueImage = dto.getFileMap().get("issueImage");
-		if (issueImage != null) {
-			String fileName = new File(issueImage.getName()).getName();
+		String fileName = new File(issueImage.getName()).getName();
+		if (issueImage != null&&fileName.length()>0) {
 			String fileExtension = fileName.substring(fileName.lastIndexOf('.'));
 			String filePath = uploadPath + File.separator + System.currentTimeMillis() + fileExtension;
 			File savedImage = new File(filePath);

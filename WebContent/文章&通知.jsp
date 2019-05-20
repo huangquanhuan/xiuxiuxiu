@@ -259,6 +259,7 @@
 	<!-- //here ends scrolling icon -->
 	<%@include file="注册弹窗.jsp"%>
 	<%@include file="个人信息修改弹窗.jsp"%>
+	<%@include file="我的设备管理弹窗.jsp"%>
 	<%@include file="登录弹窗.jsp"%>
 	<%@include file="退出登录弹窗.jsp"%>
 </body>
