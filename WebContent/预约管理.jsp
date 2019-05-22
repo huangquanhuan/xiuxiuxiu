@@ -27,12 +27,12 @@
 <link
 	href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
 	rel="stylesheet">
-	
+
 <!-- 引入bootstrap的css -->
 <link
 	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
-	
+
 </head>
 
 <body>
@@ -78,21 +78,38 @@
 								%>
 								<h3 class="panel-title"><%=applicationTimeAndState%></h3>
 								<div>
+									<%
+										if (reservation.getStateInt() == 0) {
+									%>
 									<a
 										href="MyReservationManageServlet?method=edit&targetID=${viewComponents.reservationID}"
 										class="btn btn-primary">编辑</a>
 									<button class="btn btn-danger"
 										onclick="setTargetID(<%=reservation.getID()%>)"
 										data-toggle="modal" data-target="#cancel-data" type="button">撤销</button>
+
+									<%
+										} else if (reservation.getStateInt() == 1) {
+									%>
 									<button class="btn btn-danger"
 										onclick="setTargetID(<%=reservation.getID()%>)"
 										data-toggle="modal" data-target="#contact-data" type="button">联系</button>
+									<%
+										} else if (reservation.getStateInt() == 2) {
+									%>
 									<button class="btn btn-success"
 										onclick="setTargetID(<%=reservation.getID()%>)"
 										data-toggle="modal" data-target="#remark-data" type="button">评价</button>
 									<button class="btn btn-danger"
 										onclick="setTargetID(<%=reservation.getID()%>)"
 										data-toggle="modal" data-target="#feedback-data" type="button">反馈</button>
+									<%
+										} else {
+												out.print("<script>alert('获取预约单的目前状态失败！')</script>");
+											}
+									%>
+
+
 									<a
 										href="MyReservationManageServlet?method=getForID&id=${viewComponents.reservationID}"
 										class="btn btn-info">详情</a>
