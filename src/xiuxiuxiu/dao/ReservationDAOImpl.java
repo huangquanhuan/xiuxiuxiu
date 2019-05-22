@@ -19,7 +19,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 
 		String sql = "insert into reservation(state,user_id,application_type,application_time,required_time"
 				+ ",place,repair_activity_id,equipment_id,repair_type,detail,remark,feedback) values(? ,? ,? ,? ,? ,? ,? ,?,?,?,?,?)";
-		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql ,Statement.RETURN_GENERATED_KEYS)) {
 
 			ps.setInt(1, reservation.getStateInt());
 			ps.setInt(2, reservation.getUserID());
@@ -34,9 +34,8 @@ public class ReservationDAOImpl implements ReservationDAO {
 			ps.setString(10, reservation.getDetail());
 			ps.setString(11, reservation.getRemark());
 			ps.setString(12, reservation.getFeedback());
-			ps.executeUpdate();
+			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
-			ps.close();
 			if (rs.next()) {
 				int id = rs.getInt(1);	//获取被加入的预约单的id
 				reservation.setID(id);

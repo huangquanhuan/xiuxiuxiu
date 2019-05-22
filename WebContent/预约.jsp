@@ -91,7 +91,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<a href="预约2.jsp" class="btn btn-success">下一步</a>
+						<a href="makeReservation?method=beforeReserve" class="btn btn-success">下一步</a>
 					</div>
 				</div>
 			</form>
@@ -101,6 +101,7 @@
 
 	<%@include file="注册弹窗.jsp"%>
 	<%@include file="个人信息修改弹窗.jsp"%>
+	<%@include file="我的设备管理弹窗.jsp"%>
 	<%@include file="登录弹窗.jsp"%>
 	<%@include file="退出登录弹窗.jsp"%>
 	<%@include file="动态js代码.jsp"%>

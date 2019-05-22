@@ -3,9 +3,6 @@ package xiuxiuxiu.servelt;
 import xiuxiuxiu.dao.StudentDAO;
 import xiuxiuxiu.dao.StudentDAOImpl;
 import xiuxiuxiu.pojo.Student;
-import xiuxiuxiu.pojo.User;
-import xiuxiuxiu.util.Page;
-import xiuxiuxiu.servelt.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,16 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
-import com.sun.nio.sctp.MessageInfo;
-
 import java.io.IOException;
-import java.rmi.dgc.Lease;
-import java.util.List;
 
 @WebServlet(name = "StudentServlet", urlPatterns = { "/StudentServlet" })
 public class StudentServlet extends HttpServlet {
-	private StudentDAO StudentDAO = new StudentDAOImpl();
+	private StudentDAO studentDAO = new StudentDAOImpl();
 	private Student student = new Student();
 	int start = 0;
 	int count = 5;
@@ -70,7 +62,7 @@ public class StudentServlet extends HttpServlet {
 			rd = request.getRequestDispatcher("/HomePageServlet");
 			// 转发请求
 			rd.forward(request, response);
-		} else if (StudentDAO.get(student.getPhoneNumber(), student.getPassword()) == null) {
+		} else if (studentDAO.get(student.getPhoneNumber(), student.getPassword()) == null) {
 			// 登陆失败
 			request.setAttribute("err", "账户或密码错误！");
 			System.out.println("账户或密码错误！");
@@ -82,7 +74,7 @@ public class StudentServlet extends HttpServlet {
 			// 登陆成功
 
 			HttpSession session = request.getSession(true);
-			student = StudentDAO.get(student.getPhoneNumber(), student.getPassword());
+			student = studentDAO.get(student.getPhoneNumber(), student.getPassword());
 			session.setAttribute("name", student);
 
 			// 登录成功后刷新首页维修活动
@@ -115,7 +107,7 @@ public class StudentServlet extends HttpServlet {
 		String password_repeat = request.getParameter("password2");
 		if (password_repeat.equals(student.getPassword())) {
 			System.out.println("注册成功");
-			StudentDAO.add(student);
+			studentDAO.add(student);
 		}
 		else {
 			request.setAttribute("err","两次输入密码不一致！！");

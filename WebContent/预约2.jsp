@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
-<title>维修预约 - 第一步</title>
+<title>维修预约 - 第二步</title>
 
 <script type="application/x-javascript">
 	
@@ -33,6 +33,10 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!-- font-awesome-icons -->
 <link href="css/font-awesome.css" rel="stylesheet" />
+
+<link
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
 <!-- //font-awesome-icons -->
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
@@ -60,15 +64,15 @@
 				<!-- 申请现场维修的表单：开始 -->
 				<div id="field-service" class="container tab-pane active">
 					<br />
-					<form action="*" method="post">
+					<form action="makeReservation?method=addFieldService" method="post" enctype="multipart/form-data">
 						<!-- 场次选择 -->
 						<div class="form-group">
 							<label for="session-select" class="col-sm-3">预约场次</label>
 							<div class="col-sm-9">
-								<select id="session-select" class="form-control">
+								<select id="session-select" class="form-control" name="activity">
 									<!-- 这里装入场次时间信息 -->
 									<c:forEach items="${activities}" var="activity">
-										<option value="${activity.id}">${activity.time}，地点：${activity.place}</option>
+										<option value="${activity.ID}">${activity.time}，地点：${activity.place}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -81,7 +85,7 @@
 									class="btn btn-link">添加设备</a>
 							</div>
 							<div class="col-sm-9">
-								<select id="device-select" class="form-control">
+								<select id="device-select" class="form-control" name="device">
 									<!-- 这里装入用户的设备列表 -->
 									<c:forEach items="${equipments}" var="equipment">
 										<option value="${equipment.id}">${equipment.equipmentName}</option>
@@ -96,8 +100,8 @@
 							<div id="accordion" class="col-sm-9">
 								<div class="card">
 									<div class="bg-info card-header">
-										<a class="card-link text-muted" data-toggle="collapse"
-											href="#component-list">可选零件</a>
+										<a class="card-link text-muted btn" data-toggle="collapse"
+											href="#component-list">点击可选零件</a>
 									</div>
 									<div id="component-list" class="collapse fade"
 										data-parent="#accordion">
@@ -114,7 +118,7 @@
 						</div>
 
 						<!-- 问题类型 -->
-						<div class="form-group">
+						<div class="form-inline">
 							<label for="issue-type-select" class="col-sm-3">问题种类</label>
 							<div id="issue-type-select" class="col-sm-9">
 								<select class="form-control">
@@ -132,31 +136,30 @@
 						<div class="form-group">
 							<label for="issue-detail" class="col-sm-3">问题描述</label>
 							<div id="issue-detail" class="col-sm-9">
-								<textarea class="form-control" rows="3"></textarea>
+								<textarea class="form-control" rows="3" name="issueDetail"></textarea>
 							</div>
 						</div>
 
 						<!-- 图片上传 -->
-						<div class="form-group">
+						<div class="form-inline">
 							<label for="issue-image" class="col-sm-3">为问题描述提供图片</label>
-							<div class="col-sm-9">
-								<input id="issue-image" type="file" class="form-control" />
+							<div  class="col-sm-9">
+								<input id="issue-image" name="issueImage"  type="file" class="form-control" />
 							</div>
 						</div>
 
-						<!-- 备注 -->
-						<div class="form-group">
-							<label for="issue-comment" class="col-sm-3">备注</label>
-							<div class="col-sm-9">
-								<textarea id="issue-comment" class="form-control" rows="3"></textarea>
-							</div>
-						</div>
+<!-- 						备注 -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="issue-comment" class="col-sm-3" name="">备注</label> -->
+<!-- 							<div class="col-sm-9"> -->
+<!-- 								<textarea id="issue-comment" class="form-control" rows="3"></textarea> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 
 						<!-- 提交按钮 -->
-						<div class="form-group">
-							<div class="col-sm-offset-3 col-sm-9">
-								<input type="submit" class="btn btn-primary" value="提交" />
-							</div>
+						<div class="col-sm-offset-3 col-sm-9">
+							<br>
+							<button type="submit" class="btn btn-primary" >提交预约</button> 
 						</div>
 					</form>
 				</div>
@@ -165,17 +168,12 @@
 				<!-- 申请上门服务的表单：开始 -->
 				<div id="door-to-door-service" class="container tab-pane fade">
 					<br />
-					<form action="*" method="post">
+					<form action="makeReservation?method=addDoorToDoorService" method="post" enctype="multipart/form-data">
 						<!-- 时间选择 -->
 						<div class="form-group">
 							<label for="datetime-select" class="col-sm-3">预约时间</label>
 							<div class="col-sm-9">
-								<select id="datetime-select" class="form-control">
-									<!-- 这里装入场次时间信息 -->
-									<option>YYYY 年 MM 月 DD 日</option>
-									<option>YYYY 年 MM 月 DD 日</option>
-									<option>YYYY 年 MM 月 DD 日</option>
-								</select>
+								<input class="form-control" type="datetime-local" name="requiredTime" />
 							</div>
 						</div>
 
@@ -186,7 +184,7 @@
 									class="btn btn-link">添加设备</a>
 							</div>
 							<div class="col-sm-9">
-								<select id="device-select-1" class="form-control">
+								<select id="device-select-1" class="form-control"  name="device">
 									<!-- 这里装入用户的设备列表 -->
 									<c:forEach items="${equipments}" var="equipment">
 										<!-- 用户设备信息 -->
@@ -202,8 +200,8 @@
 							<div id="accordion-1" class="col-sm-9">
 								<div class="card">
 									<div class="bg-info card-header">
-										<a class="card-link text-muted" data-toggle="collapse"
-											href="#component-list-1">可选零件</a>
+										<a class="card-link text-muted btn" data-toggle="collapse"
+											href="#component-list-1">点击可选零件</a>
 									</div>
 									<div id="component-list-1" class="collapse fade"
 										data-parent="#accordion-1">
@@ -220,7 +218,7 @@
 						</div>
 
 						<!-- 问题类型 -->
-						<div class="form-group">
+						<div class="form-inline">
 							<label for="issue-type-select-1" class="col-sm-3">问题种类</label>
 							<div id="issue-type-select-1" class="col-sm-9">
 								<select class="form-control">
@@ -238,31 +236,30 @@
 						<div class="form-group">
 							<label for="issue-detail-1" class="col-sm-3">问题描述</label>
 							<div id="issue-detail-1" class="col-sm-9">
-								<textarea class="form-control" rows="3"></textarea>
+								<textarea class="form-control" rows="3" name="issueDetail"></textarea>
 							</div>
 						</div>
 
 						<!-- 图片上传 -->
-						<div class="form-group">
+						<div class="form-inline">
 							<label for="issue-image-1" class="col-sm-3">为问题描述提供图片</label>
 							<div class="col-sm-9">
-								<input id="issue-image-1" type="file" class="form-control" />
+								<input id="issue-image-1" name="issueImage" type="file" class="form-control" />
 							</div>
 						</div>
 
 						<!-- 备注 -->
-						<div class="form-group">
-							<label for="issue-comment-1" class="col-sm-3">备注</label>
-							<div class="col-sm-9">
-								<textarea id="issue-comment-1" class="form-control" rows="3"></textarea>
-							</div>
-						</div>
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="issue-comment-1" class="col-sm-3">备注</label> -->
+<!-- 							<div class="col-sm-9"> -->
+<!-- 								<textarea id="issue-comment-1" class="form-control" rows="3"></textarea> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 
 						<!-- 提交按钮 -->
-						<div class="form-group">
-							<div class="col-sm-offset-3 col-sm-9">
-								<input type="submit" class="btn btn-primary" value="提交" />
-							</div>
+						<div class="col-sm-offset-3 col-sm-9">
+							<br>
+							<button type="submit" class="btn btn-primary" >提交预约</button> 
 						</div>
 					</form>
 				</div>
@@ -272,7 +269,8 @@
 	<!-- 主体内容：结束 -->
 
 	<%@include file="注册弹窗.jsp"%>
-	<%@include file="个人信息修改弹窗.jsp"%>
+	<%@include file="个人信息修改弹窗.jsp"%>	
+	<%@include file="我的设备管理弹窗.jsp"%>
 	<%@include file="登录弹窗.jsp"%>
 	<%@include file="退出登录弹窗.jsp"%>
 	<%@include file="动态js代码.jsp"%>

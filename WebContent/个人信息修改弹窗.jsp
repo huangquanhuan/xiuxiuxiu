@@ -3,8 +3,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 
-<% Student student = (Student) session.getAttribute("name");
-%>
+<!-- 注：该页面报错无影响，原因是用到导航栏的变量，每个页面include导航栏页面再include该页面 -->
+
 <!-- 个人信息修改弹出页窗内容 -->
 <div class="modal" id="changeinfo-data" tabindex="-1" role="dialog"
 	aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -50,7 +50,7 @@
 										<tr>
 											<td>地址</td>
 											<td><input type="text" name="address"
-												value="<%=address%>"" class="form-control">
+												value="<%=address%>" class="form-control">
 											</td>
 										</tr>
 									</table>
