@@ -36,6 +36,7 @@ public class Student {
 	protected String phoneNumber;
 	
 	/** 用户的权限等级 */
+	@Column(nullable = false)
 	protected Integer accessLevel;
 	
 	/** 用户的住址 */
@@ -45,6 +46,7 @@ public class Student {
 	protected String email;
 	
 	/** 用户的学号 */
+	@Column(unique = true)
 	private String studentId;
 	
 	/**
