@@ -9,6 +9,8 @@ public interface StudentService {
     public List<Student> getStudentList();
 
     public Student findStudentById(int id);
+    
+    public Student findStudentByPhoneNumber(int phoneNumber);
 
     public void save(Student student);
 

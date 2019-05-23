@@ -23,6 +23,11 @@ public class StudentServiceImpl implements StudentService{
     public Student findStudentById(int id) {
         return studentRepository.findById(id);
     }
+    
+    @Override
+    public Student findStudentByPhoneNumber(int phoneNumber) {
+    	return studentRepository.findByPhoneNumber(phoneNumber);
+    }
 
     @Override
     public void save(Student student) {

@@ -70,7 +70,7 @@ public class Reservation {
 	private Equipment equipment;
 
 	/**
-	 * 维修的问题类型，根据用户选择的维修的问题类型填入的字符串
+	 * 维修的问题类型:硬件问题or软件问题
 	 */
 	private String repairType;
 
