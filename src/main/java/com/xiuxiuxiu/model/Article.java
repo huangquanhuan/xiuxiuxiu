@@ -1,5 +1,6 @@
 package com.xiuxiuxiu.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,12 +30,14 @@ public class Article {
 	private Manager manager;
 
 	/** 文章标题 */
+	@Column(nullable = false, unique = true)
 	private String title;
 
 	/** 文章内容 */
 	private String text;
 
 	/** 文章发布时间 格式为2019-5-3 09:28:30 */
+	@Column(nullable = false)
 	private String time;
 
 	public int getId() {
