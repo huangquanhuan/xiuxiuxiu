@@ -14,6 +14,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 public class StudentController {
@@ -74,5 +76,50 @@ public class StudentController {
 		
 		return "redirect:/home";
 	}
-
+	@RequestMapping("student/register")
+	public String register(Model model,@RequestParam("name") String name,@RequestParam("phoneNumber") String phoneNumber,@RequestParam("passWord") String passWord,
+			@RequestParam("passWord2") String passWord2,@RequestParam("address") String address,HttpSession session) {
+		System.out.println("昵称:"+name);
+		System.out.println("号码:"+phoneNumber);
+		System.out.println("地址:"+address);
+		System.out.println("密码:"+passWord);
+		System.out.println("确认密码:"+passWord2);
+		if(!passWord.equals(passWord2)) {
+			model.addAttribute("err", "两次密码不同！");
+			System.out.println("两次密码不同！");
+		}else if(!isMobileNO(phoneNumber)) {
+			model.addAttribute("err", "手机号格式错误！");
+			System.out.println("手机号格式错误！");
+		}else if(name.length()<2||name.length()>12) {
+			model.addAttribute("err","昵称长度范围在“2~12”之间");
+			System.out.println("昵称长度范围在“2~12”之间");
+		}else {
+			Student student = new Student();
+			student.setName(name);
+			student.setAddress(address);
+			student.setPassword(passWord);
+			student.setPhoneNumber(phoneNumber);
+			student.setAccessLevel(0);
+			studentService.save(student);
+			System.out.println("注册成功");
+		}
+		return "redirect:/home";
+	}
+	/*
+	 * 判断手机号格式
+	 */
+	public boolean isMobileNO(String mobiles) {
+		Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+		Matcher m = p.matcher(mobiles);
+		return m.matches();
+		}
+	/*
+	 * 判断邮箱格式
+	 */
+	public boolean isEmail(String email) {
+		String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+		Pattern p = Pattern.compile(str);
+		Matcher m = p.matcher(email);
+		return m.matches();
+		}
 }
