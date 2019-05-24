@@ -25,7 +25,7 @@ public class StudentServiceImpl implements StudentService{
     }
     
     @Override
-    public Student findStudentByPhoneNumber(int phoneNumber) {
+    public Student findStudentByPhoneNumber(String phoneNumber) {
     	return studentRepository.findByPhoneNumber(phoneNumber);
     }
 

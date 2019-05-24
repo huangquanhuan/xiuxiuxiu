@@ -7,12 +7,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
-<link href="css/index.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="js/index.js"></script>
+
+<!-- //custom-theme -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css"
+	media="all" />
+<link href="css/slicebox.css" rel="stylesheet" type="text/css">
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- font-awesome-icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome-icons -->
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+	rel='stylesheet' type='text/css'>
+<link
+	href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
+	rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 </head>
 
 <body>
-	<div th:replace="nav :: navbar"></div>
+<!-- 	<%@include file="导航栏.jsp"%> -->
+  <div th:replace="student/nav :: navbar"></div> 
 
 	<div class="banner">
 
@@ -29,7 +46,6 @@
 					</div></li>
 
 			</ul>
-
 			<div id="shadow" class="shadow"></div>
 
 			<div id="nav-arrows" class="nav-arrows">
@@ -38,11 +54,11 @@
 
 			<div id="nav-dots" class="nav-dots">
 				<span class="nav-dot-current"></span> <span></span> <span></span> <span></span>
-			skjdslkdj
 			</div>
 		</div>
 		<!-- /wrapper -->
 	</div>
+	
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
 		<div class="container">
@@ -66,18 +82,18 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="activity,status : ${activityList}">
-							<td th:text="${status.count}">序号</td>
-							<td th:text="${activity.time}">时间</td>
-							<td th:text="${activity.place}">地点</td>
-							<!-- 								<td> -->
-							<!-- 									<form  id="applythis" class="ApplyActivity" -->
-							<!-- 										action="makeReservation?method=beforeReserve" -->
-							<!-- 										method="post"> -->
-							<!-- 										<button  type="submit" class="">预约此活动</button> -->
-							<!-- 									</form> -->
-							<!-- 								</td> -->
-						</tr>
+							<tr th:each="activity,status : ${activityList}" >
+								<td th:text="${status.count}">序号</td>
+								<td th:text="${activity.time}">时间</td>
+								<td th:text="${activity.place}">地点</td>
+<!-- 								<td> -->
+<!-- 									<form  id="applythis" class="ApplyActivity" -->
+<!-- 										action="makeReservation?method=beforeReserve" -->
+<!-- 										method="post"> -->
+<!-- 										<button  type="submit" class="">预约此活动</button> -->
+<!-- 									</form> -->
+<!-- 								</td> -->
+							</tr>
 					</tbody>
 				</table>
 				<div>
@@ -187,12 +203,14 @@
 			</div>
 		</div>
 	</div>
-	<!-- 	<%@include file="注册弹窗.jsp"%> -->
-	<!-- 	<%@include file="个人信息修改弹窗.jsp"%> -->
-	<!-- 	<%@include file="我的设备管理弹窗.jsp"%> -->
-	<!-- 	<%@include file="登录弹窗.jsp"%> -->
-	<!-- 	<%@include file="退出登录弹窗.jsp"%> -->
-	<!-- 	<%@include file="动态js代码.jsp"%> -->
-	<!-- 	<%@include file="错误提示窗口.jsp"%> -->
+<!-- 	<%@include file="注册弹窗.jsp"%> -->
+<!-- 	<%@include file="个人信息修改弹窗.jsp"%> -->
+<!-- 	<%@include file="我的设备管理弹窗.jsp"%> -->
+<!-- 	<%@include file="登录弹窗.jsp"%> -->
+<!-- 	<%@include file="退出登录弹窗.jsp"%> -->
+<!-- 	<%@include file="动态js代码.jsp"%> -->
+<!-- 	<%@include file="错误提示窗口.jsp"%> -->
+
+
 </body>
 </html>
