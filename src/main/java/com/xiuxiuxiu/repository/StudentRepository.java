@@ -9,5 +9,5 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
     void deleteById(int id);
 
-	Student findByPhoneNumber(int phoneNumber);
+	Student findByPhoneNumber(String phoneNumber);
 }
