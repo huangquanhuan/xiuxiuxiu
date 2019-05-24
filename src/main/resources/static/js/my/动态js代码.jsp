@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 
-
-<!-- 动态js代码 -->
+<!-- 这些是还没有分开的js代码，已经辨认出2大块的js的作用，已注释 -->
 
 
 <!-- //bootstrap-pop-up -->
@@ -17,81 +16,54 @@
 <!-- //js -->
 <script src="js/bars.js"></script>
 
+<!-- 首页中顶部轮播图的动态效果 -->
 <script type="text/javascript" src="js/jquery.slicebox.js"></script>
 <script type="text/javascript">
 	$(function() {
-
 		var Page = (function() {
-
 			var $navArrows = $('#nav-arrows').hide(), $navDots = $('#nav-dots')
 					.hide(), $nav = $navDots.children('span'), $shadow = $(
 					'#shadow').hide(), slicebox = $('#sb-slider').slicebox({
 				onReady : function() {
-
 					$navArrows.show();
 					$navDots.show();
 					$shadow.show();
-
 				},
 				onBeforeChange : function(pos) {
-
 					$nav.removeClass('nav-dot-current');
 					$nav.eq(pos).addClass('nav-dot-current');
-
 				}
 			}),
-
 			init = function() {
-
 				initEvents();
-
 			}, initEvents = function() {
-
 				// add navigation events
 				$navArrows.children(':first').on('click', function() {
-
 					slicebox.next();
 					return false;
-
 				});
-
 				$navArrows.children(':last').on('click', function() {
-
 					slicebox.previous();
 					return false;
-
 				});
-
 				$nav.each(function(i) {
-
 					$(this).on('click', function(event) {
-
 						var $dot = $(this);
-
 						if (!slicebox.isActive()) {
-
 							$nav.removeClass('nav-dot-current');
 							$dot.addClass('nav-dot-current');
-
 						}
 
 						slicebox.jump(i + 1);
 						return false;
-
 					});
-
 				});
-
 			};
-
 			return {
 				init : init
 			};
-
 		})();
-
 		Page.init();
-
 	});
 </script>
 
@@ -115,9 +87,13 @@
 <!-- for bootstrap working -->
 <script src="js/bootstrap.js"></script>
 <!-- //for bootstrap working -->
-<!-- start-smoth-scrolling -->
+
+
+
+<!-- 固定于右下角的回到顶部的按钮，点击可顺滑地回到顶部（下面4个js） -->
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
+<!-- start-smoth-scrolling -->
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event) {
@@ -128,7 +104,7 @@
 		});
 	});
 </script>
-<!-- start-smoth-scrolling -->
+<!-- //end-smoth-scrolling -->
 <!-- here stars scrolling icon -->
 <script type="text/javascript">
 	$(document).ready(function() {
