@@ -28,13 +28,6 @@ public class StudentController {
 		return "redirect:/home";
 	}
 
-	@RequestMapping("/list")
-	public String list(Model model) {
-		List<Student> students = studentService.getStudentList();
-		model.addAttribute("users", students);
-		return "home/list";
-	}
-
 	@RequestMapping("/home")
 	public String home(Model model) {
 		List<Activity> activityList = activityService.getActivityList();
@@ -42,23 +35,6 @@ public class StudentController {
 		return "home/HomePage";
 	}
 
-	@RequestMapping("/toAdd")
-	public String toAdd() {
-		return "home/studentAdd";
-	}
-
-	@RequestMapping("/add")
-	public String add(Student student) {
-		studentService.save(student);
-		return "redirect:/list";
-	}
-
-	@RequestMapping("/toEdit")
-	public String toEdit(Model model, int id) {
-		Student student = studentService.findStudentById(id);
-		model.addAttribute("student", student);
-		return "home/studentEdit";
-	}
 
 	@RequestMapping("/edit")
 	public String edit(Student student) {
