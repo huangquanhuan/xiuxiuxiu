@@ -2,6 +2,7 @@ package com.xiuxiuxiu.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,10 +25,12 @@ public class Manager {
 	/**
 	 * 管理员密码
 	 */
+	@Column(nullable = false)
 	protected String password;
 	/**
 	 * 管理员的id
 	 */
+	
 	protected String name;
 	/**
 	 * 管理员的联系方式（电话号码）
@@ -36,6 +39,7 @@ public class Manager {
 	/**
 	 * 管理员的权限等级
 	 */
+	@Column(nullable = false)
 	protected Integer accessLevel;
 	/**
 	 * 管理员的住址

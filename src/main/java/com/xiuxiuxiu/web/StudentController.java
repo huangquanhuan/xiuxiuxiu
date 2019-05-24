@@ -72,4 +72,5 @@ public class StudentController {
         studentService.delete(id);
         return "redirect:/list";
     }
+   
 }

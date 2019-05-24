@@ -2,6 +2,7 @@ package com.xiuxiuxiu.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,12 +38,15 @@ public class Reservation {
 	private Student student;
 
 	/** 预约单的2种预约类型：0表示"活动预约"，1表示"上门维修预约" */
+	@Column(nullable = false)
 	private int applicationType;
 
 	/** 提交预约申请的时间 */
+	@Column(nullable = false)
 	private String applicationTime;
 
 	/** 预约的维修时间 */
+	@Column(nullable = false)
 	private String requiredTime;
 
 	/**

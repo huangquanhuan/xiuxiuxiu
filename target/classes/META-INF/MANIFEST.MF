@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
-Built-By: Administrator
-Build-Jdk: 11
 Implementation-Title: spring-boot-jpa-thymeleaf-curd
 Implementation-Version: 2.1.0.RELEASE
+Built-By: 10553
 Implementation-Vendor-Id: org.springframework.boot
-Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
- -starter-parent/spring-boot-jpa-thymeleaf-curd
+Build-Jdk: 1.8.0_201
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/spring-boot-jpa-thymeleaf-curd
 Created-By: Maven Integration for Eclipse
 
