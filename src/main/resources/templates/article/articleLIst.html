@@ -1,10 +1,4 @@
-<!--<%@ page language="java" contentType="text/html;charset=UTF-8"-->
-<!--pageEncoding="UTF-8" isELIgnored="false"%>-->
-<!--<%@page import="xiuxiuxiu.dao.*"%>-->
-<!--<%@page import="xiuxiuxiu.pojo.Article"%>-->
-<!--<%@ page import="java.io.*,java.util.*"%>-->
-<!--<%@page import="xiuxiuxiu.servelt.*"%>-->
-<!--<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>-->
+
 <!DOCTYPE html>
 <html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -29,9 +23,7 @@
 
 </head>
 <body>
-<!--<%@include file="导航栏.jsp"%>-->
-
-<div th:replace="nav :: navbar"></div>
+<div th:replace="student/nav :: navbar"></div>
 
 <div class="agile_inner_banner_info">
     <h2>文章列表</h2>

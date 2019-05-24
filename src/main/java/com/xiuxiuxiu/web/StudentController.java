@@ -8,15 +8,11 @@ import com.xiuxiuxiu.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -41,9 +37,7 @@ public class StudentController {
 
 	@RequestMapping("/home")
 	public String home(Model model) {
-		List<Student> students = studentService.getStudentList();
 		List<Activity> activityList = activityService.getActivityList();
-		model.addAttribute("users", students);
 		model.addAttribute("activityList", activityList);
 		return "student/HomePage";
 	}
@@ -79,14 +73,30 @@ public class StudentController {
 	}
 
 	@RequestMapping("/student/login")
-	public String login(HttpSession session, String phoneNumber, String password) {
+	public String login(Model model ,@RequestParam("phoneNumber") String phoneNumber,@RequestParam("password") String password,HttpSession session) {
 
-		// 登陆成功
-
+		System.out.println("电话："+phoneNumber);
 		Student student = studentService.findStudentByPhoneNumber(phoneNumber);
-		session.setAttribute("user", student);
-
-		return "/student/HomePage";
+		
+		if(student==null) {
+			model.addAttribute("err", "抱歉，该账号不存在！");
+			System.out.println("登陆账号不存在！");
+		} else if (student.getPhoneNumber().length() < 1) {
+			model.addAttribute("err", "请输入登录名！");
+		} else if (student.getPassword().length() < 1) {
+			model.addAttribute("err", "请输入密码！");
+		} else if (!student.getPhoneNumber().equals(phoneNumber)) {
+			// 登陆失败
+			System.out.println("真实密码："+student.getPhoneNumber());
+			System.out.println("输入密码："+phoneNumber);
+			model.addAttribute("err", "密码错误！");
+			System.out.println("登陆密码错误！");
+		} else {
+			// 登陆成功
+			session.setAttribute("user", student);
+		}
+		
+		return "redirect:/home";
 	}
 
 }

@@ -109,14 +109,6 @@ public class Student {
 		this.address = address;
 	}
 
-	public String getE_mail() {
-		return email;
-	}
-
-	public void setE_mail(String email) {
-		this.email = email;
-	}
-
 	public String getStudentId() {
 		return studentId;
 	}
@@ -132,5 +124,23 @@ public class Student {
 	public void setEquipmentList(List<Equipment> equipmentList) {
 		this.equipmentList = equipmentList;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Reservation> getReservationList() {
+		return reservationList;
+	}
+
+	public void setReservationList(List<Reservation> reservationList) {
+		this.reservationList = reservationList;
+	}
+	
+	
 
 }
