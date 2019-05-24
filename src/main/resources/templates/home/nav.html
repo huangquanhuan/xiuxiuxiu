@@ -101,16 +101,22 @@
 								<div class="register-form">
 									<form class="registerForm"
 										action="student/register" method="post">
-										<input id="name" type="text" name="name" placeholder="姓名"
-											required="required"> <input id="phoneNumber"
-											type="text" name="phoneNumber" placeholder="手机号码"
-											required="required"> <input id="address" type="text"
-											name="address" placeholder="地址(例如：1#101)" required="required">
-										<input id="password1" type="password" name="password"
-											placeholder="密码" required="required">
-										<input id="password2" type="password" name="password2" 
+										<input id="name" type="text" name="name" placeholder="姓名" required="required"> 
+										<input id="address" type="text" name="address" placeholder="地址(例如：1#101)" required="required">
+										<input id="phoneNumber" type="text" name="phoneNumber" placeholder="手机号码" required="required"> 
+										<table>
+										<tr>             
+              							<td align="center" hidden><span id="tip">请输入收到的验证码</span></td>
+              							</tr>
+										<tr>
+										<td width="100%"><input type="text" name="code" class="txtinput" id="code" placeholder="验证码" required="required"/></td>
+										<td><input type="button" class="btn" onclick="settime(this)" value="免费获取验证码"></td>
+										</tr>
+										</table>
+										<input id="passWord" type="password" name="passWord" placeholder="密码" required="required"> <input
+											type="password" name="passWord2" id="passWord2"
 											placeholder="确认密码" required="required"> 
-										<button id="register-button" type="submit" onclick="validatePassword()">注册</button>
+										<input type="submit" value="注册">
 									</form>
 								</div>
 
