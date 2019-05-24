@@ -1,5 +1,6 @@
 package com.xiuxiuxiu.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,9 +24,11 @@ public class Activity {
 	private Integer id;
 
 	/** 活动时间 */
+	@Column(nullable = false)
 	private String time;
 
 	/** 活动地点 */
+	@Column(nullable = false)
 	private String place;
 
 	/** 定义名为manager_id的外键列，该外键引用manager表的id列 */

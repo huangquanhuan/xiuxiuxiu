@@ -1,5 +1,6 @@
 package com.xiuxiuxiu.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,12 +21,13 @@ public class Component {
 	@GeneratedValue
 	private int id;
 	/** 零件名 */
+	@Column(nullable = false, unique = true)
 	private String name;
 	/** 零件价格 */
+	@Column(nullable = false)
 	private double price;
-	/** 零件类型 */
-	private String type;
 	/** 零件剩余数量 */
+	@Column(nullable = false)
 	private int quantity;
 
 	public int getId() {
@@ -50,14 +52,6 @@ public class Component {
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public int getQuantity() {
