@@ -222,4 +222,14 @@ public class Reservation {
 		this.componentList = componentList;
 	}
 
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", state=" + state + ", student=" + student + ", applicationType="
+				+ applicationType + ", applicationTime=" + applicationTime + ", requiredTime=" + requiredTime
+				+ ", place=" + place + ", activity=" + activity + ", equipment=" + equipment + ", repairType="
+				+ repairType + ", detail=" + detail + ", remark=" + remark + ", feedback=" + feedback
+				+ ", componentList=" + componentList + ", imgUrlList=" + imgUrlList + "]";
+	}
+
+	
 }
