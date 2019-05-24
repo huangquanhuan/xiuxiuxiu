@@ -32,19 +32,19 @@ public class StudentController {
 	public String list(Model model) {
 		List<Student> students = studentService.getStudentList();
 		model.addAttribute("users", students);
-		return "student/list";
+		return "home/list";
 	}
 
 	@RequestMapping("/home")
 	public String home(Model model) {
 		List<Activity> activityList = activityService.getActivityList();
 		model.addAttribute("activityList", activityList);
-		return "student/HomePage";
+		return "home/HomePage";
 	}
 
 	@RequestMapping("/toAdd")
 	public String toAdd() {
-		return "student/studentAdd";
+		return "home/studentAdd";
 	}
 
 	@RequestMapping("/add")
@@ -57,7 +57,7 @@ public class StudentController {
 	public String toEdit(Model model, int id) {
 		Student student = studentService.findStudentById(id);
 		model.addAttribute("student", student);
-		return "student/studentEdit";
+		return "home/studentEdit";
 	}
 
 	@RequestMapping("/edit")
