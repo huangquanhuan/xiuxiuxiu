@@ -8,8 +8,13 @@ import com.xiuxiuxiu.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import java.util.List;
 
 @Controller
@@ -72,5 +77,11 @@ public class StudentController {
         studentService.delete(id);
         return "redirect:/list";
     }
-   
+    
+//    @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
+//    @ResponseBody
+//    public String login(HttpServletRequest request, HttpSession session) {
+//        studentService.delete(id);
+//        return "redirect:/list";
+//    }
 }

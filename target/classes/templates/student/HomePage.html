@@ -22,13 +22,14 @@
 <link
 	href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
 	rel="stylesheet">
-
-
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 </head>
 
 <body>
 <!-- 	<%@include file="导航栏.jsp"%> -->
-<!-- 	<div th:replace="导航栏 :: navbar"></div> -->
+  <div th:replace="student/nav :: navbar"></div> 
 
 	<div class="banner">
 
@@ -46,19 +47,10 @@
 
 			</ul>
 
-			<div id="shadow" class="shadow"></div>
-
-			<div id="nav-arrows" class="nav-arrows">
-				<a href="#">Next</a> <a href="#">Previous</a>
-			</div>
-
-			<div id="nav-dots" class="nav-dots">
-				<span class="nav-dot-current"></span> <span></span> <span></span> <span></span>
-
-			</div>
 		</div>
 		<!-- /wrapper -->
 	</div>
+	
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
 		<div class="container">
