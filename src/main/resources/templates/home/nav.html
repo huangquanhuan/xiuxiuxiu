@@ -107,10 +107,11 @@
 								<div class="register-form">
 									<form class="registerForm" action="student/register"
 										method="post">
-										<input id="register-name" type="text" name="name" placeholder="姓名"
-											required="required"> <input id="address" type="text"
-											name="address" placeholder="地址(例如：1#101)" required="required">
-										<input id="register-phoneNumber" type="text" name="phoneNumber"
+										<input id="register-name" type="text" name="name"
+											placeholder="姓名" required="required"> <input
+											id="address" type="text" name="address"
+											placeholder="地址(例如：1#101)" required="required"> <input
+											id="register-phoneNumber" type="text" name="phoneNumber"
 											placeholder="手机号码" required="required">
 										<table>
 											<tr>
@@ -136,10 +137,10 @@
 						</div>
 					</div>
 				</div>
+				<!-- 重复密码验证的js  -->
+				<script type="text/javascript"
+					src="js/my/verify-repeated-password.js"></script>
 			</div>
-			<!-- 重复密码验证的js  -->
-			<script type="text/javascript"
-				src="js/my/verify-repeated-password.js"></script>
 
 			<!-- 退出登录弹窗 -->
 			<div class="modal fade" id="myModal6" tabindex="-1" role="dialog">
@@ -175,7 +176,8 @@
 								</button>
 								<h4 class="modal-title">个人信息修改</h4>
 							</div>
-							<div class="modal-body" th:object="${session.user}" th:unless="${session.user == null}">
+							<div class="modal-body" th:object="${session.user}"
+								th:unless="${session.user == null}">
 								<!-- Top content -->
 								<div class="top-content">
 									<div class="row">
@@ -191,13 +193,13 @@
 												<table class="table">
 													<tr>
 														<td>姓名</td>
-													<td><input type="text" name="name" th:value="*{name}"
+														<td><input type="text" name="name" th:value="*{name}"
 															class="form-control"></td>
 													</tr>
 													<tr>
 														<td>学号</td>
 														<td><input type="text" name="studentId"
-															 th:value="*{studentId}" class="form-control"></td>
+															th:value="*{studentId}" class="form-control"></td>
 													</tr>
 													<tr>
 														<td>邮箱</td>
@@ -224,6 +226,68 @@
 						</form>
 					</div>
 				</div>
+			</div>
+
+			<!-- 看要不要改变按钮的样式，要按钮变方的话就引用新的3.37版本的bootstrap -->
+			<!-- <link -->
+			<!-- 	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" -->
+			<!-- 	rel="stylesheet"> -->
+			<!-- 注意！！该文档别删除或增加行，用了dom的元素查找，有点迷~ -->
+			<!-- 我的设备管理弹出页窗内容 -->
+			<div class="modal" id="myDevice-data" tabindex="-1" role="dialog"
+				aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+							</button>
+							<h4 class="modal-title">我的设备管理</h4>
+						</div>
+						<div class="modal-body">
+							<!-- Top content -->
+							<div class="top-content text-center" th:unless="${session.user== null}">
+								<div th:each="equipment: ${session.user.equipmentList}" >
+									<form class="form-inline" role="form"
+										action="student/equipment&method=..."
+										method="post">
+										<input type="text" th:value="${equipment.id}" name="equipmentId" style="display:none">
+										<input type="text" class="form-control"
+											th:value="${equipment.equipmentName}" name="equipmentName"
+											disabled="disabled">
+										<button type="button" class="btn btn-success"
+											onclick="changeDisabled(this,${equipment.id})">修改</button>
+										<button type="button" class="btn btn-danger"
+											onclick="del(this,${equipment.id})">删除</button>
+
+									</form>
+									<br>
+								</div>
+
+								<form id="form-add" class="form-inline asd" role="form"
+									action="student/addEquipment" method="post"
+									style="display: none">
+									<input type="text" class="form-control" name="equipmentName">
+									<button type="submit" class="btn btn-info">确认添加</button>
+									<button type="button" class="btn btn-default"
+										onclick="removeInput()">取消</button>
+								</form>
+								<br>
+								<button class="btn btn-info btn-lg" type="button"
+									onclick="addInput()">
+									<span class="glyphicon glyphicon-plus">添加设备</span>
+								</button>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn" data-dismiss="modal">关闭</button>
+						</div>
+					</div>
+				</div>
+				<!-- 个人设备管理弹窗页按钮动态变化的js  -->
+				<script type="text/javascript"
+					src="js/my/my-equipment-management.js"></script>
 			</div>
 
 
