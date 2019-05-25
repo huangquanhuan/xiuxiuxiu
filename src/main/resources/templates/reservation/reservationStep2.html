@@ -21,7 +21,7 @@
 <link href="../css/index.css" rel="stylesheet" type="text/css" >
 </head>
 <body>
-	<div th:replace="nav :: navbar"></div>
+	<div th:replace="/home/nav :: navbar"></div>
 	<div class="agile_inner_banner_info">
 		<h2>预约维修</h2>
 	</div>
@@ -46,9 +46,8 @@
 							<div class="col-sm-9">
 								<select id="session-select" class="form-control" name="activity">
 									<!-- 这里装入场次时间信息 -->
-									<c:forEach items="${activities}" var="activity">
-										<option value="${activity.ID}">${activity.time}，地点：${activity.place}</option>
-									</c:forEach>
+									<option th:each="activity,iterStat: ${activities}" value="${activity.ID}" 
+											th:text="${activity.time}+',地点'+${activity.place}"></option>
 								</select>
 							</div>
 						</div>
@@ -62,9 +61,8 @@
 							<div class="col-sm-9">
 								<select id="device-select" class="form-control" name="device">
 									<!-- 这里装入用户的设备列表 -->
-									<c:forEach items="${equipments}" var="equipment">
-										<option value="${equipment.id}">${equipment.equipmentName}</option>
-									</c:forEach>
+									<option th:each="equipment,iterStat : ${equipments}" value="${equipment.id}" 
+											th:text="${equipment.equipmentName}"></option>
 								</select>
 							</div>
 						</div>
@@ -81,12 +79,11 @@
 									<div id="component-list" class="collapse fade"
 										data-parent="#accordion">
 										<!-- 这里装入零件列表，插入格式见下面的样例 -->
-										<c:forEach items="${components}" var="component">
-											<div class="card-body">
+<!-- 										<c:forEach items="${components}" var="component"> -->
+											<div class="card-body" th:each="component,iterStat:${components}">
 												<label><input type="checkbox"
-													name="neededComponents" value="${component.id}">${component.name}</label>
+													name="neededComponents" th:value="${component.id}" th:text="${component.name}"></label>
 											</div>
-										</c:forEach>
 									</div>
 								</div>
 							</div>

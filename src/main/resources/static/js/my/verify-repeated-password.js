@@ -1,4 +1,5 @@
 // 重复密码验证 
+//用于注册账户时的密码一致性验证
 	function validatePassword() {
 		var pass2 = document.getElementById("password2").value;
 		var pass1 = document.getElementById("password1").value;
