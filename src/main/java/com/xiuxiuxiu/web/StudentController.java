@@ -1,6 +1,7 @@
 package com.xiuxiuxiu.web;
 
 import com.xiuxiuxiu.model.Activity;
+import com.xiuxiuxiu.model.Equipment;
 import com.xiuxiuxiu.model.Student;
 import com.xiuxiuxiu.service.ActivityService;
 import com.xiuxiuxiu.service.StudentService;
@@ -38,10 +39,9 @@ public class StudentController {
 		return "home/HomePage";
 	}
 
-
 	@RequestMapping("/student/edit")
-	public String edit(HttpSession session,HttpServletRequest request) {
-		
+	public String edit(HttpSession session, HttpServletRequest request) {
+
 		String changeName = request.getParameter("name");
 		String changeStudentId = request.getParameter("studentId");
 		String changeEmail = request.getParameter("email");
@@ -51,7 +51,7 @@ public class StudentController {
 		user.setStudentId(changeStudentId);
 		user.setEmail(changeEmail);
 		user.setAddress(changeAddress);
-		
+
 		studentService.edit(user);
 		return "redirect:/home";
 	}
@@ -83,28 +83,34 @@ public class StudentController {
 		} else {
 			// 登陆成功
 			session.setAttribute("user", student);
+			System.out.println("获取用户设备列表：");
+			for(Equipment eq:student.getEquipmentList()) {
+				System.out.println(eq.getEquipmentName());
+			}
 		}
 		
 		return "redirect:/home";
 	}
+
 	@RequestMapping("student/register")
-	public String register(Model model,@RequestParam("name") String name,@RequestParam("phoneNumber") String phoneNumber,@RequestParam("passWord") String passWord,
-			@RequestParam("passWord2") String passWord2,@RequestParam("address") String address,HttpSession session) {
-		System.out.println("昵称:"+name);
-		System.out.println("号码:"+phoneNumber);
-		System.out.println("地址:"+address);
-		System.out.println("密码:"+passWord);
-		System.out.println("确认密码:"+passWord2);
-		if(!passWord.equals(passWord2)) {
+	public String register(Model model, @RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber, @RequestParam("passWord") String passWord,
+			@RequestParam("passWord2") String passWord2, @RequestParam("address") String address, HttpSession session) {
+		System.out.println("昵称:" + name);
+		System.out.println("号码:" + phoneNumber);
+		System.out.println("地址:" + address);
+		System.out.println("密码:" + passWord);
+		System.out.println("确认密码:" + passWord2);
+		if (!passWord.equals(passWord2)) {
 			model.addAttribute("err", "两次密码不同！");
 			System.out.println("两次密码不同！");
-		}else if(!isMobileNO(phoneNumber)) {
+		} else if (!isMobileNO(phoneNumber)) {
 			model.addAttribute("err", "手机号格式错误！");
 			System.out.println("手机号格式错误！");
-		}else if(name.length()<2||name.length()>12) {
-			model.addAttribute("err","昵称长度范围在“2~12”之间");
+		} else if (name.length() < 2 || name.length() > 12) {
+			model.addAttribute("err", "昵称长度范围在“2~12”之间");
 			System.out.println("昵称长度范围在“2~12”之间");
-		}else {
+		} else {
 			Student student = new Student();
 			student.setName(name);
 			student.setAddress(address);
@@ -116,6 +122,7 @@ public class StudentController {
 		}
 		return "redirect:/home";
 	}
+
 	/*
 	 * 判断手机号格式
 	 */
@@ -123,7 +130,8 @@ public class StudentController {
 		Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
 		Matcher m = p.matcher(mobiles);
 		return m.matches();
-		}
+	}
+
 	/*
 	 * 判断邮箱格式
 	 */
@@ -132,5 +140,5 @@ public class StudentController {
 		Pattern p = Pattern.compile(str);
 		Matcher m = p.matcher(email);
 		return m.matches();
-		}
+	}
 }
