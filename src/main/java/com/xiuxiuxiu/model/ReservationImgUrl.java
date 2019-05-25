@@ -25,7 +25,7 @@ public class ReservationImgUrl {
 	 * 对应的预约单；
 	 *  定义名为reservation_id的外键列；该外键引用reservation表的主键(id)列,采用懒加载
 	 */
-	@ManyToOne(targetEntity = Student.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Reservation.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "reservation_id", nullable = false)
 	private Reservation reservation;
 	/**图片的URL地址*/

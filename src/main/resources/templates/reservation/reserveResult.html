@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>预约结果</title>
+
+<link href="../css/index.css" rel="stylesheet" type="text/css" >
+
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="/home/nav :: navbar"></div>
+	<div class="agile_inner_banner_info">
+		<h2>预约结果</h2>
+	</div>
+	<!-- 主体内容：开始 -->
+	<div class="services">
+		<div class="container">
+			<div class="alert alert-info">
+				<p th:text="${message}" class="text-center">result</p>
+			</div>
+			<a href="/reservation/step1" class="btn btn-lg btn-primary text-center">返回</a>
+		</div>
+	</div>
+	<!-- 主体内容：结束 -->
+
+
+</body>
+</html>
