@@ -3,7 +3,6 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="" />
 <title>维修预约 - 第二步</title>
 
 <script type="application/x-javascript">
@@ -43,14 +42,15 @@
 				<!-- 申请现场维修的表单：开始 -->
 				<div id="field-service" class="container tab-pane active">
 					<br />
-					<form action="makeReservation?method=addFieldService" method="post" enctype="multipart/form-data">
+					<form action="/reservation/submit" method="post" enctype="multipart/form-data">
+						<input type="text" name="applyType"  value="0" style="display:none;" />
 						<!-- 场次选择 -->
 						<div class="form-group">
 							<label for="session-select" class="col-sm-3">预约场次</label>
 							<div class="col-sm-9">
 								<select id="session-select" class="form-control" name="activity">
 									<!-- 这里装入场次时间信息 -->
-									<option th:each="activity,iterStat: ${activities}" value="${activity.ID}" 
+									<option th:each="activity,iterStat: ${activities}" th:value="${activity.Id}" 
 											th:text="${activity.time}+',地点'+${activity.place}"></option>
 								</select>
 							</div>
@@ -66,7 +66,8 @@
 							<div class="col-sm-9">
 								<select id="device-select" class="form-control" name="device">
 									<!-- 这里装入用户的设备列表 -->
-									<option th:each="equipment,iterStat : ${equipments}" value="${equipment.id}" 
+									<option>不选择设备</option>
+									<option th:each="equipment : ${equipments}" th:value="${equipment.id}" 
 											th:text="${equipment.equipmentName}"></option>
 								</select>
 							</div>
@@ -84,11 +85,11 @@
 									<div id="component-list" class="collapse fade"
 										data-parent="#accordion">
 										<!-- 这里装入零件列表，插入格式见下面的样例 -->
-<!-- 										<c:forEach items="${components}" var="component"> -->
-											<div class="card-body" th:each="component,iterStat:${components}">
-												<label><input type="checkbox"
-													name="neededComponents" th:value="${component.id}" th:text="${component.name}"></label>
-											</div>
+										<div class="card-body" th:each="component,iterStat:${components}">
+											<label>
+											<input type="checkbox" name="neededComponents" th:value="${component.id}" th:text="${component.name}">
+											</label>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -98,14 +99,10 @@
 						<div class="form-inline">
 							<label for="issue-type-select" class="col-sm-3">问题种类</label>
 							<div id="issue-type-select" class="col-sm-9">
-								<select class="form-control">
-									<option>硬件问题</option>
-									<option>软件问题</option>
-								</select> <select class="form-control">
-									<!-- 这里根据前一个选项框的选择，显示对应的子分类 -->
-									<option>子分类 1</option>
-									<option>子分类 2</option>
-								</select>
+								<select id="repairType-select" class="form-control" name="repairType">
+									<option value="硬件问题">硬件问题</option>
+									<option value="软件问题">软件问题</option>
+								</select> 
 							</div>
 						</div>
 
@@ -145,7 +142,8 @@
 				<!-- 申请上门服务的表单：开始 -->
 				<div id="door-to-door-service" class="container tab-pane fade">
 					<br />
-					<form action="makeReservation?method=addDoorToDoorService" method="post" enctype="multipart/form-data">
+					<form action="/reservation/submit" method="post" enctype="multipart/form-data">
+						<input type="text" name="applyType"  value="1" style="display:none;" />
 						<!-- 时间选择 -->
 						<div class="form-group">
 							<label for="datetime-select" class="col-sm-3">预约时间</label>
@@ -157,13 +155,16 @@
 						<!-- 设备选择 -->
 						<div class="form-group">
 							<div class="col-sm-3">
-								<label for="device-select-1">设备</label> <a href="#"
-									class="btn btn-link">添加设备</a>
+								<label for="device-select-1">设备</label> 
+								<a href="#" data-toggle="modal"
+									data-target="#myDevice-data"
+									class="active btn btn-link">添加设备</a>
 							</div>
 							<div class="col-sm-9">
-								<select id="device-select-1" class="form-control"  name="device" th:each="equipment : ${equipments}" >
+								<select id="device-select-1" class="form-control"  name="device" >
 									<!-- 这里装入用户的设备列表 -->
-									<option th:value="${equipment.id}">${equipment.equipmentName}</option>
+									<option>不选择设备</option>
+									<option th:each="equipment : ${equipments}"  th:value="${equipment.id}" th:text="${equipment.equipmentName}"></option>
 								</select>
 							</div>
 						</div>
@@ -178,12 +179,14 @@
 											href="#component-list-1">点击可选零件</a>
 									</div>
 									<div id="component-list-1" class="collapse fade"
-										data-parent="#accordion-1" th:each="component : ${components}">
+										data-parent="#accordion-1">
 										<!-- 这里装入零件列表，插入格式见下面的样例 -->
-										<div class="card-body">
-											<label><input type="checkbox"
-												name="neededComponents" th:value="${component.id}">${component.name}</label>
+										<div class="card-body" th:each="component : ${components}">
+											<label>
+											<input type="checkbox"
+												name="neededComponents" th:value="${component.id}" th:text="${component.name}"></label>
 										</div>
+										<!-- 这里装入零件列表，插入格式见下面的样例 -->
 									</div>
 								</div>
 							</div>
@@ -194,12 +197,8 @@
 							<label for="issue-type-select-1" class="col-sm-3">问题种类</label>
 							<div id="issue-type-select-1" class="col-sm-9">
 								<select class="form-control">
-									<option>硬件问题</option>
-									<option>软件问题</option>
-								</select> <select class="form-control">
-									<!-- 这里根据前一个选项框的选择，显示对应的子分类 -->
-									<option>子分类 1</option>
-									<option>子分类 2</option>
+									<option value="硬件问题">硬件问题</option>
+									<option value="软件问题">软件问题</option>
 								</select>
 							</div>
 						</div>
