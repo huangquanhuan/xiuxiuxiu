@@ -8,9 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xiuxiuxiu.model.Activity;
+import com.xiuxiuxiu.model.Component;
+import com.xiuxiuxiu.model.Equipment;
 import com.xiuxiuxiu.model.Reservation;
 import com.xiuxiuxiu.service.ActivityService;
 import com.xiuxiuxiu.service.ComponentService;
+import com.xiuxiuxiu.service.EquipmentService;
 import com.xiuxiuxiu.service.ReservationService;
 
 @Controller
@@ -21,10 +24,13 @@ public class ReservationController {
 
 	@Autowired
 	ActivityService activityService;
-	
+
 	@Autowired
 	ComponentService componentService;
 	
+	@Autowired
+	EquipmentService equipmentService;
+
 	@RequestMapping("/reservation")
 	public String index() {
 		return "redirect:/reservation/list";
@@ -50,15 +56,12 @@ public class ReservationController {
 		model.addAttribute("activities", activities);
 
 		// 获取零件列表
-		/*
-		 * ComponentDAO componentDAO = new ComponentDAOImpl(); List<Component>
-		 * components = componentDAO.getList(); request.setAttribute("components",
-		 * components); Student student = (Student)
-		 * request.getSession().getAttribute("name"); // 获取设备列表 Integer userId =
-		 * student.getID(); EquipmentDAO equipmentDAO = new EquipmentDAOImpl();
-		 * List<Equipment> equipments = equipmentDAO.listEquipmentsByUser(userId);
-		 * request.setAttribute("equipments", equipments);
-		 */
+		List<Component> components = componentService.getComponentList();
+		model.addAttribute("components", components);
+//		Student student = (Student) request.getSession().getAttribute("name"); // 获取设备列表
+//		Integer userId = student.getID();
+		List<Equipment> equipments = equipmentService.getEquipmentList();
+		model.addAttribute("equipments", equipments);
 		return "/reservation/reservationStep2";
 	}
 }
