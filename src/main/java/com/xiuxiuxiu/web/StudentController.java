@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.List;
@@ -38,22 +39,32 @@ public class StudentController {
 	}
 
 
-	@RequestMapping("/edit")
-	public String edit(Student student) {
-		studentService.edit(student);
-		return "redirect:/list";
+	@RequestMapping("/student/edit")
+	public String edit(HttpSession session,HttpServletRequest request) {
+		
+		String changeName = request.getParameter("name");
+		String changeStudentId = request.getParameter("studentId");
+		String changeEmail = request.getParameter("email");
+		String changeAddress = request.getParameter("address");
+		Student user = (Student) session.getAttribute("user");
+		user.setName(changeName);
+		user.setStudentId(changeStudentId);
+		user.setEmail(changeEmail);
+		user.setAddress(changeAddress);
+		
+		studentService.edit(user);
+		return "redirect:/home";
 	}
 
-	@RequestMapping("/delete")
+	@RequestMapping("/student/delete")
 	public String delete(int id) {
 		studentService.delete(id);
-		return "redirect:/list";
+		return "redirect:/home";
 	}
 
 	@RequestMapping("/student/login")
 	public String login(Model model ,@RequestParam("phoneNumber") String phoneNumber,@RequestParam("password") String password,HttpSession session) {
 
-		System.out.println("电话："+phoneNumber);
 		Student student = studentService.findStudentByPhoneNumber(phoneNumber);
 		
 		if(student==null) {
