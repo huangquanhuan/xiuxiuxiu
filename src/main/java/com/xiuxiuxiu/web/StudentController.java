@@ -122,7 +122,12 @@ public class StudentController {
 		}
 		return "redirect:/home";
 	}
-
+	@RequestMapping("student/exit")
+	public String exit(Model model, HttpSession session) {
+		session.invalidate();
+		return "redirect:/home";
+		
+	}
 	/*
 	 * 判断手机号格式
 	 */
