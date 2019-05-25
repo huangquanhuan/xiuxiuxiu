@@ -95,10 +95,11 @@ public class StudentController {
 	@RequestMapping("student/register")
 	public String register(Model model, @RequestParam("name") String name,
 			@RequestParam("phoneNumber") String phoneNumber, @RequestParam("passWord") String passWord,
-			@RequestParam("passWord2") String passWord2, @RequestParam("address") String address, HttpSession session) {
+			@RequestParam("passWord2") String passWord2, @RequestParam("address") String address, @RequestParam("email") String email,HttpSession session) {
 		System.out.println("昵称:" + name);
 		System.out.println("号码:" + phoneNumber);
 		System.out.println("地址:" + address);
+		System.out.println("邮箱:" + email);
 		System.out.println("密码:" + passWord);
 		System.out.println("确认密码:" + passWord2);
 		if (!passWord.equals(passWord2)) {
@@ -114,6 +115,7 @@ public class StudentController {
 			Student student = new Student();
 			student.setName(name);
 			student.setAddress(address);
+			student.setEmail(email);
 			student.setPassword(passWord);
 			student.setPhoneNumber(phoneNumber);
 			student.setAccessLevel(0);
