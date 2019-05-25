@@ -113,6 +113,9 @@
 											placeholder="地址(例如：1#101)" required="required"> <input
 											id="register-phoneNumber" type="text" name="phoneNumber"
 											placeholder="手机号码" required="required">
+											<input
+											id="register-email" type="text" name="register-email"
+											placeholder="邮箱" required="required">
 <!-- 										<table> -->
 <!-- 											<tr> -->
 <!-- 												<td align="center" hidden><span id="tip">请输入收到的验证码</span></td> -->
@@ -131,7 +134,7 @@
 											placeholder="密码" required="required"> 
 										<input id="password2" type="password" name="passWord2" 
 											placeholder="确认密码" required="required"> 
-										<button	 onclick="validatePassword()"  type="submit">注册</button>
+										<button	 onclick="validateInput()"  type="submit">注册</button>
 									</form>
 								</div>
 
@@ -141,7 +144,7 @@
 				</div>
 				<!-- 重复密码验证的js  -->
 				<script type="text/javascript"
-					src="js/my/verify-repeated-password.js"></script>
+					src="js/my/verify-input.js"></script>
 				<!-- 使用ajax动态发送短信 -->
 <!-- 				<script type="text/javascript" -->
 <!-- 					src="js/my/send-code-ajax.js"></script> -->
