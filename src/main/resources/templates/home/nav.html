@@ -1,6 +1,6 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 
 
 <body>
@@ -125,11 +125,11 @@
 													onclick="settime(this)" value="免费获取验证码"></td>
 											</tr>
 										</table>
-										<input id="passWord" type="password" name="passWord"
-											placeholder="密码" required="required"> <input
-											type="password" name="passWord2" id="passWord2"
-											placeholder="确认密码" required="required"> <input
-											type="submit" value="注册">
+										<input id="password1" type="password" name="passWord"
+											placeholder="密码" required="required"> 
+										<input id="password2" type="password" name="passWord2" 
+											placeholder="确认密码" required="required"> 
+										<button	 onclick="validatePassword()"  type="submit">注册</button>
 									</form>
 								</div>
 
