@@ -1,0 +1,160 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+	<!-- 导航栏 -->
+	<div th:fragment="navbar">
+		<nav class="navbar navbar-default">
+			<div class="navbar-header navbar-left">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<h1>
+					<a class="navbar-brand" href="http://localhost:8080"><i
+						class="fa fa-crosshairs" aria-hidden="true"></i> 修咻咻维修平台</a>
+				</h1>
+
+			</div>
+			<ul class="agile_forms">
+				<li><a class="active" href="#" data-toggle="modal"
+					data-target="#myModal2" id="login" th:style="'display:' + @{(${session.user} ? 'none' : 'block')} ">登录</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#myModal3"
+					id="register" th:style="'display:' + @{(${session.user} ? 'none' : 'block')} "> 注册</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#myModal6"
+					id="exit"  th:style="'display:' + @{(${session.user} ? 'block' : 'none')} ">退出登录</a></li>
+			</ul>
+
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-right"
+				id="bs-example-navbar-collapse-1">
+				<nav>
+					<ul class="nav navbar-nav">
+						<li><a href="/home" class="hvr-underline-from-center">首页</a></li>
+						<li><a href="/reservation/step1" id="appaly"
+							class="hvr-underline-from-center" th:style="'display:' + @{(${session.user} ? 'block' : 'none')} ">预约</a></li>
+						<li><a href="/article"
+							class="hvr-underline-from-center">文章&通知</a></li>
+						<li class="dropdown"><a id="my_message" href="#"
+							class="dropdown-toggle hvr-underline-from-center"
+							data-toggle="dropdown" th:style="'display:' + @{(${session.user} ? 'block' : 'none')} ">我的<b class="fa fa-caret-down"></b></a> 
+							<!--这里判断session -->
+							<ul class="dropdown-menu agile_short_dropdown text-center"
+								th:object="${session.user}" th:unless="${session.user == null}">
+								<li><p th:text="'姓名:'+*{name}" class="center-block">姓名</p></li>
+								<li><p th:text="'学号:'+*{studentId}">学号</p></li>
+								<li><p th:text="'手机号:'+*{phoneNumber}">手机号</p></li>
+								<li><p th:text="'住址:'+*{address}">住址</p></li>
+								<li><p>邮箱:</p></li>
+								<li><p th:text="*{email}">邮箱</p></li>
+								<li><a class="active" data-toggle="modal"
+									data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
+								<li><a class="active" data-toggle="modal"
+									data-target="#myDevice-data" href="#" id="device">我的设备</a></li>
+								<li><a class="active" href="MyReservationManageServlet"
+									id="appointment">预约管理</a></li>
+							</ul></li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- 登录弹窗 -->
+			<div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+
+				<div class="modal-dialog">
+					<!-- Modal content -->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<div class="signin-form profile">
+								<h3 class="agileinfo_sign">登录</h3>
+								<div class="login-form">
+									<form class="loginForm" action="student/login" method="post">
+										<input name="phoneNumber" placeholder="手机号" type="text"
+											required="required"> <input type="password"
+											name="password" placeholder="密码" required="required">
+										<div class="tp">
+											<input type="submit" value="登录">
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 注册弹窗 -->
+			<div class="modal fade" id="myModal3" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+							<div class="signin-form profile">
+								<h3 class="agileinfo_sign">注册</h3>
+								<div class="register-form">
+									<form class="registerForm"
+										action="student/register" method="post">
+										<input id="name" type="text" name="name" placeholder="姓名" required="required"> 
+										<input id="address" type="text" name="address" placeholder="地址(例如：1#101)" required="required">
+										<input id="phoneNumber" type="text" name="phoneNumber" placeholder="手机号码" required="required"> 
+										<table>
+										<tr>             
+              							<td align="center" hidden><span id="tip">请输入收到的验证码</span></td>
+              							</tr>
+										<tr>
+										<td width="100%"><input type="text" name="code" class="txtinput" id="code" placeholder="验证码" required="required"/></td>
+										<td><input type="button" class="btn" onclick="settime(this)" value="免费获取验证码"></td>
+										</tr>
+										</table>
+										<input id="passWord" type="password" name="passWord" placeholder="密码" required="required"> <input
+											type="password" name="passWord2" id="passWord2"
+											placeholder="确认密码" required="required"> 
+										<input type="submit" value="注册">
+									</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 重复密码验证的js  -->
+			<script type="text/javascript" src="js/my/verify-repeated-password.js"></script>
+
+			<!-- 退出登录弹窗 -->
+			<div class="modal fade" id="myModal6" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+							<div class="signin-form profile">
+								<h3 class="agileinfo_sign">是否退出登录？</h3>
+								<div class="login-form">
+									<form action="StudentServlet?type=exit" method="post">
+										<input type="submit" value="确定">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</nav>
+	</div>
+
+
+
+</body>
+</html>

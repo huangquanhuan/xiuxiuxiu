@@ -26,7 +26,7 @@ public class ArticleController {
         List<Article> articles = articleService.getArticleList();
         model.addAttribute("articles", articles);
         System.out.println("articles => " + articles);
-        return "/article/articleList";
+        return "article/articleList";
     }
 
     @RequestMapping("/article/articleDetail")
@@ -35,7 +35,7 @@ public class ArticleController {
         Article article = articleService.findArticleById(id);
         System.out.println(article);
         model.addAttribute("article",article);
-        return "/article/articleDetail";
+        return "article/articleDetail";
     }
 }
 

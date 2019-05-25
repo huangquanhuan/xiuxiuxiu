@@ -10,7 +10,7 @@ public interface StudentService {
 
     public Student findStudentById(int id);
     
-    public Student findStudentByPhoneNumber(int phoneNumber);
+    public Student findStudentByPhoneNumber(String phoneNumber);
 
     public void save(Student student);
 
