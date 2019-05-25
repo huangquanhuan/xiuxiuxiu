@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,6 +19,10 @@
 </script>
 <!-- //custom-theme -->
 <link href="../css/index.css" rel="stylesheet" type="text/css" >
+
+<!-- 一些动态效果需要下面两个js同时支持 -->
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 </head>
 <body>
 	<div th:replace="/home/nav :: navbar"></div>
@@ -55,8 +59,9 @@
 						<!-- 设备选择 -->
 						<div class="form-group">
 							<div class="col-sm-3">
-								<label for="device-select">设备</label> <a href="#"
-									class="btn btn-link">添加设备</a>
+								<label for="device-select">设备</label> 
+								<a href="#" data-toggle="modal"
+									data-target="#myDevice-data" class="active btn btn-link">添加设备</a>
 							</div>
 							<div class="col-sm-9">
 								<select id="device-select" class="form-control" name="device">
@@ -156,12 +161,9 @@
 									class="btn btn-link">添加设备</a>
 							</div>
 							<div class="col-sm-9">
-								<select id="device-select-1" class="form-control"  name="device">
+								<select id="device-select-1" class="form-control"  name="device" th:each="equipment : ${equipments}" >
 									<!-- 这里装入用户的设备列表 -->
-									<c:forEach items="${equipments}" var="equipment">
-										<!-- 用户设备信息 -->
-<!-- 										<option value="${equipment.id}">${equipment.equipmentName}</option> -->
-									</c:forEach>
+									<option th:value="${equipment.id}">${equipment.equipmentName}</option>
 								</select>
 							</div>
 						</div>
@@ -176,14 +178,12 @@
 											href="#component-list-1">点击可选零件</a>
 									</div>
 									<div id="component-list-1" class="collapse fade"
-										data-parent="#accordion-1">
+										data-parent="#accordion-1" th:each="component : ${components}">
 										<!-- 这里装入零件列表，插入格式见下面的样例 -->
-										<c:forEach items="${components}" var="component">
-											<div class="card-body">
-												<label><input type="checkbox"
-													name="neededComponents" value="${component.id}">${component.name}</label>
-											</div>
-										</c:forEach>
+										<div class="card-body">
+											<label><input type="checkbox"
+												name="neededComponents" th:value="${component.id}">${component.name}</label>
+										</div>
 									</div>
 								</div>
 							</div>
