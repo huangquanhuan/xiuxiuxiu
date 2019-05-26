@@ -1,11 +1,16 @@
 package com.xiuxiuxiu.web;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xiuxiuxiu.model.Activity;
 import com.xiuxiuxiu.model.Component;
@@ -63,5 +68,11 @@ public class ReservationController {
 		List<Equipment> equipments = equipmentService.getEquipmentList();
 		model.addAttribute("equipments", equipments);
 		return "/reservation/reservationStep2";
+	}
+	
+	@RequestMapping("/reservation/addFieldService")
+	public String addFieldService(Model model) {
+		model.addAttribute("message", "success");
+		return "/reservation/reservationResult";
 	}
 }

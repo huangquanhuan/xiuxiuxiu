@@ -39,14 +39,14 @@
 				<!-- 申请现场维修的表单：开始 -->
 				<div id="field-service" class="container tab-pane active">
 					<br />
-					<form action="makeReservation?method=addFieldService" method="post" enctype="multipart/form-data">
+					<form action="/reservation/addFieldService" method="post" enctype="multipart/form-data">
 						<!-- 场次选择 -->
 						<div class="form-group">
 							<label for="session-select" class="col-sm-3">预约场次</label>
 							<div class="col-sm-9">
 								<select id="session-select" class="form-control" name="activity">
 									<!-- 这里装入场次时间信息 -->
-									<option th:each="activity,iterStat: ${activities}" value="${activity.ID}" 
+									<option th:each="activity,iterStat: ${activities}" th:value="${activity.id}" 
 											th:text="${activity.time}+',地点'+${activity.place}"></option>
 								</select>
 							</div>
@@ -61,7 +61,7 @@
 							<div class="col-sm-9">
 								<select id="device-select" class="form-control" name="device">
 									<!-- 这里装入用户的设备列表 -->
-									<option th:each="equipment,iterStat : ${equipments}" value="${equipment.id}" 
+									<option th:each="equipment,iterStat : ${equipments}" th:value="${equipment.id}" 
 											th:text="${equipment.equipmentName}"></option>
 								</select>
 							</div>
@@ -79,7 +79,6 @@
 									<div id="component-list" class="collapse fade"
 										data-parent="#accordion">
 										<!-- 这里装入零件列表，插入格式见下面的样例 -->
-<!-- 										<c:forEach items="${components}" var="component"> -->
 											<div class="card-body" th:each="component,iterStat:${components}">
 												<label><input type="checkbox"
 													name="neededComponents" th:value="${component.id}" th:text="${component.name}"></label>
