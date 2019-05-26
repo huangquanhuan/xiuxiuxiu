@@ -1,12 +1,15 @@
 package com.xiuxiuxiu.service.impl;
 
 import com.xiuxiuxiu.model.Manager;
+
 import com.xiuxiuxiu.repository.ManagerRepository;
 import com.xiuxiuxiu.service.ManagerService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class ManagerServiceImpl implements ManagerService{
@@ -24,6 +27,11 @@ public class ManagerServiceImpl implements ManagerService{
         return managerRepository.findById(id);
     }
 
+    @Override
+    public Manager findManagerByPhoneNumber(String phoneNumber) {
+    	return managerRepository.findByPhoneNumber(phoneNumber);
+    }
+    
     @Override
     public void save(Manager manager) {
         managerRepository.save(manager);

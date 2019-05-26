@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
-
 <body>
 	<!-- 导航栏 -->
 	<div th:fragment="navbar">
@@ -61,8 +59,7 @@
 									data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
 								<li><a class="active" data-toggle="modal"
 									data-target="#myDevice-data" href="#" id="device">我的设备</a></li>
-								<li><a class="active" href="MyReservationManageServlet"
-									id="appointment">预约管理</a></li>
+								<li><a th:href="@{/myRservationList}" th:if="${session.user != null}" id="appointment">预约管理</a></li>
 							</ul></li>
 					</ul>
 				</nav>
@@ -115,8 +112,8 @@
 											placeholder="手机号码" required="required">
 											<input
 											id="register-email" type="text" name="email"
-											placeholder="邮箱" required="required">	
-											<table>
+											placeholder="邮箱" required="required">
+                    	<table>
 											<tr>
 												<td align="center" hidden><span id="tip">请输入收到的验证码</span></td>
 											</tr>
@@ -146,7 +143,9 @@
 											placeholder="密码" required="required"> 
 										<input id="password2" type="password" name="passWord2" 
 											placeholder="确认密码" required="required"> 
-										<button	 onclick="validateInput()"  type="submit">注册</button>
+										<div class="tp">
+											<input	 onclick="validateInput()"  type="submit" value="注册">
+										</div>
 									</form>
 								</div>
 
@@ -154,13 +153,12 @@
 						</div>
 					</div>
 				</div>
-				<!-- 验证输入的js  -->
-				<script type="text/javascript" src="js/my/verify-input.js"></script>
-				<!-- 发送短信 -->
-   <!-- <script type="text/javascript" src="js/my/send-code-ajax.js"></script> -->
-				<!-- 发送邮件 -->
-				<script type="text/javascript" src="js/my/send-email-ajax.js"></script>
-
+				<!-- 重复密码验证的js  -->
+				<script type="text/javascript"
+					src="/js/my/verify-input.js"></script>
+				<!-- 使用ajax动态发送短信 -->
+<!-- 				<script type="text/javascript" -->
+<!-- 					src="js/my/send-code-ajax.js"></script> -->
 			</div>
 
 			<!-- 退出登录弹窗 -->
@@ -270,22 +268,22 @@
 							<div class="top-content text-center" th:unless="${session.user== null}">
 								<div th:each="equipment: ${session.user.equipmentList}" >
 									<form class="form-inline" role="form"
-										action="student/equipment&method=..."
+										action="student/equipmentEdit"
 										method="post">
 										<input type="text" th:value="${equipment.id}" name="equipmentId" style="display:none">
 										<input type="text" class="form-control"
 											th:value="${equipment.equipmentName}" name="equipmentName"
 											disabled="disabled">
 										<button type="button" class="btn btn-success"
-											onclick="changeDisabled(this,${equipment.id})">修改</button>
+											th:onclick="'changeDisabled(this,'+${equipment.id}+')'" style="padding:0 13px">修改</button>
 										<button type="button" class="btn btn-danger"
-											onclick="del(this,${equipment.id})">删除</button>
+											onclick="del(this)">删除</button>
 
 									</form>
 									<br>
 								</div>
 
-								<form id="form-add" class="form-inline asd" role="form"
+								<form id="equipment-form-add" class="form-inline asd" role="form"
 									action="student/addEquipment" method="post"
 									style="display: none">
 									<input type="text" class="form-control" name="equipmentName">
@@ -315,7 +313,6 @@
 		</nav>
 	</div>
 
-
-
 </body>
 </html>
+
