@@ -5,6 +5,7 @@ import com.xiuxiuxiu.repository.ArticleRepository;
 import com.xiuxiuxiu.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler;
 
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class ArticleServiceImpl implements ArticleService{
         return articleRepository.findAll();
     }
 
+    @Override 
+    public Article findByTitleLink(String title){
+    	return articleRepository.findByTitleLike(title);
+    }
+    
     @Override
     public Article findArticleById(int id) {
         return articleRepository.findById(id);
