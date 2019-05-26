@@ -238,7 +238,10 @@ public class ReservationController {
 	}
 
 	@RequestMapping("/reservation/appointedComponents")
-	public String appointedComponents() {
+	public String appointedComponents(Model model) {
+        List<Activity> activities = activityService.getActivityList();
+        model.addAttribute("activities", activities);
+        model.addAttribute("components", componentService.getComponentList());
 		return "/reservation/appointedComponents";
 	}
 }

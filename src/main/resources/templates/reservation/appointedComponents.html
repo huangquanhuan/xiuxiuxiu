@@ -45,7 +45,6 @@
 							style="margin-top: 0px; positon: relative; padding-left: 1em; padding-right: 1em;">
 							<input type="text" class="form-control" name="name"
 								placeholder="请输入字段名"> <span class="input-group-btn">
-
 								<button class="btn btn-info btn-search" style="margin-left: 3px">搜索</button>
 							</span>
 						</div>
@@ -58,9 +57,8 @@
 								<select id="session-select" name="activityID"
 									class="form-control">
 									<!-- 这里装入场次时间信息 -->
-									<c:forEach items="${activities}" var="activity">
-										<option value="${activity.ID}">${activity.time}，地点：${activity.place}</option>
-									</c:forEach>
+									<option th:each="activity:${activities}" value="${activity.id}" 
+											th:text="${activity.time}+'，地点：'+${activity.place}"></option>
 									<option value="-1" selected="selected">全部预约场次</option>
 									<option value="-2">上门服务</option>
 								</select>
