@@ -42,12 +42,8 @@
 				<!-- 申请现场维修的表单：开始 -->
 				<div id="field-service" class="container tab-pane active">
 					<br />
-<<<<<<< HEAD
-					<form action="/reservation/addFieldService" method="post" enctype="multipart/form-data">
-=======
 					<form action="/reservation/submit" method="post" enctype="multipart/form-data">
 						<input type="text" name="applyType"  value="0" style="display:none;" />
->>>>>>> 60d254c295bac960ccb85f8033c17d8ed3f05418
 						<!-- 场次选择 -->
 						<div class="form-group">
 							<label for="session-select" class="col-sm-3">预约场次</label>
@@ -89,18 +85,11 @@
 									<div id="component-list" class="collapse fade"
 										data-parent="#accordion">
 										<!-- 这里装入零件列表，插入格式见下面的样例 -->
-<<<<<<< HEAD
-											<div class="card-body" th:each="component,iterStat:${components}">
-												<label><input type="checkbox"
-													name="neededComponents" th:value="${component.id}" th:text="${component.name}"></label>
-											</div>
-=======
 										<div class="card-body" th:each="component,iterStat:${components}">
 											<label>
 											<input type="checkbox" name="neededComponents" th:value="${component.id}" th:text="${component.name}">
 											</label>
 										</div>
->>>>>>> 60d254c295bac960ccb85f8033c17d8ed3f05418
 									</div>
 								</div>
 							</div>
