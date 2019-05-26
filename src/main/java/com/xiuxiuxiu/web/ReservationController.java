@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -49,7 +50,6 @@ public class ReservationController {
 		List<Reservation> reservations = new ArrayList<Reservation>();
 		Student user = (Student) session.getAttribute("user");
 		
-		System.out.println("输出预约单的设备名");
 		for(Reservation reservation : allReservations) {
 			if(reservation.getStudent().getId()==user.getId()) {
 				String detail = "详情:" + reservation.getDetail();
@@ -66,6 +66,38 @@ public class ReservationController {
 		model.addAttribute("reservations", reservations);
 		return "/reservation/myReservationList";
 	}
+	
+
+	@RequestMapping("/cancelMyReservation")
+	public String cancelMyReservation(Model model,@RequestParam("reservationId") int reservationId) {
+		
+		reservationService.delete(reservationId);
+		model.addAttribute("message", "预约单已撤销！");
+		return "redirect:/myRservationList";
+	}
+	
+	@RequestMapping("/remarkMyReservation")
+	public String remarkMyReservation(Model model,@RequestParam("reservationId") int reservationId,@RequestParam("remarkText") String  remarkText) {
+		
+		Reservation reservation = reservationService.findReservationById(reservationId);
+		reservation.setRemark(remarkText);
+		reservationService.save(reservation);
+		model.addAttribute("message", "评价已提交！");
+		return "redirect:/myRservationList";
+	}
+	
+	@RequestMapping("/feedbackMyReservation")
+	public String feedbackMyReservation(Model model,@RequestParam("reservationId") int reservationId,@RequestParam("feedbackTxet") String  feedbackTxet) {
+		
+		Reservation reservation = reservationService.findReservationById(reservationId);
+		reservation.setFeedback(feedbackTxet);
+		reservationService.save(reservation);
+		model.addAttribute("message", "反馈已提交！");
+		return "redirect:/myRservationList";
+	}
+	
+	
+	
 
 	@RequestMapping("/reservation/step1")
 	public String reservationStep1() {
@@ -81,18 +113,13 @@ public class ReservationController {
 		// 获取零件列表
 		List<Component> components = componentService.getComponentList();
 		model.addAttribute("components", components);
-//		Student student = (Student) request.getSession().getAttribute("name"); // 获取设备列表
-//		Integer userId = student.getID();
+		
+		// 获取设备列表
 		List<Equipment> equipments = equipmentService.getEquipmentList();
 		model.addAttribute("equipments", equipments);
 		return "/reservation/reservationStep2";
 	}
 
-	@RequestMapping("/reservation/addFieldService")
-	public String addFieldService(Model model) {
-		model.addAttribute("message", "success");
-		return "/reservation/reservationResult";
-	}
 
 	@RequestMapping("/reservation/submit")
 	public String reservationSubmit(Model model, HttpServletRequest request, HttpSession session) {
@@ -138,7 +165,7 @@ public class ReservationController {
 			reservation.setPlace(student.getAddress());
 		} else {
 
-			model.addAttribute("message", "<遇到问题>  预约失败！！");
+			model.addAttribute("err", "<遇到问题>  预约失败！！");
 			System.out.println("预约类型获取错误！！预约失败！");
 			return "rereservation/reserveResult";
 		}
@@ -212,7 +239,7 @@ public class ReservationController {
 			}
 		} catch (Exception e) {
 			System.out.println("预约失败！");
-			model.addAttribute("message", "预约失败！");
+			model.addAttribute("err", "预约失败！");
 			System.err.println(e);
 			return "reservation/reserveResult";
 		}
