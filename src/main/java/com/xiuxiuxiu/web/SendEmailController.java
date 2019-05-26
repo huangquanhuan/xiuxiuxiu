@@ -23,8 +23,8 @@ public class SendEmailController {
 			String title="验证您的电子邮箱地址";
 			String text="您的验证码为:"+code;
 			System.out.println("邮件接收者"+receiver);
-			System.out.println(title);
-			System.out.println(text);
+			System.out.println("标题为"+title);
+			System.out.println("正文为"+text);
 			try {
 				SendEmail.simpleMailSend(receiver, title, text);
 			}catch(Exception e) {
