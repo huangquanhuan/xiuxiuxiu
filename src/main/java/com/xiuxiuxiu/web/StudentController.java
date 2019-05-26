@@ -198,6 +198,7 @@ public class StudentController {
 		}
 		return "redirect:/home";
 	}
+	
 	/*
 	 * 判断手机号格式
 	 */
