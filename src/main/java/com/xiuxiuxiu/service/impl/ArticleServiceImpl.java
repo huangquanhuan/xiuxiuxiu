@@ -25,6 +25,11 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
+    public Article findArticleByTitle(String title) {
+        return articleRepository.findBytitle(title);
+    }
+
+    @Override
     public void save(Article article) {
         articleRepository.save(article);
     }
@@ -38,6 +43,8 @@ public class ArticleServiceImpl implements ArticleService{
     public void delete(int id) {
         articleRepository.deleteById(id);
     }
+    
+    
 }
 
 

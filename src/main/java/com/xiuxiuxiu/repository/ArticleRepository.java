@@ -8,4 +8,8 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
     Article findById(int id);
 
     void deleteById(int id);
+
+	Article findBytitle(String title);
+
+
 }
