@@ -73,30 +73,77 @@
 			</div>
 
 			<div class="w3l-news_info_agile_its">
-			<h5 >我家</h5>
+			
 			<div th:each="activity,iterStat : ${activityList}">
-			<h5 >我家jia </h5>
+			
 						<div class="media response-info">
 						<div class="media-body response-text-right">
-							<h5 th:text="${activity.place}">我家</h5>
+							<h5 th:text="${activity.place}"></h5>
 							<ul>
-								<li><i th:text="${activity.time}" class="fa fa-calendar" aria-hidden="true"></i>${repairActivity.time}</li>
+								<li><i th:text="${activity.time}" class="fa fa-calendar" aria-hidden="true"></i></li>
 								<li><i class="fa fa-users" aria-hidden="true"></i>预约人数 : 246</li>
 							</ul>
 							<p>服务同学、建设校园</p>
 							<div class="read">
-								<a href="#" class="view resw3" data-toggle="modal" data-target="#myModal4">修改</a>
-								<a href="#" class="view resw3" data-toggle="modal" data-target="#myModal5">删除</a>
+								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal4'+${activity.id}">修改</a>
+								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal5'+${activity.id}">删除</a>
 							</div>
 						</div>
 						<div class="clearfix"> </div>
 					</div>
-				
-
+											<!-- //Modal -->
+											<div class="modal fade" th:id="myModal5+${activity.id}" tabindex="-1" role="dialog">
+														<div class="modal-dialog">
+														<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	
+																	<div class="signin-form profile">
+																	<h3 class="agileinfo_sign">是否删除该维修场次？</h3>	
+																			<div class="login-form">
+																				<form th:action="@{/manager/DeleteActivity}" method="post">
+																					<input type="hidden" name="id" th:value=${activity.id}>
+																					<input type="submit" value="确定">
+																				</form>
+																			</div>
+																			
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>	
+											
+													<div class="modal fade" th:id="myModal4+${activity.id}" tabindex="-1" role="dialog">
+														<div class="modal-dialog">
+														<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	
+																	<div class="signin-form profile">
+																	<h3 class="agileinfo_sign">修改维修场次</h3>	
+																			<div class="login-form">
+																				<form th:action="@{/manager/UpdateActivity}" method="post">
+																					<input type="hidden" name="id" th:value=${activity.id}>
+																				    <input type="text" name="begin_time" placeholder="开始时间" required="required">
+																					<input type="text" name="end_time" placeholder="结束时间" required="required">
+				                                                                    <input type="text" name="place" placeholder="地点" required="required">
+																					<input type="submit" value="确定">
+																				</form>
+																			</div>
+																			
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													
 				</div>
 			</div>
 
 	    </div>
+	 </div>
 <!-- //typo -->	
 <!-- footer -->
 <!-- //footer -->
@@ -188,5 +235,29 @@
 			});
 	</script>
 <!-- //here ends scrolling icon -->
+													<div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+														<div class="modal-dialog">
+														<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	
+																	<div class="signin-form profile">
+																	<h3 class="agileinfo_sign">增加维修场次</h3>	
+																			<div class="login-form">
+																				<form th:action="@{/manager/AddActivity}" method="post">
+																				   <input type="text" name="begin_time" placeholder="开始时间" required="required">
+																					<input type="text" name="end_time" placeholder="结束时间" required="required">
+				                                                                    <input type="text" name="place" placeholder="地点" required="required">
+																					<input type="submit" value="确定">
+																				</form>
+																			</div>
+																			
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>											
+													
 </body>
 </html>
