@@ -1,15 +1,15 @@
 //发送邮箱信的ajax
 //提交Form表单
+var countdown=60; 	
 $("#sendEmail").unbind("click").click(function() {
 var email = document.getElementById("register-email").value;
-if(email == ""){  
-	alert("邮箱错误");  
+if(email == ""){    
    return false;  
 }else{
 	$.ajax({
    	 type:"post",
    	 url:"/sendemail",
-   	 data : {"email":"2609339303@qq.com"},
+   	 data : {"email":email},
    	 dataType:"json",
    	 beforeSend:function(){
    		 $("#sendEmail").val("正在提交，请稍等...");
@@ -18,18 +18,6 @@ if(email == ""){
           alert("success");	           
        }   
     });
-//	 $ajax({
-//	 type="post",
-//	 url="/sendemail",
-//	 dataType:"json",
-//	 data:{"email":$("#email").val()},
-//	 success:function (data){
-//		 alert("success");
-//	 },
-//	 error:function (data){
-//		 alert("false");
-//	 }			
-//});
 }
 });
 //var countdown=60; 	

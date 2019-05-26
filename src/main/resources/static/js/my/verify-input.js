@@ -7,6 +7,7 @@
 		var email = document.getElementById("register-email").value;
 		var pass2 = document.getElementById("password2").value;
 		var pass1 = document.getElementById("password1").value;
+		var code = document.getElementById("code").value;
 		if (pass1 != pass2){
 			document.getElementById("password2").setCustomValidity("密码不匹配！");
 		}else if(name.length<2||name.length>12){

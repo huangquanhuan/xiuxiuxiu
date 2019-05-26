@@ -22,7 +22,7 @@ public class SendEmail {
 	        Properties javaMailProperties = new Properties();
 	    	javaMailProperties.put("mail.smtp.auth", true); 
 	    	javaMailProperties.put("mail.smtp.starttls.enable", true); 
-	    	javaMailProperties.put("mail.smtp.timeout", 8000); 
+	    	javaMailProperties.put("mail.smtp.timeout", 30000); 
 	        mailSender.setJavaMailProperties(javaMailProperties);
 	        //创建邮件内容
 	        SimpleMailMessage message=new SimpleMailMessage();
