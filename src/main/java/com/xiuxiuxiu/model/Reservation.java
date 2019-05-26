@@ -110,6 +110,7 @@ public class Reservation {
 		this.id = id;
 	}
 
+	/** 返回预约单的状态：0对应"未受理"状态，1对应"已受理,未完成"状态，2对应"已完成"状态 */
 	public int getState() {
 		return state;
 	}
@@ -126,6 +127,7 @@ public class Reservation {
 		this.student = student;
 	}
 
+	/** 返回预约单的预约类型：0表示"活动预约"，1表示"上门维修预约" */
 	public int getApplicationType() {
 		return applicationType;
 	}
