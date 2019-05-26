@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
-
 <body>
 	<!-- 导航栏 -->
 	<div th:fragment="navbar">
@@ -257,22 +255,22 @@
 							<div class="top-content text-center" th:unless="${session.user== null}">
 								<div th:each="equipment: ${session.user.equipmentList}" >
 									<form class="form-inline" role="form"
-										action="student/equipment&method=..."
+										action="student/equipmentEdit"
 										method="post">
 										<input type="text" th:value="${equipment.id}" name="equipmentId" style="display:none">
 										<input type="text" class="form-control"
 											th:value="${equipment.equipmentName}" name="equipmentName"
 											disabled="disabled">
 										<button type="button" class="btn btn-success"
-											onclick="changeDisabled(this,${equipment.id})">修改</button>
+											th:onclick="'changeDisabled(this,'+${equipment.id}+')'" style="padding:0 13px">修改</button>
 										<button type="button" class="btn btn-danger"
-											onclick="del(this,${equipment.id})">删除</button>
+											onclick="del(this)">删除</button>
 
 									</form>
 									<br>
 								</div>
 
-								<form id="form-add" class="form-inline asd" role="form"
+								<form id="equipment-form-add" class="form-inline asd" role="form"
 									action="student/addEquipment" method="post"
 									style="display: none">
 									<input type="text" class="form-control" name="equipmentName">
@@ -301,8 +299,6 @@
 
 		</nav>
 	</div>
-
-
 
 </body>
 </html>
