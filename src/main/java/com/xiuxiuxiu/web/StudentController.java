@@ -4,6 +4,7 @@ import com.xiuxiuxiu.model.Activity;
 import com.xiuxiuxiu.model.Equipment;
 import com.xiuxiuxiu.model.Student;
 import com.xiuxiuxiu.service.ActivityService;
+import com.xiuxiuxiu.service.EquipmentService;
 import com.xiuxiuxiu.service.StudentService;
 
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,8 @@ public class StudentController {
 	StudentService studentService;
 	@Resource
 	ActivityService activityService;
+	@Resource
+	EquipmentService equipmentService;
 
 	@RequestMapping("/")
 	public String index() {
@@ -63,39 +66,41 @@ public class StudentController {
 	}
 
 	@RequestMapping("/student/login")
-	public String login(Model model ,@RequestParam("phoneNumber") String phoneNumber,@RequestParam("password") String password,HttpSession session) {
+	public String login(Model model, @RequestParam("phoneNumber") String phoneNumber,
+			@RequestParam("password") String password, HttpSession session) {
 
 		Student student = studentService.findStudentByPhoneNumber(phoneNumber);
-		
-		if(student==null) {
+
+		if (student == null) {
 			model.addAttribute("err", "抱歉，该账号不存在！");
 			System.out.println("登陆账号不存在！");
 		} else if (student.getPhoneNumber().length() < 1) {
 			model.addAttribute("err", "请输入登录名！");
 		} else if (student.getPassword().length() < 1) {
 			model.addAttribute("err", "请输入密码！");
-		} else if (!student.getPhoneNumber().equals(phoneNumber)) {
+		} else if (!student.getPassword().equals(password)) {
 			// 登陆失败
-			System.out.println("真实密码："+student.getPhoneNumber());
-			System.out.println("输入密码："+phoneNumber);
+			System.out.println("真实密码：" + student.getPassword());
+			System.out.println("输入密码：" + password);
 			model.addAttribute("err", "密码错误！");
 			System.out.println("登陆密码错误！");
 		} else {
 			// 登陆成功
 			session.setAttribute("user", student);
 			System.out.println("获取用户设备列表：");
-			for(Equipment eq:student.getEquipmentList()) {
+			for (Equipment eq : student.getEquipmentList()) {
 				System.out.println(eq.getEquipmentName());
 			}
 		}
-		
+
 		return "redirect:/home";
 	}
 
 	@RequestMapping("student/register")
 	public String register(Model model, @RequestParam("name") String name,
 			@RequestParam("phoneNumber") String phoneNumber, @RequestParam("passWord") String passWord,
-			@RequestParam("passWord2") String passWord2, @RequestParam("address") String address, @RequestParam("email") String email,HttpSession session) {
+			@RequestParam("passWord2") String passWord2, @RequestParam("address") String address,
+			@RequestParam("email") String email, HttpSession session) {
 		System.out.println("昵称:" + name);
 		System.out.println("号码:" + phoneNumber);
 		System.out.println("地址:" + address);
@@ -124,11 +129,74 @@ public class StudentController {
 		}
 		return "redirect:/home";
 	}
+
 	@RequestMapping("student/exit")
 	public String exit(Model model, HttpSession session) {
 		session.invalidate();
 		return "redirect:/home";
+	}
+
+	@RequestMapping("/student/equipmentEdit")
+	public String equipmentEdit(Model model, HttpSession session, @RequestParam("equipmentId") int equipmentId,
+			@RequestParam("equipmentName") String equipmentName) {
+		Student user = (Student) session.getAttribute("user");
+
+		Equipment equipment = new Equipment();
+		equipment.setEquipmentName(equipmentName);
+		equipment.setId(equipmentId);
+		equipment.setStudent(user);
+
+		equipmentService.edit(equipment);
+		model.addAttribute("message", "编辑设备成功");
 		
+
+		// 更新页面的session
+		user = studentService.findStudentById(user.getId());
+		session.setAttribute("user", user);
+		System.out.println("更新前端的session\n获取用户设备列表：");
+		for (Equipment eq : user.getEquipmentList()) {
+			System.out.println(eq.getEquipmentName());
+		}
+		return "redirect:/home";
+	}
+
+	@RequestMapping("/student/equipmentDelete")
+	public String equipmentDelete(Model model, HttpSession session, @RequestParam("equipmentId") int equipmentId) {
+		equipmentService.delete(equipmentId);
+		model.addAttribute("message", "删除设备成功");
+
+		// 更新页面的session
+		Student user = (Student) session.getAttribute("user");
+		user = studentService.findStudentById(user.getId());
+		session.setAttribute("user", user);
+		System.out.println("更新前端的session\n获取用户设备列表：");
+		for (Equipment eq : user.getEquipmentList()) {
+			System.out.println(eq.getEquipmentName());
+		}
+		return "redirect:/home";
+	}
+
+	@RequestMapping("student/addEquipment")
+	public String addEquipment(Model model, HttpSession session, @RequestParam("equipmentName") String equipmentName) {
+		
+		Student user = (Student) session.getAttribute("user");
+
+		Equipment equipment = new Equipment();
+		equipment.setEquipmentName(equipmentName);
+		equipment.setStudent(user);
+
+		equipmentService.edit(equipment);
+		model.addAttribute("message", "添加设备成功");
+		
+
+		// 更新页面的session
+		user = studentService.findStudentById(user.getId());
+		session.setAttribute("user", user);
+		System.out.println("更新前端的session\n获取用户设备列表：");
+		for (Equipment eq : user.getEquipmentList()) {
+			System.out.println(eq.getEquipmentName());
+		}
+		return "redirect:/home";
 	}
 	/*
 	 * 判断手机号格式

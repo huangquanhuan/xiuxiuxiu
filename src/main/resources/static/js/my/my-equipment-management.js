@@ -5,9 +5,9 @@ var map = {};
 function changeDisabled(btn, id) {
 	var btn_text = btn.firstChild;
 	var form = btn.parentNode;
-	var input = form.childNodes[1];// 输入框
-	var btn1 = form.childNodes[3];// 第一个按钮
-	var btn2 = form.childNodes[5];// 第二个按钮
+	var input = form.childNodes[3];// 输入框
+	var btn1 = form.childNodes[5];// 第一个按钮
+	var btn2 = form.childNodes[7];// 第二个按钮
 	var btn1_text = btn1.firstChild;
 	var btn2_text = btn2.firstChild;
 
@@ -34,29 +34,31 @@ function changeDisabled(btn, id) {
 		btn2_text.nodeValue = "删除";
 		btn2.setAttribute("class", "btn btn-danger");
 		btn2.setAttribute("type", "button");
-		btn2.setAttribute("onclick", "del(this," + id + ")");
+		btn2.setAttribute("onclick", "del(this)");
 	} else if (btn_text.nodeValue == "确定") {
-		// 修改action
-		form.action = "MyEquipmentServlet?id=" + id + "&method=edit";
+		// 修改action为编辑
+		form.action = "student/equipmentEdit";
 		// 提交修改
 		btn1.setAttribute("type", "submit");
+	} else{
+		alert("按钮状态未知！！")
 	}
 }
 
-function del(btn, id) {
+function del(btn) {
 	var form = btn.parentNode;
-	form.action = "MyEquipmentServlet?id=" + id + "&method=delete";
+	form.action = "student/equipmentDelete";
 	btn.setAttribute("type", "submit");
 }
 
 function addInput() {
 	// 获取前一个form元素
-	var form = document.getElementById("form-add")
+	var form = document.getElementById("equipment-form-add")
 	form.style.display = "block";
 }
 
 function removeInput() {
 	// 获取前一个form元素
-	var form = document.getElementById("form-add")
+	var form = document.getElementById("equipment-form-add")
 	form.style.display = "none";
 }
