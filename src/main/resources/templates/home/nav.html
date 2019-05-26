@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
-
 <body>
 	<!-- 导航栏 -->
 	<div th:fragment="navbar">
@@ -116,7 +114,6 @@
 											<input
 											id="register-email" type="text" name="email"
 											placeholder="邮箱" required="required">
-											<button type="button"  id="sendEmail"  >发送</button>
 <!-- 										<table> -->
 <!-- 											<tr> -->
 <!-- 												<td align="center" hidden><span id="tip">请输入收到的验证码</span></td> -->
@@ -143,13 +140,12 @@
 						</div>
 					</div>
 				</div>
-				<!-- 验证输入的js  -->
-				<script type="text/javascript" src="js/my/verify-input.js"></script>
-				<!-- 发送短信 -->
-   <!-- <script type="text/javascript" src="js/my/send-code-ajax.js"></script> -->
-				<!-- 发送邮件 -->
-				<script type="text/javascript" src="js/my/send-email-ajax.js"></script>
-
+				<!-- 重复密码验证的js  -->
+				<script type="text/javascript"
+					src="/js/my/verify-input.js"></script>
+				<!-- 使用ajax动态发送短信 -->
+<!-- 				<script type="text/javascript" -->
+<!-- 					src="js/my/send-code-ajax.js"></script> -->
 			</div>
 
 			<!-- 退出登录弹窗 -->
@@ -259,22 +255,22 @@
 							<div class="top-content text-center" th:unless="${session.user== null}">
 								<div th:each="equipment: ${session.user.equipmentList}" >
 									<form class="form-inline" role="form"
-										action="student/equipment&method=..."
+										action="student/equipmentEdit"
 										method="post">
 										<input type="text" th:value="${equipment.id}" name="equipmentId" style="display:none">
 										<input type="text" class="form-control"
 											th:value="${equipment.equipmentName}" name="equipmentName"
 											disabled="disabled">
 										<button type="button" class="btn btn-success"
-											onclick="changeDisabled(this,${equipment.id})">修改</button>
+											th:onclick="'changeDisabled(this,'+${equipment.id}+')'" style="padding:0 13px">修改</button>
 										<button type="button" class="btn btn-danger"
-											onclick="del(this,${equipment.id})">删除</button>
+											onclick="del(this)">删除</button>
 
 									</form>
 									<br>
 								</div>
 
-								<form id="form-add" class="form-inline asd" role="form"
+								<form id="equipment-form-add" class="form-inline asd" role="form"
 									action="student/addEquipment" method="post"
 									style="display: none">
 									<input type="text" class="form-control" name="equipmentName">
@@ -303,8 +299,6 @@
 
 		</nav>
 	</div>
-
-
 
 </body>
 </html>
