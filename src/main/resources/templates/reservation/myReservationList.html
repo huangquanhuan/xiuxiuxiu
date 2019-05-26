@@ -8,10 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<meta name="keywords" content="" />
 <!-- //custom-theme -->
 <link href="../css/index.css" rel="stylesheet" type="text/css" />
 
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -30,29 +34,12 @@
 					<div class="col-sm-6 col-sm-offset-3 form-box">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<!-- <%!String applicationTimeAndState, requiredTimeAndPlace, detail;%>
-								<%!EquipmentDAO equipmentDao = new EquipmentDAOImpl();%>
-								<%
-									applicationTimeAndState = reservation.getApplicationTime();
-										requiredTimeAndPlace = reservation.getRequiredTime();
-
-										if (reservation.getStateInt() == 0) {
-											applicationTimeAndState = applicationTimeAndState + "(未受理)";
-										} else if (reservation.getStateInt() == 1) {
-											applicationTimeAndState = applicationTimeAndState + "(已受理，未完成)";
-										} else if (reservation.getStateInt() == 2) {
-											applicationTimeAndState = applicationTimeAndState + "(已完成)";
-										} else {
-											out.print("<script>alert('获取预约单的目前状态失败！')</script>");
-										}
-										requiredTimeAndPlace = reservation.getRequiredTime() + " " + reservation.getPlace();
-										detail = "详情:" + reservation.getDetail();
-										if (detail != null && detail.length() > 8)
-											detail = detail.substring(0, 7) + "...";
-								%> -->
-								<h3 th:if="${reservation.state==0}" class="panel-title" th:text="${reservation.applicationTime+'已受理'}"></h3>
-								<h3 th:if="${reservation.state==1}" class="panel-title" th:text="${reservation.applicationTime+'受理中'}"></h3>
-								<h3 th:if="${reservation.state==2}" class="panel-title" th:text="${reservation.applicationTime+'未受理'}"></h3>
+								<h3 th:if="${reservation.state==0}" class="panel-title"
+									th:text="${reservation.applicationTime+'(未受理)'}"></h3>
+								<h3 th:if="${reservation.state==1}" class="panel-title"
+									th:text="${reservation.applicationTime+'(已受理，未完成)'}"></h3>
+								<h3 th:if="${reservation.state==2}" class="panel-title"
+									th:text="${reservation.applicationTime+'(已完成)'}"></h3>
 								<div>
 									<a th:if="${reservation.state==0}"
 										href="MyReservationManageServlet?method=edit&targetID=${viewComponents.reservationID}"
@@ -76,9 +63,12 @@
 							</div>
 
 							<div class="panel-body">
-								<p th:text="${reservation.place}"></p>
-<!-- 								<label th:text="${'设备'+reservation.equipment.equipmentName}"><%="设备：" + equipmentDao.getEquipmentName(reservation.getEquipmentID())%></label> -->
-								<label th:text="${reservation.repairType}"></label>
+								<p th:text="${reservation.RequiredTime+' '+reservation.place}"></p>
+								<label th:text="'设备:'+${reservation.equipment.equipmentName}"
+									th:if="${reservation.equipment!=null}"></label> <label
+									th:text="${reservation.repairType}" style="margin: 0 10px"></label>
+								<label th:text="${reservation.detail}"
+									th:if="${reservation.detail!=null}"></label>
 							</div>
 						</div>
 					</div>
@@ -174,7 +164,7 @@
 	}
 	
 	</script>
-<!-- 	<%@include file="动态js代码.jsp"%> -->
+	<!-- 	<%@include file="动态js代码.jsp"%> -->
 </body>
 
 </html>

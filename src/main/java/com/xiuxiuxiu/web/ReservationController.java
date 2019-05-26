@@ -44,16 +44,27 @@ public class ReservationController {
 	ImgUrlService imgUrlService;
 
 	@RequestMapping("/myRservationList")
-	public String myRservationList(Model model) {
-		return "/reservation/myReservationList";
-	}
-
-	@RequestMapping("/reservation/list")
-	public String reservationList(Model model) {
-		List<Reservation> reservations = reservationService.getReservationList();
-		System.out.println("reservation list => " + reservations);
+	public String myRservationList(Model model ,HttpSession session) {
+		List<Reservation> allReservations = reservationService.getReservationList();
+		List<Reservation> reservations = new ArrayList<Reservation>();
+		Student user = (Student) session.getAttribute("user");
+		
+		System.out.println("输出预约单的设备名");
+		for(Reservation reservation : allReservations) {
+			if(reservation.getStudent().getId()==user.getId()) {
+				String detail = "详情:" + reservation.getDetail();
+				if(reservation.getDetail()==null) {
+					detail +="无";
+				} else if (detail.length() > 14)
+					detail = detail.substring(0, 13) + "...";
+				
+				reservation.setDetail(detail);
+				reservations.add(reservation);
+			}
+		}
+		
 		model.addAttribute("reservations", reservations);
-		return "reservation/list";
+		return "/reservation/myReservationList";
 	}
 
 	@RequestMapping("/reservation/step1")
