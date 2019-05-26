@@ -6,11 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiuxiuxiu.web.SendCode;
 @Controller
 public class SendCodeController {
-@RequestMapping("/send")
+@RequestMapping("/sendcode")
+@ResponseBody//此注解不能省略 否则ajax无法接受返回值
 public void send(Model model,@RequestParam("phoneNumber") String phoneNumber,HttpSession session) {
 	String code =(int) ((Math.random()*9+1)*100000)+"";
 	session.setAttribute("code", code);
