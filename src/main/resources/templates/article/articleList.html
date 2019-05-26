@@ -79,9 +79,9 @@
         <div class="col-md-4 event-right wthree-event-right">
             <div class="event-right1 agileinfo-event-right1">
                 <div class="search1 agileits-search1">
-                    <form action="#" method="post">
-                        <input type="search" name="Search" placeholder="搜索文章/通知"
-                               required=""> <input type="submit" value="检索">
+                    <form th:action=@{/article/articleSearch} method="post">
+                        <input type="search" name="searchInfo" placeholder="搜索文章/通知"
+                               required="required"> <input type="submit" value="检索">
                     </form>
                 </div>
                 <div class="posts w3l-posts">
