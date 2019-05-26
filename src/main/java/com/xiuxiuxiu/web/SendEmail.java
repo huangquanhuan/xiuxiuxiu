@@ -27,12 +27,12 @@ public class SendEmail {
 	        //创建邮件内容
 	        SimpleMailMessage message=new SimpleMailMessage();
 	        message.setFrom("fzuxiuxiuxiu@163.com");
-	        message.setTo("2609339303@qq.com");
-	        message.setSubject("111");
-	        message.setText("111");
+	        message.setTo(email);
+	        message.setSubject(subject);
+	        message.setText(msg);
 	        //发送邮件
 	        mailSender.send(message);
-	        System.out.print("success");
+	        System.out.println("发送成功");
 		} 
 
 }

@@ -16,15 +16,13 @@ public class SendEmailController {
 		@RequestMapping("/sendemail")
 		@ResponseBody 
 		public void sendEmail(Model model,HttpSession session,HttpServletRequest req) {
+			//生成五位数验证码，并存入session中
 			String code = (int)((Math.random()*9+1)*10000)+"";
 			session.setAttribute("email", code);
-			System.out.println("邮箱验证码为"+code);
-			String sender = "fzuxiuxiuxiu@163.com";
 			String receiver = req.getParameter("email").trim();
 			String title="验证您的电子邮箱地址";
 			String text="您的验证码为:"+code;
-			System.out.println(sender);
-			System.out.println(receiver);
+			System.out.println("邮件接收者"+receiver);
 			System.out.println(title);
 			System.out.println(text);
 			try {
@@ -34,7 +32,6 @@ public class SendEmailController {
 			}
 			model.addAttribute("msg","验证码发送成功");
 			model.addAttribute("receiver",receiver);
-			System.out.println(receiver);
 		}
 		
 }
