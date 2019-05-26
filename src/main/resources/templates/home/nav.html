@@ -59,8 +59,7 @@
 									data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
 								<li><a class="active" data-toggle="modal"
 									data-target="#myDevice-data" href="#" id="device">我的设备</a></li>
-								<li><a class="active" href="MyReservationManageServlet"
-									id="appointment">预约管理</a></li>
+								<li><a th:href="@{/myRservationList}" th:if="${session.user != null}" id="appointment">预约管理</a></li>
 							</ul></li>
 					</ul>
 				</nav>
@@ -132,7 +131,9 @@
 											placeholder="密码" required="required"> 
 										<input id="password2" type="password" name="passWord2" 
 											placeholder="确认密码" required="required"> 
-										<button	 onclick="validateInput()"  type="submit">注册</button>
+										<div class="tp">
+											<input	 onclick="validateInput()"  type="submit" value="注册">
+										</div>
 									</form>
 								</div>
 
