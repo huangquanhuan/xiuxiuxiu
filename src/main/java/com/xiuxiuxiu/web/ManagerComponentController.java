@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class ManagerArticleController {
+public class ManagerComponentController {
 
 	@Resource
 	ArticleService articleService;
