@@ -64,11 +64,16 @@
 					        -webkit-line-clamp: 3;
 					        -webkit-box-orient: vertical;"
 					th:text="${article.text}"></p>
-							<div class="read">
+					<div th:th:if="${session.administrator!=null}">
+							<div th:if="(${article.manager.id}==${session.administrator.id})
+							or (${session.administrator.accessLevel==2})" class="read}" 
+							 >
 								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal4'+${article.id}">修改</a>
 								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal5'+${article.id}">删除</a>
+							
 							</div>
 						</div>
+					</div>
 						<div class="clearfix"> </div>
 					</div>
 											<!-- //Modal -->
