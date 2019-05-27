@@ -55,16 +55,14 @@ public class ManagerArticleController {
     
     @RequestMapping("/manager/UpdateArticle")
 	public String update(Model model,@RequestParam("id") int id,@RequestParam("title") String title,
-			@RequestParam("text") String text,@RequestParam("name") String name) {
+			@RequestParam("text") String text) {
     	System.out.println("id => "+id);
     	System.out.println("title => "+title);
     	System.out.println("text => "+text);
         String time=df.format(day);
         System.out.println("time =>"+time);
     	Article article=articleService.findArticleById(id);
-    	Manager manager=article.getManager();
-    	manager.setName(name);
-    	article.setManager(manager);
+
     	article.setText(text);
     	article.setTitle(title);
     	article.setTime(time);
@@ -83,7 +81,7 @@ public class ManagerArticleController {
         System.out.println("time =>"+time);
         Article article=new Article();
        
-    	Manager manager=(Manager)session.getAttribute("user");
+    	Manager manager=(Manager)session.getAttribute("administrator");
     	System.out.println(manager.getName());
     	manager.setName(manager.getName());
     	article.setManager(manager);
@@ -92,6 +90,20 @@ public class ManagerArticleController {
     	article.setTime(time);
     	articleService.save(article);
    		return "redirect:/manager/Marticle";
+   	}
+    
+    @RequestMapping("/manager/MyArticle")
+   	public String Add(Model model,HttpSession session
+   			) {      	
+
+        String time=df.format(day);
+        System.out.println("time =>"+time);
+        Article article=new Article();
+       
+    	Manager manager=(Manager)session.getAttribute("administrator");
+    	List<Article> mylist=articleService.findByManager(manager);
+    	model.addAttribute("articleList", mylist);
+   		return "/manager/Marticle";
    	}
 }
 
