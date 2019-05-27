@@ -20,10 +20,7 @@
 				<li><a class="active" href="#" data-toggle="modal"
 					data-target="#myModal2" id="login"
 					th:style="'display:' + @{(${session.user} ? 'none' : 'block')} ">登录</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#myModal3"
-					id="register"
-					th:style="'display:' + @{(${session.user} ? 'none' : 'block')} ">
-						注册</a></li>
+				
 				<li><a href="#" data-toggle="modal" data-target="#myModal6"
 					id="exit"
 					th:style="'display:' + @{((${session.user}!=null) ? 'block' : 'none')} ">退出登录</a></li>
@@ -58,7 +55,7 @@
 <!-- 							</ul> -->
 <!-- 						</li> -->
 				
-                <li><a href="ArticlesServlet?method=list" class="hvr-underline-from-center">文章管理</a></li>
+                <li><a th:style="'display:' + @{((${session.user}!=null) ? 'block' : 'none')} " th:href="@{/Marticle}" class="hvr-underline-from-center">文章管理</a></li>
                  <li><a href="#" class="hvr-underline-from-center">联系我们</a></li>
                 <li class="dropdown"><a id="my_message" href="#"
 							class="dropdown-toggle hvr-underline-from-center"
