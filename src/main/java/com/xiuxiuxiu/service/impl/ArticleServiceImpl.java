@@ -1,6 +1,7 @@
 package com.xiuxiuxiu.service.impl;
 
 import com.xiuxiuxiu.model.Article;
+import com.xiuxiuxiu.model.Manager;
 import com.xiuxiuxiu.repository.ArticleRepository;
 import com.xiuxiuxiu.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,12 @@ public class ArticleServiceImpl implements ArticleService{
     public Article findArticleByTitle(String title) {
         return articleRepository.findBytitle(title);
     }
-
+    
+    @Override
+    public List<Article> findByManager(Manager manager) {
+        return articleRepository.findByManager(manager);
+    }
+    
     @Override
     public void save(Article article) {
         articleRepository.save(article);

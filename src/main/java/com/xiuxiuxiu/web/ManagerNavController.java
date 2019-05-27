@@ -56,7 +56,7 @@ public class ManagerNavController {
 			System.out.println("登陆密码错误！");
 		} else {
 			// 登陆成功
-			session.setAttribute("user", manager);
+			session.setAttribute("administrator", manager);
 			
 		}
 		
