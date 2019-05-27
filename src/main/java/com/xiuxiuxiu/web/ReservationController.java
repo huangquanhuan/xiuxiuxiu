@@ -44,8 +44,8 @@ public class ReservationController {
 	@Autowired
 	ImgUrlService imgUrlService;
 
-	@RequestMapping("/myRservationList")
-	public String myRservationList(Model model, HttpSession session) {
+	@RequestMapping("/myReservationList")
+	public String myReservationList(Model model, HttpSession session) {
 		List<Reservation> allReservations = reservationService.getReservationList();
 		List<Reservation> reservations = new ArrayList<Reservation>();
 		Student user = (Student) session.getAttribute("user");
