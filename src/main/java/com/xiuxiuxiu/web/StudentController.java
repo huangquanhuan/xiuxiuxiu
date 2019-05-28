@@ -191,7 +191,6 @@ public class StudentController {
 		equipmentService.edit(equipment);
 		model.addAttribute("message", "添加设备成功");
 		
-
 		// 更新页面的session
 		user = studentService.findStudentById(user.getId());
 		session.setAttribute("user", user);

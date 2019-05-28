@@ -22,6 +22,5 @@ public interface ArticleService {
     public void delete(int id);
 
 
-
-
+    public Article findByTitleLink(String title);
 }

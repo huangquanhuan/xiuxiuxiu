@@ -9,6 +9,8 @@ import com.xiuxiuxiu.model.Manager;
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     Article findById(int id);
+    
+    Article findByTitleLike(String title);
 
     void deleteById(int id);
 
