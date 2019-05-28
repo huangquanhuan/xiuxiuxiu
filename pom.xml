@@ -54,6 +54,59 @@
 	       <artifactId>spring-boot-starter-mail</artifactId>
 	   </dependency>
 	   
+	   <!-- poi（导入导出xsi文件）所需包 -->  	
+	   	  <dependency>
+            	<groupId>cn.afterturn</groupId>
+            	<artifactId>easypoi-base</artifactId>
+            	<version>3.0.3</version>
+              	</dependency>
+        	<dependency>
+            	<groupId>cn.afterturn</groupId>
+            	<artifactId>easypoi-web</artifactId>
+            	<version>3.0.3</version>
+        	</dependency>
+        	<dependency>
+            	<groupId>cn.afterturn</groupId>
+            	<artifactId>easypoi-annotation</artifactId>
+            	<version>3.0.3</version>
+        	</dependency>
+        
+        	 <!-- 文件上传 -->
+        	<dependency>
+            	<groupId>commons-fileupload</groupId>
+            	<artifactId>commons-fileupload</artifactId>
+            	<version>1.3.1</version>
+        	</dependency>
+        	
+        	<!-- 单元测试框架 -->
+        	<dependency>
+<<<<<<< HEAD
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+			</dependency>
+        	<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+			</dependency>
+			
+			<!-- Lombok能通过注解的方式，在编译时自动为属性生成构造器 -->
+			<dependency>
+    			<groupId>org.projectlombok</groupId>
+    			<artifactId>lombok</artifactId>
+=======
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.7</version>
+			</dependency>
+			
+			<!-- Lombok能通过注解的方式，在编译时自动为属性生成构造器 -->
+			<dependency>
+    			<groupId>org.projectlombok</groupId>
+    			<artifactId>lombok</artifactId>
+    			<version>1.16.20</version>
+>>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
+    			<scope>provided</scope>
+			</dependency>
     </dependencies>
     <build>
         <plugins>

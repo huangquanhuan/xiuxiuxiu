@@ -1,10 +1,12 @@
 package com.xiuxiuxiu.service.impl;
 
 import com.xiuxiuxiu.model.Article;
+import com.xiuxiuxiu.model.Manager;
 import com.xiuxiuxiu.repository.ArticleRepository;
 import com.xiuxiuxiu.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler;
 
 import java.util.List;
 
@@ -19,6 +21,11 @@ public class ArticleServiceImpl implements ArticleService{
         return articleRepository.findAll();
     }
 
+    @Override 
+    public Article findByTitleLink(String title){
+    	return articleRepository.findByTitleLike(title);
+    }
+    
     @Override
     public Article findArticleById(int id) {
         return articleRepository.findById(id);
@@ -28,7 +35,12 @@ public class ArticleServiceImpl implements ArticleService{
     public Article findArticleByTitle(String title) {
         return articleRepository.findBytitle(title);
     }
-
+    
+    @Override
+    public List<Article> findByManager(Manager manager) {
+        return articleRepository.findByManager(manager);
+    }
+    
     @Override
     public void save(Article article) {
         articleRepository.save(article);
