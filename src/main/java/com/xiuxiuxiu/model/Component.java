@@ -29,7 +29,9 @@ public class Component {
 	/** 零件剩余数量 */
 	@Column(nullable = false)
 	private int quantity;
-
+	/** 零件类型 */
+	@Column(nullable = false)
+	private String type;
 	public int getId() {
 		return id;
 	}
@@ -60,6 +62,14 @@ public class Component {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }
