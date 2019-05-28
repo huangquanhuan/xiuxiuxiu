@@ -80,7 +80,6 @@
         	
         	<!-- 单元测试框架 -->
         	<dependency>
-<<<<<<< HEAD
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>
 			</dependency>
@@ -93,7 +92,6 @@
 			<dependency>
     			<groupId>org.projectlombok</groupId>
     			<artifactId>lombok</artifactId>
-=======
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.7</version>
@@ -104,7 +102,6 @@
     			<groupId>org.projectlombok</groupId>
     			<artifactId>lombok</artifactId>
     			<version>1.16.20</version>
->>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
     			<scope>provided</scope>
 			</dependency>
     </dependencies>

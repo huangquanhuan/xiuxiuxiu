@@ -3,107 +3,89 @@ package com.xiuxiuxiu.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.xiuxiuxiu.model.Component;
 
-import com.xiuxiuxiu.model.Article;
-import com.xiuxiuxiu.model.Manager;
-import com.xiuxiuxiu.service.ArticleService;
-import com.xiuxiuxiu.service.ManagerService;
+
+import com.xiuxiuxiu.service.ComponentService;
+
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 @Controller
 public class ManagerComponentController {
 
 	@Resource
-	ArticleService articleService;
+	ComponentService componentService;
+	  
 	
-	@Resource
-	ManagerService managerService;
-	
-    Date day=new Date();    
-
-    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-	
-    @RequestMapping("/Marticle")
+    @RequestMapping("/Mcomponent")
     public String index() {
-        return "redirect:/manager/Marticle";
+        return "redirect:/manager/Mcomponent";
     }
 
-    @RequestMapping("/manager/Marticle")
+    @RequestMapping("/manager/Mcomponent")
     public String list(Model model) {
-    	List<Article> articleList=articleService.getArticleList();
-    	model.addAttribute("articleList", articleList);
+    	List<Component> componentList=componentService.getComponentList();
+    	model.addAttribute("componentList", componentList);
         
-        return "/manager/Marticle";
+        return "/manager/Mcomponent";
     }
 
-    @RequestMapping("/manager/DeleteArticle")
+    @RequestMapping("/manager/DeleteComponent")
 	public String delete(Model model,@RequestParam("id") int id) {
     	System.out.println("id => "+id);
-    	articleService.delete(id);
-		return "redirect:/manager/Marticle";
+    	componentService.delete(id);
+		return "redirect:/manager/Mcomponent";
 	}
     
-    @RequestMapping("/manager/UpdateArticle")
-	public String update(Model model,@RequestParam("id") int id,@RequestParam("title") String title,
-			@RequestParam("text") String text) {
+    @RequestMapping("/manager/UpdateComponent")
+	public String update(Model model,@RequestParam("id") int id,
+			@RequestParam("name") String name,@RequestParam("price") Double price
+    ,@RequestParam("type") String type,@RequestParam("quantity") int quantity){
     	System.out.println("id => "+id);
-    	System.out.println("title => "+title);
-    	System.out.println("text => "+text);
-        String time=df.format(day);
-        System.out.println("time =>"+time);
-    	Article article=articleService.findArticleById(id);
+    	System.out.println("name => "+name);
+    	System.out.println("price => "+price);
+    	System.out.println("type => "+type);
+    	System.out.println("quantity => "+quantity);
+        
+    	Component component=componentService.findComponentById(id);
 
-    	article.setText(text);
-    	article.setTitle(title);
-    	article.setTime(time);
-    	articleService.edit(article);
-		return "redirect:/manager/Marticle";
+    	component.setName(name);
+    	component.setPrice(price);
+    	component.setQuantity(quantity);
+    	component.setType(type);
+    	componentService.edit(component);
+		return "redirect:/manager/Mcomponent";
 	}
     
-    @RequestMapping("/manager/AddArticle")
-   	public String Add(Model model,HttpSession session,
-   			@RequestParam("title") String title,@RequestParam("text") String text) {
-       
+    @RequestMapping("/manager/AddComponent")
+   	public String Add(Model model,
+   			@RequestParam("name") String name,@RequestParam("price") Double price
+   		    ,@RequestParam("type") String type,@RequestParam("quantity") int quantity){
        	
-       	System.out.println("title => "+title);
-       	System.out.println("text => "+text);
-        String time=df.format(day);
-        System.out.println("time =>"+time);
-        Article article=new Article();
-       
-    	Manager manager=(Manager)session.getAttribute("administrator");
-    	System.out.println(manager.getName());
-    	manager.setName(manager.getName());
-    	article.setManager(manager);
-    	article.setText(text);
-    	article.setTitle(title);
-    	article.setTime(time);
-    	articleService.save(article);
-   		return "redirect:/manager/Marticle";
+    	System.out.println("name => "+name);
+    	System.out.println("price => "+price);
+    	System.out.println("type => "+type);
+    	System.out.println("quantity => "+quantity);
+        
+    	Component component=new Component();
+
+    	component.setName(name);
+    	component.setPrice(price);
+    	component.setQuantity(quantity);
+    	component.setType(type);
+    	componentService.save(component);
+   		return "redirect:/manager/Mcomponent";
    	}
     
-    @RequestMapping("/manager/MyArticle")
-   	public String Add(Model model,HttpSession session
-   			) {      	
-
-        String time=df.format(day);
-        System.out.println("time =>"+time);
-        Article article=new Article();
-       
-    	Manager manager=(Manager)session.getAttribute("administrator");
-    	List<Article> mylist=articleService.findByManager(manager);
-    	model.addAttribute("articleList", mylist);
-   		return "/manager/Marticle";
-   	}
+    
 }
 
