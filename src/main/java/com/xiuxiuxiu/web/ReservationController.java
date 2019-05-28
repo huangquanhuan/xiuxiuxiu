@@ -112,9 +112,13 @@ public class ReservationController {
 	@RequestMapping("/cancelMyReservation")
 	public String cancelMyReservation(Model model, @RequestParam("reservationId") int reservationId) {
 
-		reservationService.delete(reservationId);
+		try {
+			reservationService.delete(reservationId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("message", "预约单已撤销！");
-		return "redirect:/myRservationList";
+		return "redirect:/myReservationList";
 	}
 
 	@RequestMapping("/remarkMyReservation")
@@ -125,7 +129,7 @@ public class ReservationController {
 		reservation.setRemark(remarkText);
 		reservationService.save(reservation);
 		model.addAttribute("message", "评价已提交！");
-		return "redirect:/myRservationList";
+		return "redirect:/myReservationList";
 	}
 
 	@RequestMapping("/feedbackMyReservation")
@@ -136,7 +140,7 @@ public class ReservationController {
 		reservation.setFeedback(feedbackTxet);
 		reservationService.save(reservation);
 		model.addAttribute("message", "反馈已提交！");
-		return "redirect:/myRservationList";
+		return "redirect:/myReservationList";
 	}
 
 	@RequestMapping("/myReservationDetail")
@@ -172,6 +176,7 @@ public class ReservationController {
 
 		Reservation reservation = new Reservation();
 		Student student = (Student) session.getAttribute("user");
+		
 
 		MultipartHttpServletRequest parameters = ((MultipartHttpServletRequest) request);
 		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("issueImage");
@@ -181,8 +186,6 @@ public class ReservationController {
 		String activityId = parameters.getParameter("activity");
 		if (activityId != null && Character.isDigit(activityId.charAt(0))) {
 			activity = activityService.findActivityById(Integer.parseInt(parameters.getParameter("activity")));
-		} else {
-			activity = activityService.findActivityById(0);
 		}
 		reservation.setActivity(activity);
 
@@ -222,7 +225,7 @@ public class ReservationController {
 		// 处理需求零件的信息
 		String neededComponents = parameters.getParameter("neededComponents");
 		if (neededComponents != null) {
-			System.out.println("该预约单选择的零件：" + neededComponents);
+			System.out.println("该预约单选择的零件id：" + neededComponents);
 			String[] componentIdList = neededComponents.split(",");
 			if (componentIdList != null) {
 				List<Component> componentList = new ArrayList<Component>();
@@ -277,20 +280,34 @@ public class ReservationController {
 		}
 		reservation.setImgUrlList(imgUrlList);
 		try {
-			reservationService.save(reservation);
-
-			// 存预约单-图片url地址对应关系到数据库
-			for (ReservationImgUrl imgUrl : imgUrlList) {
-				imgUrlService.save(imgUrl);
+			//表单没有传reservationId说明是新增预约单，否则为修改
+			if(parameters.getParameter("reservationId")==null) {
+				reservationService.save(reservation);
+				
+				// 存预约单-图片url地址对应关系到数据库
+				for (ReservationImgUrl imgUrl : imgUrlList) {
+					imgUrlService.save(imgUrl);
+				}
+				model.addAttribute("message", "预约成功！");
+				System.out.println("预约成功！");
+			} else {
+				reservationService.delete(Integer.parseInt(parameters.getParameter("reservationId")));
+				reservationService.save(reservation);
+				// 存预约单-图片url地址对应关系到数据库
+				for (ReservationImgUrl imgUrl : imgUrlList) {
+					imgUrlService.save(imgUrl);
+				}
+				
+				model.addAttribute("message", "修改成功！");
+				System.out.println("修改成功！");
 			}
 		} catch (Exception e) {
 			System.out.println("预约失败！");
-			model.addAttribute("err", "预约失败！");
-			System.err.println(e);
+			model.addAttribute("message", "对不起，由于未知原因，预约失败！");
+			e.printStackTrace();
 			return "reservation/reserveResult";
 		}
-		model.addAttribute("message", "预约成功！");
-		System.out.println("预约成功！");
+		
 		return "reservation/reserveResult";
 	}
 

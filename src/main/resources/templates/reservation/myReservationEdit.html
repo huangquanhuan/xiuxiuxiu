@@ -37,6 +37,7 @@
 				<div id="field-service" class="container tab-pane active">
 					<br />
 					<form action="/reservation/submit" method="post" enctype="multipart/form-data">
+						<input type="text" name="reservationId" th:value="${reservation.id}" style="display:none">
 						<input type="text" name="applyType"  th:value="${reservation.applicationType}" style="display:none;" />
 						<!-- 场次选择 -->
 						<div class="form-group" th:if="${reservation.applicationType==0}">
