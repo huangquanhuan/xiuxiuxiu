@@ -74,7 +74,10 @@
 							<tbody>
 								<tr>
 									<td align="right" width="50%"><h3>维修时间：</h3></td>
-									<td align="left"><h3 th:text="${reservation.RequiredTime}"></h3></td>
+									<td align="left">
+										<h3 th:text="${reservation.RequiredTime}"></h3>
+										<h3 th:text="未填写" th:if="${reservation.RequiredTime==null || reservation.RequiredTime.length()<1}"></h3>
+									</td>
 								</tr>
 								<tr>
 									<td align="right"><h3>维修地点：</h3></td>
@@ -82,8 +85,10 @@
 								</tr>
 								<tr>
 									<td align="right"><h3>维修设备：</h3></td>
-									<td align="left"><h3 th:text="${reservation.equipment.equipmentName}"
-								th:if="${reservation.equipment!=null}">${reservation.equipment.equipmentName}</h3></td>
+									<td align="left">
+										<h3 th:text="${reservation.equipment.equipmentName}" th:if="${reservation.equipment!=null}"></h3>
+										<h3 th:text="未选择" th:if="${reservation.equipment==null}"></h3>
+										</td>
 								</tr>
 								<tr>
 									<td align="right"><h3>问题类型：</h3></td>
@@ -94,15 +99,12 @@
 									<td align="left">
 										<h3>
 											<span th:if="${reservation.detail!=null}" th:text="${reservation.detail}"></span>
-									 		<span th:if="${reservation.detail==null}" th:text="'未填写'"></span>
+									 		<span th:if="${reservation.detail==null || reservation.detail.length()<1}" th:text="'未填写'"></span>
 									 	</h3>
 									 </td>
 								</tr>
 							</tbody>
 						</table>
-						
-							 
-						
 
 					</div>
 

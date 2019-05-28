@@ -53,7 +53,7 @@ public class ReservationController {
 		for (Reservation reservation : allReservations) {
 			if (reservation.getStudent().getId() == user.getId()) {
 				String detail = "详情:" + reservation.getDetail();
-				if (reservation.getDetail() == null) {
+				if (reservation.getDetail() == null || reservation.getDetail().length()<1) {
 					detail = "详情:未填写";
 				} else if (detail.length() > 14)
 					detail = detail.substring(0, 13) + "...";
