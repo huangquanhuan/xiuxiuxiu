@@ -36,18 +36,19 @@ public class ManagerNavController {
 
 
 	@RequestMapping("/manager/login")
-	public String login(Model model ,@RequestParam("phoneNumber") String phoneNumber,@RequestParam("password") String password,HttpSession session) {
+	public String login(Model model ,@RequestParam("phoneNumber") String phoneNumber,
+			@RequestParam("password") String password,HttpSession session) {
 
 		Manager manager = managerService.findManagerByPhoneNumber(phoneNumber);
 		
-		if(manager==null) {
+		if(manager == null) {
 			model.addAttribute("err", "抱歉，该账号不存在！");
 			System.out.println("登陆账号不存在！");
 		} else if (manager.getPhoneNumber().length() < 1) {
 			model.addAttribute("err", "请输入登录名！");
 		} else if (manager.getPassword().length() < 1) {
 			model.addAttribute("err", "请输入密码！");
-		} else if (!manager.getPhoneNumber().equals(phoneNumber)) {
+		} else if (!manager.getPassword().equals(password)) {
 			// 登陆失败
 			System.out.println("真实密码："+manager.getPhoneNumber());
 			System.out.println("输入密码："+phoneNumber);
@@ -55,7 +56,7 @@ public class ManagerNavController {
 			System.out.println("登陆密码错误！");
 		} else {
 			// 登陆成功
-			session.setAttribute("user", manager);
+			session.setAttribute("administrator", manager);
 			
 		}
 		

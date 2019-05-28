@@ -59,7 +59,7 @@
 									data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
 								<li><a class="active" data-toggle="modal"
 									data-target="#myDevice-data" href="#" id="device">我的设备</a></li>
-								<li><a th:href="@{/myRservationList}" th:if="${session.user != null}" id="appointment">预约管理</a></li>
+								<li><a th:href="@{/myReservationList}" th:if="${session.user != null}" id="appointment">预约管理</a></li>
 							</ul></li>
 					</ul>
 				</nav>
@@ -76,7 +76,7 @@
 							<div class="signin-form profile">
 								<h3 class="agileinfo_sign">登录</h3>
 								<div class="login-form">
-									<form class="loginForm" action="student/login" method="post">
+									<form class="loginForm" action="/student/login" method="post">
 										<input name="phoneNumber" placeholder="手机号" type="text"
 											required="required"> <input type="password"
 											name="password" placeholder="密码" required="required">
@@ -102,7 +102,7 @@
 							<div class="signin-form profile">
 								<h3 class="agileinfo_sign">注册</h3>
 								<div class="register-form">
-									<form class="registerForm" action="student/register"
+									<form class="registerForm" action="/student/register"
 										method="post">
 										<input id="register-name" type="text" name="name"
 											placeholder="姓名" required="required"> <input
@@ -172,7 +172,7 @@
 							<div class="signin-form profile">
 								<h3 class="agileinfo_sign">是否退出登录？</h3>
 								<div class="login-form">
-									<form action="student/exit" method="post">
+									<form action="/student/exit" method="post">
 										<input type="submit" value="确定">
 									</form>
 								</div>
@@ -187,7 +187,7 @@
 				aria-labelledby="mySmallModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<form role="form" action="student/edit" method="post"
+						<form role="form" action="/student/edit" method="post"
 							class="registration-form">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">
@@ -268,7 +268,7 @@
 							<div class="top-content text-center" th:unless="${session.user== null}">
 								<div th:each="equipment: ${session.user.equipmentList}" >
 									<form class="form-inline" role="form"
-										action="student/equipmentEdit"
+										action="/student/equipmentEdit"
 										method="post">
 										<input type="text" th:value="${equipment.id}" name="equipmentId" style="display:none">
 										<input type="text" class="form-control"
@@ -284,7 +284,7 @@
 								</div>
 
 								<form id="equipment-form-add" class="form-inline asd" role="form"
-									action="student/addEquipment" method="post"
+									action="/student/addEquipment" method="post"
 									style="display: none">
 									<input type="text" class="form-control" name="equipmentName">
 									<button type="submit" class="btn btn-info">确认添加</button>

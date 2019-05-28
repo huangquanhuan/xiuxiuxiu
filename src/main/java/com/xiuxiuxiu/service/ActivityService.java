@@ -9,7 +9,7 @@ public interface ActivityService {
     public List<Activity> getActivityList();
 
     public Activity findActivityById(int id);
-
+    
     public void save(Activity student);
 
     public void edit(Activity student);

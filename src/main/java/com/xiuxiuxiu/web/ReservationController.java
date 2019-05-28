@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -43,28 +44,106 @@ public class ReservationController {
 	@Autowired
 	ImgUrlService imgUrlService;
 
-	@RequestMapping("/myRservationList")
-	public String myRservationList(Model model ,HttpSession session) {
+	@RequestMapping("/myReservationList")
+	public String myReservationList(Model model, HttpSession session) {
 		List<Reservation> allReservations = reservationService.getReservationList();
 		List<Reservation> reservations = new ArrayList<Reservation>();
 		Student user = (Student) session.getAttribute("user");
-		
-		System.out.println("输出预约单的设备名");
-		for(Reservation reservation : allReservations) {
-			if(reservation.getStudent().getId()==user.getId()) {
+
+		for (Reservation reservation : allReservations) {
+			if (reservation.getStudent().getId() == user.getId()) {
 				String detail = "详情:" + reservation.getDetail();
-				if(reservation.getDetail()==null) {
-					detail +="无";
+				if (reservation.getDetail() == null) {
+					detail += "无";
 				} else if (detail.length() > 14)
 					detail = detail.substring(0, 13) + "...";
-				
+
 				reservation.setDetail(detail);
 				reservations.add(reservation);
 			}
 		}
-		
+
 		model.addAttribute("reservations", reservations);
 		return "/reservation/myReservationList";
+	}
+
+	@RequestMapping("/editMyReservation")
+	public String editMyReservation(Model model, @RequestParam("reservationId") int reservationId) {
+		Reservation reservation = reservationService.findReservationById(reservationId);
+		model.addAttribute("reservation", reservation);
+
+		// 获取所有活动场次列表
+		List<Activity> activities = activityService.getActivityList();
+		// 获取所有零件列表
+		List<Component> components = componentService.getComponentList();
+		// 获取所有设备列表
+		List<Equipment> equipments = equipmentService.getEquipmentList();
+
+		// 传递给页面的维修活动列表去除已选的活动
+		Activity reservationActivity = reservation.getActivity();
+		if (reservationActivity != null) {
+			if (activities.remove(reservationActivity))
+				System.out.println("activitys中移除一个activity");
+		}
+
+		// 传递给页面的零件列表去除已选的零件
+		List<Component> reservationComponentList = reservation.getComponentList();
+		for( Component component:reservationComponentList) {
+			if( components.remove(component))
+				System.out.println("components中移除一个component");
+		}
+		
+		// 传递给页面的设备列表去除已选的设备
+		Equipment reservationEquipment = reservation.getEquipment();
+		if (reservationEquipment != null) {
+			if (equipments.remove(reservationEquipment))
+				System.out.println("equipments中移除一个equipment");
+		}
+
+		model.addAttribute("activities", activities);
+
+		model.addAttribute("components", components);
+
+		model.addAttribute("equipments", equipments);
+
+		return "/reservation/myReservationEdit";
+	}
+
+	@RequestMapping("/cancelMyReservation")
+	public String cancelMyReservation(Model model, @RequestParam("reservationId") int reservationId) {
+
+		reservationService.delete(reservationId);
+		model.addAttribute("message", "预约单已撤销！");
+		return "redirect:/myRservationList";
+	}
+
+	@RequestMapping("/remarkMyReservation")
+	public String remarkMyReservation(Model model, @RequestParam("reservationId") int reservationId,
+			@RequestParam("remarkText") String remarkText) {
+
+		Reservation reservation = reservationService.findReservationById(reservationId);
+		reservation.setRemark(remarkText);
+		reservationService.save(reservation);
+		model.addAttribute("message", "评价已提交！");
+		return "redirect:/myRservationList";
+	}
+
+	@RequestMapping("/feedbackMyReservation")
+	public String feedbackMyReservation(Model model, @RequestParam("reservationId") int reservationId,
+			@RequestParam("feedbackTxet") String feedbackTxet) {
+
+		Reservation reservation = reservationService.findReservationById(reservationId);
+		reservation.setFeedback(feedbackTxet);
+		reservationService.save(reservation);
+		model.addAttribute("message", "反馈已提交！");
+		return "redirect:/myRservationList";
+	}
+
+	@RequestMapping("/myReservationDetail")
+	public String myReservationDetail(Model model, @RequestParam("reservationId") int reservationId) {
+		Reservation reservation = reservationService.findReservationById(reservationId);
+		model.addAttribute("reservation", reservation);
+		return "/reservation/myReservationDetail";
 	}
 
 	@RequestMapping("/reservation/step1")
@@ -74,24 +153,18 @@ public class ReservationController {
 
 	@RequestMapping("/reservation/step2")
 	public String reservationStep2(Model model) {
-		// 获取活动场次列表
+		// 获取所有活动场次列表
 		List<Activity> activities = activityService.getActivityList();
 		model.addAttribute("activities", activities);
 
-		// 获取零件列表
+		// 获取所有零件列表
 		List<Component> components = componentService.getComponentList();
 		model.addAttribute("components", components);
-//		Student student = (Student) request.getSession().getAttribute("name"); // 获取设备列表
-//		Integer userId = student.getID();
+
+		// 获取所有设备列表
 		List<Equipment> equipments = equipmentService.getEquipmentList();
 		model.addAttribute("equipments", equipments);
 		return "/reservation/reservationStep2";
-	}
-
-	@RequestMapping("/reservation/addFieldService")
-	public String addFieldService(Model model) {
-		model.addAttribute("message", "success");
-		return "/reservation/reservationResult";
 	}
 
 	@RequestMapping("/reservation/submit")
@@ -138,7 +211,7 @@ public class ReservationController {
 			reservation.setPlace(student.getAddress());
 		} else {
 
-			model.addAttribute("message", "<遇到问题>  预约失败！！");
+			model.addAttribute("err", "<遇到问题>  预约失败！！");
 			System.out.println("预约类型获取错误！！预约失败！");
 			return "rereservation/reserveResult";
 		}
@@ -212,7 +285,7 @@ public class ReservationController {
 			}
 		} catch (Exception e) {
 			System.out.println("预约失败！");
-			model.addAttribute("message", "预约失败！");
+			model.addAttribute("err", "预约失败！");
 			System.err.println(e);
 			return "reservation/reserveResult";
 		}
@@ -222,7 +295,7 @@ public class ReservationController {
 	}
 
 	@RequestMapping("/reservation/componentSearch")
-	public String componentSearch(HttpServletRequest request,Model model) {
+	public String componentSearch(HttpServletRequest request, Model model) {
 //		String name = Optional.ofNullable(request.getParameter("userName")).orElse("");
 //        int applicationType = Integer.parseInt(Optional.ofNullable(request.getParameter("MethodTypeSelect")).orElse("-1")) ;
 //        int activityId = Integer.parseInt(Optional.ofNullable(request.getParameter("activityID")).orElse("-1"));
@@ -243,9 +316,9 @@ public class ReservationController {
 
 	@RequestMapping("/reservation/appointedComponents")
 	public String appointedComponents(Model model) {
-        List<Activity> activities = activityService.getActivityList();
-        model.addAttribute("activities", activities);
-        model.addAttribute("components", componentService.getComponentList());
+		List<Activity> activities = activityService.getActivityList();
+		model.addAttribute("activities", activities);
+		model.addAttribute("components", componentService.getComponentList());
 		return "/reservation/appointedComponents";
 	}
 }

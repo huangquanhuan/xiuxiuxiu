@@ -29,6 +29,15 @@ public class ArticleController {
         return "article/articleList";
     }
 
+    @RequestMapping("/article/articleSearch")
+    public String search(Model model , @RequestParam("searchInfo") String searchInfo) {
+    	System.err.println("caonima");
+        Article article = articleService.findArticleByTitle(searchInfo);
+        model.addAttribute("article", article);
+        System.out.println("article.id => " + article.getId());
+        return "article/ArticleSearch";
+    }
+    
     @RequestMapping("/article/articleDetail")
     public String getDetail(@RequestParam Integer id, Model model){
         System.out.println("id => "+id);
