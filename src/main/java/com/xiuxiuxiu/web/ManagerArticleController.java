@@ -98,7 +98,6 @@ public class ManagerArticleController {
 
         String time=df.format(day);
         System.out.println("time =>"+time);
-        Article article=new Article();
        
     	Manager manager=(Manager)session.getAttribute("administrator");
     	List<Article> mylist=articleService.findByManager(manager);

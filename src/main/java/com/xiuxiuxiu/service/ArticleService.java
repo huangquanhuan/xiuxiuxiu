@@ -12,14 +12,14 @@ public interface ArticleService {
     public Article findArticleById(int id);
     
     public Article findArticleByTitle(String title);
-
-    public List<Article> findByManager(Manager manager);
     
     public void save(Article article);
 
     public void edit(Article article);
 
     public void delete(int id);
+
+	public List<Article> findByManager(Manager manager);
 
 
 
