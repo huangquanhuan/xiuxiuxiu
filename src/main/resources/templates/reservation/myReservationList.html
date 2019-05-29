@@ -320,10 +320,6 @@
 		</div>
 	</div>
 
-
-
-
-
 	<script type="text/javascript">
 		//点击按钮设置目标id
 		function setTargetID(id) {
@@ -332,6 +328,46 @@
 			document.getElementById("feedback-input-id").value = id;
 		}
 	</script>
+	
+	
+	<!-- 下面js作用为平滑地回到顶部 -->
+	<script type="text/javascript" src="js/move-top.js"></script>
+		<script type="text/javascript" src="js/easing.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event) {
+					event.preventDefault();
+					$('html,body').animate({
+						scrollTop : $(this.hash).offset().top
+					}, 1000);
+				});
+			});
+		</script>
+		<!-- start-smoth-scrolling -->
+		<!-- here stars scrolling icon -->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				/*
+				    var defaults = {
+				    containerID: 'toTop', // fading element id
+				    containerHoverID: 'toTopHover', // fading element hover id
+				    scrollSpeed: 1200,
+				    easingType: 'linear' 
+				    };
+				 */
+
+				$().UItoTop({
+					easingType : 'easeOutQuart'
+				});
+
+			});
+		</script>
+		<!-- //here ends scrolling icon -->
+
+		<a href="#" id="toTop" style="display: none;"><span
+			id="toTopHover"></span>To Top</a>
+
+
 
 </body>
 
