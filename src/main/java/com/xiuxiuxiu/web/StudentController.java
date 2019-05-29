@@ -32,7 +32,14 @@ public class StudentController {
 
 	@RequestMapping("/")
 	public String index() {
-		return "redirect:/home";
+		return "redirect:/index";
+	}
+	
+	@RequestMapping("/index")
+	public String inex(Model model) {
+		List<Activity> activityList = activityService.getActivityList();
+		model.addAttribute("activityList", activityList);
+		return "home/index";
 	}
 
 	@RequestMapping("/home")
