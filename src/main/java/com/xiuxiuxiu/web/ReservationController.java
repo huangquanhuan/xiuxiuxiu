@@ -53,7 +53,7 @@ public class ReservationController {
 		for (Reservation reservation : allReservations) {
 			if (reservation.getStudent().getId() == user.getId()) {
 				String detail = "详情:" + reservation.getDetail();
-				if (reservation.getDetail() == null) {
+				if (reservation.getDetail() == null || reservation.getDetail().length() < 1) {
 					detail = "详情:未填写";
 				} else if (detail.length() > 14)
 					detail = detail.substring(0, 13) + "...";
@@ -88,11 +88,11 @@ public class ReservationController {
 
 		// 传递给页面的零件列表去除已选的零件
 		List<Component> reservationComponentList = reservation.getComponentList();
-		for( Component component:reservationComponentList) {
-			if( components.remove(component))
+		for (Component component : reservationComponentList) {
+			if (components.remove(component))
 				System.out.println("components中移除一个component");
 		}
-		
+
 		// 传递给页面的设备列表去除已选的设备
 		Equipment reservationEquipment = reservation.getEquipment();
 		if (reservationEquipment != null) {
@@ -112,9 +112,13 @@ public class ReservationController {
 	@RequestMapping("/cancelMyReservation")
 	public String cancelMyReservation(Model model, @RequestParam("reservationId") int reservationId) {
 
-		reservationService.delete(reservationId);
+		try {
+			reservationService.delete(reservationId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("message", "预约单已撤销！");
-		return "redirect:/myRservationList";
+		return "redirect:/myReservationList";
 	}
 
 	@RequestMapping("/remarkMyReservation")
@@ -125,7 +129,7 @@ public class ReservationController {
 		reservation.setRemark(remarkText);
 		reservationService.save(reservation);
 		model.addAttribute("message", "评价已提交！");
-		return "redirect:/myRservationList";
+		return "redirect:/myReservationList";
 	}
 
 	@RequestMapping("/feedbackMyReservation")
@@ -136,13 +140,22 @@ public class ReservationController {
 		reservation.setFeedback(feedbackTxet);
 		reservationService.save(reservation);
 		model.addAttribute("message", "反馈已提交！");
-		return "redirect:/myRservationList";
+		return "redirect:/myReservationList";
 	}
 
 	@RequestMapping("/myReservationDetail")
 	public String myReservationDetail(Model model, @RequestParam("reservationId") int reservationId) {
 		Reservation reservation = reservationService.findReservationById(reservationId);
+		List<ReservationImgUrl> imgUrls = reservation.getImgUrlList();
+		for (ReservationImgUrl imgUrl : imgUrls) {
+			//例如一个url="C:\Users\10553\AppData\Local\Temp..."
+			String cutUrl = imgUrl.getImg_url().substring(9);
+			System.out.println(cutUrl);
+			imgUrl.setImg_url(cutUrl);
+		}
+
 		model.addAttribute("reservation", reservation);
+		model.addAttribute("imgUrls", imgUrls);
 		return "/reservation/myReservationDetail";
 	}
 
@@ -181,8 +194,6 @@ public class ReservationController {
 		String activityId = parameters.getParameter("activity");
 		if (activityId != null && Character.isDigit(activityId.charAt(0))) {
 			activity = activityService.findActivityById(Integer.parseInt(parameters.getParameter("activity")));
-		} else {
-			activity = activityService.findActivityById(0);
 		}
 		reservation.setActivity(activity);
 
@@ -222,7 +233,7 @@ public class ReservationController {
 		// 处理需求零件的信息
 		String neededComponents = parameters.getParameter("neededComponents");
 		if (neededComponents != null) {
-			System.out.println("该预约单选择的零件：" + neededComponents);
+			System.out.println("该预约单选择的零件id：" + neededComponents);
 			String[] componentIdList = neededComponents.split(",");
 			if (componentIdList != null) {
 				List<Component> componentList = new ArrayList<Component>();
@@ -277,20 +288,34 @@ public class ReservationController {
 		}
 		reservation.setImgUrlList(imgUrlList);
 		try {
-			reservationService.save(reservation);
+			// 表单没有传reservationId说明是新增预约单，否则为修改
+			if (parameters.getParameter("reservationId") == null) {
+				reservationService.save(reservation);
 
-			// 存预约单-图片url地址对应关系到数据库
-			for (ReservationImgUrl imgUrl : imgUrlList) {
-				imgUrlService.save(imgUrl);
+				// 存预约单-图片url地址对应关系到数据库
+				for (ReservationImgUrl imgUrl : imgUrlList) {
+					imgUrlService.save(imgUrl);
+				}
+				model.addAttribute("message", "预约成功！");
+				System.out.println("预约成功！");
+			} else {
+				reservationService.delete(Integer.parseInt(parameters.getParameter("reservationId")));
+				reservationService.save(reservation);
+				// 存预约单-图片url地址对应关系到数据库
+				for (ReservationImgUrl imgUrl : imgUrlList) {
+					imgUrlService.save(imgUrl);
+				}
+
+				model.addAttribute("message", "修改成功！");
+				System.out.println("修改成功！");
 			}
 		} catch (Exception e) {
 			System.out.println("预约失败！");
-			model.addAttribute("err", "预约失败！");
-			System.err.println(e);
+			model.addAttribute("message", "对不起，由于未知原因，预约失败！");
+			e.printStackTrace();
 			return "reservation/reserveResult";
 		}
-		model.addAttribute("message", "预约成功！");
-		System.out.println("预约成功！");
+
 		return "reservation/reserveResult";
 	}
 
