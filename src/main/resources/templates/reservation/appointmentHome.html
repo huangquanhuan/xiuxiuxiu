@@ -38,7 +38,7 @@
 				<!-- 搜索框 -->
 				<div id="field-search" class="container tab-pane active">
 					<br />
-					<form action="ViewUserServlet?method=list" method="post">
+					<form action="/reservation/componentSearch" method="post">
 
 						<div class="input-group col-md-12"
 							style="margin-top: 0px; positon: relative; padding-left: 1em; padding-right: 1em;">
@@ -54,7 +54,7 @@
 						<div class="form-group">
 							<label for="session-select" class="col-sm-3">预约场次</label>
 							<div class="col-sm-9">
-								<select id="session-select" class="form-control">
+								<select id="session-select" class="form-control" name="activityId">
 									<!-- 这里装入场次时间信息 -->
 									<option th:each="activity : ${activities}"
 										th:value="${activity.id}"
@@ -68,7 +68,7 @@
 						<div class="form-group">
 							<label for="finished-select" class="col-sm-3">是否已完成</label>
 							<div class="col-sm-9">
-								<select id="finished-select" class="form-control">
+								<select id="finished-select" class="form-control" name="state">
 									<option value="0">未受理</option>
 									<option value="1">已受理未完成</option>
 									<option value="2">已完成</option>

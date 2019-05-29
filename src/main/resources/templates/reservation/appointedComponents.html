@@ -37,7 +37,7 @@
 				<!-- 预约零件的表单：开始 -->
 				<div id="field-service" class="container tab-pane active">
 					<br />
-					<form action="ViewComponentServlet?method=list" method="post">
+					<form action="/reservation/componentSearch" method="post">
 						<a href="" class="view resw3">刷新</a>
 						<!-- 搜索框 -->
 						<div id="field-search" class="container tab-pane active">
@@ -56,10 +56,10 @@
 						<div class="form-group">
 							<label for="session-select" class="col-sm-3">预约场次</label>
 							<div class="col-sm-9">
-								<select id="session-select" name="activityID"
+								<select id="session-select" name="activityId"
 									class="form-control">
 									<!-- 这里装入场次时间信息 -->
-									<option th:each="activity:${activities}" value="${activity.id}"
+									<option th:each="activity:${activities}" th:value="${activity.id}"
 										th:text="${activity.time}+'，地点：'+${activity.place}"></option>
 									<option value="-1" selected="selected">全部预约场次</option>
 									<option value="-2">上门服务</option>
@@ -73,13 +73,13 @@
 								<label for="components-select">零件类型</label>
 							</div>
 							<div class="col-sm-9">
-								<select id="components-select" name="componentsTypeSelect"
+								<select id="components-select" name="componentType"
 									class="form-control">
 									<!-- 这里装入预约类型列表 -->
 									<option th:each="component:${components}"
 										th:value="${component.name}"
 										th:text="${component.name}"></option>
-									<option value="" selected="selected">全部</option>
+									<option value="all" selected="selected">全部</option>
 								</select>
 							</div>
 						</div>
@@ -88,7 +88,7 @@
 						<div class="form-group">
 							<label for="finished-select" class="col-sm-3">是否已完成</label>
 							<div class="col-sm-9">
-								<select id="finished-select" name="StateSelect"
+								<select id="finished-select" name="state"
 									class="form-control">
 									<option value="0">未受理</option>
 									<option value="1">已受理未完成</option>

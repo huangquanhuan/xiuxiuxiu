@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
@@ -148,7 +149,7 @@ public class ReservationController {
 		Reservation reservation = reservationService.findReservationById(reservationId);
 		List<ReservationImgUrl> imgUrls = reservation.getImgUrlList();
 		for (ReservationImgUrl imgUrl : imgUrls) {
-			//例如一个url="C:\Users\10553\AppData\Local\Temp..."
+			// 例如一个url="C:\Users\10553\AppData\Local\Temp..."
 			String cutUrl = imgUrl.getImg_url().substring(9);
 			System.out.println(cutUrl);
 			imgUrl.setImg_url(cutUrl);
@@ -319,18 +320,58 @@ public class ReservationController {
 		return "reservation/reserveResult";
 	}
 
+	/**
+	 * 根据表单输入的数据进行查询，表单在[appointedComponents.html]
+	 * 
+	 * @param model:         视图
+	 * @param componentType: 零件类型,"all"表示全部
+	 * @param activityId:    活动场次的id,"-1"表示全部
+	 * @param state:         预约的状态 ,0: 未受理,1: 已受理未完成,2: 已完成,3: 全部
+	 * @return 过滤后的视图
+	 */
 	@RequestMapping("/reservation/componentSearch")
-	public String componentSearch(HttpServletRequest request, Model model) {
+	public String componentSearch(Model model,
+			@RequestParam(value = "componentType", required = false, defaultValue = "all") String componentType,
+			@RequestParam(value = "activityId", required = false, defaultValue = "-1") Integer activityId,
+			@RequestParam(value = "state", required = false,defaultValue = "3") Integer state) {
+		int ALL_STATE = 3, ALL_ACTIVITY = -1, DOOR_ACTIVITY = -2;
 		List<Reservation> reservations = reservationService.getReservationList();
-		int totalNum=0;
+		List<Reservation> filteredList = new ArrayList<Reservation>();
+		// 根据条件过滤
 		for (Reservation reservation : reservations) {
-			totalNum+=reservation.getComponentList().size();
+			if (activityId != ALL_ACTIVITY && reservation.getActivity().getId() != activityId)
+				continue;
+			if (state != ALL_STATE && reservation.getState() != state)
+				continue;
+			if ("all".equals(componentType)) {
+				filteredList.add(reservation);
+				continue;
+			}
+			for (Component c : reservation.getComponentList()) {
+				System.out.println(c.getName());
+			}
+			List<Component> filteredComponents = reservation.getComponentList().stream()
+					.filter(c -> componentType.equals(c.getName())).collect(Collectors.toList());
+			reservation.setComponentList(filteredComponents);
+			filteredList.add(reservation);
+		}
+
+		// 计算总数
+		int totalNum = 0;
+		for (Reservation reservation : filteredList) {
+			totalNum += reservation.getComponentList().size();
 		}
 		model.addAttribute("totalNum", totalNum);
-		model.addAttribute("viewComponents", reservations);
+		model.addAttribute("viewComponents", filteredList);
 		return "/reservation/appointmentComponentSearch";
 	}
 
+	/**
+	 * 返回预约人员的视图
+	 * 
+	 * @param model: 视图
+	 * @return 
+	 */
 	@RequestMapping("/reservation/appointmentHome")
 	public String appointmentHome(Model model) {
 		List<Activity> activities = activityService.getActivityList();
@@ -338,6 +379,12 @@ public class ReservationController {
 		return "/reservation/appointmentHome";
 	}
 
+	/**
+	 * 返回预约零件的视图
+	 * 
+	 * @param model: 视图
+	 * @return 
+	 */
 	@RequestMapping("/reservation/appointedComponents")
 	public String appointedComponents(Model model) {
 		List<Activity> activities = activityService.getActivityList();
