@@ -11,7 +11,7 @@
             <span class="icon-bar"></span> <span class="icon-bar"></span>
         </button>
         <h1>
-            <a class="navbar-brand" href="index.html"><i
+            <a class="navbar-brand" th:href="@{/manager}"><i
                 class="fa fa-crosshairs" aria-hidden="true"></i> 修咻咻维修平台</a>
         </h1>
 
@@ -30,8 +30,10 @@
         id="bs-example-navbar-collapse-1">
         <nav>
             <ul class="nav navbar-nav ">
-                <li><a href="ViewadministratorServlet?method=show" class="hvr-underline-from-center">预约人员</a></li>
-                <li><a href="ViewComponentServlet?method=show" class="hvr-underline-from-center">预约零件</a></li>
+                <li><a th:style="'display:' + @{((${session.administrator}!=null) ? 'block' : 'none')} " 
+                th:href="@{/reservation/appointmentHome}" class="hvr-underline-from-center">预约人员</a></li>
+                <li><a th:style="'display:' + @{((${session.administrator}!=null) ? 'block' : 'none')} " 
+                th:href="@{/reservation/appointedComponents}" class="hvr-underline-from-center">预约零件</a></li>
                 <li class="dropdown" th:if="${session.administrator!=null}">
                 	
 					<a href="#" class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" 
@@ -50,7 +52,7 @@
                 <li><a th:style="'display:' + @{((${session.administrator}!=null) ? 'block' : 'none')} " 
                 th:href="@{/Marticle}" class="hvr-underline-from-center">文章管理</a></li>
                 <li><a th:style="'display:' + @{((${session.administrator}!=null) ? 'block' : 'none')} " 
-                th:href="@{/Mcomponent}" class="hvr-underline-from-center">零件库编辑</a></li>
+                th:href="@{/manager/Mcomponent}" class="hvr-underline-from-center">零件库编辑</a></li>
                 
                  <li><a href="#" class="hvr-underline-from-center">联系我们</a></li>
                 <li class="dropdown"><a id="my_message" href="#"
