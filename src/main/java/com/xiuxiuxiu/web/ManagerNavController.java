@@ -69,7 +69,7 @@ public class ManagerNavController {
 	@RequestMapping("manager/exit")
 	public String exit(Model model, HttpSession session) {
 		session.invalidate();
-		return "redirect:/manager";
+		return "redirect:/index";
 		
 	}
 
