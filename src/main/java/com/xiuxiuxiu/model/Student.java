@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Student - 学生类
  * 
@@ -17,6 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "student")
+@JsonIgnoreProperties(value = {"equipmentList","reservationList"})
 public class Student {
 
 	/** 用户的id */
@@ -141,6 +144,4 @@ public class Student {
 		this.reservationList = reservationList;
 	}
 	
-	
-
 }

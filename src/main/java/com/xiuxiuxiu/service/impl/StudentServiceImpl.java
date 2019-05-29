@@ -4,15 +4,20 @@ import com.xiuxiuxiu.model.Student;
 import com.xiuxiuxiu.repository.StudentRepository;
 import com.xiuxiuxiu.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StudentServiceImpl implements StudentService{
 
 	@Autowired
-    private StudentRepository studentRepository;
+    public StudentRepository studentRepository;
 
     @Override
     public List<Student> getStudentList() {
@@ -43,6 +48,30 @@ public class StudentServiceImpl implements StudentService{
     public void delete(int id) {
         studentRepository.deleteById(id);
     }
+
+     
+    public List<Student> findAll()
+    {
+    	return studentRepository.findAll();
+    }
+    
+	// 分页获得列表
+	@Override
+	public Page<Student> findAll(int pageNum, int pageSize) {
+		Sort sort = new Sort(Sort.Direction.DESC, "id");  //降序
+	    Pageable pageable = PageRequest.of(pageNum,pageSize,sort);
+	    
+	    Page<Student> studentPage = null;
+	    try {
+	        studentPage = studentRepository.findAll(pageable);
+	    } 
+	    catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("查询记录出错");
+	        return null;
+	    }
+	    return studentPage;
+	}
 }
 
 

@@ -1,6 +1,6 @@
 package com.xiuxiuxiu.web;
 
-
+/*
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +24,7 @@ import java.util.List;
 public class ManagerComponentController {
 
 	@Resource
-	ArticleService articleService;
+	ArticleService compontentService;
 	
 	@Resource
 	ManagerService managerService;
@@ -33,24 +33,24 @@ public class ManagerComponentController {
 
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 	
-    @RequestMapping("/Marticle")
+    @RequestMapping("/Mcompontent")
     public String index() {
-        return "redirect:/manager/Marticle";
+        return "redirect:/manager/Mcompontent";
     }
 
-    @RequestMapping("/manager/Marticle")
+    @RequestMapping("/manager/Mcompontent")
     public String list(Model model) {
-    	List<Article> articleList=articleService.getArticleList();
-    	model.addAttribute("articleList", articleList);
+    	List<Article> compontentList=compontentService.getArticleList();
+    	model.addAttribute("compontentList", compontentList);
         
-        return "/manager/Marticle";
+        return "/manager/Mcompontent";
     }
 
     @RequestMapping("/manager/DeleteArticle")
 	public String delete(Model model,@RequestParam("id") int id) {
     	System.out.println("id => "+id);
-    	articleService.delete(id);
-		return "redirect:/manager/Marticle";
+    	compontentService.delete(id);
+		return "redirect:/manager/Mcompontent";
 	}
     
     @RequestMapping("/manager/UpdateArticle")
@@ -61,13 +61,13 @@ public class ManagerComponentController {
     	System.out.println("text => "+text);
         String time=df.format(day);
         System.out.println("time =>"+time);
-    	Article article=articleService.findArticleById(id);
+    	Article compontent=compontentService.findArticleById(id);
 
-    	article.setText(text);
-    	article.setTitle(title);
-    	article.setTime(time);
-    	articleService.edit(article);
-		return "redirect:/manager/Marticle";
+    	compontent.setText(text);
+    	compontent.setTitle(title);
+    	compontent.setTime(time);
+    	compontentService.edit(compontent);
+		return "redirect:/manager/Mcompontent";
 	}
     
     @RequestMapping("/manager/AddArticle")
@@ -79,17 +79,17 @@ public class ManagerComponentController {
        	System.out.println("text => "+text);
         String time=df.format(day);
         System.out.println("time =>"+time);
-        Article article=new Article();
+        Article compontent=new Article();
        
     	Manager manager=(Manager)session.getAttribute("administrator");
     	System.out.println(manager.getName());
     	manager.setName(manager.getName());
-    	article.setManager(manager);
-    	article.setText(text);
-    	article.setTitle(title);
-    	article.setTime(time);
-    	articleService.save(article);
-   		return "redirect:/manager/Marticle";
+    	compontent.setManager(manager);
+    	compontent.setText(text);
+    	compontent.setTitle(title);
+    	compontent.setTime(time);
+    	compontentService.save(compontent);
+   		return "redirect:/manager/Mcompontent";
    	}
     
     @RequestMapping("/manager/MyArticle")
@@ -98,12 +98,12 @@ public class ManagerComponentController {
 
         String time=df.format(day);
         System.out.println("time =>"+time);
-        Article article=new Article();
+        Article compontent=new Article();
        
     	Manager manager=(Manager)session.getAttribute("administrator");
-    	List<Article> mylist=articleService.findByManager(manager);
-    	model.addAttribute("articleList", mylist);
-   		return "/manager/Marticle";
+    	List<Article> mylist=compontentService.findByManager(manager);
+    	model.addAttribute("compontentList", mylist);
+   		return "/manager/Mcompontent";
    	}
 }
-
+*/
