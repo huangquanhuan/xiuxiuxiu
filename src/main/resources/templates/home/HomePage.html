@@ -97,10 +97,6 @@
 							</tr>
 					</tbody>
 				</table>
-				<div>
-					<a href="/Excel/export"><button type="submit" class="">导出文件</button></a>
-					<a href="/EasypoiSingleExcelViewTest"><button type="submit" class="">导入文件</button></a>
-				</div>
 
 				<br>
 			</div>
@@ -117,7 +113,7 @@
 						</div>
 						<div class="w3l_social_icon_gridr">
 							<p>服务人次超过</p>
-							<p class="counter">332</p>
+							<p class="counter" th:text="${reservationCount}">332</p>
 						</div>
 						<div class="clearfix"></div>
 					</div>
@@ -128,7 +124,7 @@
 						</div>
 						<div class="w3l_social_icon_gridr">
 							<p>维修设备数多于</p>
-							<p class="counter">342</p>
+							<p class="counter" th:text="${serviceEquipmentCount}">342</p>
 						</div>
 						<div class="clearfix"></div>
 					</div>

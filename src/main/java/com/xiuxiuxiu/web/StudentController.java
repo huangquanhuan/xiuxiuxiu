@@ -2,9 +2,11 @@ package com.xiuxiuxiu.web;
 
 import com.xiuxiuxiu.model.Activity;
 import com.xiuxiuxiu.model.Equipment;
+import com.xiuxiuxiu.model.Reservation;
 import com.xiuxiuxiu.model.Student;
 import com.xiuxiuxiu.service.ActivityService;
 import com.xiuxiuxiu.service.EquipmentService;
+import com.xiuxiuxiu.service.ReservationService;
 import com.xiuxiuxiu.service.StudentService;
 
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ public class StudentController {
 	@Resource
 	StudentService studentService;
 	@Resource
+	ReservationService reservationService;
+	@Resource
 	ActivityService activityService;
 	@Resource
 	EquipmentService equipmentService;
@@ -46,6 +50,17 @@ public class StudentController {
 	public String home(Model model) {
 		List<Activity> activityList = activityService.getActivityList();
 		model.addAttribute("activityList", activityList);
+		
+		List<Reservation> reservationsList = reservationService.getReservationList();
+		int reservationCount = reservationsList.size();
+		model.addAttribute("reservationCount", reservationCount);
+		int serviceEquipmentCount = 0;
+		for(Reservation reservation:reservationsList) {
+			if(reservation.getEquipment()!=null)
+				serviceEquipmentCount++;
+		}
+		model.addAttribute("serviceEquipmentCount", serviceEquipmentCount);
+		model.addAttribute("reservationCount", reservationCount);
 		return "home/HomePage";
 	}
 
