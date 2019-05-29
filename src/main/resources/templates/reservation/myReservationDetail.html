@@ -103,6 +103,12 @@
 									 	</h3>
 									 </td>
 								</tr>
+								<tr>
+									<td></td>
+									<td align="left">
+									<img th:each="imgUrl : ${imgUrls}" th:src="${imgUrl.img_url}" height="240px"/>
+									</td>
+									</tr>
 							</tbody>
 						</table>
 
