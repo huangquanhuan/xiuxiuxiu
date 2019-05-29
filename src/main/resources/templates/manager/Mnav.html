@@ -30,8 +30,10 @@
         id="bs-example-navbar-collapse-1">
         <nav>
             <ul class="nav navbar-nav ">
-                <li><a href="ViewadministratorServlet?method=show" class="hvr-underline-from-center">预约人员</a></li>
-                <li><a href="ViewComponentServlet?method=show" class="hvr-underline-from-center">预约零件</a></li>
+                <li><a th:style="'display:' + @{((${session.administrator}!=null) ? 'block' : 'none')} " 
+                th:href="@{/reservation/appointmentHome}" class="hvr-underline-from-center">预约人员</a></li>
+                <li><a th:style="'display:' + @{((${session.administrator}!=null) ? 'block' : 'none')} " 
+                th:href="@{/reservation/appointedComponents}" class="hvr-underline-from-center">预约零件</a></li>
                 <li class="dropdown" th:if="${session.administrator!=null}">
                 	
 					<a href="#" class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" 

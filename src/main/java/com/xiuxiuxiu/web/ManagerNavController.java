@@ -26,11 +26,14 @@ public class ManagerNavController {
 
 	@Resource
 	ManagerService managerService;
-	
+	@Resource
+	ActivityService activityService;	
 
 	@RequestMapping("/manager")
-	public String index() {
-		return "redirect:/manager/activity";
+	public String inex(Model model) {
+		List<Activity> activityList = activityService.getActivityList();
+		model.addAttribute("activityList", activityList);
+		return "home/MHomePage";
 	}
 	
 
