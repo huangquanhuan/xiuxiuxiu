@@ -158,7 +158,7 @@ public class StudentController {
 	@RequestMapping("student/exit")
 	public String exit(Model model, HttpSession session) {
 		session.invalidate();
-		return "redirect:/home";
+		return "redirect:/index";
 	}
 
 	@RequestMapping("/student/equipmentEdit")

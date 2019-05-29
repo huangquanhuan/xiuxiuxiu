@@ -14,12 +14,11 @@ import com.xiuxiuxiu.service.ComponentService;
 
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 
 import java.util.List;
 
-
+@Controller
 public class ManagerComponentController {
 
 	@Resource
@@ -35,7 +34,7 @@ public class ManagerComponentController {
     public String list(Model model) {
     	List<Component> componentList=componentService.getComponentList();
     	model.addAttribute("componentList", componentList);
-        
+        System.out.println("dsaf s ");
         return "/manager/Mcomponent";
     }
 
