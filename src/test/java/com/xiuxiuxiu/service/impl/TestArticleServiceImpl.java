@@ -25,11 +25,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class TestArticleServiceImpl {
-	
-	@Autowired
-    private ArticleServiceImpl articleServiceImpl;
-	@Autowired
-	private Article article;
+
+    private ArticleServiceImpl articleServiceImpl = new ArticleServiceImpl();
+	private Article article = new Article();
 	
     @Test
     public void getArticleListTest() {

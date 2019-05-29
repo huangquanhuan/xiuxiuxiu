@@ -7,24 +7,30 @@ import com.xiuxiuxiu.service.ActivityService;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.CoreMatchers.is;
 
 import java.util.List;
 
-@Service
+@SpringBootTest
+@RunWith(SpringRunner.class)
 public class TestActivityServiceImpl{
 
 	@Autowired
     private ActivityServiceImpl activityService;
 	@Autowired
-	private Activity activity;
+	private Activity activity = new Activity();
 	
     @Test
     public void getActivityListTest() {
+    	ActivityServiceImpl activityService = new ActivityServiceImpl();
+    	activity = activityService.getActivityList().get(0);
     	int id	= 0;
     	System.out.println(activityService.getActivityList().get(0).toString());
         Assert.assertThat(activityService.getActivityList().get(0).getId(),is(id) );
