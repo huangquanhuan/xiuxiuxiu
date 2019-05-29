@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -62,87 +61,12 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-<!-- 						<a href="makeReservation?method=beforeReserve" class="btn btn-success">下一步</a> -->
 						<a href="/reservation/step2" class="btn btn-success">下一步</a>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-<!-- 	<%@include file="动态js代码.jsp"%> -->
 </body>
-=======
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>维修预约 - 第一步</title>
 
-<script type="application/x-javascript">
-      addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-      }, false);
-
-      function hideURLbar() {
-        window.scrollTo(0, 1);
-      }
-</script>
-<!-- //custom-theme -->
-<link href="../css/index.css" rel="stylesheet" type="text/css"> 
-
-<!-- 一些动态效果需要下面两个js同时支持 -->
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
-
-</head>
-<body>
-	<div th:replace="/home/nav :: navbar"></div>
-	<div class="agile_inner_banner_info">
-		<h2>预约维修</h2>
-	</div>
-	<!-- 主体内容：开始 -->
-	<div class="services">
-		<div class="container">
-			<h1>第一步：基本信息</h1>
-			<p>个人基本信息必须与本人账户对应，不提供修改</p>
-			<br />
-
-			<form class="form-horizontal" action="*" method="post" role="form">
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="name">姓名</label>
-					<div class="col-sm-10">
-						<input class="form-control" type="tel" id="name" name="name" th:value="${session.user.name}" readonly />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="studentId">学号</label>
-					<div class="col-sm-10">
-						<input class="form-control" type="tel" id="studentId" name="studentId" th:value="${session.user.studentId}" readonly />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="contact">联系方式</label>
-					<div class="col-sm-10">
-						<input class="form-control" type="tel" id="contact" name="contact" th:value="${session.user.phoneNumber}" readonly />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="address">地址</label>
-					<div class="col-sm-10">
-						<input class="form-control" type="tel" id="address" name="contact" th:value="${session.user.address}" readonly />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-<!-- 						<a href="makeReservation?method=beforeReserve" class="btn btn-success">下一步</a> -->
-						<a href="/reservation/step2" class="btn btn-success">下一步</a>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-<!-- 	<%@include file="动态js代码.jsp"%> -->
-</body>
->>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
 </html>

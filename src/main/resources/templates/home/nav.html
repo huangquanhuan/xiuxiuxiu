@@ -59,7 +59,8 @@
 									data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
 								<li><a class="active" data-toggle="modal"
 									data-target="#myDevice-data" href="#" id="device">我的设备</a></li>
-								<li><a th:href="@{/myReservationList}" th:if="${session.user != null}" id="appointment">预约管理</a></li>
+								<li><a th:href="@{/myReservationList}"
+									th:if="${session.user != null}" id="appointment">预约管理</a></li>
 							</ul></li>
 					</ul>
 				</nav>
@@ -109,42 +110,42 @@
 											id="address" type="text" name="address"
 											placeholder="地址(例如：1#101)" required="required"> <input
 											id="register-phoneNumber" type="text" name="phoneNumber"
-											placeholder="手机号码" required="required">
-											<input
-											id="register-email" type="text" name="email"
-											placeholder="邮箱" required="required">
-                    	<table>
+											placeholder="手机号码" required="required"> <input
+											id="register-email" type="text" name="email" placeholder="邮箱"
+											required="required">
+										<table>
 											<tr>
 												<td align="center" hidden><span id="tip">请输入收到的验证码</span></td>
 											</tr>
 											<tr>
-												<td width="100%">
-												<input type="text" name="code"class="txtinput" id="code" placeholder="验证码" required="required" /></td>
-												<td >
-												<button type="button"  id="sendEmail" class="btn" >获取邮箱验证码</button>
+												<td width="100%"><input type="text" name="code"
+													class="txtinput" id="code" placeholder="验证码"
+													required="required" /></td>
+												<td>
+													<button type="button" id="sendEmail" class="btn btn-success">获取邮箱验证码</button>
 												</td>
 											</tr>
 										</table>
-<!-- 										<table> -->
-<!-- 											<tr> -->
-<!-- 												<td align="center" hidden><span id="tip">请输入收到的验证码</span></td> -->
-<!-- 											</tr> -->
-<!-- 											<tr> -->
-<!-- 												<td width="100%"><input type="text" name="code" -->
-<!-- 													class="txtinput" id="code" placeholder="验证码" -->
-<!-- 													required="required" /></td> -->
-<!-- 												<td> -->
-<!-- 												<input type="button" class="btn" -->
-<!-- 													onclick="settime(this)" value="获取验证码"> -->
-<!-- 												</td> -->
-<!-- 											</tr> -->
-<!-- 										</table> -->
+										<!-- 										<table> -->
+										<!-- 											<tr> -->
+										<!-- 												<td align="center" hidden><span id="tip">请输入收到的验证码</span></td> -->
+										<!-- 											</tr> -->
+										<!-- 											<tr> -->
+										<!-- 												<td width="100%"><input type="text" name="code" -->
+										<!-- 													class="txtinput" id="code" placeholder="验证码" -->
+										<!-- 													required="required" /></td> -->
+										<!-- 												<td> -->
+										<!-- 												<input type="button" class="btn" -->
+										<!-- 													onclick="settime(this)" value="获取验证码"> -->
+										<!-- 												</td> -->
+										<!-- 											</tr> -->
+										<!-- 										</table> -->
 										<input id="password1" type="password" name="passWord"
-											placeholder="密码" required="required"> 
-										<input id="password2" type="password" name="passWord2" 
-											placeholder="确认密码" required="required"> 
+											placeholder="密码" required="required"> <input
+											id="password2" type="password" name="passWord2"
+											placeholder="确认密码" required="required">
 										<div class="tp">
-											<input	 onclick="validateInput()"  type="submit" value="注册">
+											<input onclick="validateInput()" type="submit" value="注册">
 										</div>
 									</form>
 								</div>
@@ -154,11 +155,15 @@
 					</div>
 				</div>
 				<!-- 重复密码验证的js  -->
+
 				<script type="text/javascript"
 					src="/js/my/verify-input.js"></script>
+				<!-- 使用ajax动态发送邮件 -->
+				<script type="text/javascript"
+					src="/js/my/send-email-ajax.js"></script>
 				<!-- 使用ajax动态发送短信 -->
-<!-- 				<script type="text/javascript" -->
-<!-- 					src="js/my/send-code-ajax.js"></script> -->
+				<!-- 				<script type="text/javascript" -->
+				<!-- 					src="js/my/send-code-ajax.js"></script> -->
 			</div>
 
 			<!-- 退出登录弹窗 -->
@@ -251,7 +256,7 @@
 			<!-- <link -->
 			<!-- 	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" -->
 			<!-- 	rel="stylesheet"> -->
-			<!-- 注意！！该文档别删除或增加行，用了dom的元素查找，有点迷~ -->
+			<!-- 注意！！该表单区域别删除或增加行，用了dom的元素查找，有点迷~ -->
 			<!-- 我的设备管理弹出页窗内容 -->
 			<div class="modal" id="myDevice-data" tabindex="-1" role="dialog"
 				aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -265,17 +270,19 @@
 						</div>
 						<div class="modal-body">
 							<!-- Top content -->
-							<div class="top-content text-center" th:unless="${session.user== null}">
-								<div th:each="equipment: ${session.user.equipmentList}" >
+							<div class="top-content text-center"
+								th:unless="${session.user== null}">
+								<div th:each="equipment: ${session.user.equipmentList}">
 									<form class="form-inline" role="form"
-										action="/student/equipmentEdit"
-										method="post">
-										<input type="text" th:value="${equipment.id}" name="equipmentId" style="display:none">
-										<input type="text" class="form-control"
+										action="/student/equipmentEdit" method="post">
+										<input type="text" th:value="${equipment.id}"
+											name="equipmentId" style="display: none"> <input
+											type="text" class="form-control"
 											th:value="${equipment.equipmentName}" name="equipmentName"
 											disabled="disabled">
 										<button type="button" class="btn btn-success"
-											th:onclick="'changeDisabled(this,'+${equipment.id}+')'" style="padding:0 13px">修改</button>
+											th:onclick="'changeDisabled(this,'+${equipment.id}+')'"
+											style="padding: 0 13px">修改</button>
 										<button type="button" class="btn btn-danger"
 											onclick="del(this)">删除</button>
 
@@ -283,8 +290,8 @@
 									<br>
 								</div>
 
-								<form id="equipment-form-add" class="form-inline asd" role="form"
-									action="/student/addEquipment" method="post"
+								<form id="equipment-form-add" class="form-inline asd"
+									role="form" action="/student/addEquipment" method="post"
 									style="display: none">
 									<input type="text" class="form-control" name="equipmentName">
 									<button type="submit" class="btn btn-info">确认添加</button>

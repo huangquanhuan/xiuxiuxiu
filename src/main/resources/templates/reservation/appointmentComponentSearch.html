@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,28 +13,29 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
-    
 </script>
-<link href="/css/index.css" rel="stylesheet" type="text/css"	media="all" />
+<link href="/css/index.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 </head>
 <body>
-	<div th:replace="/home/nav::navbar"></div>
+	<div th:replace="manager/Mnav :: mnavbar"></div> 
 
 	<!-- 主体内容：开始 -->
 	<div class="services">
 		<div class="container">
 			<ul id="formTab" class="nav nav-tabs" role="tablist">
 				<li class="nav-item"><a class="hvr-underline-from-center"
-					data-toggle="tab" href="#field-service">检索预约零件名单</a></li>
+					data-toggle="tab" href="#table-content">检索预约零件名单</a></li>
 				<li><a class="hvr-underline-from-center" data-toggle="tab"
-					href="#door-to-door-service">导入预约零件名单</a></li>
+					href="#excel-import">导入预约零件名单</a></li>
 			</ul>
 
 			<div class="tab-content">
 
-				<div class="table-responsive">
+				<div class="table-responsive tab-pane active" id="table-content">
 					<table class="table">
-						<p style="">总数：${totalNum}</p>
+						<p style="" th:text="'总数：'+${totalNum}"></p>
 						<a href="" class="view resw3">刷新</a>
 						<thead>
 							<tr>
@@ -50,22 +51,28 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${viewComponents}" var="viewComponents">
-								<tr>
-									<td>${viewComponents.userName}</td>
-									<td>${viewComponents.studentID}</td>
-									<td>${viewComponents.phoneNumber}</td>
-									<td>1</td>
-									<td>${viewComponents.applicationType}</td>
-									<td>${viewComponents.activeTime}</td>
-									<td>${viewComponents.componentType}</td>
-									<td>${viewComponents.reservationState}</td>
-
+							<th:block th:each="viewComponent,iter:${viewComponents}">
+								<tr th:each="component,iter:${viewComponent.componentList}">
+									<td th:text="${viewComponent.student.name}"></td>
+									<td th:text="${viewComponent.student.studentId}"></td>
+									<td th:text="${viewComponent.student.phoneNumber}"></td>
+									<td th:text="${component.quantity}"></td>
+									
+									<td th:if="${viewComponent.applicationType == 0}">活动预约</td>
+									<td th:if="${viewComponent.applicationType == 1}">上门服务</td>
+									
+									<td th:text="${viewComponent.activity.time}"></td>
+									<td th:text="${component.name}"></td>
+									
+									<td th:if="${viewComponent.state == 0}">未受理</td>
+									<td th:if="${viewComponent.state == 1}">处理中</td>
+									<td th:if="${viewComponent.state == 1}">已完成</td>
+									
 									<td><a
 										href="makeReservation?method=getForID&id=${viewComponents.reservationID}"
 										class="view resw3">详情</a></td>
 								</tr>
-							</c:forEach>
+							</th:block>
 						</tbody>
 					</table>
 				</div>
@@ -75,6 +82,24 @@
 						<input type="submit" class="btn btn-primary" value="导出" /> <input
 							type="submit" class="btn btn-primary" value="返回" />
 					</div>
+				</div>
+				<div id="excel-import" class="container tab-pane">
+					<br />
+					<form action="*" method="post">
+						<!-- 选择文件 -->
+						<div class="form-group">
+							<label for="issue-image" class="col-sm-3">选择要导入的excel文件</label>
+							<div class="col-sm-9">
+								<input id="issue-image" type="file" class="form-control" />
+							</div>
+						</div>
+						<!-- 导入按钮 -->
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-9">
+								<input type="submit" class="btn " value="导入" />
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

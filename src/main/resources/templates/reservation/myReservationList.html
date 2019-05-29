@@ -30,16 +30,18 @@
 		<div class="top-content">
 			<div class="container">
 				<div class="row"></div>
-				<div class="row" th:each="reservation,iterStat:${reservations}">
+
+				<!-- 遍历我的预约单 -->
+				<div class="row" th:each="reservation,status:${reservations}">
 					<div class="col-sm-6 col-sm-offset-3 form-box">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h3 th:if="${reservation.state==0}" class="panel-title"
-									th:text="${reservation.applicationTime+'(未受理)'}"></h3>
+									th:text="${'提交时间：'+reservation.applicationTime+'(未受理)'}"></h3>
 								<h3 th:if="${reservation.state==1}" class="panel-title"
-									th:text="${reservation.applicationTime+'(已受理，未完成)'}"></h3>
+									th:text="${'提交时间：'+reservation.applicationTime+'(已受理，未完成)'}"></h3>
 								<h3 th:if="${reservation.state==2}" class="panel-title"
-									th:text="${reservation.applicationTime+'(已完成)'}"></h3>
+									th:text="${'提交时间：'+reservation.applicationTime+'(已完成)'}"></h3>
 								<div>
 									<a th:if="${reservation.state==0}"
 										th:href="'/editMyReservation?reservationId='+${reservation.id}"
@@ -56,23 +58,156 @@
 									<button class="btn btn-danger" th:if="${reservation.state==2}"
 										th:onclick="'setTargetID('+${reservation.id}+')'"
 										data-toggle="modal" data-target="#feedback-data" type="button">反馈</button>
-									<a
-										th:href="'/myReservationDetail?reservationId='+${reservation.id}"
-										class="btn btn-info">详情</a>
+									<button class="btn btn-info active" data-toggle="modal"
+										th:data-target="'#myReservationDetail'+${reservation.id}+'-data'">详情</button>
+
+
 								</div>
 							</div>
-
 							<div class="panel-body">
 								<p th:text="${reservation.RequiredTime+' '+reservation.place}"></p>
 								<label th:text="'设备:'+${reservation.equipment.equipmentName}"
-									th:if="${reservation.equipment!=null}"></label> <label
-									th:text="${reservation.repairType}" style="margin: 0 10px"></label>
-								<label th:text="${reservation.detail}"
-									th:if="${reservation.detail!=null}"></label>
+									th:if="${reservation.equipment!=null}"> </label> <label
+									th:text="'设备:未选择'" th:if="${reservation.equipment==null}">
+								</label> <label th:text="${reservation.repairType}"
+									style="margin: 0 10px"> </label> <label
+									th:text="${reservation.cutDetail}"
+									th:if="${reservation.cutDetail!=null}"> </label>
+							</div>
+						</div>
+						<!-- panel结束 -->
+
+					</div>
+					
+					<!-- 我的预约单详情弹窗 -->
+					<div class="modal" th:id="'myReservationDetail'+${reservation.id}+'-data'" tabindex="-1"
+						role="dialog" aria-labelledby="mySmallModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-body">
+
+									<div class="mid_agile_bannner_top_info">
+										<h2>预约单详情</h2>
+										<div class="heading-underline">
+											<div class="h-u1"></div>
+											<div class="h-u2"></div>
+											<div class="h-u3"></div>
+											<div class="clearfix"></div>
+										</div>
+
+										<div class="agileits_banner_bottom_left"></div>
+
+										<div class="row  login-center panel panel-info"
+											th:if="${ reservation!=null}">
+											<div class="panel-heading">
+												<h3 th:if="${reservation.state==0}"
+													th:text="${'提交时间：'+reservation.applicationTime+'(未受理)'}"></h3>
+												<h3 th:if="${reservation.state==1}"
+													th:text="${'提交时间：'+reservation.applicationTime+'(已受理，未完成)'}"></h3>
+												<h3 th:if="${reservation.state==2}"
+													th:text="${'提交时间：'+reservation.applicationTime+'(已完成)'}"></h3>
+												<div>
+													<a th:if="${reservation.state==0}"
+														th:href="'/editMyReservation?reservationId='+${reservation.id}"
+														class="btn btn-primary">编辑</a>
+													<button class="btn btn-danger"
+														th:if="${reservation.state==0}"
+														th:onclick="'setTargetID('+${reservation.id}+')'"
+														data-toggle="modal" data-target="#cancel-data"
+														type="button">撤销</button>
+													<button class="btn btn-danger"
+														th:if="${reservation.state==1}"
+														th:onclick="'setTargetID('+${reservation.id}+')'"
+														data-toggle="modal" data-target="#contact-data"
+														type="button">联系</button>
+													<button class="btn btn-success"
+														th:if="${reservation.state==2}"
+														th:onclick="'setTargetID('+${reservation.id}+')'"
+														data-toggle="modal" data-target="#remark-data"
+														type="button">评价</button>
+													<button class="btn btn-danger"
+														th:if="${reservation.state==2}"
+														th:onclick="'setTargetID('+${reservation.id}+')'"
+														data-toggle="modal" data-target="#feedback-data"
+														type="button">反馈</button>
+												</div>
+											</div>
+
+											<div class="panel-body">
+
+												<table class="table"
+													style="table-layout: fixed">
+													<tbody>
+														<tr>
+															<td align="right" width="40%"><h3>维修时间：</h3></td>
+															<td align="left">
+																<h3 th:text="${reservation.RequiredTime}"></h3>
+																<h3 th:text="未填写"
+																	th:if="${reservation.RequiredTime==null || reservation.RequiredTime.length()<1}"></h3>
+															</td>
+														</tr>
+														<tr>
+															<td align="right"><h3>维修地点：</h3></td>
+															<td align="left"><h3 th:text="${reservation.place}"></h3></td>
+														</tr>
+														<tr>
+															<td align="right"><h3>维修设备：</h3></td>
+															<td align="left">
+																<h3 th:text="${reservation.equipment.equipmentName}"
+																	th:if="${reservation.equipment!=null}"></h3>
+																<h3 th:text="未选择" th:if="${reservation.equipment==null}"></h3>
+															</td>
+														</tr>
+														<tr>
+															<td align="right"><h3>问题类型：</h3></td>
+															<td align="left"><h3
+																	th:text="${reservation.repairType}">${reservation.repairType}</h3></td>
+														</tr>
+														<tr>
+															<td align="right"><h3>预约零件：</h3></td>
+															<td align="left" >
+																<h3 th:each="component : ${reservation.componentList}"><span th:text="${component.name}"></span> </h3>
+																<h3 th:text="'未选择'" th:if="${reservation.componentList.size()<1}"></h3>
+															</td>
+														</tr>
+
+														<tr>
+															<td align="right"><h3>问题详情：</h3></td>
+															<td align="left">
+																<h3>
+																	<span th:if="${reservation.detail!=null}"
+																		th:text="${reservation.detail}"></span> 
+																	<span th:if="${reservation.detail==null || reservation.detail.length()<1}"
+																		th:text="'未填写'"></span>
+																</h3>
+															</td>
+														</tr>
+														<tr>
+															<td></td>
+															<td align="left"><img th:each="imgUrl : ${reservation.imgUrlList}"
+																th:src="${imgUrl.img_url}" height="140px" /></td>
+														</tr>
+													</tbody>
+												</table>
+
+											</div>
+											<!-- end panel-body -->
+
+										</div>
+										<!-- end panel -->
+
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
+					<!-- end 我的预约单详情弹窗 -->
+
+
 				</div>
+				<!-- end 遍历我的预约单 -->
+
 			</div>
 		</div>
 	</div>
@@ -123,11 +258,12 @@
 						<h4 class="modal-title">评价</h4>
 					</div>
 					<div class="modal-body">
-						<textarea class="form-control" rows="3" name="remarkText" placeholder="我觉得本次维修..."></textarea>
+						<textarea class="form-control" rows="3" name="remarkText"
+							placeholder="我觉得本次维修..."></textarea>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="submit" class="btn btn-primary">保存</button>
+						<button type="submit" class="btn btn-primary">提交</button>
 					</div>
 				</form>
 			</div>
@@ -172,7 +308,8 @@
 						<h4 class="modal-title">反馈问题</h4>
 					</div>
 					<div class="modal-body">
-						<textarea class="form-control" rows="3" name="feedbackTxet" placeholder="我觉得本次维修..."></textarea>
+						<textarea class="form-control" rows="3" name="feedbackTxet"
+							placeholder="我觉得本次维修..."></textarea>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -184,12 +321,54 @@
 	</div>
 
 	<script type="text/javascript">
+		//点击按钮设置目标id
 		function setTargetID(id) {
 			document.getElementById("cancel-input-id").value = id;
 			document.getElementById("remark-input-id").value = id;
 			document.getElementById("feedback-input-id").value = id;
 		}
 	</script>
+	
+	
+	<!-- 下面js作用为平滑地回到顶部 -->
+	<script type="text/javascript" src="js/move-top.js"></script>
+		<script type="text/javascript" src="js/easing.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event) {
+					event.preventDefault();
+					$('html,body').animate({
+						scrollTop : $(this.hash).offset().top
+					}, 1000);
+				});
+			});
+		</script>
+		<!-- start-smoth-scrolling -->
+		<!-- here stars scrolling icon -->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				/*
+				    var defaults = {
+				    containerID: 'toTop', // fading element id
+				    containerHoverID: 'toTopHover', // fading element hover id
+				    scrollSpeed: 1200,
+				    easingType: 'linear' 
+				    };
+				 */
+
+				$().UItoTop({
+					easingType : 'easeOutQuart'
+				});
+
+			});
+		</script>
+		<!-- //here ends scrolling icon -->
+
+		<a href="#" id="toTop" style="display: none;"><span
+			id="toTopHover"></span>To Top</a>
+
+
+
 </body>
 
 </html>

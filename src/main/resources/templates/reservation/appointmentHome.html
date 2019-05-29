@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -21,15 +21,15 @@
 	media="all" />
 </head>
 <body>
-	<div th:replace="/home/nav::navbar"></div>
+	<div th:replace="manager/Mnav :: mnavbar"></div> 
 
 	<div class="services">
 		<div class="container">
 			<ul id="formTab" class="nav nav-tabs" role="tablist">
 				<li class="nav-item"><a class="hvr-underline-from-center"
-					data-toggle="tab" href="#field-service">检索预约人员名单</a></li>
+					data-toggle="tab" href="#field-search">检索预约人员名单</a></li>
 				<li><a class="hvr-underline-from-center" data-toggle="tab"
-					href="#door-to-door-service">导入预约人员名单</a></li>
+					href="#excel-import">导入预约人员名单</a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -38,7 +38,7 @@
 				<!-- 搜索框 -->
 				<div id="field-search" class="container tab-pane active">
 					<br />
-					<form action="ViewUserServlet?method=list" method="post">
+					<form action="/reservation/componentSearch" method="post">
 
 						<div class="input-group col-md-12"
 							style="margin-top: 0px; positon: relative; padding-left: 1em; padding-right: 1em;">
@@ -50,13 +50,11 @@
 							</span>
 						</div>
 
-
-
 						<!-- 场次选择 -->
 						<div class="form-group">
 							<label for="session-select" class="col-sm-3">预约场次</label>
 							<div class="col-sm-9">
-								<select id="session-select" class="form-control">
+								<select id="session-select" class="form-control" name="activityId">
 									<!-- 这里装入场次时间信息 -->
 									<option th:each="activity : ${activities}"
 										th:value="${activity.id}"
@@ -70,7 +68,7 @@
 						<div class="form-group">
 							<label for="finished-select" class="col-sm-3">是否已完成</label>
 							<div class="col-sm-9">
-								<select id="finished-select" class="form-control">
+								<select id="finished-select" class="form-control" name="state">
 									<option value="0">未受理</option>
 									<option value="1">已受理未完成</option>
 									<option value="2">已完成</option>
@@ -83,6 +81,24 @@
 							<div class="col-sm-offset-3 col-sm-9">
 								<input type="submit" class="btn btn-info btn-search"
 									style="margin-top: 1em" value="搜索" />
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="excel-import" class="container tab-pane">
+					<br />
+					<form action="*" method="post">
+						<!-- 选择文件 -->
+						<div class="form-group">
+							<label for="issue-image" class="col-sm-3">选择要导入的excel文件</label>
+							<div class="col-sm-9">
+								<input id="issue-image" type="file" class="form-control" />
+							</div>
+						</div>
+						<!-- 导入按钮 -->
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-9">
+								<input type="submit" class="btn " value="导入" />
 							</div>
 						</div>
 					</form>

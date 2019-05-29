@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Reservation - 预约单类
@@ -76,6 +77,10 @@ public class Reservation {
 
 	/** 详细问题的描述 */
 	private String detail;
+	
+	/** 截取前13个字的详情,用于简单展示*/
+	@Transient
+	private String cutDetail;
 
 	/** 维修结束后的评价 */
 	private String remark;
@@ -222,6 +227,14 @@ public class Reservation {
 
 	public void setComponentList(List<Component> componentList) {
 		this.componentList = componentList;
+	}
+
+	public String getCutDetail() {
+		return cutDetail;
+	}
+
+	public void setCutDetail(String cutDetail) {
+		this.cutDetail = cutDetail;
 	}
 
 	@Override

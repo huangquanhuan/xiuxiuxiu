@@ -123,7 +123,7 @@
 							<div  class="col-sm-3">
 							</div>
 							<div  class="col-sm-9">
-								<img id="preview1" height="300px" src="" />
+								<img id="preview1" height="200px" src="" />
 							</div>
 						</div>
 
@@ -220,12 +220,12 @@
 						<div class="form-inline">
 							<label for="issue-image-1" class="col-sm-3">为问题描述提供图片</label>
 							<div class="col-sm-9">
-								<input id="issue-image-1" name="issueImage" onchange="uploadFile()" type="file" class="form-control" accept="image/*"/>
+								<input id="issue-image-1" name="issueImage" onchange="uploadFile2()" type="file" class="form-control" accept="image/*"/>
 							</div>
 							<div  class="col-sm-3">
 							</div>
 							<div  class="col-sm-9">
-								<img id="preview2" height="300px" src="" />
+								<img id="preview2" height="200px" src="" />
 							</div>
 						</div>
 
@@ -249,17 +249,26 @@
 	</div>
 	<!-- 上传文件后产生预览图 -->
 	<script type="text/javascript">
-	function uploadFile(){
+function uploadFile(){
 	var that = this;
 	const file = document.getElementById('issue-image');
 	const fileObj = file.files[0];
 	const windowURL = window.URL || window.webkitURL;
 	const img1 = document.getElementById('preview1');
-	const img2 = document.getElementById('preview2');
 	if(file && fileObj) {
 		const dataURl = windowURL.createObjectURL(fileObj);
 		img1.setAttribute('src',dataURl);
-		img2.setAttribute('src',dataURl);
+	}
+}
+function uploadFile2(){
+	var that = this;
+	const file2 = document.getElementById('issue-image-1');
+	const fileObj2 = file2.files[0];
+	const windowURL2 = window.URL || window.webkitURL;
+	const img2 = document.getElementById('preview2');
+	if(file2 && fileObj2) {
+		const dataURl2 = windowURL2.createObjectURL(fileObj2);
+		img2.setAttribute('src',dataURl2);
 	}
 }
 </script>

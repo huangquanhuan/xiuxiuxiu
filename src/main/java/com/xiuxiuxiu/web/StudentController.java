@@ -3,10 +3,15 @@ package com.xiuxiuxiu.web;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.xiuxiuxiu.model.Activity;
 import com.xiuxiuxiu.model.Equipment;
+<<<<<<< HEAD
 import com.xiuxiuxiu.model.ReturnData;
+=======
+import com.xiuxiuxiu.model.Reservation;
+>>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
 import com.xiuxiuxiu.model.Student;
 import com.xiuxiuxiu.service.ActivityService;
 import com.xiuxiuxiu.service.EquipmentService;
+import com.xiuxiuxiu.service.ReservationService;
 import com.xiuxiuxiu.service.StudentService;
 import com.xiuxiuxiu.service.impl.StudentServiceImpl;
 
@@ -36,13 +41,22 @@ public class StudentController {
 	@Resource
 	StudentServiceImpl studentService;
 	@Resource
+	ReservationService reservationService;
+	@Resource
 	ActivityService activityService;
 	@Resource
 	EquipmentService equipmentService;
 
 	@RequestMapping("/")
 	public String index() {
-		return "redirect:/home";
+		return "redirect:/index";
+	}
+	
+	@RequestMapping("/index")
+	public String inex(Model model) {
+		List<Activity> activityList = activityService.getActivityList();
+		model.addAttribute("activityList", activityList);
+		return "home/index";
 	}
 	
 	@RequestMapping("/index")
@@ -84,6 +98,17 @@ public class StudentController {
 	public String home(Model model) {
 		List<Activity> activityList = activityService.getActivityList();
 		model.addAttribute("activityList", activityList);
+		
+		List<Reservation> reservationsList = reservationService.getReservationList();
+		int reservationCount = reservationsList.size();
+		model.addAttribute("reservationCount", reservationCount);
+		int serviceEquipmentCount = 0;
+		for(Reservation reservation:reservationsList) {
+			if(reservation.getEquipment()!=null)
+				serviceEquipmentCount++;
+		}
+		model.addAttribute("serviceEquipmentCount", serviceEquipmentCount);
+		model.addAttribute("reservationCount", reservationCount);
 		return "home/HomePage";
 	}
 
@@ -181,7 +206,7 @@ public class StudentController {
 	@RequestMapping("student/exit")
 	public String exit(Model model, HttpSession session) {
 		session.invalidate();
-		return "redirect:/home";
+		return "redirect:/index";
 	}
 
 	@RequestMapping("/student/equipmentEdit")
