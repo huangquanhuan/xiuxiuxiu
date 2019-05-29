@@ -7,18 +7,21 @@
 		var email = document.getElementById("register-email").value;
 		var pass2 = document.getElementById("password2").value;
 		var pass1 = document.getElementById("password1").value;
+		var code = document.getElementById("code").value;
 		if (pass1 != pass2){
-			document.getElementById("password2").setCustomValidity(
-					"密码不匹配！");
+			document.getElementById("password2").setCustomValidity("密码不匹配！");
 		}else if(name.length<2||name.length>12){
 			document.getElementById("register-name").setCustomValidity("昵称长度在2~12之间");
 		}else if(!isPhoneNumber(phone)){
 			document.getElementById("register-phoneNumber").setCustomValidity("手机号码格式错误");
 		}else if(!isEmail(email)){
 			document.getElementById("register-email").setCustomValidity("邮箱格式错误");
-		}
-		else
+		}else{
+			document.getElementById("register-name").setCustomValidity('');
 			document.getElementById("password2").setCustomValidity('');
+			document.getElementById("register-email").setCustomValidity('');
+			document.getElementById("register-phoneNumber").setCustomValidity('');
+		}
 		//empty string means no validation error
 	}
 	/*

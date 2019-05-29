@@ -106,18 +106,21 @@ public class StudentController {
 	@RequestMapping("student/register")
 	public String register(Model model, @RequestParam("name") String name,
 			@RequestParam("phoneNumber") String phoneNumber, @RequestParam("passWord") String passWord,
-			@RequestParam("passWord2") String passWord2, @RequestParam("address") String address,
-			@RequestParam("email") String email, HttpSession session) {
+			@RequestParam("passWord2") String passWord2, @RequestParam("address") String address, @RequestParam("email") String email,@RequestParam("code") String code,HttpSession session) {
 		System.out.println("昵称:" + name);
 		System.out.println("号码:" + phoneNumber);
 		System.out.println("地址:" + address);
 		System.out.println("邮箱:" + email);
+		System.out.println("验证码" +code);
 		System.out.println("密码:" + passWord);
 		System.out.println("确认密码:" + passWord2);
 		if (!passWord.equals(passWord2)) {
 			model.addAttribute("err", "两次密码不同！");
 			System.out.println("两次密码不同！");
-		} else if (!isMobileNO(phoneNumber)) {
+		}else if (!code.equals(session.getAttribute("email"))) {
+			model.addAttribute("err", "验证码错误！");
+			System.out.println("验证码错误！");
+		}  else if (!isMobileNO(phoneNumber)) {
 			model.addAttribute("err", "手机号格式错误！");
 			System.out.println("手机号格式错误！");
 		} else if (name.length() < 2 || name.length() > 12) {
@@ -195,7 +198,6 @@ public class StudentController {
 		equipmentService.edit(equipment);
 		model.addAttribute("message", "添加设备成功");
 		
-
 		// 更新页面的session
 		user = studentService.findStudentById(user.getId());
 		session.setAttribute("user", user);

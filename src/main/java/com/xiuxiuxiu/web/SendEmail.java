@@ -22,17 +22,17 @@ public class SendEmail {
 	        Properties javaMailProperties = new Properties();
 	    	javaMailProperties.put("mail.smtp.auth", true); 
 	    	javaMailProperties.put("mail.smtp.starttls.enable", true); 
-	    	javaMailProperties.put("mail.smtp.timeout", 8000); 
+	    	javaMailProperties.put("mail.smtp.timeout", 30000); 
 	        mailSender.setJavaMailProperties(javaMailProperties);
 	        //创建邮件内容
 	        SimpleMailMessage message=new SimpleMailMessage();
 	        message.setFrom("fzuxiuxiuxiu@163.com");
-	        message.setTo("2609339303@qq.com");
-	        message.setSubject("111");
-	        message.setText("111");
+	        message.setTo(email);
+	        message.setSubject(subject);
+	        message.setText(msg);
 	        //发送邮件
 	        mailSender.send(message);
-	        System.out.print("success");
+	        System.out.println("发送成功");
 		} 
 
 }

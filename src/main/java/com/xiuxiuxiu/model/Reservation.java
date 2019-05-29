@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Reservation - 预约单类
@@ -60,12 +61,12 @@ public class Reservation {
 	 * 若选择的是活动预约（application_type为0）repair_actity_id设置为当前活动的场次号;
 	 * 定义名为repair_activity_id的外键列，该外键引用Activity表的id列
 	 */
-	@ManyToOne(targetEntity = Activity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Activity.class)
 	@JoinColumn(name = "repair_activity_id", nullable = true)
 	private Activity activity;
 
 	/** 选择维修的设备; 定义名为equipment_id的外键列，该外键引用equipment表的id列 */
-	@ManyToOne(targetEntity = Equipment.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Equipment.class)
 	@JoinColumn(name = "equipment_id", nullable = true)
 	private Equipment equipment;
 
@@ -76,6 +77,10 @@ public class Reservation {
 
 	/** 详细问题的描述 */
 	private String detail;
+	
+	/** 截取前13个字的详情,用于简单展示*/
+	@Transient
+	private String cutDetail;
 
 	/** 维修结束后的评价 */
 	private String remark;
@@ -222,6 +227,14 @@ public class Reservation {
 
 	public void setComponentList(List<Component> componentList) {
 		this.componentList = componentList;
+	}
+
+	public String getCutDetail() {
+		return cutDetail;
+	}
+
+	public void setCutDetail(String cutDetail) {
+		this.cutDetail = cutDetail;
 	}
 
 	@Override

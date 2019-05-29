@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>维修预约 - 第二步</title>
+
+<script type="application/x-javascript">
+	
+      addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+      }, false);
+
+      function hideURLbar() {
+        window.scrollTo(0, 1);
+      }
+    
+</script>
+<!-- //custom-theme -->
+<link href="../css/index.css" rel="stylesheet" type="text/css" >
+
+<!-- 一些动态效果需要下面两个js同时支持 -->
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+</head>
+<body>
+	<div th:replace="/home/nav :: navbar"></div>
+	<div class="agile_inner_banner_info">
+		<h2>预约维修</h2>
+	</div>
+	<!-- 主体内容：开始 -->
+	<div class="services">
+		<div class="container">
+
+			<div class="tab-content">
+				<!-- 申请现场维修的表单：开始 -->
+				<div id="field-service" class="tab-pane active">
+					<br />
+					<form action="/reservation/submit" method="post" enctype="multipart/form-data">
+						<input type="text" name="reservationId" th:value="${reservation.id}" style="display:none">
+						<input type="text" name="applyType"  th:value="${reservation.applicationType}" style="display:none;" />
+						<!-- 场次选择 -->
+						<div class="form-group" th:if="${reservation.applicationType==0}">
+							<label for="session-select" class="col-sm-3">预约场次</label>
+							<div class="col-sm-9">
+								<select id="session-select" class="form-control" name="activity">
+									<!-- 这里装入场次时间信息 -->
+									<option selected="selected" th:value="${reservation.activity.Id}" th:text="${reservation.activity.time}+',地点'+${reservation.activity.place}"></option>
+									<option th:each="activity,iterStat: ${activities}" th:value="${activity.Id}" 
+											th:text="${activity.time}+',地点'+${activity.place}"></option>
+								</select>
+							</div>
+						</div>
+						
+						<!-- 时间选择 -->
+						<div class="form-group" th:if="${reservation.applicationType==1}">
+							<label for="datetime-select" class="col-sm-3">预约时间</label>
+							<div class="col-sm-9">
+								<input class="form-control" type="datetime-local" name="requiredTime" />
+							</div>
+						</div>
+
+						<!-- 设备选择 -->
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="device-select">设备</label> 
+								<a href="#" data-toggle="modal"
+									data-target="#myDevice-data" class="active btn btn-link">添加设备</a>
+							</div>
+							<div class="col-sm-9">
+								<select id="device-select" class="form-control" name="device">
+									<!-- 这里装入用户的设备列表 -->
+									<option>不选择设备</option>
+									<option selected="selected" th:value="${reservation.equipment.id}" th:text="${reservation.equipment.equipmentName}" th:if="${reservation.equipment!=null}">原来选择设备</option>
+									<option th:each="equipment : ${equipments}" th:value="${equipment.id}" 
+											th:text="${equipment.equipmentName}" ></option>
+								</select>
+							</div>
+						</div>
+
+						<!-- 需求零件选择 -->
+						<div class="form-group">
+							<label for="component-select" class="col-sm-3">需求零件</label>
+							<div id="accordion" class="col-sm-9">
+								<div class="card">
+									<div class="bg-info card-header">
+										<a class="card-link text-muted btn" data-toggle="collapse"
+											href="#component-list">点击可选零件</a>
+									</div>
+									<div id="component-list" class="collapse fade" data-parent="#accordion">
+									
+										<!-- 这里装入零件列表，插入格式见下面的样例 -->
+										<div class="card-body" th:each="component:${reservation.componentList}">
+											<label>
+												<input checked="checked" type="checkbox" name="neededComponents" th:value="${component.id}" th:text="${component.name}+'：'+${component.price}+'元'">
+											</label>
+										</div>
+										<div class="card-body" th:each="component:${components}">
+											<label>
+											<input type="checkbox" name="neededComponents" th:value="${component.id}" th:text="${component.name}+'：'+${component.price}+'元'">
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 问题类型 -->
+						<div class="form-inline">
+							<label for="issue-type-select" class="col-sm-3">问题种类</label>
+							<div id="issue-type-select" class="col-sm-9">
+								<select id="repairType-select" class="form-control" name="repairType">
+									<option value="硬件问题" th:select="'selected'" th:if="${reservation.repairType=='硬件问题'}">硬件问题</option>
+									<option value="软件问题" th:select="'selected'" th:if="${reservation.repairType=='软件问题'}">软件问题</option>
+									<option value="硬件问题" th:unless="${reservation.repairType=='硬件问题'}">硬件问题</option>
+									<option value="软件问题" th:unless="${reservation.repairType=='软件问题'}">软件问题</option>
+								</select> 
+							</div>
+						</div>
+
+						<!-- 详细描述问题 -->
+						<div class="form-group">
+							<label for="issue-detail" class="col-sm-3">问题描述</label>
+							<div id="issue-detail" class="col-sm-9">
+								<textarea class="form-control" rows="3" name="issueDetail" th:text="${reservation.detail}"></textarea>
+							</div>
+						</div>
+
+						<!-- 图片上传 -->
+						<div class="form-inline">
+							<label for="issue-image" class="col-sm-3">为问题描述提供图片</label>
+							<div  class="col-sm-9" th:each="imgUrl:${reservation.imgUrlList}" style="display:block;">
+								<input id="issue-image" name="issueImage"  type="file" accept="image/*" onchange="uploadFile()" class="form-control"  th:value="${imgUrl.img_url}" th:file="${imgUrl.img_url}" />
+							</div>
+							<div  class="col-sm-9" th:if="${reservation.imgUrlList.size()==0}" style="display:block;">
+								<input id="issue-image" name="issueImage"  type="file" accept="image/*" onchange="uploadFile()" class="form-control" />
+							</div>
+							<div  class="col-sm-3">
+								<img id="preview1" height="300px" src="" />
+							</div>
+							<div  class="col-sm-9">
+								<img id="preview" height="300px" src="" />
+							</div>
+						</div>
+
+
+						<!-- 提交按钮 -->
+						<div class="col-sm-offset-3 col-sm-9">
+							<br>
+							<button type="submit" class="btn btn-primary" >提交预约</button> 
+						</div>
+					</form>
+				</div>
+				<!-- 申请现场维修的表单：结束 -->
+
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+function uploadFile(){
+	var that = this;
+	const file = document.getElementById('issue-image');
+	const fileObj = file.files[0];
+	const windowURL = window.URL || window.webkitURL;
+	const img = document.getElementById('preview');
+	if(file && fileObj) {
+		const dataURl = windowURL.createObjectURL(fileObj);
+		img.setAttribute('src',dataURl);
+	}
+}
+</script>
+</body>
+</html>
