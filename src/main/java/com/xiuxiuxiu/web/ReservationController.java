@@ -296,14 +296,13 @@ public class ReservationController {
 
 	@RequestMapping("/reservation/componentSearch")
 	public String componentSearch(HttpServletRequest request, Model model) {
-//		String name = Optional.ofNullable(request.getParameter("userName")).orElse("");
-//        int applicationType = Integer.parseInt(Optional.ofNullable(request.getParameter("MethodTypeSelect")).orElse("-1")) ;
-//        int activityId = Integer.parseInt(Optional.ofNullable(request.getParameter("activityID")).orElse("-1"));
-//        String componentType = Optional.ofNullable(request.getParameter("componentsTypeSelect")).orElse("");
-//        int reservationState = Integer.parseInt(Optional.ofNullable(request.getParameter("StateSelect")).orElse("-1"));  
-//        List<Component> components = componentService.getComponentList();
-//        model.addAttribute("viewComponents", components);
-//        request.setAttribute("totalNum", Optional.ofNullable(components).map(u->u.size()).orElse(0));
+		List<Reservation> reservations = reservationService.getReservationList();
+		int totalNum=0;
+		for (Reservation reservation : reservations) {
+			totalNum+=reservation.getComponentList().size();
+		}
+		model.addAttribute("totalNum", totalNum);
+		model.addAttribute("viewComponents", reservations);
 		return "/reservation/appointmentComponentSearch";
 	}
 
