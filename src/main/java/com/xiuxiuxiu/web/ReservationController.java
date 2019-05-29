@@ -52,22 +52,41 @@ public class ReservationController {
 		Student user = (Student) session.getAttribute("user");
 
 		for (Reservation reservation : allReservations) {
+			//找出该用户对应的预约单
 			if (reservation.getStudent().getId() == user.getId()) {
-				String detail = "详情:" + reservation.getDetail();
+				String cutDetail = "详情:" + reservation.getDetail();
 				if (reservation.getDetail() == null || reservation.getDetail().length() < 1) {
-					detail = "详情:未填写";
-				} else if (detail.length() > 14)
-					detail = detail.substring(0, 13) + "...";
+					cutDetail = "详情:未填写";
+				} else if (cutDetail.length() > 14)
+					cutDetail = cutDetail.substring(0, 13) + "...";
 
-				reservation.setDetail(detail);
+				reservation.setCutDetail(cutDetail);
 				reservations.add(reservation);
 			}
 		}
+		
+		for (Reservation myReservation : reservations) {
+			//传递预约单对应图片url
+			List<ReservationImgUrl> imgUrls = myReservation.getImgUrlList();
+			for (ReservationImgUrl imgUrl : imgUrls) {
+				// 注意！《配置到服务器时》注意检查预约单图片存储路径，然后在application.properties中修改虚拟路径对应的实际路径...
+				// 已经设置一个虚拟路径对应实际路径的C:/Users/，所以进行路径剪裁
+				// 例如一个url="C:\Users\10553\AppData\Local\Temp..."=>"10553\AppData\Local\Temp..."
+				String cutUrl = imgUrl.getImg_url().substring(9);
+				System.out.println(cutUrl);
+				imgUrl.setImg_url(cutUrl);
+			}
+			myReservation.setImgUrlList(imgUrls);
+
+		}
+		
 
 		model.addAttribute("reservations", reservations);
 		return "/reservation/myReservationList";
 	}
 
+	
+	
 	@RequestMapping("/editMyReservation")
 	public String editMyReservation(Model model, @RequestParam("reservationId") int reservationId) {
 		Reservation reservation = reservationService.findReservationById(reservationId);
@@ -144,21 +163,37 @@ public class ReservationController {
 		return "redirect:/myReservationList";
 	}
 
-	@RequestMapping("/myReservationDetail")
-	public String myReservationDetail(Model model, @RequestParam("reservationId") int reservationId) {
-		Reservation reservation = reservationService.findReservationById(reservationId);
-		List<ReservationImgUrl> imgUrls = reservation.getImgUrlList();
-		for (ReservationImgUrl imgUrl : imgUrls) {
-			// 例如一个url="C:\Users\10553\AppData\Local\Temp..."
-			String cutUrl = imgUrl.getImg_url().substring(9);
-			System.out.println(cutUrl);
-			imgUrl.setImg_url(cutUrl);
-		}
+	
+	
+//	我的预约单详情页整合到预约单列表页上去作为弹窗了
+//	@RequestMapping("/myReservationDetail")
+//	public String myReservationDetail(Model model, @RequestParam("reservationId") int reservationId) {
+//		Reservation myReservation = reservationService.findReservationById(reservationId);
+//		List<Component> componentList = myReservation.getComponentList();
+//		String components = "";
+//		for (Component component : componentList) {
+//			components = components + "," + component.getName();
+//		}
+//		if (components.length()>1)
+//			components=components.substring(1);// 去除第一个逗号
+//		System.out.println(components);
+//		model.addAttribute("components", components);
+//
+//		List<ReservationImgUrl> imgUrls = myReservation.getImgUrlList();
+//		for (ReservationImgUrl imgUrl : imgUrls) {
+//			// 注意！配置到服务器时注意检查预约单图片存储路径，然后在application.properties中修改虚拟路径对应的实际路径...
+//			// 已经设置一个虚拟路径对应实际路径的C:/Users/，所以进行路径剪裁
+//			// 例如一个url="C:\Users\10553\AppData\Local\Temp..."=>"10553\AppData\Local\Temp..."
+//			String cutUrl = imgUrl.getImg_url().substring(9);
+//			System.out.println(cutUrl);
+//			imgUrl.setImg_url(cutUrl);
+//		}
+//		model.addAttribute("imgUrls", imgUrls);
+//
+//		model.addAttribute("reservation", myReservation);
+//		return "/reservation/myReservationList";
+//	}
 
-		model.addAttribute("reservation", reservation);
-		model.addAttribute("imgUrls", imgUrls);
-		return "/reservation/myReservationDetail";
-	}
 
 	@RequestMapping("/reservation/step1")
 	public String reservationStep1() {
