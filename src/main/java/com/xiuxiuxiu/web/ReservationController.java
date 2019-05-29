@@ -267,20 +267,14 @@ public class ReservationController {
 		reservation.setApplicationTime(df.format(new Date())); // 设置申请提交时间
 
 		// 处理需求零件的信息
-		String neededComponents = parameters.getParameter("neededComponents");
-		if (neededComponents != null) {
-			System.out.println("该预约单选择的零件id：" + neededComponents);
-			String[] componentIdList = neededComponents.split(",");
-			if (componentIdList != null) {
+		String[] neededComponentIdList = parameters.getParameterValues("neededComponents");
+		if (neededComponentIdList != null) {
 				List<Component> componentList = new ArrayList<Component>();
-				for (String componentId : componentIdList) {
+				for (String componentId : neededComponentIdList) {
 					if (componentId.length() != 0) {
 						int id = Integer.parseInt(componentId);
 						componentList.add(componentService.findComponentById(id));
-						// 记得删除...
-						System.out.println("该预约单选择的零件：" + componentService.findComponentById(id).getName());
 					}
-				}
 				reservation.setComponentList(componentList);
 			}
 		}
