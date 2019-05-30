@@ -163,7 +163,7 @@ public class StudentController {
 			}
 		}
 
-		return "redirect:/home";
+		return home(model);
 	}
 
 	@RequestMapping("student/register")
