@@ -56,10 +56,6 @@ public class StudentController {
 		return "home/index";
 	}
 	
-	@RequestMapping("/index")
-    public  String index1(){
-        return "index";
-    }
 	
 	@RequestMapping("/findALL")
     @ResponseBody
@@ -110,7 +106,7 @@ public class StudentController {
 	}
 
 	@RequestMapping("/student/edit")
-	public String edit(HttpSession session, HttpServletRequest request) {
+	public String edit(Model model,HttpSession session, HttpServletRequest request) {
 
 		String changeName = request.getParameter("name");
 		String changeStudentId = request.getParameter("studentId");
@@ -122,8 +118,16 @@ public class StudentController {
 		user.setEmail(changeEmail);
 		user.setAddress(changeAddress);
 
-		studentService.edit(user);
-		return "redirect:/home";
+		try {
+			studentService.edit(user);
+			model.addAttribute("message","个人信息修改成功!");
+		} catch (Exception e) {
+			model.addAttribute("err","抱歉，由于未知原因个人信息修改失败!");
+			e.printStackTrace();
+		}
+		
+		
+		return home(model);
 	}
 
 	@RequestMapping("/student/delete")
