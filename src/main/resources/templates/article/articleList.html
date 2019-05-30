@@ -56,12 +56,12 @@
 						</div>
 						<div
 							class="col-xs-6 event-left1-right w3-agileits-event-left1-right">
-							<h4 th:text="${article.time}"></h4>
 							<h5>
 								<a th:href="@{/article/articleDetail(id=${article.id})}"
 									th:text="${article.title}"></a>
 							</h5>
 							<p th:text="${article.manager.name}"></p>
+							<h4 th:text="${article.time}"></h4>
 						</div>
 						<div class="clearfix"></div>
 					</div>
