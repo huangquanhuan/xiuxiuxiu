@@ -1,13 +1,12 @@
 package com.xiuxiuxiu.web;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 import com.xiuxiuxiu.model.Activity;
+import com.xiuxiuxiu.model.Article;
 import com.xiuxiuxiu.model.Equipment;
-<<<<<<< HEAD
 import com.xiuxiuxiu.model.ReturnData;
-=======
 import com.xiuxiuxiu.model.Reservation;
->>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
 import com.xiuxiuxiu.model.Student;
 import com.xiuxiuxiu.service.ActivityService;
 import com.xiuxiuxiu.service.EquipmentService;
@@ -59,7 +58,7 @@ public class StudentController {
 		return "home/index";
 	}
 	
-	@RequestMapping("/index")
+	@RequestMapping("/index1")
     public  String index1(){
         return "index";
     }
@@ -271,6 +270,14 @@ public class StudentController {
 		return "redirect:/home";
 	}
 	
+    @RequestMapping("/contact")
+    public String con() {
+        return "redirect:article/contact";
+    }
+    @RequestMapping("/article/contact")
+    public String tact() {
+        return "article/Contact";
+    }
 	/*
 	 * 判断手机号格式
 	 */
