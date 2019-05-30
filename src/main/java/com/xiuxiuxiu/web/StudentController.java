@@ -1,24 +1,34 @@
 package com.xiuxiuxiu.web;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.xiuxiuxiu.model.Activity;
 import com.xiuxiuxiu.model.Equipment;
+import com.xiuxiuxiu.model.ReturnData;
 import com.xiuxiuxiu.model.Reservation;
 import com.xiuxiuxiu.model.Student;
 import com.xiuxiuxiu.service.ActivityService;
 import com.xiuxiuxiu.service.EquipmentService;
 import com.xiuxiuxiu.service.ReservationService;
 import com.xiuxiuxiu.service.StudentService;
+import com.xiuxiuxiu.service.impl.StudentServiceImpl;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +36,7 @@ import java.util.regex.Pattern;
 public class StudentController {
 
 	@Resource
-	StudentService studentService;
+	StudentServiceImpl studentService;
 	@Resource
 	ReservationService reservationService;
 	@Resource
@@ -45,7 +55,42 @@ public class StudentController {
 		model.addAttribute("activityList", activityList);
 		return "home/index";
 	}
-
+	
+	@RequestMapping("/index")
+    public  String index1(){
+        return "index";
+    }
+	
+	@RequestMapping("/findALL")
+    @ResponseBody
+    public List<Student> findAll(){
+        List< Student> list = studentService.findAll();
+        return list;
+    }
+	
+	@RequestMapping("/getAll")
+	@ResponseBody
+    public ReturnData<Student> findAllNoQuery(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
+    		@RequestParam(value="limit",defaultValue="5") Integer limit) {
+		int sum=studentService.findAll().size();
+		Page<Student> datas = studentService.findAll(offset, limit);
+		List<Student> stuDatas = datas.getContent(); 
+		return new ReturnData<Student>(sum,stuDatas);
+    }
+	
+	@RequestMapping("/getAll2")
+	@ResponseBody
+    public Map<Integer, List<Student>> findAllNoQuery2(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
+    		@RequestParam(value="limit",defaultValue="5") Integer limit) {
+    	System.out.println(offset +"\n\n"+limit);
+    	int sum=studentService.findAll().size();
+		Page<Student> datas = studentService.findAll(offset, limit);
+		List<Student> stuDatas = datas.getContent();
+		Map<Integer, List<Student>> ans = new HashMap<Integer, List<Student>>();
+		ans.put(sum, stuDatas);
+		return ans;
+	}
+	
 	@RequestMapping("/home")
 	public String home(Model model) {
 		List<Activity> activityList = activityService.getActivityList();

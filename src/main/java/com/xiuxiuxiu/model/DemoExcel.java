@@ -1,98 +1,130 @@
 package com.xiuxiuxiu.model;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
-import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
+
 
 import javax.persistence.*;
-import java.util.Date;
+
+
  
 @Entity
-@Table(name = "seckill")
 public class DemoExcel {
  
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Excel(name = "id" ,orderNum = "0")
-    private Long seckillId;
+	@Id
+	@GeneratedValue
+@Excel(name = "姓名" ,orderNum = "0")
+	private String name;
+
+@Excel(name = "学号",orderNum = "1")
+	private String studentId;
+
+@Excel(name = "联系电话",orderNum = "2")
+	private String phoneNum;
+
+@Excel(name = "预约地点",orderNum = "3")
+	private String address;
+
+@Excel(name = "预约场次",orderNum = "4")
+	private String appointments;
+
+@Excel(name = "所需零件",orderNum = "5")
+	private String acComponent;
+
+@Excel(name = "预约状态",replace = { "未受理_0", "已受理未完成_1","已完成_2" },orderNum = "6")
+	private int repairState;
+
+private int reservationid;
  
-    @Column(name = "name")
-    @Excel(name = "姓名" ,orderNum = "1")
-    private String name;
- 
-    @Column(name = "number")
-    @Excel(name = "数量" ,orderNum = "2")
-    private int number;
- 
-    @Column(name = "start_time")
-    @Excel(name = "开始日期" ,orderNum = "3",importFormat = "yyyy-MM-dd HH:mm:ss")//exportFormat = "yyyy-MM-dd HH:mm:ss")
-    private Date startTime;
- 
-    @Column(name = "end_time")
-    @Excel(name = "结束日期" ,orderNum = "4",importFormat = "yyyy-MM-dd HH:mm:ss")//exportFormat = "yyyy-MM-dd HH:mm:ss")
-    private Date endTime;
- 
-    @Column(name = "create_time")
-    @Excel(name = "创建日期" ,orderNum = "5",importFormat = "yyyy-MM-dd HH:mm:ss")//exportFormat = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
- 
-    public Long getSeckillId() {
-        return seckillId;
+    public DemoExcel(Reservation reservation) {
+    	reservationid=reservation.getId();
+    	name=reservation.getStudent().getName();
+    	studentId=reservation.getStudent().getStudentId();
+    	phoneNum=reservation.getStudent().getPhoneNumber();
+    	//地点
+    	address=reservation.getPlace();
+    	//预约场次
+    	appointments=reservation.getRequiredTime();
+    	//零件表 
+    	if(reservation.getComponentList().isEmpty()) {
+    		acComponent="未选择零件";
+    	}else {
+    		acComponent=reservation.getComponentList().get(0).getName();
+    	}
+    	System.out.print(acComponent);
+    	//当前维修状态 
+    	repairState=reservation.getState();
     }
- 
-    public void setSeckillId(Long seckillId) {
-        this.seckillId = seckillId;
+    public DemoExcel() {
+    	
     }
- 
-    public String getName() {
-        return name;
-    }
- 
-    public void setName(String name) {
-        this.name = name;
-    }
- 
-    public int getNumber() {
-        return number;
-    }
- 
-    public void setNumber(int number) {
-        this.number = number;
-    }
- 
-    public Date getStartTime() {
-        return startTime;
-    }
- 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
- 
-    public Date getEndTime() {
-        return endTime;
-    }
- 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
- 
-    public Date getCreateTime() {
-        return createTime;
-    }
- 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
- 
-    @Override
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
+
+	@Override
     public String toString() {
         return "DemoExcel{" +
-                "seckillId=" + seckillId +
-                ", name='" + name + '\'' +
-                ", number=" + number +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", createTime=" + createTime +
-                '}';
+                ",name='" + name +
+                ", studentId=" + studentId +
+                 ", phoneNum=" + phoneNum +
+                 ", address=" + address +
+                ", appointments=" + appointments +
+                ", component=" + acComponent +
+                ", repairState=" + repairState + '}';
     }
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getAppointments() {
+		return appointments;
+	}
+	public void setAppointments(String appointments) {
+		this.appointments = appointments;
+	}
+	public String getAcComponent() {
+		return acComponent;
+	}
+	public void setAcComponent(String acComponent) {
+		this.acComponent = acComponent;
+	}
+	public int getRepairState() {
+		return repairState;
+	}
+	public void setRepairState(int repairState) {
+		this.repairState = repairState;
+	}
+	public int getReservationid() {
+		return reservationid;
+	}
+	public void setReservationid(int reservationid) {
+		this.reservationid = reservationid;
+	}
+
+
 }

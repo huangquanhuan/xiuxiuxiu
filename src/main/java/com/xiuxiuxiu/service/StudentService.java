@@ -4,6 +4,8 @@ import com.xiuxiuxiu.model.Student;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 public interface StudentService {
 
     public List<Student> getStudentList();
@@ -18,5 +20,5 @@ public interface StudentService {
 
     public void delete(int id);
 
-
+    public Page<Student> findAll(int pageNum,int pageSize);
 }
