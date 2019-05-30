@@ -37,10 +37,16 @@ public class ArticleController {
 
     @RequestMapping("/article/articleSearch")
     public String search(Model model , @RequestParam("searchInfo") String searchInfo) {
-    	System.err.println("caonima");
-        Article article = articleService.findArticleByTitle(searchInfo);
-        model.addAttribute("article", article);
-        System.out.println("article.id => " + article.getId());
+    	try {
+    		Article article = articleService.findArticleByTitle(searchInfo);
+    		model.addAttribute("article", article);
+//    		System.out.println("找到文章：article.id => " + article.getId());
+			if(article==null)
+				model.addAttribute("message","未找到相关文章！");
+		} catch (Exception e) {
+			model.addAttribute("err", "抱歉，查找文章失败！");
+			e.printStackTrace();
+		}
         return "article/ArticleSearch";
     }
     

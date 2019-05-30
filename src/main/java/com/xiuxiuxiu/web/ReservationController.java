@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.catalina.startup.HomesUserDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -66,6 +67,11 @@ public class ReservationController {
 				reservation.setCutDetail(cutDetail);
 				reservations.add(reservation);
 			}
+		}
+		if(reservations.size()<1) {
+			model.addAttribute("message","你当前还没有在该平台上预约过！");
+			model.addAttribute("reservations", reservations);
+			return "/reservation/myReservationList";
 		}
 		
 		for (Reservation myReservation : reservations) {
@@ -199,7 +205,25 @@ public class ReservationController {
 
 
 	@RequestMapping("/reservation/step1")
-	public String reservationStep1() {
+	public String reservationStep1(Model model,HttpSession session) {
+		if(session.getAttribute("user")==null) {
+			model.addAttribute("err","对不起，请先登录！");
+			List<Activity> activityList = activityService.getActivityList();
+			model.addAttribute("activityList", activityList);
+			
+			List<Reservation> reservationsList = reservationService.getReservationList();
+			int reservationCount = reservationsList.size();
+			model.addAttribute("reservationCount", reservationCount);
+			int serviceEquipmentCount = 0;
+			for(Reservation reservation:reservationsList) {
+				if(reservation.getEquipment()!=null)
+					serviceEquipmentCount++;
+			}
+			model.addAttribute("serviceEquipmentCount", serviceEquipmentCount);
+			model.addAttribute("reservationCount", reservationCount);
+			return "/home/HomePage";
+		}
+			
 		return "/reservation/reservationStep1";
 	}
 

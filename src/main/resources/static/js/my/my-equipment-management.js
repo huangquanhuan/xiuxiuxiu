@@ -37,7 +37,7 @@ function changeDisabled(btn, id) {
 		btn2.setAttribute("onclick", "del(this)");
 	} else if (btn_text.nodeValue == "确定") {
 		// 修改action为编辑
-		form.action = "student/equipmentEdit";
+		form.action = "/student/equipmentEdit";
 		// 提交修改
 		btn1.setAttribute("type", "submit");
 	} else{
@@ -47,7 +47,7 @@ function changeDisabled(btn, id) {
 
 function del(btn) {
 	var form = btn.parentNode;
-	form.action = "student/equipmentDelete";
+	form.action = "/student/equipmentDelete";
 	btn.setAttribute("type", "submit");
 }
 
