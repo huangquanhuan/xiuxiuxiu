@@ -46,24 +46,26 @@ public class ReservationController {
 	@Autowired
 	ImgUrlService imgUrlService;
 
+	@Autowired
+	StudentService studentService;
+
 	@RequestMapping("/myReservationList")
 	public String myReservationList(Model model, HttpSession session) {
-		List<Reservation> allReservations = reservationService.getReservationList();
-		List<Reservation> reservations = new ArrayList<Reservation>();
 		Student user = (Student) session.getAttribute("user");
+		user=studentService.findStudentById(user.getId());
+		List<Reservation> reservations = user.getReservationList();
 
-		for (Reservation reservation : allReservations) {
-			//找出该用户对应的预约单
-			if (reservation.getStudent().getId() == user.getId()) {
-				String cutDetail = "详情:" + reservation.getDetail();
+		for (Reservation reservation : reservations) {
+				String cutDetail = "详情:";
 				if (reservation.getDetail() == null || reservation.getDetail().length() < 1) {
 					cutDetail = "详情:未填写";
-				} else if (cutDetail.length() > 14)
+				}else{
+					cutDetail = "详情:" + reservation.getDetail();
+				}
+				if (cutDetail.length() > 14)
 					cutDetail = cutDetail.substring(0, 13) + "...";
 
 				reservation.setCutDetail(cutDetail);
-				reservations.add(reservation);
-			}
 		}
 		if(reservations.size()<1) {
 			model.addAttribute("message","你当前还没有在该平台上预约过！");
