@@ -76,61 +76,17 @@
 							<div th:if="(${article.manager.id}==${session.administrator.id})
 							or (${session.administrator.accessLevel==2})" class="read}" 
 							 >
-								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal4'+${article.id}">修改</a>
-								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal5'+${article.id}">删除</a>
+								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal4'"
+								th:onclick="'setTargetID('+${article.id}+')'">修改</a>
+								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal5'"
+								th:onclick="'setTargetID('+${article.id}+')'">删除</a>
 							
 							</div>
 						</div>
 					</div>
 						<div class="clearfix"> </div>
 					</div>
-											<!-- //Modal -->
-											<div class="modal fade" th:id="myModal5+${article.id}" tabindex="-1" role="dialog">
-														<div class="modal-dialog">
-														<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>
-																	
-																	<div class="signin-form profile">
-																	<h3 class="agileinfo_sign">是否删除该文章？</h3>	
-																			<div class="login-form">
-																				<form th:action="@{/manager/DeleteArticle}" method="post">
-																					<input type="hidden" name="id" th:value=${article.id}>
-																					<input type="submit" value="确定">
-																				</form>
-																			</div>
-																			
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>	
 											
-													<div class="modal fade" th:id="myModal4+${article.id}" tabindex="-1" role="dialog">
-														<div class="modal-dialog">
-														<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>
-																	
-																	<div class="signin-form profile">
-																	<h3 class="agileinfo_sign">修改文章</h3>	
-																			<div class="login-form">
-																				<form th:action="@{/manager/UpdateArticle}" method="post">
-																					<input type="hidden" name="id" th:value=${article.id}>
-																				    <input type="text" name="title" placeholder="标题" required="required">
-																					<textarea row="10" name="text" placeholder="文章内容" required="required"></textarea>
-				                                                                    
-																					<input type="submit" value="确定">
-																				</form>
-																			</div>
-																			
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>
 													
 				</div>
 			</div>
@@ -252,7 +208,63 @@
 																</div>
 															</div>
 														</div>
-													</div>											
+													</div>		
+													
+													<!-- //Modal -->
+											<div class="modal fade" th:id="myModal5" tabindex="-1" role="dialog">
+														<div class="modal-dialog">
+														<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	
+																	<div class="signin-form profile">
+																	<h3 class="agileinfo_sign">是否删除该文章？</h3>	
+																			<div class="login-form">
+																				<form th:action="@{/manager/DeleteArticle}" method="post">
+																					<input id="delete-input-id"  type="hidden" name="id" >
+																					<input type="submit" value="确定">
+																				</form>
+																			</div>
+																			
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>	
+											
+													<div class="modal fade" th:id="myModal4" tabindex="-1" role="dialog">
+														<div class="modal-dialog">
+														<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	
+																	<div class="signin-form profile">
+																	<h3 class="agileinfo_sign">修改文章</h3>	
+																			<div class="login-form">
+																				<form th:action="@{/manager/UpdateArticle}" method="post">
+																					<input id="update-input-id" type="hidden" name="id">
+																				    <input type="text" name="title" placeholder="标题" required="required">
+																					<textarea row="10" name="text" placeholder="文章内容" required="required"></textarea>
+				                                                                    
+																					<input type="submit" value="确定">
+																				</form>
+																			</div>
+																			
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>		
+													
+	<script type="text/javascript">
+		//点击按钮设置目标id
+		function setTargetID(id) {
+			document.getElementById("delete-input-id").value = id;
+			document.getElementById("update-input-id").value = id;
+		}
+	</script>							
 													
 </body>
 </html>
