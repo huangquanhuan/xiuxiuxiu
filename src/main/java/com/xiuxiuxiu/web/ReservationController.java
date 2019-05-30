@@ -227,7 +227,7 @@ public class ReservationController {
 	}
 
 	@RequestMapping("/reservation/step2")
-	public String reservationStep2(Model model) {
+	public String reservationStep2(Model model,HttpSession session) {
 		// 获取所有活动场次列表
 		List<Activity> activities = activityService.getActivityList();
 		model.addAttribute("activities", activities);
@@ -236,8 +236,10 @@ public class ReservationController {
 		List<Component> components = componentService.getComponentList();
 		model.addAttribute("components", components);
 
-		// 获取所有设备列表
-		List<Equipment> equipments = equipmentService.getEquipmentList();
+		// 获取当前用户的设备列表
+		Student user = (Student) session.getAttribute("user");
+		user=studentService.findStudentById(user.getId());
+		List<Equipment> equipments = user.getEquipmentList();
 		model.addAttribute("equipments", equipments);
 		return "/reservation/reservationStep2";
 	}
