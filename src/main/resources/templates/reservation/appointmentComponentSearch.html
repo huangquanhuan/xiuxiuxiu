@@ -16,10 +16,30 @@
 </script>
 <link href="/css/index.css" rel="stylesheet" type="text/css" media="all" />
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+	integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+	crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+	integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ"
+	crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+	crossorigin="anonymous"></script>
+<style type="text/css">
+.filter {
+	display: inline-block;
+	margin-right: 1em;
+}
+</style>
 </head>
 <body>
-	<div th:replace="manager/Mnav :: mnavbar"></div> 
+	<div th:replace="manager/Mnav :: mnavbar"></div>
 
 	<!-- 主体内容：开始 -->
 	<div class="services">
@@ -34,9 +54,13 @@
 			<div class="tab-content">
 
 				<div class="table-responsive tab-pane active" id="table-content">
-					<table class="table">
-						<p style="" th:text="'总数：'+${totalNum}"></p>
-						<a href="" class="view resw3">刷新</a>
+					<table class="table table-striped table-bordered">
+						<p style="" th:text="'零件总数：'+${componentNum}"></p>
+						<span>零件:<strong th:text="${componentFilter}"
+							class="filter"></strong></span>
+						<span>场次: <strong th:text="${activityFilter}"
+							class="filter"></strong></span>
+						<span>状态:<strong th:text="${stateFilter}" class="filter"></strong></span>
 						<thead>
 							<tr>
 								<th>姓名</th>
@@ -44,32 +68,126 @@
 								<th>联系电话</th>
 								<th>预约类型</th>
 								<th>场次</th>
+								<th>地点</th>
 								<th>零件类型</th>
 								<th>是否完成</th>
+								<th>操作</th>
 								<th>详情</th>
 							</tr>
 						</thead>
 						<tbody>
-							<th:block th:each="viewComponent,iter:${viewComponents}">
-								<tr th:each="component,iter:${viewComponent.componentList}">
+							<th:block th:each="viewComponent,iter1:${viewComponents}">
+								<tr th:each="component,iter2:${viewComponent.componentList}">
 									<td th:text="${viewComponent.student.name}"></td>
 									<td th:text="${viewComponent.student.studentId}"></td>
 									<td th:text="${viewComponent.student.phoneNumber}"></td>
-									
-									<td th:if="${viewComponent.applicationType == 0}" th:text="${viewComponent.applicationType}"></td>
-									<td th:if="${viewComponent.applicationType == 1}" th:text="${viewComponent.applicationType}"></td>
-									
-									<td th:if="${viewComponent.activity!=null}" th:text="${viewComponent.activity.time}"></td>
+
+									<td th:if="${viewComponent.applicationType == 0}">上门预约</td>
+									<td th:if="${viewComponent.applicationType == 1}">活动预约</td>
+
+									<td th:if="${viewComponent.activity!=null}"
+										th:text="${viewComponent.activity.time}"></td>
 									<td th:if="${viewComponent.activity==null}" th:text="无"></td>
+									<td th:if="${viewComponent.activity!=null}"
+										th:text="${viewComponent.activity.place}"></td>
+									<td th:if="${viewComponent.activity==null}" th:text="无"></td>
+
 									<td th:text="${component.name}"></td>
-									
+
 									<td th:if="${viewComponent.state == 0}">未受理</td>
 									<td th:if="${viewComponent.state == 1}">处理中</td>
 									<td th:if="${viewComponent.state == 2}">已完成</td>
-									
-									<td><a
-										href="makeReservation?method=getForID&id=${viewComponents.reservationID}"
-										class="view resw3">详情</a></td>
+
+									<td th:if="${viewComponent.state == 0}"><button
+											class="btn btn-info btn-sm">接受</button></td>
+									<td th:if="${viewComponent.state == 1}"><button
+											class="btn btn-warning btn-sm">标记为完成</button></td>
+									<td th:if="${viewComponent.state == 2}"><button
+											class="btn btn-success btn-sm">已完成</button></td>
+
+									<td>
+										<!-- Button trigger modal -->
+										<button type="button" class="btn btn-primary btn-sm"
+											data-toggle="modal"
+											th:data-target="'#detailModal'+${iter1.index}+${iter2.index}">查看详情</button> <!-- Modal -->
+										<div class="modal fade"
+											th:id="'detailModal'+${iter1.index}+${iter2.index}"
+											tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title" id="myModalLabel">预约详情</h4>
+													</div>
+													<div class="modal-body">
+														<form class="form-horizontal">
+															<div class="form-group">
+																<label class="col-sm-2 control-label">姓名</label>
+																<div class="col-sm-10">
+																	<input class="form-control" type="text" disabled
+																		th:value="${viewComponent.student.name}">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-2 control-label">电话</label>
+																<div class="col-sm-10">
+																	<input class="form-control" type="text" disabled
+																		th:value="${viewComponent.student.phoneNumber}">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-2 control-label">学号</label>
+																<div class="col-sm-10">
+																	<input class="form-control" type="text" disabled
+																		th:value="${viewComponent.student.studentId}">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-2 control-label">预约类型</label>
+																<div class="col-sm-10">
+																	<input class="form-control" th:if="${viewComponent.applicationType == 0}" disabled value="上门预约">
+																	<input class="form-control" th:if="${viewComponent.applicationType == 1}" disabled value="活动预约">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-2 control-label">场次</label>
+																<div class="col-sm-10">
+																	<input class="form-control" th:if="${viewComponent.activity != null}" disabled th:value="${viewComponent.activity.time}">
+																	<input class="form-control" th:if="${viewComponent.activity == null}" disabled value="无">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-2 control-label">地点</label>
+																<div class="col-sm-10">
+																	<input class="form-control" th:if="${viewComponent.activity != null}" disabled th:value="${viewComponent.activity.place}">
+																	<input class="form-control" th:if="${viewComponent.activity == null}" disabled value="无">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-2 control-label">零件</label>
+																<div class="col-sm-10">
+																	<input class="form-control" disabled th:value="${component.name}">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-2 control-label">状态</label>
+																<div class="col-sm-10">
+																	<input th:if="${viewComponent.state == 0}" class="form-control" disabled value="未受理">
+																	<input th:if="${viewComponent.state == 1}" class="form-control" disabled value="已受理未完成">
+																	<input th:if="${viewComponent.state == 2}" class="form-control" disabled value="已完成">
+																</div>
+															</div>
+														</form>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default"
+															data-dismiss="modal">Close</button>
+														<button type="button" class="btn btn-primary">Save
+															changes</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</td>
 								</tr>
 							</th:block>
 						</tbody>
@@ -113,10 +231,10 @@
 	<script type="text/javascript" src="/js/modernizr.custom.46884.js"></script>
 	<!-- password-script -->
 	<script type="text/javascript">
-		window.onload = function() {
-			document.getElementById("password1").onchange = validatePassword;
-			document.getElementById("password2").onchange = validatePassword;
-		}
+		// 		window.onload = function() {
+		// 			document.getElementById("password1").onchange = validatePassword;
+		// 			document.getElementById("password2").onchange = validatePassword;
+		// 		}
 
 		function validatePassword() {
 			var pass2 = document.getElementById("password2").value;
@@ -235,8 +353,6 @@
 				}, 1000);
 			});
 		});
-	</script>
-	<script type="text/javascript">
 		$(document).ready(function() {
 			$().UItoTop({
 				easingType : 'easeOutQuart'

@@ -382,12 +382,27 @@ public class ReservationController {
 			filteredList.add(reservation);
 		}
 		// 计算总数
-		int totalNum = 0;
-		for (Reservation reservation : filteredList) {
-			totalNum += reservation.getComponentList().size();
+		int componentNum = 0,personNum=0;
+		for (int i = 0; i < filteredList.size(); i++) {
+			Reservation r = filteredList.get(i);
+			componentNum+=r.getComponentList().size();
+			personNum++;
 		}
-		model.addAttribute("totalNum", totalNum);
+		model.addAttribute("componentNum", componentNum);
+		model.addAttribute("personNum", personNum);
 		model.addAttribute("viewComponents", filteredList);
+		// 设置过滤条件的显示
+		String activityFilter;
+		if (activityId ==ALL_ACTIVITY )  activityFilter = "全部";
+		else if (activityId ==DOOR_ACTIVITY )  activityFilter = "上门服务";
+		else {
+			activityFilter= activityService.findActivityById(activityId).getPlace();
+		}
+		String stateFilter = state==0?"已受理":(state==1?"已受理未完成":(state==2?"已完成":"全部"));
+		String componentFilter = componentType;
+		model.addAttribute("activityFilter", activityFilter);
+		model.addAttribute("stateFilter", stateFilter);
+		model.addAttribute("componentFilter", componentFilter);
 		return "/reservation/appointmentComponentSearch";
 	}
 
