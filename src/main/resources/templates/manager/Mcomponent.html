@@ -1,22 +1,9 @@
-
 <!DOCTYPE html>
-<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>零件库编辑</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="keywords" content="">
-<script type="application/x-javascript">
-	
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-
-</script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
 <!-- //custom-theme -->
 
     <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -25,11 +12,21 @@
     <!-- font-awesome-icons -->
     <link href="../css/font-awesome.css" rel="stylesheet">
 <!-- //font-awesome-icons -->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-<link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+<title>零件库编辑</title>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="application/x-javascript">
+	
+	
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+</script>
+<link href="/css/index.css" rel="stylesheet" type="text/css"
+	media="all" />
 </head>
 <body>
 	<div th:replace="manager/Mnav :: mnavbar"></div> 
@@ -142,7 +139,7 @@
 							</tbody>
 						</table>
 						<!-- 按钮触发模态框 -->
-						<button class="btn btn-primary btn-lg" data-toggle="modal"
+						<button class=" btn-success btn-lg" data-toggle="modal"
 							data-target="#myModal">新增零件</button>
 						<!-- 模态框（Modal） -->
 						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -179,7 +176,7 @@
 
 											<button type="button" class="btn btn-default"
 												data-dismiss="modal">关闭</button>
-											<button type="submit" class="btn btn-primary" name="submit">提交</button>
+											<button type="submit" class="btn btn-success" name="submit">提交</button>
 										</div>
 									</form>
 								</div>

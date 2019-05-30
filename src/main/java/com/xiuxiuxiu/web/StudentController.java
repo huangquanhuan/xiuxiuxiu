@@ -58,10 +58,6 @@ public class StudentController {
 		return "home/index";
 	}
 	
-	@RequestMapping("/index1")
-    public  String index1(){
-        return "index";
-    }
 	
 	@RequestMapping("/findALL")
     @ResponseBody
@@ -108,11 +104,11 @@ public class StudentController {
 		}
 		model.addAttribute("serviceEquipmentCount", serviceEquipmentCount);
 		model.addAttribute("reservationCount", reservationCount);
-		return "home/HomePage";
+		return "/home/HomePage";
 	}
 
 	@RequestMapping("/student/edit")
-	public String edit(HttpSession session, HttpServletRequest request) {
+	public String edit(Model model,HttpSession session, HttpServletRequest request) {
 
 		String changeName = request.getParameter("name");
 		String changeStudentId = request.getParameter("studentId");
@@ -124,8 +120,16 @@ public class StudentController {
 		user.setEmail(changeEmail);
 		user.setAddress(changeAddress);
 
-		studentService.edit(user);
-		return "redirect:/home";
+		try {
+			studentService.edit(user);
+			model.addAttribute("message","个人信息修改成功!");
+		} catch (Exception e) {
+			model.addAttribute("err","抱歉，由于未知原因个人信息修改失败!");
+			e.printStackTrace();
+		}
+		
+		
+		return home(model);
 	}
 
 	@RequestMapping("/student/delete")
@@ -165,7 +169,7 @@ public class StudentController {
 		return home(model);
 	}
 
-	@RequestMapping("student/register")
+	@RequestMapping("/student/register")
 	public String register(Model model, @RequestParam("name") String name,
 			@RequestParam("phoneNumber") String phoneNumber, @RequestParam("passWord") String passWord,
 			@RequestParam("passWord2") String passWord2, @RequestParam("address") String address, @RequestParam("email") String email,@RequestParam("code") String code,HttpSession session) {
@@ -188,7 +192,10 @@ public class StudentController {
 		} else if (name.length() < 2 || name.length() > 12) {
 			model.addAttribute("err", "昵称长度范围在“2~12”之间");
 			System.out.println("昵称长度范围在“2~12”之间");
-		} else {
+		} else if(studentService.findStudentByPhoneNumber(phoneNumber)!=null){
+			model.addAttribute("err", "该手机号已经注册过！");
+			System.out.println("该手机号已经注册过！");
+		}else{
 			Student student = new Student();
 			student.setName(name);
 			student.setAddress(address);
@@ -196,10 +203,17 @@ public class StudentController {
 			student.setPassword(passWord);
 			student.setPhoneNumber(phoneNumber);
 			student.setAccessLevel(0);
-			studentService.save(student);
-			System.out.println("注册成功");
+			try {
+				studentService.save(student);
+				model.addAttribute("message", "注册成功!");
+				System.out.println("注册成功");
+			} catch (Exception e) {
+				model.addAttribute("err", "抱歉，由于数据库原因，注册失败");
+				System.out.println("抱歉，由于数据库原因，注册失败");
+				e.printStackTrace();
+			}
 		}
-		return "redirect:/home";
+		return home(model);
 	}
 
 	@RequestMapping("student/exit")
@@ -229,7 +243,7 @@ public class StudentController {
 		for (Equipment eq : user.getEquipmentList()) {
 			System.out.println(eq.getEquipmentName());
 		}
-		return "redirect:/home";
+		return home(model);
 	}
 
 	@RequestMapping("/student/equipmentDelete")
@@ -245,10 +259,10 @@ public class StudentController {
 		for (Equipment eq : user.getEquipmentList()) {
 			System.out.println(eq.getEquipmentName());
 		}
-		return "redirect:/home";
+		return home(model);
 	}
 
-	@RequestMapping("student/addEquipment")
+	@RequestMapping("/student/addEquipment")
 	public String addEquipment(Model model, HttpSession session, @RequestParam("equipmentName") String equipmentName) {
 		
 		Student user = (Student) session.getAttribute("user");
@@ -267,7 +281,7 @@ public class StudentController {
 		for (Equipment eq : user.getEquipmentList()) {
 			System.out.println(eq.getEquipmentName());
 		}
-		return "redirect:/home";
+		return home(model);
 	}
 	
     @RequestMapping("/contact")

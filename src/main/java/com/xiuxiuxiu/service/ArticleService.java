@@ -22,5 +22,7 @@ public interface ArticleService {
 	public List<Article> findByManager(Manager manager);
 
 
-    public Article findByTitleLink(String title);
+    public List<Article> findByTitleLike(String title);
+
+    List<Article> findByTextLike(String text);
 }

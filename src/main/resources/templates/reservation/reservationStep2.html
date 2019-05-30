@@ -41,14 +41,20 @@
 			<div class="tab-content">
 				<!-- 申请现场维修的表单：开始 -->
 				<div id="field-service" class="container tab-pane active">
-					<br />
+			
 					<form action="/reservation/submit" method="post" enctype="multipart/form-data">
 						<input type="text" name="applyType"  value="0" style="display:none;" />
 						<!-- 场次选择 -->
 						<div class="form-group">
 							<label for="session-select" class="col-sm-3">预约场次</label>
 							<div class="col-sm-9">
-								<select id="session-select" class="form-control" name="activity">
+								<select style="
+								select option{
+        background: red;
+        color: #fff;
+        outline:1px solid green;
+       }"
+    id="session-select" class="form-control" name="activity">
 									<!-- 这里装入场次时间信息 -->
 									<option th:each="activity,iterStat: ${activities}" th:value="${activity.Id}" 
 											th:text="${activity.time}+',地点'+${activity.place}"></option>
@@ -58,6 +64,8 @@
 
 						<!-- 设备选择 -->
 						<div class="form-group">
+						
+
 							<div class="col-sm-3">
 								<label for="device-select">设备</label> 
 								<a href="#" data-toggle="modal"
@@ -74,7 +82,8 @@
 						</div>
 
 						<!-- 需求零件选择 -->
-						<div class="form-group">
+						<div class="form-group">						
+
 							<label for="component-select" class="col-sm-3">需求零件</label>
 							<div id="accordion" class="col-sm-9">
 								<div class="card">
@@ -97,6 +106,7 @@
 
 						<!-- 问题类型 -->
 						<div class="form-inline">
+
 							<label for="issue-type-select" class="col-sm-3">问题种类</label>
 							<div id="issue-type-select" class="col-sm-9">
 								<select id="repairType-select" class="form-control" name="repairType">
@@ -105,17 +115,26 @@
 								</select> 
 							</div>
 						</div>
-
+						
+						
+						
 						<!-- 详细描述问题 -->
-						<div class="form-group">
+						<div class="form-group">						
+
 							<label for="issue-detail" class="col-sm-3">问题描述</label>
 							<div id="issue-detail" class="col-sm-9">
-								<textarea class="form-control" rows="3" name="issueDetail"></textarea>
+<!-- 								<textarea class="form-control" rows="3" name="issueDetail"></textarea> -->
+								<textarea id="styled"  class="col-sm-3" name="issueDetail"
+								onfocus="this.value=''; setbg('#e5fff3');" onblur="setbg('white')">输入详细信息</textarea>
 							</div>
 						</div>
-
+						
+						
+						
 						<!-- 图片上传 -->
 						<div class="form-inline">
+						
+						
 							<label for="issue-image" class="col-sm-3">为问题描述提供图片</label>
 							<div  class="col-sm-9">
 								<input id="issue-image" name="issueImage" onchange="uploadFile()" type="file" class="form-control" accept="image/*" />
@@ -137,8 +156,8 @@
 
 						<!-- 提交按钮 -->
 						<div class="col-sm-offset-3 col-sm-9">
-							<br>
-							<button type="submit" class="btn btn-primary" >提交预约</button> 
+						
+							<button type="submit" class="btn-lg btn-success" >提交预约</button> 
 						</div>
 					</form>
 				</div>
@@ -146,7 +165,7 @@
 
 				<!-- 申请上门服务的表单：开始 -->
 				<div id="door-to-door-service" class="container tab-pane fade">
-					<br />
+		
 					<form action="/reservation/submit" method="post" enctype="multipart/form-data">
 						<input type="text" name="applyType"  value="1" style="display:none;" />
 						<!-- 时间选择 -->
@@ -212,7 +231,9 @@
 						<div class="form-group">
 							<label for="issue-detail-1" class="col-sm-3">问题描述</label>
 							<div id="issue-detail-1" class="col-sm-9">
-								<textarea class="form-control" rows="3" name="issueDetail"></textarea>
+<!-- 								<textarea class="form-control" rows="3" name="issueDetail"></textarea> -->
+								<textarea id="styled"  class="col-sm-3" name="issueDetail"
+								onfocus="this.value=''; setbg('#e5fff3');" onblur="setbg('white')">输入详细信息</textarea>
 							</div>
 						</div>
 
@@ -239,8 +260,8 @@
 
 						<!-- 提交按钮 -->
 						<div class="col-sm-offset-3 col-sm-9">
-							<br>
-							<button type="submit" class="btn btn-primary" >提交预约</button> 
+				
+							<button type="submit" class="btn-lg btn-success" >提交预约</button> 
 						</div>
 					</form>
 				</div>
@@ -271,6 +292,29 @@ function uploadFile2(){
 		img2.setAttribute('src',dataURl2);
 	}
 }
+//textarea js
+function setbg(color){
+    document.getElementById("styled").style.background=color
+}
+
+
+$(function () {
+    var unSelected = "#111";
+    var selected = "#111";
+    $(function () {
+        $("select").css("color", unSelected);
+        $("option").css("color", selected);
+        $("select").change(function () {
+            var selItem = $(this).val();
+            if (selItem == $(this).find('option:first').val()) {
+                $(this).css("color", unSelected);
+            } else {
+                $(this).css("color", selected);
+            }
+        });
+    })
+})
+
 </script>
 </body>
 </html>

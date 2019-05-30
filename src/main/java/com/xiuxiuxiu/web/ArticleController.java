@@ -13,38 +13,47 @@ import java.util.List;
 @Controller
 public class ArticleController {
 
-    @Resource
-    ArticleService articleService;
+	@Resource
+	ArticleService articleService;
 
-    @RequestMapping("/article")
-    public String index() {
-        return "redirect:article/articleList";
-    }
+	@RequestMapping("/article")
+	public String index() {
+		return "redirect:article/articleList";
+	}
 
-    @RequestMapping("/article/articleList")
-    public String list(Model model) {
-        List<Article> articles = articleService.getArticleList();
-        model.addAttribute("articles", articles);
-        System.out.println("articles => " + articles);
-        return "article/articleList";
-    }
+	@RequestMapping("/article/articleList")
+	public String list(Model model) {
+		List<Article> articles = articleService.getArticleList();
+		model.addAttribute("articles", articles);
+		return "/article/articleList";
+	}
 
-    @RequestMapping("/article/articleSearch")
-    public String search(Model model , @RequestParam("searchInfo") String searchInfo) {
-    	System.err.println("caonima");
-        Article article = articleService.findArticleByTitle(searchInfo);
-        model.addAttribute("article", article);
-        System.out.println("article.id => " + article.getId());
-        return "article/ArticleSearch";
-    }
-    
-    @RequestMapping("/article/articleDetail")
-    public String getDetail(@RequestParam Integer id, Model model){
-        System.out.println("id => "+id);
-        Article article = articleService.findArticleById(id);
-        System.out.println(article);
-        model.addAttribute("article",article);
-        return "article/articleDetail";
-    }
+	@RequestMapping("/article/articleSearch")
+	public String search(Model model, @RequestParam("searchInfo") String searchInfo) {
+		try {
+			List<Article> articles = articleService.findByTitleLike("%"+searchInfo+"%");
+			model.addAttribute("articles", articles);
+
+			if (articles.size() < 1)
+				model.addAttribute("message", "未找到相关文章！");
+			else {
+				for (Article article : articles) {
+					System.out.println("找到文章："+article.getTitle());
+				}
+			}
+
+		} catch (Exception e) {
+			model.addAttribute("err", "抱歉，查找文章失败！");
+			e.printStackTrace();
+		}
+		return "/article/articleList";
+	}
+
+	@RequestMapping("/article/articleDetail")
+	public String getDetail(@RequestParam Integer id, Model model) {
+		System.out.println("查看id为" + id + "的文章");
+		Article article = articleService.findArticleById(id);
+		model.addAttribute("article", article);
+		return "/article/articleDetail";
+	}
 }
-
