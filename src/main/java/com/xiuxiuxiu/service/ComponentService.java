@@ -4,6 +4,8 @@ import com.xiuxiuxiu.model.Component;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 public interface ComponentService {
 
     public List<Component> getComponentList();
@@ -16,5 +18,7 @@ public interface ComponentService {
 
     public void delete(int id);
 
-
+    public Page<Component> findAll(int pageNum,int pageSize);
+    
+    public List<Component> findAll();
 }

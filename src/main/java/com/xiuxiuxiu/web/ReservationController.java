@@ -14,13 +14,16 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.xiuxiuxiu.model.*;
 import com.xiuxiuxiu.service.*;
 
@@ -421,4 +424,17 @@ public class ReservationController {
 		model.addAttribute("components", componentService.getComponentList());
 		return "/reservation/appointedComponents";
 	}
+	
+	/**
+	 * 后端分页
+	 * */
+	@RequestMapping("/reservation/getAll")
+	@ResponseBody
+    public ReturnData<Activity> findAllNoQuery(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
+    		@RequestParam(value="limit",defaultValue="5") Integer limit) {
+		int sum	= activityService.findAll().size();
+		Page<Activity> datas = activityService.findAll(offset, limit);
+		List<Activity> listDatas = datas.getContent(); 
+		return new ReturnData<Activity>(sum,listDatas);
+    }
 }

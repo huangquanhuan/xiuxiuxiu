@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Article - 文章类
  * 
@@ -17,6 +19,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "article")
+
+@JsonIgnoreProperties(value= {"manager"})
 public class Article {
 
 	/** 文章id */

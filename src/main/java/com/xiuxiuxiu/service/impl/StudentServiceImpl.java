@@ -59,18 +59,9 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public Page<Student> findAll(int pageNum, int pageSize) {
 		Sort sort = new Sort(Sort.Direction.DESC, "id");  //降序
-	    Pageable pageable = PageRequest.of(pageNum,pageSize,sort);
-	    
-	    Page<Student> studentPage = null;
-	    try {
-	        studentPage = studentRepository.findAll(pageable);
-	    } 
-	    catch (Exception e) {
-	        e.printStackTrace();
-	        System.out.println("查询记录出错");
-	        return null;
-	    }
-	    return studentPage;
+	    Pageable pageable = PageRequest.of(pageNum,pageSize,sort); 
+	    Page<Student> pages = studentRepository.findAll(pageable);
+	    return pages;
 	}
 }
 

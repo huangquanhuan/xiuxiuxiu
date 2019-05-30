@@ -2,8 +2,11 @@ package com.xiuxiuxiu.service;
 
 import com.xiuxiuxiu.model.Article;
 import com.xiuxiuxiu.model.Manager;
+import com.xiuxiuxiu.model.Student;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
 
 public interface ArticleService {
 
@@ -21,6 +24,9 @@ public interface ArticleService {
 
 	public List<Article> findByManager(Manager manager);
 
-
     public Article findByTitleLink(String title);
+
+	public Page<Article> findAll(int pageNum, int pageSize);
+	
+	public List<Article> findAll();
 }

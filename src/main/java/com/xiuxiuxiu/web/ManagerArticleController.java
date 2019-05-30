@@ -1,15 +1,18 @@
 package com.xiuxiuxiu.web;
 
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.xiuxiuxiu.model.Article;
 import com.xiuxiuxiu.model.Manager;
+import com.xiuxiuxiu.model.ReturnData;
 import com.xiuxiuxiu.service.ArticleService;
 import com.xiuxiuxiu.service.ManagerService;
 
@@ -104,5 +107,18 @@ public class ManagerArticleController {
     	model.addAttribute("articleList", mylist);
    		return "/manager/Marticle";
    	}
+    
+    /**
+	 * 后端分页
+	 * */
+	@RequestMapping("/manager/getAll")
+	@ResponseBody
+    public ReturnData<Article> findAllNoQuery(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
+    		@RequestParam(value="limit",defaultValue="5") Integer limit) {
+		int sum	= articleService.findAll().size();
+		Page<Article> datas = articleService.findAll(offset, limit);
+		List<Article> listDatas = datas.getContent(); 
+		return new ReturnData<Article>(sum,listDatas);
+    }
 }
 

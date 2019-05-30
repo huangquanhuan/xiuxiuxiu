@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Equipment - 设备类
  * 
@@ -16,6 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "equipment")
+@JsonIgnoreProperties(value= {"student"})
 public class Equipment {
 	
 	/** 设备的 ID 号 */

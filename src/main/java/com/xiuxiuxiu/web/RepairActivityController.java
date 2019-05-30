@@ -1,13 +1,17 @@
 package com.xiuxiuxiu.web;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.xiuxiuxiu.model.Activity;
-
+import com.xiuxiuxiu.model.Activity;
+import com.xiuxiuxiu.model.ReturnData;
 import com.xiuxiuxiu.service.ActivityService;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -65,5 +69,18 @@ public class RepairActivityController {
        	activityService.save(activity);
    		return "redirect:/manager/activity";
    	}
+    
+    /**
+	 * 后端分页
+	 * */
+	@RequestMapping("/manager/getAll")
+	@ResponseBody
+    public ReturnData<Activity> findAllNoQuery(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
+    		@RequestParam(value="limit",defaultValue="5") Integer limit) {
+		int sum	= activityService.findAll().size();
+		Page<Activity> datas = activityService.findAll(offset, limit);
+		List<Activity> listDatas = datas.getContent(); 
+		return new ReturnData<Activity>(sum,listDatas);
+    }
 }
 

@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Activity - （线下维修）活动类
  * 
@@ -17,6 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "repair_activity")
+@JsonIgnoreProperties(value= {"manager"})
 public class Activity {
 	/** 设备的 ID 号 */
 	@Id
