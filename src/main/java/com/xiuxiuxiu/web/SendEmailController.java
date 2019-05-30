@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aliyuncs.http.HttpRequest;
 import com.xiuxiuxiu.web.SendEmail;
 @Controller
 public class SendEmailController {
@@ -28,6 +29,27 @@ public class SendEmailController {
 			try {
 				SendEmail.simpleMailSend(receiver, title, text);
 			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("msg","验证码发送成功");
+			model.addAttribute("receiver",receiver);
+		}
+		
+		@RequestMapping("/sendcontact")
+		@ResponseBody
+		public void sendContact(Model model,HttpSession session,HttpServletRequest req) {
+			String receiver = req.getParameter("Email").trim();
+			String subject = req.getParameter("Subject").trim();
+			String name = req.getParameter("Name").trim();
+			String text = req.getParameter("Message").trim()+"\n"+"发送者为:"+name+"\n"+"邮箱为:"+receiver;
+			System.out.println("发送者姓名:"+name);
+			System.out.println("邮件主题:"+subject);
+			System.out.println("邮件正文:"+text);
+			System.out.println("发送者邮箱:"+receiver);
+			try {
+				SendEmail.simpleMailSend("fzuxiuxiuxiu@163.com", subject, text);
+			}catch(Exception e) {
+				model.addAttribute("msg","验证码发送失败");
 				e.printStackTrace();
 			}
 			model.addAttribute("msg","验证码发送成功");
