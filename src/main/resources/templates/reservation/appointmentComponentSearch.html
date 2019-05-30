@@ -42,7 +42,6 @@
 								<th>姓名</th>
 								<th>学号</th>
 								<th>联系电话</th>
-								<th>个数</th>
 								<th>预约类型</th>
 								<th>场次</th>
 								<th>零件类型</th>
@@ -56,17 +55,17 @@
 									<td th:text="${viewComponent.student.name}"></td>
 									<td th:text="${viewComponent.student.studentId}"></td>
 									<td th:text="${viewComponent.student.phoneNumber}"></td>
-									<td th:text="${component.quantity}"></td>
 									
-									<td th:if="${viewComponent.applicationType == 0}">活动预约</td>
-									<td th:if="${viewComponent.applicationType == 1}">上门服务</td>
+									<td th:if="${viewComponent.applicationType == 0}" th:text="${viewComponent.applicationType}"></td>
+									<td th:if="${viewComponent.applicationType == 1}" th:text="${viewComponent.applicationType}"></td>
 									
-									<td th:text="${viewComponent.activity.time}"></td>
+									<td th:if="${viewComponent.activity!=null}" th:text="${viewComponent.activity.time}"></td>
+									<td th:if="${viewComponent.activity==null}" th:text="无"></td>
 									<td th:text="${component.name}"></td>
 									
 									<td th:if="${viewComponent.state == 0}">未受理</td>
 									<td th:if="${viewComponent.state == 1}">处理中</td>
-									<td th:if="${viewComponent.state == 1}">已完成</td>
+									<td th:if="${viewComponent.state == 2}">已完成</td>
 									
 									<td><a
 										href="makeReservation?method=getForID&id=${viewComponents.reservationID}"

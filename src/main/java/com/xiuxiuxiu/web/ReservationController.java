@@ -52,7 +52,7 @@ public class ReservationController {
 		Student user = (Student) session.getAttribute("user");
 
 		for (Reservation reservation : allReservations) {
-			//找出该用户对应的预约单
+			// 找出该用户对应的预约单
 			if (reservation.getStudent().getId() == user.getId()) {
 				String cutDetail = "详情:" + reservation.getDetail();
 				if (reservation.getDetail() == null || reservation.getDetail().length() < 1) {
@@ -64,9 +64,9 @@ public class ReservationController {
 				reservations.add(reservation);
 			}
 		}
-		
+
 		for (Reservation myReservation : reservations) {
-			//传递预约单对应图片url
+			// 传递预约单对应图片url
 			List<ReservationImgUrl> imgUrls = myReservation.getImgUrlList();
 			for (ReservationImgUrl imgUrl : imgUrls) {
 				// 注意！《配置到服务器时》注意检查预约单图片存储路径，然后在application.properties中修改虚拟路径对应的实际路径...
@@ -79,14 +79,11 @@ public class ReservationController {
 			myReservation.setImgUrlList(imgUrls);
 
 		}
-		
 
 		model.addAttribute("reservations", reservations);
 		return "/reservation/myReservationList";
 	}
 
-	
-	
 	@RequestMapping("/editMyReservation")
 	public String editMyReservation(Model model, @RequestParam("reservationId") int reservationId) {
 		Reservation reservation = reservationService.findReservationById(reservationId);
@@ -163,8 +160,6 @@ public class ReservationController {
 		return "redirect:/myReservationList";
 	}
 
-	
-	
 //	我的预约单详情页整合到预约单列表页上去作为弹窗了
 //	@RequestMapping("/myReservationDetail")
 //	public String myReservationDetail(Model model, @RequestParam("reservationId") int reservationId) {
@@ -193,7 +188,6 @@ public class ReservationController {
 //		model.addAttribute("reservation", myReservation);
 //		return "/reservation/myReservationList";
 //	}
-
 
 	@RequestMapping("/reservation/step1")
 	public String reservationStep1() {
@@ -269,12 +263,12 @@ public class ReservationController {
 		// 处理需求零件的信息
 		String[] neededComponentIdList = parameters.getParameterValues("neededComponents");
 		if (neededComponentIdList != null) {
-				List<Component> componentList = new ArrayList<Component>();
-				for (String componentId : neededComponentIdList) {
-					if (componentId.length() != 0) {
-						int id = Integer.parseInt(componentId);
-						componentList.add(componentService.findComponentById(id));
-					}
+			List<Component> componentList = new ArrayList<Component>();
+			for (String componentId : neededComponentIdList) {
+				if (componentId.length() != 0) {
+					int id = Integer.parseInt(componentId);
+					componentList.add(componentService.findComponentById(id));
+				}
 				reservation.setComponentList(componentList);
 			}
 		}
@@ -362,29 +356,31 @@ public class ReservationController {
 	public String componentSearch(Model model,
 			@RequestParam(value = "componentType", required = false, defaultValue = "all") String componentType,
 			@RequestParam(value = "activityId", required = false, defaultValue = "-1") Integer activityId,
-			@RequestParam(value = "state", required = false,defaultValue = "3") Integer state) {
+			@RequestParam(value = "state", required = false, defaultValue = "3") Integer state) {
 		int ALL_STATE = 3, ALL_ACTIVITY = -1, DOOR_ACTIVITY = -2;
 		List<Reservation> reservations = reservationService.getReservationList();
 		List<Reservation> filteredList = new ArrayList<Reservation>();
 		// 根据条件过滤
 		for (Reservation reservation : reservations) {
-			if (activityId != ALL_ACTIVITY && reservation.getActivity().getId() != activityId)
-				continue;
+			if(activityId != ALL_ACTIVITY) {
+				if (activityId == DOOR_ACTIVITY&&reservation.getActivity()!=null) continue;
+				else if (activityId == DOOR_ACTIVITY && reservation.getActivity() == null) {}
+				else {
+					if (reservation.getActivity()==null) continue;
+					if (reservation.getActivity().getId() != activityId) continue;
+				}
+			}
 			if (state != ALL_STATE && reservation.getState() != state)
 				continue;
 			if ("all".equals(componentType)) {
 				filteredList.add(reservation);
 				continue;
 			}
-			for (Component c : reservation.getComponentList()) {
-				System.out.println(c.getName());
-			}
 			List<Component> filteredComponents = reservation.getComponentList().stream()
 					.filter(c -> componentType.equals(c.getName())).collect(Collectors.toList());
 			reservation.setComponentList(filteredComponents);
 			filteredList.add(reservation);
 		}
-
 		// 计算总数
 		int totalNum = 0;
 		for (Reservation reservation : filteredList) {
@@ -399,7 +395,7 @@ public class ReservationController {
 	 * 返回预约人员的视图
 	 * 
 	 * @param model: 视图
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping("/reservation/appointmentHome")
 	public String appointmentHome(Model model) {
@@ -412,7 +408,7 @@ public class ReservationController {
 	 * 返回预约零件的视图
 	 * 
 	 * @param model: 视图
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping("/reservation/appointedComponents")
 	public String appointedComponents(Model model) {
