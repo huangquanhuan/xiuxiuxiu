@@ -89,5 +89,14 @@ public class ManagerNavController {
 		return "redirect:/manager";
 		
 	}
-
+	
+	@RequestMapping("Mcontact")
+	public String contact() {
+        return "/manager/Mcontact";
+    }
+	@RequestMapping("/manager/Mcontact")
+	public String Mcontact() {
+        return "redirect:/manager/Mcontact";
+    }
+	
 }
