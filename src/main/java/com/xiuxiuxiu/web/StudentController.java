@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Controller
+//@RestController
 public class StudentController {
 
 	@Resource
@@ -46,7 +48,7 @@ public class StudentController {
 	}
 	
 	@RequestMapping("/index")
-	public String inex(Model model) {
+	public String index(Model model) {
 		List<Activity> activityList = activityService.getActivityList();
 		model.addAttribute("activityList", activityList);
 		return "home/index";
@@ -55,6 +57,10 @@ public class StudentController {
 	 * 访问index后端分页
 	 * 访问index1前端分页
 	 * */
+	@RequestMapping("/demo")
+	public String index1(Model model) {
+		return "index0";
+	}
 	/**
 	 * 前端分页
 	 * */

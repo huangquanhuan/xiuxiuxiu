@@ -73,7 +73,7 @@ public class RepairActivityController {
     /**
 	 * 后端分页
 	 * */
-	@RequestMapping("/manager/getAll")
+	@RequestMapping("/manager/getAllActivity")
 	@ResponseBody
     public ReturnData<Activity> findAllNoQuery(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
     		@RequestParam(value="limit",defaultValue="5") Integer limit) {

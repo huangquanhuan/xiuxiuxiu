@@ -111,7 +111,7 @@ public class ManagerArticleController {
     /**
 	 * 后端分页
 	 * */
-	@RequestMapping("/manager/getAll")
+	@RequestMapping("/manager/getAllArticle")
 	@ResponseBody
     public ReturnData<Article> findAllNoQuery(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
     		@RequestParam(value="limit",defaultValue="5") Integer limit) {
