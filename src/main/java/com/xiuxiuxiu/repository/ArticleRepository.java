@@ -10,7 +10,9 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     Article findById(int id);
     
-    Article findByTitleLike(String title);
+    List<Article> findByTitleLike(String title);
+    
+    List<Article> findByTextLike(String text);
 
     void deleteById(int id);
 
