@@ -8,21 +8,14 @@
 	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-	<!-- 	<div style="height: 150px;"> -->
-	<!-- 		<input id="radiusBtn2" type="button" class="btn" value="报错" -->
-	<!-- 			onclick="show('登陆密码错误！！')"> <br>  -->
-	<!-- 	</div> -->
-	<!-- 	<div style="height: 150px;"> -->
-	<!-- 		<input id="radiusBtn2" type="button" class="btn" value="提示" -->
-	<!-- 			onclick="show('登陆成功')"> <br>  -->
-	<!-- 	</div> -->
+
 
 	<div th:fragment="messageOrErr">
 	
 		
 		<!-- err弹出层-->
 		<div id="err-pop-up" align="center"
-			style="position: fixed; left: 40%; top: 30%; border-radius: 16px; width: 300px; height: 150px; background-color: #ffc3c3; display: none; line-height: 40px; color: white;">
+			style="position: fixed; left: 40%; top: 15%; border-radius: 16px; width: 300px; height: 150px; background-color: #ffc3c3; display: none; line-height: 40px; color: white;">
 			<!-- 弹出信息 -->
 			<p>提示</p>
 			<div>
@@ -34,7 +27,7 @@
 		</div>
 		<!-- message弹出层-->
 		<div id="message-pop-up" align="center"
-			style="position: fixed; left: 40%; top: 30%; border-radius: 16px; width: 300px; height: 150px; background-color: #c2e2b4b8; display: none; line-height: 40px; color: white;">
+			style="position: fixed; left: 40%; top: 15%; border-radius: 16px; width: 300px; height: 150px; background-color: #c2e2b4; display: none; line-height: 40px; color: white;">
 			<!-- 弹出信息 -->
 			<p>提示</p>
 			<div>
@@ -61,6 +54,9 @@
 			function showMessage(message) {
 				document.getElementById("message-pop-up").style.display = "";//显示弹出层
 				document.getElementById("message").innerHTML = message;//设置信息内容
+				setTimeout(function(){ 
+					document.getElementById("message-pop-up").style.display = "none";//3秒后自动隐藏弹出层
+					}, 3000);
 			}
 			function showErr(err) {
 				document.getElementById("err-pop-up").style.display = "";//显示弹出层
