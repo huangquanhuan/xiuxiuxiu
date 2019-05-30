@@ -41,26 +41,28 @@
 						<li><a href="/reservation/step1" id="appaly"
 							class="hvr-underline-from-center"
 							th:style="'display:' + @{(${session.user} ? 'block' : 'none')} ">预约</a></li>
-						<li><a href="/article" class="hvr-underline-from-center">文章&通知</a></li>
+						<li><a href="/article" class="hvr-underline-from-center">文章</a></li>
+					  <li><a th:style="'display:' + @{(${session.user} ? 'block' : 'none')} "
+                href="/contact" class="hvr-underline-from-center">联系我们</a></li>
 						<li class="dropdown"><a id="my_message" href="#"
 							class="dropdown-toggle hvr-underline-from-center"
 							data-toggle="dropdown"
 							th:style="'display:' + @{(${session.user} ? 'block' : 'none')} ">我的<b
 								class="fa fa-caret-down"></b></a> <!--这里判断session -->
-							<ul class="dropdown-menu agile_short_dropdown text-center"
+							<ul class="dropdown-menu agile_short_dropdown "
 								th:object="${session.user}" th:unless="${session.user == null}">
-								<li><p th:text="'姓名:'+*{name}" class="center-block">姓名</p></li>
-								<li><p th:text="'学号:'+*{studentId}">学号</p></li>
-								<li><p th:text="'手机号:'+*{phoneNumber}">手机号</p></li>
-								<li><p th:text="'住址:'+*{address}">住址</p></li>
-								<li><p>邮箱:</p></li>
-								<li><p th:text="*{email}">邮箱</p></li>
-								<li><a class="active" data-toggle="modal"
-									data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
-								<li><a class="active" data-toggle="modal"
-									data-target="#myDevice-data" href="#" id="device">我的设备</a></li>
-								<li><a th:href="@{/myReservationList}"
-									th:if="${session.user != null}" id="appointment">预约管理</a></li>
+								<li><p th:text="'姓名:'+*{name}" class="text-center">姓名</p></li>
+								<li><p th:text="'学号:'+*{studentId}" class="text-center">学号</p></li>
+								<li><p th:text="'手机号:'+*{phoneNumber}" class="text-center">手机号</p></li>
+								<li><p th:text="'住址:'+*{address}" class="text-center">住址</p></li>
+								<li><p class="text-center">邮箱:</p></li>
+								<li><p th:text="*{email}" class="text-center">邮箱</p></li>
+								<li><h3 class="text-center"><a class="active " data-toggle="modal"
+									data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></h3></li>
+								<li><h3 class="text-center"><a class="active text-center" data-toggle="modal"
+									data-target="#myDevice-data" href="#" id="device">我的设备</a></h3></li>
+								<li><h3 class="text-center"><a th:href="@{/myReservationList}"
+									th:if="${session.user != null}" id="appointment" class="text-center">预约管理</a></h3></li>
 							</ul></li>
 					</ul>
 				</nav>
@@ -196,7 +198,7 @@
 							class="registration-form">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">
-									<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+									<h1 aria-hidden="true">×</h1><h1 class="sr-only">Close</h1>
 								</button>
 								<h4 class="modal-title">个人信息修改</h4>
 							</div>
@@ -264,7 +266,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+								<h1 aria-hidden="true">×</h1><h1 class="sr-only">Close</h1>
 							</button>
 							<h4 class="modal-title">我的设备管理</h4>
 						</div>
@@ -280,9 +282,10 @@
 											type="text" class="form-control"
 											th:value="${equipment.equipmentName}" name="equipmentName"
 											disabled="disabled">
-										<button type="button" class="btn btn-success"
-											th:onclick="'changeDisabled(this,'+${equipment.id}+')'"
-											style="padding: 0 13px">修改</button>
+										<button 
+										   	
+										    type="button" class="btn btn-success"
+											th:onclick="'changeDisabled(this,'+${equipment.id}+')'" >修改</button>
 										<button type="button" class="btn btn-danger"
 											onclick="del(this)">删除</button>
 
@@ -294,14 +297,14 @@
 									role="form" action="/student/addEquipment" method="post"
 									style="display: none">
 									<input type="text" class="form-control" name="equipmentName">
-									<button type="submit" class="btn btn-info">确认添加</button>
-									<button type="button" class="btn btn-default"
+									<button type="submit" class="btn btn-success">确认添加</button>
+									<button type="button" class="btn btn-danger"
 										onclick="removeInput()">取消</button>
 								</form>
 								<br>
-								<button class="btn btn-info btn-lg" type="button"
+								<button class="btn btn-success btn-lg" type="button"
 									onclick="addInput()">
-									<span class="glyphicon glyphicon-plus">添加设备</span>
+									<span >添加设备</span>
 								</button>
 							</div>
 

@@ -54,7 +54,8 @@
                 <li><a th:style="'display:' + @{((${session.administrator}!=null) ? 'block' : 'none')} " 
                 th:href="@{/manager/Mcomponent}" class="hvr-underline-from-center">零件库编辑</a></li>
                 
-                 <li><a href="#" class="hvr-underline-from-center">联系我们</a></li>
+                 <li><a th:style="'display:' + @{((${session.administrator}!=null) ? 'block' : 'none')} " 
+                th:href="@{/Mcontact}" class="hvr-underline-from-center">联系我们</a></li>
                 <li class="dropdown"><a id="my_message" href="#"
 							class="dropdown-toggle hvr-underline-from-center"
 							data-toggle="dropdown"
@@ -63,15 +64,15 @@
                  
                        <ul class="dropdown-menu agile_short_dropdown text-center"
 								th:object="${session.administrator}" th:unless="${session.administrator == null}">
-								<li><p th:text="'姓名:'+*{name}" class="center-block">姓名</p></li>
+								<li><p th:text="'姓名:'+*{name}" class="text-center">姓名</p></li>
 								
-								<li><p th:text="'手机号:'+*{phoneNumber}">手机号</p></li>
-								<li><p th:text="'住址:'+*{address}">住址</p></li>
-								<li><p th:text="'权限等级:'+*{accessLevel}">权限等级</p></li>
-								<li><p>邮箱:</p></li>
-								<li><p th:text="*{email}">邮箱</p></li>
-								<li><a class="active" data-toggle="modal"
-									data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></li>
+								<li><p th:text="'手机号:'+*{phoneNumber}" class="text-center">手机号</p></li>
+								<li><p th:text="'住址:'+*{address}" class="text-center">住址</p></li>
+								<li><p th:text="'权限等级:'+*{accessLevel}" class="text-center">权限等级</p></li>
+								<li><p class="text-center">邮箱:</p></li>
+								<li><p th:text="*{email}" class="text-center">邮箱</p></li>
+								<li><h3 class="text-center"><a class="active" data-toggle="modal"
+									data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></h3></li>
 								
                         
                     </ul></li>

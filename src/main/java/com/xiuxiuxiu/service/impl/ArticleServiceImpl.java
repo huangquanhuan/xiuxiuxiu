@@ -27,8 +27,13 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override 
-    public Article findByTitleLink(String title){
+    public List<Article> findByTitleLike(String title){
     	return articleRepository.findByTitleLike(title);
+    }
+    
+    @Override 
+    public List<Article> findByTextLike(String text){
+    	return articleRepository.findByTextLike(text);
     }
     
     @Override

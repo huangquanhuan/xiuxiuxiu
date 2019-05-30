@@ -6,6 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet"
 	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
 <body>
 
@@ -15,26 +18,46 @@
 		
 		<!-- err弹出层-->
 		<div id="err-pop-up" align="center"
-			style="position: fixed; left: 40%; top: 15%; border-radius: 16px; width: 300px; height: 150px; background-color: #ffc3c3; display: none; line-height: 40px; color: white;">
+			style="
+			position:fixed;left:42%;top:30%;
+			display: none;   
+			-webkit-box-shadow:10px 10px 5px #888888;
+			border-radius:5px;
+			border:3px solid #9BDF70;
+ 			background-color:#F0FBEB;
+ 			width:300px;
+ 			height:150px;
+			 ;">
 			<!-- 弹出信息 -->
 			<p>提示</p>
 			<div>
-				<h3 id="err" style="color: red"></h3>
+				<h3 id="err" style="color:red"></h3>
 			</div>
 			<br>
-			<button onclick="hide()" class="btn btn-danger">确定</button>
+			<button onclick="hide()" class="btn btn-success">确定</button>
 
 		</div>
 		<!-- message弹出层-->
 		<div id="message-pop-up" align="center"
-			style="position: fixed; left: 40%; top: 15%; border-radius: 16px; width: 300px; height: 150px; background-color: #c2e2b4; display: none; line-height: 40px; color: white;">
+			style="
+			position:fixed;left:41%;top:30%;
+			display: none;   
+			-webkit-box-shadow:10px 10px 5px #888888;
+			border-radius:5px;
+			border:3px solid #9BDF70;
+ 			background-color:#F0FBEB;
+ 			width:300px;
+ 			height:150px;
+			;">
 			<!-- 弹出信息 -->
 			<p>提示</p>
 			<div>
 				<h3 id="message" style="color: #9e8888"></h3>
 			</div>
-			<br>
-			<button onclick="hide()" class="btn btn-success">确定</button>
+			
+			<button  style="
+			position:absolute;left:41%;top:70%;"
+			onclick="hide()" class="btn btn-success">确定</button>
 
 		</div>
 

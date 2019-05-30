@@ -50,21 +50,21 @@ public class ManagerArticleController {
     }
 
     @RequestMapping("/manager/DeleteArticle")
-	public String delete(Model model,@RequestParam("id") int id) {
+	public String delete(Model model,@RequestParam("id") String id) {
     	System.out.println("id => "+id);
-    	articleService.delete(id);
+    	articleService.delete(Integer.parseInt(id));
 		return "redirect:/manager/Marticle";
 	}
     
     @RequestMapping("/manager/UpdateArticle")
-	public String update(Model model,@RequestParam("id") int id,@RequestParam("title") String title,
+	public String update(Model model,@RequestParam("id") String id,@RequestParam("title") String title,
 			@RequestParam("text") String text) {
     	System.out.println("id => "+id);
     	System.out.println("title => "+title);
     	System.out.println("text => "+text);
         String time=df.format(day);
         System.out.println("time =>"+time);
-    	Article article=articleService.findArticleById(id);
+    	Article article=articleService.findArticleById(Integer.parseInt(id));
 
     	article.setText(text);
     	article.setTitle(title);

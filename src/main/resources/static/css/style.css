@@ -252,16 +252,17 @@ ul.agile_forms {
     vertical-align: top;
     font-weight: 100;
 	}
+
 .btn {
   margin-right: 4px;
   margin-bottom: 4px;
   font-family: "Work Sans", Arial, sans-serif;
   font-size: 12px;
   font-weight: 400;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  border-radius: 30px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
@@ -296,23 +297,35 @@ ul.agile_forms {
   background: #EA9215;
   color: #fff;
 }
+textarea#styled{
+    font-family: Tahoma, sans-serif;
 
+        width: 100%;
+        overflow: auto;
+        word-break: break-all; //解决兼容问题
+    padding: 5px;
+
+    border: 3px solid #ccc;
+    background-image: url(bg.gif);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}
 .btn-success {
-  background: #5cb85c;
+  background: #00a98f;
   color: #fff;
-  border: 2px solid #5cb85c;
+  border: 0.1px solid #00a98f;
 }
 .btn-success:hover, .btn-success:focus, .btn-success:active {
-  background: #4cae4c !important;
-  border-color: #4cae4c !important;
+  background: #000000!important;
+  border-color: #000000!important;
 }
 .btn-success.btn-outline {
   background: transparent;
-  color: #5cb85c;
-  border: 2px solid #5cb85c;
+  color: #00a98f;
+  border: 2px solid #00a98f;
 }
 .btn-success.btn-outline:hover, .btn-success.btn-outline:focus, .btn-success.btn-outline:active {
-  background: #5cb85c;
+  background: #00a98f;
   color: #fff;
 }
 

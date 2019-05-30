@@ -20,7 +20,7 @@
 <!-- 一些动态效果需要下面两个js同时支持 -->
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
-
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 	<div th:replace="/home/nav :: navbar"></div>
@@ -61,13 +61,12 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<a href="/reservation/step2" class="btn btn-success">下一步</a>
+						<a href="/reservation/step2" class="btn-lg btn-success">下一步</a>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-	<div th:replace="/home/messageOrErr :: messageOrErr"></div>
 </body>
 
 </html>
