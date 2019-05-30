@@ -1,10 +1,12 @@
 package com.xiuxiuxiu.service.impl;
 
 import com.xiuxiuxiu.model.Equipment;
+import com.xiuxiuxiu.model.Student;
 import com.xiuxiuxiu.model.Article;
 import com.xiuxiuxiu.repository.EquipmentRepository;
 import com.xiuxiuxiu.service.EquipmentService;
 
+import org.hibernate.annotations.Source;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,18 @@ import java.util.List;
 public class TestEquipmentServiceImpl{
 
 	@Autowired
-    private EquipmentServiceImpl service = new EquipmentServiceImpl();
+	private EquipmentServiceImpl service;
 	@Autowired
-	private Equipment equipment = new Equipment();
+	private StudentServiceImpl studentService;
+	@Autowired
+	private Equipment equipment;
+	
+	@Test
+    public void getStudentTest() {
+		List<Student> students =studentService.getStudentList();
+    	for(Student student :students )
+    		System.out.println(student.getName());
+    }
 	
     @Test
     public void getEquipmentListTest() {
@@ -41,11 +52,13 @@ public class TestEquipmentServiceImpl{
 
     @Test
     public void saveTest() {
-    	StudentServiceImpl studentService = new StudentServiceImpl();
     	equipment = new Equipment();
     	equipment.setId(10086);
     	equipment.setEquipmentName("未知");
-    	equipment.setStudent(studentService.getStudentList().get(0));
+    	List<Student> students =studentService.getStudentList();
+    	for(Student student :students )
+    		System.out.println(student.getName());
+    	equipment.setStudent(students.get(1));
     	service.save(equipment);
     	Assert.assertThat(equipment.getId(), is(service.findEquipmentById(10086).getId()));
     }

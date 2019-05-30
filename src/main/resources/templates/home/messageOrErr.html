@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+	<!-- 	<div style="height: 150px;"> -->
+	<!-- 		<input id="radiusBtn2" type="button" class="btn" value="报错" -->
+	<!-- 			onclick="show('登陆密码错误！！')"> <br>  -->
+	<!-- 	</div> -->
+	<!-- 	<div style="height: 150px;"> -->
+	<!-- 		<input id="radiusBtn2" type="button" class="btn" value="提示" -->
+	<!-- 			onclick="show('登陆成功')"> <br>  -->
+	<!-- 	</div> -->
+
+	<div th:fragment="messageOrErr">
+	
+		
+		<!-- err弹出层-->
+		<div id="err-pop-up" align="center"
+			style="position: fixed; left: 40%; top: 30%; border-radius: 16px; width: 300px; height: 150px; background-color: #ffc3c3; display: none; line-height: 40px; color: white;">
+			<!-- 弹出信息 -->
+			<p>提示</p>
+			<div>
+				<h3 id="err" style="color: red"></h3>
+			</div>
+			<br>
+			<button onclick="hide()" class="btn btn-danger">确定</button>
+
+		</div>
+		<!-- message弹出层-->
+		<div id="message-pop-up" align="center"
+			style="position: fixed; left: 40%; top: 30%; border-radius: 16px; width: 300px; height: 150px; background-color: #c2e2b4b8; display: none; line-height: 40px; color: white;">
+			<!-- 弹出信息 -->
+			<p>提示</p>
+			<div>
+				<h3 id="message" style="color: #9e8888"></h3>
+			</div>
+			<br>
+			<button onclick="hide()" class="btn btn-success">确定</button>
+
+		</div>
+
+
+		<script type="text/javascript">
+			window.onload = function() {
+				var err = "[[${err}]]";
+				var message = "[[${message}]]";
+				if (err.length>1)
+					showErr(err);
+				if (message.length>1)
+					showMessage(message);
+			}
+		</script>
+		<script type="text/javascript">
+			//输出信息
+			function showMessage(message) {
+				document.getElementById("message-pop-up").style.display = "";//显示弹出层
+				document.getElementById("message").innerHTML = message;//设置信息内容
+			}
+			function showErr(err) {
+				document.getElementById("err-pop-up").style.display = "";//显示弹出层
+				document.getElementById("err").innerHTML = err;//设置信息内容
+			}
+			function hide() {
+				document.getElementById("err-pop-up").style.display = "none";//隐藏弹出层
+				document.getElementById("message-pop-up").style.display = "none";//隐藏弹出层
+			}
+		</script>
+
+	</div>
+</body>
