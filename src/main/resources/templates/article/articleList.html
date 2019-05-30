@@ -8,23 +8,10 @@
 <meta http-equiv="Content-Type" content="text/jsp; charset=utf-8" />
 <meta name="keywords" content="" />
 <!-- //custom-theme -->
-<link href="../css/bootstrap.css" rel="stylesheet" type="text/css"
-	media="all" />
-<link href="../css/style.css" rel="stylesheet" type="text/css"
-	media="all" />
-<link href="../css/blog.css" rel="stylesheet" type="text/css"
-	media="all" />
 
-<!-- font-awesome-icons -->
-<link href="../css/font-awesome.css" rel="stylesheet">
-<!-- //font-awesome-icons -->
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-	rel='stylesheet' type='text/css'>
-<link
-	href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
-	rel="stylesheet">
+<link href="/css/index.css" rel="stylesheet" type="text/css"> 
 
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- 一些动态效果需要下面两个js同时支持 -->
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script
@@ -39,6 +26,7 @@
 	<div class="services">
 		<div class="container">
 			<div class="col-md-8 event-left w3-agile-event-left">
+				
 				<div th:each="article,iterStat : ${ articles }">
 					<div class="event-left1 w3-agile-event-left1">
 						<div class="col-xs-6 event-left1-left agile-event-left1-left">
@@ -66,7 +54,7 @@
 						<div class="clearfix"></div>
 					</div>
 				</div>
-				<nav class="paging1 agileits-w3layouts-paging1">
+				<nav class="paging1 agileits-w3layouts-paging1" th:if="${ articles==null}">
 					<ul class="pagination paging w3-agileits-paging">
 						<li><a href="#" aria-label="Previous"> <span
 								aria-hidden="true">&laquo;</span>
@@ -86,11 +74,15 @@
 				<div class="event-right1 agileinfo-event-right1">
 					<div class="search1 agileits-search1">
 						<form th:action=@{/article/articleSearch} method="post">
-							<input type="search" name="searchInfo" placeholder="搜索文章/通知"
-								required="required"> <input type="submit" value="检索">
+							<input type="search" name="searchInfo" required="required" th:placeholder="${searchInfo}" 
+							th:if="${searchInfo!=null}">
+							<input type="search" name="searchInfo" placeholder="搜索文章/通知" required="required" 
+							th:if="${searchInfo==null}">
+							<input type="submit" value="检索">
 						</form>
 					</div>
-					<div class="posts w3l-posts">
+					<!-- 通知功能暂时没分出来 -->
+					<div class="posts w3l-posts" style="display:none">
 						<h3>通知</h3>
 						<div class="posts-grids w3-posts-grids">
 							<div class="posts-grid w3-posts-grid">
@@ -149,12 +141,12 @@
 					<div class="tags tags1 w3layouts-tags">
 						<h3>关键词检索</h3>
 						<ul>
-							<li><a href="single.html">网络故障</a></li>
-							<li><a href="single.html">无法开机</a></li>
-							<li><a href="single.html">蓝屏</a></li>
-							<li><a href="single.html">自动重启</a></li>
-							<li><a href="single.html">病毒常识</a></li>
-							<li><a href="single.html">系统变慢</a></li>
+							<li><a th:href="@{/article/articleSearch?searchInfo=硬盘}">硬盘</a></li>
+							<li><a th:href="@{/article/articleSearch?searchInfo=无法开机}">无法开机</a></li>
+							<li><a th:href="@{/article/articleSearch?searchInfo=蓝屏}">蓝屏</a></li>
+							<li><a th:href="@{/article/articleSearch?searchInfo=自动重启}">自动重启</a></li>
+							<li><a th:href="@{/article/articleSearch?searchInfo=病毒常识}">病毒常识</a></li>
+							<li><a th:href="@{/article/articleSearch?searchInfo=系统变慢}">系统变慢</a></li>
 						</ul>
 					</div>
 				</div>
