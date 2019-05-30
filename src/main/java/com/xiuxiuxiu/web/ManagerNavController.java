@@ -14,23 +14,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Controller
 public class ManagerNavController {
 
 	@Resource
 	ManagerService managerService;
-	
+	@Resource
+	ActivityService activityService;	
 
 	@RequestMapping("/manager")
-	public String index() {
-		return "redirect:/manager/activity";
+	public String inex(Model model) {
+		List<Activity> activityList = activityService.getActivityList();
+		model.addAttribute("activityList", activityList);
+		return "home/MHomePage";
 	}
 	
 
@@ -66,6 +66,26 @@ public class ManagerNavController {
 	@RequestMapping("manager/exit")
 	public String exit(Model model, HttpSession session) {
 		session.invalidate();
+		return "redirect:/index";
+		
+	}
+	
+	@RequestMapping("manager/editInfo")
+	public String editInfo(Model model, HttpSession session,@RequestParam("name") String name,
+			@RequestParam("address") String address,@RequestParam("email") String email) {
+
+		Manager manager = (Manager) session.getAttribute("administrator");
+		manager.setName(name);
+		manager.setAddress(address);
+		manager.setEmail(email);
+		try {
+			managerService.save(manager);
+			System.out.println("管理员修改个人信息成功!");
+			model.addAttribute("messsage", "管理员修改个人信息成功!");
+		} catch (Exception e) {
+			System.out.println("管理员修改个人信息失败!!");
+			model.addAttribute("err", "管理员修改个人信息失败!!");
+		}
 		return "redirect:/manager";
 		
 	}

@@ -12,8 +12,6 @@ public interface ArticleService {
     public Article findArticleById(int id);
     
     public Article findArticleByTitle(String title);
-
-    public List<Article> findByManager(Manager manager);
     
     public void save(Article article);
 
@@ -21,7 +19,8 @@ public interface ArticleService {
 
     public void delete(int id);
 
+	public List<Article> findByManager(Manager manager);
 
 
-
+    public Article findByTitleLink(String title);
 }
