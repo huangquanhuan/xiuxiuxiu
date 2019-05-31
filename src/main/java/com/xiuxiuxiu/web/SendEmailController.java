@@ -49,10 +49,10 @@ public class SendEmailController {
 			try {
 				SendEmail.simpleMailSend("fzuxiuxiuxiu@163.com", subject, text);
 			}catch(Exception e) {
-				model.addAttribute("msg","验证码发送失败");
+				model.addAttribute("msg","反馈发送失败");
 				e.printStackTrace();
 			}
-			model.addAttribute("msg","验证码发送成功");
+			model.addAttribute("msg","反馈发送成功");
 			model.addAttribute("receiver",receiver);
 		}
 		
