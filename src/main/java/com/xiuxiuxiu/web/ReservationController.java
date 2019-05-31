@@ -140,7 +140,19 @@ public class ReservationController {
 	public String cancelMyReservation(Model model, @RequestParam("reservationId") int reservationId) {
 
 		try {
+			
+			//该预约场次人数--；
+			Reservation reservation=reservationService.findReservationById(reservationId);
+			if(reservation.getActivity()!=null)
+			{
+				int pnumber=reservation.getActivity().getPnumber();
+				pnumber--;
+				System.out.println(pnumber);
+				reservation.getActivity().setPnumber(pnumber);
+			}
+			reservationService.edit(reservation);
 			reservationService.delete(reservationId);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -344,8 +356,17 @@ public class ReservationController {
 		try {
 			// 表单没有传reservationId说明是新增预约单，否则为修改
 			if (parameters.getParameter("reservationId") == null) {
+				
+				//该预约场次人数++
+				if(reservation.getActivity()!=null)
+				{
+					int pnumber=reservation.getActivity().getPnumber();
+					pnumber++;
+					System.out.println(pnumber);
+					reservation.getActivity().setPnumber(pnumber);
+				}
 				reservationService.save(reservation);
-
+				
 				// 存预约单-图片url地址对应关系到数据库
 				for (ReservationImgUrl imgUrl : imgUrlList) {
 					imgUrlService.save(imgUrl);
@@ -353,8 +374,29 @@ public class ReservationController {
 				model.addAttribute("message", "预约成功！");
 				System.out.println("预约成功！");
 			} else {
+				
+				//				//老的预约场次人数--；
+				Reservation oldreservation=reservationService.findReservationById(Integer.parseInt(parameters.getParameter("reservationId")));
+				if(oldreservation.getActivity()!=null)
+				{
+					int pnumber=oldreservation.getActivity().getPnumber();
+					pnumber--;
+					System.out.println(pnumber);
+					oldreservation.getActivity().setPnumber(pnumber);
+				}
+				reservationService.edit(oldreservation);
 				reservationService.delete(Integer.parseInt(parameters.getParameter("reservationId")));
+				
+				//新的预约场次人数++；		
+				if(reservation.getActivity()!=null)
+				{
+					int pnumber=reservation.getActivity().getPnumber();
+					pnumber++;
+					System.out.println(pnumber);
+					reservation.getActivity().setPnumber(pnumber);
+				}
 				reservationService.save(reservation);
+				
 				// 存预约单-图片url地址对应关系到数据库
 				for (ReservationImgUrl imgUrl : imgUrlList) {
 					imgUrlService.save(imgUrl);
@@ -417,6 +459,7 @@ public class ReservationController {
 			Reservation r = filteredList.get(i);
 			componentNum+=r.getComponentList().size();
 			personNum++;
+
 		}
 		model.addAttribute("componentNum", componentNum);
 		model.addAttribute("personNum", personNum);
@@ -428,6 +471,7 @@ public class ReservationController {
 		else {
 			activityFilter= activityService.findActivityById(activityId).getPlace();
 		}
+
 		String stateFilter = state==0?"已受理":(state==1?"已受理未完成":(state==2?"已完成":"全部"));
 		String componentFilter = componentType;
 		model.addAttribute("activityFilter", activityFilter);
