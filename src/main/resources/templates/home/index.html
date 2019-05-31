@@ -93,7 +93,7 @@
 						</div>
 						<div class="w3l_social_icon_gridr">
 							<p>服务人次超过</p>
-							<p class="counter">332</p>
+							<p class="counter" th:text="${reservationCount}">332</p>
 						</div>
 						<div class="clearfix"></div>
 					</div>
@@ -104,7 +104,7 @@
 						</div>
 						<div class="w3l_social_icon_gridr">
 							<p>维修设备数多于</p>
-							<p class="counter">342</p>
+							<p class="counter" th:text="${serviceEquipmentCount}">342</p>
 						</div>
 						<div class="clearfix"></div>
 					</div>
@@ -182,9 +182,6 @@
 		</div>
 	</div>
 
-<!-- 	<%@include file="动态js代码.jsp"%> -->
-<!-- 	<%@include file="错误提示窗口.jsp"%> -->
-<!-- <div th:replace="home/nav :: navbar"></div>  -->
-
+<div th:replace="home/messageOrErr :: messageOrErr"></div> 
 </body>
 </html>
