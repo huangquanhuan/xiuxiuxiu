@@ -73,8 +73,6 @@
 							<tr th:each="reservation,iter1:${reservations}">
 								<td th:text="${reservation.student.name}"></td>
 								<td th:text="${reservation.student.studentId}"></td>
-								<!-- 									<td th:text="${iter1.index}"></td> -->
-								<!-- 									<td th:text="${iter2.index}"></td> -->
 								<td th:text="${reservation.student.phoneNumber}"></td>
 
 								<td th:if="${reservation.applicationType == 0}">上门预约</td>

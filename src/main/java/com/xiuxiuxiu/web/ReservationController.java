@@ -465,14 +465,8 @@ public class ReservationController {
 		System.out.println(filteredList.size());
 		for (int i = 0; i < filteredList.size(); i++) {
 			Reservation r = filteredList.get(i);
-<<<<<<< HEAD
 			componentNum += r.getComponentList().size();
 			personSet.add(r.getStudent().getStudentId());
-=======
-			componentNum+=r.getComponentList().size();
-			personNum++;
-
->>>>>>> cbcb077019ab575b44b7793cb2f2c08884a9bffb
 		}
 		model.addAttribute("componentNum", componentNum);
 		model.addAttribute("personNum", personSet.size());
@@ -486,12 +480,8 @@ public class ReservationController {
 		else {
 			activityFilter = activityService.findActivityById(activityId).getPlace();
 		}
-<<<<<<< HEAD
-		String stateFilter = state == 0 ? "已受理" : (state == 1 ? "已受理未完成" : (state == 2 ? "已完成" : "全部"));
-=======
 
-		String stateFilter = state==0?"已受理":(state==1?"已受理未完成":(state==2?"已完成":"全部"));
->>>>>>> cbcb077019ab575b44b7793cb2f2c08884a9bffb
+		String stateFilter = state == 0 ? "已受理" : (state == 1 ? "已受理未完成" : (state == 2 ? "已完成" : "全部"));
 		String componentFilter = componentType;
 		model.addAttribute("activityFilter", activityFilter);
 		model.addAttribute("stateFilter", stateFilter);
