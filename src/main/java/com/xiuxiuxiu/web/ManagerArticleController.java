@@ -103,7 +103,7 @@ public class ManagerArticleController {
     	List<Article> mylist=articleService.findByManager(manager);
     	if(mylist==null || mylist.size()==0)
     	{
-    		model.addAttribute("err","该管理员未发表过文章");
+    		model.addAttribute("message","该管理员未发表过文章");
     	}
     	model.addAttribute("articleList", mylist);
    		return list(model, session);
