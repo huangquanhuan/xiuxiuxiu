@@ -59,7 +59,7 @@ public class StudentController {
 	 * */
 	@RequestMapping("/demo")
 	public String index1(Model model) {
-		return "index0";
+		return "test";
 	}
 	/**
 	 * 前端分页
