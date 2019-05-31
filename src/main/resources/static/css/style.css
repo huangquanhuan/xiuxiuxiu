@@ -670,7 +670,7 @@ h3.agileinfo_sign  {
     color: #FFFFFF;
     text-align: center;
 }
-.login-social-grids ul li a i.fa.fa-facebook, .login-social-grids ul li a i.fa.fa-twitter, .login-social-grids ul li a i.fa.fa-rss{
+.login-social-grids ul li a i.fa.fa-facebook, .login-social-grids ul li a i.fa.fa-twitter, .login-social-grids ul li a i.fa.fa-rss,.login-social-grids ul li a i.fa.fa-wrench {
     height: 30px;
     width: 30px;
     border: solid 2px #212121;
@@ -682,6 +682,11 @@ h3.agileinfo_sign  {
     -moz-transition: 0.5s all;
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
+}
+.login-social-grids ul li a i.fa.fa-wrench:hover{
+	border: solid 2px #3b5998;
+	background:#3b5998;
+    color: #FFFFFF;
 }
 .login-social-grids ul li a i.fa.fa-facebook:hover {
 	border: solid 2px #3b5998;
