@@ -96,7 +96,7 @@ public class ReservationController {
 	}
 
 	@RequestMapping("/editMyReservation")
-	public String editMyReservation(Model model, @RequestParam("reservationId") int reservationId) {
+	public String editMyReservation(Model model,HttpSession session, @RequestParam("reservationId") int reservationId) {
 		Reservation reservation = reservationService.findReservationById(reservationId);
 		model.addAttribute("reservation", reservation);
 
@@ -104,8 +104,10 @@ public class ReservationController {
 		List<Activity> activities = activityService.getActivityList();
 		// 获取所有零件列表
 		List<Component> components = componentService.getComponentList();
-		// 获取所有设备列表
-		List<Equipment> equipments = equipmentService.getEquipmentList();
+		// 获取当前用户的设备列表
+		Student user = (Student) session.getAttribute("user");
+		user=studentService.findStudentById(user.getId());
+		List<Equipment> equipments = user.getEquipmentList();
 
 		// 传递给页面的维修活动列表去除已选的活动
 		Activity reservationActivity = reservation.getActivity();
@@ -141,7 +143,19 @@ public class ReservationController {
 	public String cancelMyReservation(Model model, @RequestParam("reservationId") int reservationId) {
 
 		try {
+			
+			//该预约场次人数--；
+			Reservation reservation=reservationService.findReservationById(reservationId);
+			if(reservation.getActivity()!=null)
+			{
+				int pnumber=reservation.getActivity().getPnumber();
+				pnumber--;
+				System.out.println(pnumber);
+				reservation.getActivity().setPnumber(pnumber);
+			}
+			reservationService.edit(reservation);
 			reservationService.delete(reservationId);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -345,8 +359,17 @@ public class ReservationController {
 		try {
 			// 表单没有传reservationId说明是新增预约单，否则为修改
 			if (parameters.getParameter("reservationId") == null) {
+				
+				//该预约场次人数++
+				if(reservation.getActivity()!=null)
+				{
+					int pnumber=reservation.getActivity().getPnumber();
+					pnumber++;
+					System.out.println(pnumber);
+					reservation.getActivity().setPnumber(pnumber);
+				}
 				reservationService.save(reservation);
-
+				
 				// 存预约单-图片url地址对应关系到数据库
 				for (ReservationImgUrl imgUrl : imgUrlList) {
 					imgUrlService.save(imgUrl);
@@ -354,8 +377,29 @@ public class ReservationController {
 				model.addAttribute("message", "预约成功！");
 				System.out.println("预约成功！");
 			} else {
+				
+				//				//老的预约场次人数--；
+				Reservation oldreservation=reservationService.findReservationById(Integer.parseInt(parameters.getParameter("reservationId")));
+				if(oldreservation.getActivity()!=null)
+				{
+					int pnumber=oldreservation.getActivity().getPnumber();
+					pnumber--;
+					System.out.println(pnumber);
+					oldreservation.getActivity().setPnumber(pnumber);
+				}
+				reservationService.edit(oldreservation);
 				reservationService.delete(Integer.parseInt(parameters.getParameter("reservationId")));
+				
+				//新的预约场次人数++；		
+				if(reservation.getActivity()!=null)
+				{
+					int pnumber=reservation.getActivity().getPnumber();
+					pnumber++;
+					System.out.println(pnumber);
+					reservation.getActivity().setPnumber(pnumber);
+				}
 				reservationService.save(reservation);
+				
 				// 存预约单-图片url地址对应关系到数据库
 				for (ReservationImgUrl imgUrl : imgUrlList) {
 					imgUrlService.save(imgUrl);
@@ -421,8 +465,14 @@ public class ReservationController {
 		System.out.println(filteredList.size());
 		for (int i = 0; i < filteredList.size(); i++) {
 			Reservation r = filteredList.get(i);
+<<<<<<< HEAD
 			componentNum += r.getComponentList().size();
 			personSet.add(r.getStudent().getStudentId());
+=======
+			componentNum+=r.getComponentList().size();
+			personNum++;
+
+>>>>>>> cbcb077019ab575b44b7793cb2f2c08884a9bffb
 		}
 		model.addAttribute("componentNum", componentNum);
 		model.addAttribute("personNum", personSet.size());
@@ -436,7 +486,12 @@ public class ReservationController {
 		else {
 			activityFilter = activityService.findActivityById(activityId).getPlace();
 		}
+<<<<<<< HEAD
 		String stateFilter = state == 0 ? "已受理" : (state == 1 ? "已受理未完成" : (state == 2 ? "已完成" : "全部"));
+=======
+
+		String stateFilter = state==0?"已受理":(state==1?"已受理未完成":(state==2?"已完成":"全部"));
+>>>>>>> cbcb077019ab575b44b7793cb2f2c08884a9bffb
 		String componentFilter = componentType;
 		model.addAttribute("activityFilter", activityFilter);
 		model.addAttribute("stateFilter", stateFilter);

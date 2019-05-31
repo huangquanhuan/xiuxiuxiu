@@ -125,8 +125,8 @@
 							<label for="issue-detail" class="col-sm-3">问题描述</label>
 							<div id="issue-detail" class="col-sm-9">
 <!-- 								<textarea class="form-control" rows="3" name="issueDetail"></textarea> -->
-								<textarea id="styled"  class="col-sm-3" name="issueDetail"
-								onfocus="this.value=''; setbg('#e5fff3');" onblur="setbg('white')">输入详细信息</textarea>
+								<textarea id="styled"  class="col-sm-3" rows="3" name="issueDetail"
+								onfocus="this.value=''; setbg('#e5fff3');" onblur="setbg('white')" placeholder="请填写问题描述"></textarea>
 							</div>
 						</div>
 						
@@ -233,8 +233,8 @@
 							<label for="issue-detail-1" class="col-sm-3">问题描述</label>
 							<div id="issue-detail-1" class="col-sm-9">
 <!-- 								<textarea class="form-control" rows="3" name="issueDetail"></textarea> -->
-								<textarea id="styled"  class="col-sm-3" name="issueDetail"
-								onfocus="this.value=''; setbg('#e5fff3');" onblur="setbg('white')">输入详细信息</textarea>
+								<textarea id="styled"  class="col-sm-3" rows="3" name="issueDetail"
+								onfocus="this.value=''; setbg('#e5fff3');" onblur="setbg('white')" placeholder="请填写问题描述">输入详细信息</textarea>
 							</div>
 						</div>
 
@@ -269,6 +269,35 @@
 			</div>
 		</div>
 	</div>
+	<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="w3_agile_footer_grids">
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>地址</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>福州大学数计学院</li>
+					</ul>
+				</div>
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>号码</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>18868836723</li>
+					</ul>
+				</div>
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>邮箱</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>fzuxiuxiuxiu@163.com</li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="agileinfo_copyright">
+				<p>Copyright &copy; 2019.Xiuxiuxiu All rights reserved <a href="" title="" target="_blank"></a></p>
+			</div>
+		</div>
+	</div>
 	<!-- 上传文件后产生预览图 -->
 	<script type="text/javascript">
 function uploadFile(){
@@ -295,7 +324,7 @@ function uploadFile2(){
 }
 //textarea js
 function setbg(color){
-    document.getElementById("styled").style.background=color
+    document.getElementById("styled").style.background=color;
 }
 
 

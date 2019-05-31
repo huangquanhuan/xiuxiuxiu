@@ -7,10 +7,12 @@ var email = document.getElementById("register-email").value;
 var oError = document.getElementById("error_box")
 var isError = true;
 if(!isEmail(email)){
+	$("#error_box")[0].style.display = 'block'; 
 	oError.innerHTML = "邮箱格式错误";
 	isError = false;
 }else{
 // 设置button效果，开始计时
+	$("#error_box")[0].style.display = 'block'; 
 	oError.innerHTML = "正在发送中";
 document.getElementById("btnSendCode").setAttribute("disabled","true" );//设置按钮为禁用状态
 document.getElementById("btnSendCode").value="在" + curCount + "后再次获取";//更改按钮文字
@@ -25,7 +27,7 @@ $.ajax({
   		
   		 }, 
   	 success:function(){
-  		           
+  		oError.innerHTML = "已发送";          
       }   
    });
 }

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Activity - （线下维修）活动类
@@ -35,7 +36,11 @@ public class Activity {
 	@ManyToOne(targetEntity = Manager.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "manager_id", nullable = true)
 	private Manager manager;
-
+	
+	/** 获取该场次的人数*/
+	@Column(nullable = false)
+	private int pnumber;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -67,5 +72,15 @@ public class Activity {
 	public void setManager(Manager manager) {
 		this.manager = manager;
 	}
+
+	public int getPnumber() {
+		return pnumber;
+	}
+
+	public void setPnumber(int pnumber) {
+		this.pnumber = pnumber;
+	}
+
+
 
 }
