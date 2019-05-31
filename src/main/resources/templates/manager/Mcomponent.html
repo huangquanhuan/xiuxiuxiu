@@ -87,7 +87,7 @@
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content agileits_banner_bottom_left">
-									<form th:action="@{/manager/AddComponent}" method="post">
+									<form class="registerForm" th:action="@{/manager/AddComponent}" method="post">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal"
 												aria-hidden="true">&times;</button>
@@ -98,26 +98,26 @@
 										<div class="modal-body">
 											<p>
 												<span>零件名称</span> <input type="text" class="form-control"
-													name="name" />
+												 id="name"	name="name" required="required"/>
 											</p>
 											<p>
 												<span>零件价格</span> <input type="text" class="form-control"
-													name="price" />
+												id="price"	name="price" required="required"/>
 											</p>
 											<p>
 												<span>零件数量</span> <input type="text" class="form-control"
-													name="quantity" />
+												id="add-from-quantity"	name="quantity" required="required"/>
 											</p>
 											<p>
 												<span>零件类型</span> <input type="text" class="form-control"
-													name="type" />
+												id="type"	name="type" required="required"/>
 											</p>
 										</div>
 										<div class="modal-footer">
 
 											<button type="button" class="btn btn-default"
 												data-dismiss="modal">关闭</button>
-											<button type="submit" class="btn btn-success" name="submit">提交</button>
+											<button onclick="validateInput()" type="submit" class="btn btn-success" name="submit">提交</button>
 										</div>
 									</form>
 								</div>
@@ -168,29 +168,29 @@
 											</h3>
 										</div>
 										<div class="modal-body">
-											<input id="update-input-id" type="hidden" name="id">
+											<input id="update-input-id" type="hidden" name="id" >
 											<p>
 												<span>零件名称</span> <input type="text" class="form-control"
-													name="name" />
+												 id="updata-form-name"	name="name" required="required"/>
 											</p>
 											<p>
 												<span>零件价格</span> <input type="text" class="form-control"
-													name="price" />
+												 id="updata-form-price"	name="price" required="required"/>
 											</p>
 											<p>
 												<span>零件数量</span> <input type="text" class="form-control"
-													name="quantity" />
+												 id="updata-form-quantity"	name="quantity" required="required"/>
 											</p>
 											<p>
 												<span>零件类型</span> <input type="text" class="form-control"
-													name="type" />
+												 id="updata-form-type"	name="type" required="required"/>
 											</p>
 										</div>
 										<div class="modal-footer">
 
 											<button type="button" class="btn btn-default"
 												data-dismiss="modal">关闭</button>
-											<button type="submit" class="btn btn-primary" name="submit">提交</button>
+											<button onclick="validateInput()" type="submit" class="btn btn-success" name="submit">提交</button>
 										</div>
 									</form>
 								</div>
@@ -425,6 +425,42 @@
                 });
 
             });
+        </script>
+        <!-- 输入判定 -->
+        <script type="text/javascript">
+    	function validateInput() {
+    		var name = document.getElementById("updata-form-name").value;
+    		var price = document.getElementById("updata-form-price").value;
+    		var quantity = document.getElementById("updata-form-quantity").value;
+    		var type = document.getElementById("updata-form-type").value;
+    		//判断浮点数的正则
+    		var price-reg=/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+    		var quantity-reg=/^(([1-9][0-9]*)|)$/;
+    		
+    		if (typeof name != "string"){
+   			
+	   			document.getElementById("updata-form-name").setCustomValidity("请输入字符串");
+    			
+    		}else if(!price-reg.test(price)){
+    			
+    			document.getElementById("updata-form-price").setCustomValidity("请输入数字");
+    			
+    		}else if(!quantity-reg.test(quantity)){
+    			
+    			document.getElementById("updata-form-quantity").setCustomValidity("za请输入数字");
+    			
+    		}else if(typeof type != "string"){
+    			
+    			document.getElementById("type").setCustomValidity("请输入字符串");
+    			
+    		}else{
+    			document.getElementById("updata-form-name").setCustomValidity('');
+    			document.getElementById("updata-form-price").setCustomValidity('');
+    			document.getElementById("updata-form-quantity").setCustomValidity('');
+    			document.getElementById("updata-form-type").setCustomValidity('');
+    		}
+    		//empty string means no validation error
+    	}
         </script>
 	<!-- //here ends scrolling icon -->
 

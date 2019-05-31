@@ -69,7 +69,7 @@ public class ManagerComponentController {
     @RequestMapping("/manager/AddComponent")
    	public String Add(Model model,
    			@RequestParam("name") String name,@RequestParam("price") Double price
-   		    ,@RequestParam("type") String type,@RequestParam("quantity") int quantity){
+   		    ,@RequestParam("type") String type,@RequestParam("quantity") int quantity,HttpSession session){
        	
     	System.out.println("name => "+name);
     	System.out.println("price => "+price);
@@ -82,9 +82,17 @@ public class ManagerComponentController {
     	component.setPrice(price);
     	component.setQuantity(quantity);
     	component.setType(type);
-    	componentService.save(component);
-
-    	return "redirect:/manager/Mcomponent";
+    	try {
+    		componentService.save(component);
+			model.addAttribute("message", "新增成功!");
+			System.out.println("新增成功");
+		} catch (Exception e) {
+			model.addAttribute("err", "抱歉，由于数据库原因，新增失败");
+			System.out.println("抱歉，由于数据库原因，新增失败");
+			e.printStackTrace();
+		}
+    	
+    	return list(model,session);
    	}
     
    

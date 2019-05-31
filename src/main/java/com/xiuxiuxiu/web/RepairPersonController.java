@@ -65,7 +65,7 @@ public class RepairPersonController {
 		} else if(managerService.findManagerByPhoneNumber(phone_number)!=null){
 			model.addAttribute("err", "该手机号已经注册过！");
 			System.out.println("该手机号已经注册过！");
-		} else if(!access_level.equals("1") ||!access_level.equals("2") ){
+		} else if(!access_level.equals("1") && !access_level.equals("2") ){
 			model.addAttribute("err", "权限等级请输入1或2");
 			System.out.println("权限等级请输入1或2");
 		}else{
@@ -115,7 +115,7 @@ public class RepairPersonController {
 		} else if(managerService.findManagerByPhoneNumber(phone_number)!=null){
 			model.addAttribute("err", "该手机号已经注册过！");
 			System.out.println("该手机号已经注册过！");
-		} else if(!access_level.equals("1") ||!access_level.equals("2") ){
+		} else if(!access_level.equals("1") && !access_level.equals("2") ){
 			model.addAttribute("err", "权限等级请输入1或2");
 			System.out.println("权限等级请输入1或2");
 		}else{
