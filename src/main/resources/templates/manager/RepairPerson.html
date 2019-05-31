@@ -28,75 +28,104 @@
 
 <body>
 	<div th:replace="manager/Mnav :: mnavbar"></div> 
-	<!-- banner -->
-	
-	<!-- Modal1 -->
-	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+	<!-- banner -->	
+	<!-- /agile_inner_banner_info -->
+	<div class="agile_inner_banner_info">
+		<h2>维修人员</h2>
+	</div>
+	<ul class="agile_forms">
+	<li><a href="addrepair_list" data-toggle="modal"
+					data-target="#myModal1">增加维修人员</a></li>
+				<li><a href="addrepair_list" data-toggle="modal"
+					data-target="#myModal10">清理账户</a></li>
+	</ul>
+	<!-- //agile_inner_banner_info -->
+	<!-- typo -->
+	<div id="fh5co-pricing">
+		<div class="container">
+			<div class="row">
+				<div class="pricing">
+				<div th:each="manager,iterStat : ${managerList}">
+					<div class="col-md-3 animate-box">
+						<div class="price-box">
+							
+							<h2 class="pricing-plan">维修人员</h2>
 
-					<div class="signin-form profile">
-						<h3 class="agileinfo_sign">登录</h3>
-						<div class="login-form">
-							<form action="#" method="post">
-								<input type="email" name="email" placeholder="E-mail"
-									required=""> <input type="password" name="password"
-									placeholder="Password" required="">
-								<div class="tp">
-									<input type="submit" value="Sign In">
-								</div>
-							</form>
-						</div>
-						<div class="login-social-grids">
-							<ul>
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-rss"></i></a></li>
+							<ul class="classes">
+								<li>姓名：</li>
+								<li class="color" th:text="${manager.name}"></li>
+								<li>号码：</li>
+								<li class="color" th:text="${manager.phoneNumber}"></li>
+								<li>地址：</li>
+								<li class="color" th:text="${manager.address}"></li>
 							</ul>
+							<a href="#" class="btn btn-select-plan btn-sm" data-toggle="modal" th:attr="data-target='#myModal4'"
+							th:onclick="'setTargetID('+${manager.id}+')'">修改</a>	
+							<a href="#" class="btn btn-select-plan btn-sm" data-toggle="modal" th:attr="data-target='#myModal5'"
+							th:onclick="'setTargetID('+${manager.id}+')'">删除</a>	
+							
+							
 						</div>
-						<p>
-							<a href="#" data-toggle="modal" data-target="#myModal3">
-								没有账号?</a>
-						</p>
 					</div>
+							
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- //Modal1 -->
-	<!-- Modal2 -->
-	<div class="modal fade" id="myModal3" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-
-					<div class="signin-form profile">
-						<h3 class="agileinfo_sign">注册</h3>
-						<div class="login-form">
-							<form action="#" method="post">
-								<input type="text" name="name" placeholder="Username"
-									required=""> <input type="email" name="email"
-									placeholder="Email" required=""> <input type="password"
-									name="password" id="password1" placeholder="Password"
-									required=""> <input type="password" name="password"
-									id="password2" placeholder="Confirm Password" required="">
-
-								<input type="submit" value="Sign Up">
-							</form>
-						</div>
-						<p>
-							<a href="#"> By clicking register, I agree to your terms</a>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div class="modal fade" th:id="myModal4" tabindex="-1" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+						
+											<div class="signin-form profile">
+												<h3 class="agileinfo_sign">修改维修人员资料</h3>
+												<div class="login-form">
+													<form th:action="@{/manager/UpdatePerson}" method="post">
+														<input id="update-input-id" type="hidden" name="id">
+														<input type="text" name="name" placeholder="姓名" required="required"> 
+														<input type="text" name="phone_number"  placeholder="号码" required="required"> 
+														<input type="password" name="password1" id="password1" placeholder="密码"
+															required="required"> 
+														<input type="password" name="password2" id="password2" placeholder="确认密码"
+															required="required"> 
+														<input type="text" name="address" placeholder="地址" required="required">
+														<input type="text" name="email" placeholder="邮箱" required="required">
+														<input id="access_level" type="text" name="accesslist" placeholder="权限等级(1或2) ">
+										                                                                   
+						
+														<input type="submit" value="确定">
+													</form>
+												</div>
+						
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="modal fade" th:id="myModal5" tabindex="-1" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+						
+											<div class="signin-form profile">
+												<h3 class="agileinfo_sign">是否删除该资料？</h3>
+												<div class="login-form">
+													<form th:action="@{/manager/DeletePerson}" method="post">
+														<input id="delete-input-id" type="hidden" name="id">
+														<input type="submit" value="确定">
+													</form>
+												</div>
+						
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 	<!-- //Modal2 -->
 	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
@@ -164,109 +193,20 @@
 			</div>
 		</div>
 	</div>
-
 	
-	<!-- /agile_inner_banner_info -->
-	<div class="agile_inner_banner_info">
-		<h2>维修人员</h2>
-	</div>
-	<ul class="agile_forms">
-	<li><a href="addrepair_list" data-toggle="modal"
-					data-target="#myModal1">增加维修人员</a></li>
-				<li><a href="addrepair_list" data-toggle="modal"
-					data-target="#myModal10">清理账户</a></li>
-	</ul>
-	<!-- //agile_inner_banner_info -->
-	<!-- typo -->
-	<div id="fh5co-pricing">
-		<div class="container">
-			<div class="row">
-				<div class="pricing">
-				<div th:each="manager,iterStat : ${managerList}">
-					<div class="col-md-3 animate-box">
-						<div class="price-box">
-							
-							<h2 class="pricing-plan">维修人员</h2>
-
-							<ul class="classes">
-								<li>姓名：</li>
-								<li class="color" th:text="${manager.name}">${mangers.name}</li>
-								<li>号码：</li>
-								<li class="color" th:text="${manager.phoneNumber}">${mangers.phoneNumber}</li>
-								<li>地址：</li>
-								<li class="color" th:text="${manager.address}">${mangers.address}</li>
-							</ul>
-							<a href="#" class="btn btn-select-plan btn-sm" data-toggle="modal" th:attr="data-target='#myModal4'+${manager.id}">修改</a> 
-							<a href="#" class="btn btn-select-plan btn-sm" data-toggle="modal" th:attr="data-target='#myModal5'+${manager.id}">删除</a>
-							
-							<div class="modal fade" th:id="myModal4+${manager.id}" tabindex="-1" role="dialog">
-								<div class="modal-dialog">
-									<!-- Modal content-->
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-						
-											<div class="signin-form profile">
-												<h3 class="agileinfo_sign">修改维修人员资料</h3>
-												<div class="login-form">
-													<form th:action="@{/manager/UpdatePerson}" method="post">
-														<input type="hidden" name="id" th:value=${manager.id}>
-														<input type="text" name="name" placeholder="姓名" required="required"> 
-														<input type="text" name="phone_number"  placeholder="号码" required="required"> 
-														<input type="password" name="password1" id="password1" placeholder="密码"
-															required="required"> 
-														<input type="password" name="password2" id="password2" placeholder="确认密码"
-															required="required"> 
-														<input type="text" name="address" placeholder="地址" required="required">
-														<input type="text" name="email" placeholder="邮箱" required="required">
-														<input id="access_level" type="text" name="accesslist" placeholder="权限等级(1或2) ">
-										                                                                   
-						
-														<input type="submit" value="确定">
-													</form>
-												</div>
-						
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="modal fade" th:id="myModal5+${manager.id}" tabindex="-1" role="dialog">
-								<div class="modal-dialog">
-									<!-- Modal content-->
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-						
-											<div class="signin-form profile">
-												<h3 class="agileinfo_sign">是否删除该资料？</h3>
-												<div class="login-form">
-													<form th:action="@{/manager/DeletePerson}" method="post">
-														<input type="hidden" name="id" th:value=${manager.id}>
-														<input type="submit" value="确定">
-													</form>
-												</div>
-						
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							
-						</div>
-					</div>
-							
-				</div>
-			</div>
-		</div>
-	</div>
 	<!-- //typo -->
 	<!-- footer -->
 	<!-- //footer -->
 	<!-- menu -->
 	<!-- js -->
+		<script type="text/javascript">
+		//点击按钮设置目标id
+		function setTargetID(id) {
+			document.getElementById("delete-input-id").value = id;
+			document.getElementById("update-input-id").value = id;
+		}
+	</script>	
+	
 	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
 	<!-- //js -->

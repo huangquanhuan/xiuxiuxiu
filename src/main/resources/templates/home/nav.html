@@ -115,16 +115,14 @@
 											placeholder="手机号码" required="required"> <input
 											id="register-email" type="text" name="email" placeholder="邮箱"
 											required="required">
+											<p id="error_box"><br></p>
 										<table>
-											<tr>
-												<td align="center" hidden><span id="tip">请输入收到的验证码</span></td>
-											</tr>
 											<tr>
 												<td width="100%"><input type="text" name="code"
 													class="txtinput" id="code" placeholder="验证码"
 													required="required" /></td>
 												<td>
-													<button type="button" id="sendEmail" class="btn btn-success">获取邮箱验证码</button>
+													<input id="btnSendCode" class="btn" name="btnSendCode" type="button"   value="点击获取验证码" onclick="sendMessage();" />
 												</td>
 											</tr>
 										</table>

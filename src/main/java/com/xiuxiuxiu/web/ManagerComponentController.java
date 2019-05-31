@@ -38,14 +38,14 @@ public class ManagerComponentController {
     }
 
     @RequestMapping("/manager/DeleteComponent")
-	public String delete(Model model,@RequestParam("id") int id) {
+	public String delete(Model model,@RequestParam("id") String id) {
     	System.out.println("id => "+id);
-    	componentService.delete(id);
+    	componentService.delete(Integer.parseInt(id));
 		return "redirect:/manager/Mcomponent";
 	}
     
     @RequestMapping("/manager/UpdateComponent")
-	public String update(Model model,@RequestParam("id") int id,
+	public String update(Model model,@RequestParam("id") String id,
 			@RequestParam("name") String name,@RequestParam("price") Double price
     ,@RequestParam("type") String type,@RequestParam("quantity") int quantity){
     	System.out.println("name => "+name);
@@ -53,7 +53,7 @@ public class ManagerComponentController {
     	System.out.println("quantity => "+quantity);
     
         System.out.println("price =>"+price);
-        Component component=componentService.findComponentById(id);
+        Component component=componentService.findComponentById(Integer.parseInt(id));
 
         component.setName(name);
         component.setPrice(price);

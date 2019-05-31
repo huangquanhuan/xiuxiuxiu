@@ -1,46 +1,53 @@
-//发送邮箱信的ajax
-//提交Form表单
-var countdown=60; 	
-$("#sendEmail").unbind("click").click(function() {
+var InterValObj; //timer变量，控制时间
+var count = 60; //间隔函数，1秒执行
+var curCount;//当前剩余秒数
+function sendMessage() {
+curCount = count;
 var email = document.getElementById("register-email").value;
-if(email == ""){    
-   return false;  
+var oError = document.getElementById("error_box")
+var isError = true;
+if(!isEmail(email)){
+	oError.innerHTML = "邮箱格式错误";
+	isError = false;
 }else{
-	$.ajax({
-   	 type:"post",
-   	 url:"/sendemail",
-   	 data : {"email":email},
-   	 dataType:"json",
-   	 beforeSend:function(){
-   		 $("#sendEmail").val("正在提交，请稍等...");
-   		 }, 
-   	 success:function(data){
-          alert("success");	           
-       }   
-    });
+// 设置button效果，开始计时
+	oError.innerHTML = "正在发送中";
+document.getElementById("btnSendCode").setAttribute("disabled","true" );//设置按钮为禁用状态
+document.getElementById("btnSendCode").value="在" + curCount + "后再次获取";//更改按钮文字
+InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器timer处理函数，1秒执行一次
+// 向后台发送处理数据
+$.ajax({
+  	 type:"post",
+  	 url:"/sendemail",
+  	 data : {"email":email},
+  	 dataType:"json",
+  	 beforeSend:function(){
+  		
+  		 }, 
+  	 success:function(){
+  		           
+      }   
+   });
 }
-});
-//var countdown=60; 	
-//var flag=1;
-//$("#sendEmail").unbind("click").click(function(){
-//	alert("sus");
-//	var phoneNumber = document.getElementById("register-phoneNumber").value;
-//	 if(phoneNumber == ""){  
-//		alert("邮箱错误");  
-//        return false;  
-//	 }
-//	 if(flag==1){
-//		 $ajax({
-//			 type="post",
-//			 url="/sendemail",
-//			 dataType:"json",
-//			 data:{"email":$("#email").val()},
-//			 success:function (data){
-//				 alert("success");
-//			 },
-//			 error:function (data){
-//				 alert("false");
-//			 }			
-//		 });
-//	 }
-//});
+}
+function SetRemainTime() {
+if (curCount == 0) {                
+window.clearInterval(InterValObj);// 停止计时器
+document.getElementById("btnSendCode").removeAttribute("disabled");//移除禁用状态改为可用
+document.getElementById("btnSendCode").value="重新发送验证码";
+}else {
+curCount--;
+document.getElementById("btnSendCode").value="在" + curCount + "秒后再次获取";
+}
+}
+/*
+ * 判断邮箱格式
+ */
+function isEmail(email){
+	var myreg=/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+	if(!myreg.test(email)){
+		return false;
+	}else{
+		return true;
+	}
+}
