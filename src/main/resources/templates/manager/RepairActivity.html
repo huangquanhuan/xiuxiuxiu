@@ -57,59 +57,15 @@
 							</ul>
 							<p>服务同学、建设校园</p>
 							<div class="read">
-								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal4'+${activity.id}">修改</a>
-								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal5'+${activity.id}">删除</a>
+								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal4'"
+								th:onclick="'setTargetID('+${activity.id}+')'">修改</a>	
+								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal5'"
+								th:onclick="'setTargetID('+${activity.id}+')'">删除</a>	
 							</div>
 						</div>
 						<div class="clearfix"> </div>
 					</div>
-											<!-- //Modal -->
-											<div class="modal fade" th:id="myModal5+${activity.id}" tabindex="-1" role="dialog">
-														<div class="modal-dialog">
-														<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>
-																	
-																	<div class="signin-form profile">
-																	<h3 class="agileinfo_sign">是否删除该维修场次？</h3>	
-																			<div class="login-form">
-																				<form th:action="@{/manager/DeleteActivity}" method="post">
-																					<input type="hidden" name="id" th:value=${activity.id}>
-																					<input type="submit" value="确定">
-																				</form>
-																			</div>
-																			
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>	
 											
-													<div class="modal fade" th:id="myModal4+${activity.id}" tabindex="-1" role="dialog">
-														<div class="modal-dialog">
-														<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>
-																	
-																	<div class="signin-form profile">
-																	<h3 class="agileinfo_sign">修改维修场次</h3>	
-																			<div class="login-form">
-																				<form th:action="@{/manager/UpdateActivity}" method="post">
-																					<input type="hidden" name="id" th:value=${activity.id}>
-																				    <input type="text" name="begin_time" placeholder="开始时间" required="required">
-																					<input type="text" name="end_time" placeholder="结束时间" required="required">
-				                                                                    <input type="text" name="place" placeholder="地点" required="required">
-																					<input type="submit" value="确定">
-																				</form>
-																			</div>
-																			
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>
 													
 				</div>
 			</div>
@@ -231,5 +187,61 @@
 														</div>
 													</div>											
 													
+													<!-- //Modal -->
+											<div class="modal fade" th:id="myModal5" tabindex="-1" role="dialog">
+														<div class="modal-dialog">
+														<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	
+																	<div class="signin-form profile">
+																	<h3 class="agileinfo_sign">是否删除该维修场次？</h3>	
+																			<div class="login-form">
+																				<form th:action="@{/manager/DeleteActivity}" method="post">
+																					
+																					<input id="delete-input-id" type="hidden" name="id">
+																					<input type="submit" value="确定">
+																				</form>
+																			</div>
+																			
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>	
+											
+													<div class="modal fade" th:id="myModal4" tabindex="-1" role="dialog">
+														<div class="modal-dialog">
+														<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	
+																	<div class="signin-form profile">
+																	<h3 class="agileinfo_sign">修改维修场次</h3>	
+																			<div class="login-form">
+																				<form th:action="@{/manager/UpdateActivity}" method="post">
+																					<input id="update-input-id" type="hidden" name="id">
+																				    <input type="text" name="begin_time" placeholder="开始时间" required="required">
+																					<input type="text" name="end_time" placeholder="结束时间" required="required">
+				                                                                    <input type="text" name="place" placeholder="地点" required="required">
+																					<input type="submit" value="确定">
+																				</form>
+																			</div>
+																			
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>
+	<script type="text/javascript">
+		//点击按钮设置目标id
+		function setTargetID(id) {
+			document.getElementById("delete-input-id").value = id;
+			document.getElementById("update-input-id").value = id;
+		}
+	</script>							
+																		
 </body>
 </html>
