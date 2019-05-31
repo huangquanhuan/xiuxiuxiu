@@ -30,12 +30,17 @@ public class ArticleController {
 
 	@RequestMapping("/article/articleSearch")
 	public String search(Model model, @RequestParam("searchInfo") String searchInfo) {
+		
+		model.addAttribute("searchInfo",searchInfo);
 		try {
+			System.out.println("查找"+searchInfo+"相关的文章：");
 			List<Article> articles = articleService.findByTitleLike("%"+searchInfo+"%");
 			model.addAttribute("articles", articles);
 
-			if (articles.size() < 1)
-				model.addAttribute("message", "未找到相关文章！");
+			if (articles.size() < 1) {
+				model.addAttribute("message", "未找到"+searchInfo+"的相关文章！");
+				System.out.println("未找到"+searchInfo+"的相关文章！");
+			}
 			else {
 				for (Article article : articles) {
 					System.out.println("找到文章："+article.getTitle());
