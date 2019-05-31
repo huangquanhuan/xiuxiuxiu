@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.xiuxiuxiu.model.Activity;
 import com.xiuxiuxiu.model.Article;
 import com.xiuxiuxiu.model.Equipment;
-import com.xiuxiuxiu.model.ReturnData;
 import com.xiuxiuxiu.model.Reservation;
 import com.xiuxiuxiu.model.Student;
 import com.xiuxiuxiu.service.ActivityService;
@@ -58,7 +57,6 @@ public class StudentController {
 		return "home/index";
 	}
 	
-	
 	@RequestMapping("/findALL")
     @ResponseBody
     public List<Student> findAll(){
@@ -66,15 +64,15 @@ public class StudentController {
         return list;
     }
 	
-	@RequestMapping("/getAll")
-	@ResponseBody
-    public ReturnData<Student> findAllNoQuery(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
-    		@RequestParam(value="limit",defaultValue="5") Integer limit) {
-		int sum=studentService.findAll().size();
-		Page<Student> datas = studentService.findAll(offset, limit);
-		List<Student> stuDatas = datas.getContent(); 
-		return new ReturnData<Student>(sum,stuDatas);
-    }
+//	@RequestMapping("/getAll")
+//	@ResponseBody
+//    public ReturnData<Student> findAllNoQuery(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
+//    		@RequestParam(value="limit",defaultValue="5") Integer limit) {
+//		int sum=studentService.findAll().size();
+//		Page<Student> datas = studentService.findAll(offset, limit);
+//		List<Student> stuDatas = datas.getContent(); 
+//		return new ReturnData<Student>(sum,stuDatas);
+//    }
 	
 	@RequestMapping("/getAll2")
 	@ResponseBody
