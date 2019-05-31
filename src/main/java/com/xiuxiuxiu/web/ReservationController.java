@@ -93,7 +93,7 @@ public class ReservationController {
 	}
 
 	@RequestMapping("/editMyReservation")
-	public String editMyReservation(Model model, @RequestParam("reservationId") int reservationId) {
+	public String editMyReservation(Model model,HttpSession session, @RequestParam("reservationId") int reservationId) {
 		Reservation reservation = reservationService.findReservationById(reservationId);
 		model.addAttribute("reservation", reservation);
 
@@ -101,8 +101,10 @@ public class ReservationController {
 		List<Activity> activities = activityService.getActivityList();
 		// 获取所有零件列表
 		List<Component> components = componentService.getComponentList();
-		// 获取所有设备列表
-		List<Equipment> equipments = equipmentService.getEquipmentList();
+		// 获取当前用户的设备列表
+		Student user = (Student) session.getAttribute("user");
+		user=studentService.findStudentById(user.getId());
+		List<Equipment> equipments = user.getEquipmentList();
 
 		// 传递给页面的维修活动列表去除已选的活动
 		Activity reservationActivity = reservation.getActivity();
