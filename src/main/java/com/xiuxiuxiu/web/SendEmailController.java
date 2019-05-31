@@ -1,5 +1,7 @@
 package com.xiuxiuxiu.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aliyuncs.http.HttpRequest;
+import com.xiuxiuxiu.model.Activity;
+import com.xiuxiuxiu.model.Reservation;
 import com.xiuxiuxiu.web.SendEmail;
 @Controller
 public class SendEmailController {
@@ -31,13 +35,12 @@ public class SendEmailController {
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
-			model.addAttribute("msg","验证码发送成功");
+			model.addAttribute("message","验证码发送成功");
 			model.addAttribute("receiver",receiver);
 		}
 		
 		@RequestMapping("/sendcontact")
-		@ResponseBody
-		public void sendContact(Model model,HttpSession session,HttpServletRequest req) {
+		public String sendContact(Model model,HttpSession session,HttpServletRequest req) {
 			String receiver = req.getParameter("Email").trim();
 			String subject = req.getParameter("Subject").trim();
 			String name = req.getParameter("Name").trim();
@@ -49,11 +52,15 @@ public class SendEmailController {
 			try {
 				SendEmail.simpleMailSend("fzuxiuxiuxiu@163.com", subject, text);
 			}catch(Exception e) {
-				model.addAttribute("msg","验证码发送失败");
+				model.addAttribute("err","反馈发送失败");
 				e.printStackTrace();
 			}
-			model.addAttribute("msg","验证码发送成功");
-			model.addAttribute("receiver",receiver);
+			model.addAttribute("message","反馈发送成功");
+			return recontact(model);
 		}
 		
+		@RequestMapping("/recontact")
+		public String recontact(Model model) {
+			return "/article/Contact";
+		}
 }

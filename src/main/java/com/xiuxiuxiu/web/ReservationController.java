@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
@@ -52,23 +55,23 @@ public class ReservationController {
 	@RequestMapping("/myReservationList")
 	public String myReservationList(Model model, HttpSession session) {
 		Student user = (Student) session.getAttribute("user");
-		user=studentService.findStudentById(user.getId());
+		user = studentService.findStudentById(user.getId());
 		List<Reservation> reservations = user.getReservationList();
 
 		for (Reservation reservation : reservations) {
-				String cutDetail = "详情:";
-				if (reservation.getDetail() == null || reservation.getDetail().length() < 1) {
-					cutDetail = "详情:未填写";
-				}else{
-					cutDetail = "详情:" + reservation.getDetail();
-				}
-				if (cutDetail.length() > 14)
-					cutDetail = cutDetail.substring(0, 13) + "...";
+			String cutDetail = "详情:";
+			if (reservation.getDetail() == null || reservation.getDetail().length() < 1) {
+				cutDetail = "详情:未填写";
+			} else {
+				cutDetail = "详情:" + reservation.getDetail();
+			}
+			if (cutDetail.length() > 14)
+				cutDetail = cutDetail.substring(0, 13) + "...";
 
-				reservation.setCutDetail(cutDetail);
+			reservation.setCutDetail(cutDetail);
 		}
-		if(reservations.size()<1) {
-			model.addAttribute("message","你当前还没有在该平台上预约过！");
+		if (reservations.size() < 1) {
+			model.addAttribute("message", "你当前还没有在该平台上预约过！");
 			model.addAttribute("reservations", reservations);
 			return "/reservation/myReservationList";
 		}
@@ -212,30 +215,30 @@ public class ReservationController {
 //	}
 
 	@RequestMapping("/reservation/step1")
-	public String reservationStep1(Model model,HttpSession session) {
-		if(session.getAttribute("user")==null) {
-			model.addAttribute("err","对不起，请先登录！");
+	public String reservationStep1(Model model, HttpSession session) {
+		if (session.getAttribute("user") == null) {
+			model.addAttribute("err", "对不起，请先登录！");
 			List<Activity> activityList = activityService.getActivityList();
 			model.addAttribute("activityList", activityList);
-			
+
 			List<Reservation> reservationsList = reservationService.getReservationList();
 			int reservationCount = reservationsList.size();
 			model.addAttribute("reservationCount", reservationCount);
 			int serviceEquipmentCount = 0;
-			for(Reservation reservation:reservationsList) {
-				if(reservation.getEquipment()!=null)
+			for (Reservation reservation : reservationsList) {
+				if (reservation.getEquipment() != null)
 					serviceEquipmentCount++;
 			}
 			model.addAttribute("serviceEquipmentCount", serviceEquipmentCount);
 			model.addAttribute("reservationCount", reservationCount);
 			return "/home/HomePage";
 		}
-			
+
 		return "/reservation/reservationStep1";
 	}
 
 	@RequestMapping("/reservation/step2")
-	public String reservationStep2(Model model,HttpSession session) {
+	public String reservationStep2(Model model, HttpSession session) {
 		// 获取所有活动场次列表
 		List<Activity> activities = activityService.getActivityList();
 		model.addAttribute("activities", activities);
@@ -246,7 +249,7 @@ public class ReservationController {
 
 		// 获取当前用户的设备列表
 		Student user = (Student) session.getAttribute("user");
-		user=studentService.findStudentById(user.getId());
+		user = studentService.findStudentById(user.getId());
 		List<Equipment> equipments = user.getEquipmentList();
 		model.addAttribute("equipments", equipments);
 		return "/reservation/reservationStep2";
@@ -434,12 +437,15 @@ public class ReservationController {
 		List<Reservation> filteredList = new ArrayList<Reservation>();
 		// 根据条件过滤
 		for (Reservation reservation : reservations) {
-			if(activityId != ALL_ACTIVITY) {
-				if (activityId == DOOR_ACTIVITY&&reservation.getActivity()!=null) continue;
-				else if (activityId == DOOR_ACTIVITY && reservation.getActivity() == null) {}
-				else {
-					if (reservation.getActivity()==null) continue;
-					if (reservation.getActivity().getId() != activityId) continue;
+			if (activityId != ALL_ACTIVITY) {
+				if (activityId == DOOR_ACTIVITY && reservation.getActivity() != null)
+					continue;
+				else if (activityId == DOOR_ACTIVITY && reservation.getActivity() == null) {
+				} else {
+					if (reservation.getActivity() == null)
+						continue;
+					if (reservation.getActivity().getId() != activityId)
+						continue;
 				}
 			}
 			if (state != ALL_STATE && reservation.getState() != state)
@@ -454,25 +460,28 @@ public class ReservationController {
 			filteredList.add(reservation);
 		}
 		// 计算总数
-		int componentNum = 0,personNum=0;
+		Set<String> personSet = new HashSet<String>();
+		int componentNum = 0, personNum = 0;
+		System.out.println(filteredList.size());
 		for (int i = 0; i < filteredList.size(); i++) {
 			Reservation r = filteredList.get(i);
-			componentNum+=r.getComponentList().size();
-			personNum++;
-
+			componentNum += r.getComponentList().size();
+			personSet.add(r.getStudent().getStudentId());
 		}
 		model.addAttribute("componentNum", componentNum);
-		model.addAttribute("personNum", personNum);
+		model.addAttribute("personNum", personSet.size());
 		model.addAttribute("reservations", filteredList);
 		// 设置过滤条件的显示
 		String activityFilter;
-		if (activityId ==ALL_ACTIVITY )  activityFilter = "全部";
-		else if (activityId ==DOOR_ACTIVITY )  activityFilter = "上门服务";
+		if (activityId == ALL_ACTIVITY)
+			activityFilter = "全部";
+		else if (activityId == DOOR_ACTIVITY)
+			activityFilter = "上门服务";
 		else {
-			activityFilter= activityService.findActivityById(activityId).getPlace();
+			activityFilter = activityService.findActivityById(activityId).getPlace();
 		}
 
-		String stateFilter = state==0?"已受理":(state==1?"已受理未完成":(state==2?"已完成":"全部"));
+		String stateFilter = state == 0 ? "已受理" : (state == 1 ? "已受理未完成" : (state == 2 ? "已完成" : "全部"));
 		String componentFilter = componentType;
 		model.addAttribute("activityFilter", activityFilter);
 		model.addAttribute("stateFilter", stateFilter);
@@ -506,9 +515,9 @@ public class ReservationController {
 		model.addAttribute("components", componentService.getComponentList());
 		return "/reservation/appointedComponents";
 	}
-	
+
 	@RequestMapping("/reservation/updateState")
-	public String updateState(@RequestParam("id") Integer id,@RequestParam("state") Integer state) {
+	public String updateState(@RequestParam("id") Integer id, @RequestParam("state") Integer state) {
 		Reservation reservation = reservationService.findReservationById(id);
 		reservation.setState(state);
 		reservationService.edit(reservation);

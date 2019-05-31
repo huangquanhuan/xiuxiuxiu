@@ -27,7 +27,7 @@ $.ajax({
   		
   		 }, 
   	 success:function(){
-  		           
+  		oError.innerHTML = "已发送";          
       }   
    });
 }
