@@ -4,6 +4,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
+<!-- //custom-theme -->
+
+    <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+   <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"
+          media="all" />
+    <!-- font-awesome-icons -->
+    <link href="../css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome-icons -->
 <title>预约人员</title>
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -19,6 +27,7 @@
 </script>
 <link href="/css/index.css" rel="stylesheet" type="text/css"
 	media="all" />
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 	<div th:replace="manager/Mnav :: mnavbar"></div> 
@@ -106,27 +115,6 @@
 
 	<!-- 主体内容：结束 -->
 
-	<!-- js -->
-	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="/js/modernizr.custom.46884.js"></script>
-	<!-- password-script -->
-	<script type="text/javascript">
-		window.onload = function() {
-			document.getElementById("password1").onchange = validatePassword;
-			document.getElementById("password2").onchange = validatePassword;
-		}
-		function validatePassword() {
-			var pass2 = document.getElementById("password2").value;
-			var pass1 = document.getElementById("password1").value;
-			if (pass1 != pass2)
-				document.getElementById("password2").setCustomValidity(
-						"Passwords Don't Match");
-			else
-				document.getElementById("password2").setCustomValidity('');
-			//empty string means no validation error
-		}
-	</script>
-	<!-- //password-script -->
 
 	<!-- //js -->
 	<script src="../js/bars.js"></script>
@@ -226,7 +214,7 @@
 	<script src="../js/jquery.chocolat.js "></script>
 	<!-- //menu -->
 	<!-- for bootstrap working -->
-	<script src="../js/bootstrap.js"></script>
+
 	<!-- //for bootstrap working -->
 	<!-- start-smoth-scrolling -->
 	<script type="text/javascript" src="/js/move-top.js"></script>

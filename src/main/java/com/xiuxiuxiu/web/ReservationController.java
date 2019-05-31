@@ -46,24 +46,26 @@ public class ReservationController {
 	@Autowired
 	ImgUrlService imgUrlService;
 
+	@Autowired
+	StudentService studentService;
+
 	@RequestMapping("/myReservationList")
 	public String myReservationList(Model model, HttpSession session) {
-		List<Reservation> allReservations = reservationService.getReservationList();
-		List<Reservation> reservations = new ArrayList<Reservation>();
 		Student user = (Student) session.getAttribute("user");
+		user=studentService.findStudentById(user.getId());
+		List<Reservation> reservations = user.getReservationList();
 
-		for (Reservation reservation : allReservations) {
-			//找出该用户对应的预约单
-			if (reservation.getStudent().getId() == user.getId()) {
-				String cutDetail = "详情:" + reservation.getDetail();
+		for (Reservation reservation : reservations) {
+				String cutDetail = "详情:";
 				if (reservation.getDetail() == null || reservation.getDetail().length() < 1) {
 					cutDetail = "详情:未填写";
-				} else if (cutDetail.length() > 14)
+				}else{
+					cutDetail = "详情:" + reservation.getDetail();
+				}
+				if (cutDetail.length() > 14)
 					cutDetail = cutDetail.substring(0, 13) + "...";
 
 				reservation.setCutDetail(cutDetail);
-				reservations.add(reservation);
-			}
 		}
 		if(reservations.size()<1) {
 			model.addAttribute("message","你当前还没有在该平台上预约过！");
@@ -225,7 +227,7 @@ public class ReservationController {
 	}
 
 	@RequestMapping("/reservation/step2")
-	public String reservationStep2(Model model) {
+	public String reservationStep2(Model model,HttpSession session) {
 		// 获取所有活动场次列表
 		List<Activity> activities = activityService.getActivityList();
 		model.addAttribute("activities", activities);
@@ -234,8 +236,10 @@ public class ReservationController {
 		List<Component> components = componentService.getComponentList();
 		model.addAttribute("components", components);
 
-		// 获取所有设备列表
-		List<Equipment> equipments = equipmentService.getEquipmentList();
+		// 获取当前用户的设备列表
+		Student user = (Student) session.getAttribute("user");
+		user=studentService.findStudentById(user.getId());
+		List<Equipment> equipments = user.getEquipmentList();
 		model.addAttribute("equipments", equipments);
 		return "/reservation/reservationStep2";
 	}

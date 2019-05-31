@@ -27,6 +27,8 @@
 </script>
 <link href="/css/index.css" rel="stylesheet" type="text/css"
 	media="all" />
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
 <body>
 	<div th:replace="manager/Mnav :: mnavbar"></div> 
@@ -66,73 +68,12 @@
 										<td th:text="${component.price}"></td>
 										<td th:text="${component.quantity}"></td>
 										<td th:text="${component.type}"></td>
-										<td><a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal2'+${component.id}">修改</a>							
-										<td><a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal3'+${component.id}">删除</a>
+										<td><a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal4'"
+										th:onclick="'setTargetID('+${component.id}+')'">修改</a>					
+										<td><a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal3'"
+										th:onclick="'setTargetID('+${component.id}+')'">删除</a>
 										
-										<div class="modal fade" th:id="myModal3+${component.id}" tabindex="-1" role="dialog">
-									    <div class="modal-dialog">
-											<!-- Modal content-->
-												<div class="modal-content">
-														<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal">&times;</button>
-
-															<div class="signin-form profile">
-																<h3 class="agileinfo_sign">是否删除该零件</h3>	
-																	<div class="login-form">
-																		<form th:action="@{/manager/DeleteComponent}" method="post">
-																			<input type="hidden" name="id" th:value=${component.id}>
-																			<input type="submit" value="确定">
-																		</form>
-																	</div>
-																			
-																</div>
-														</div>
-													</div>
-												</div>
-										</div>	
-						
-						<!-- 模态框（Modal2） -->
-						<div class="modal fade" th:id="myModal2+${component.id}" tabindex="-1" role="dialog"
-							aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content agileits_banner_bottom_left">
-									<form th:action="@{/manager/UpdateComponent}" method="post">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal"
-												aria-hidden="true">&times;</button>
-											<h3>
-												<span>修改零件</span>
-											</h3>
-										</div>
-										<div class="modal-body">
-											<input type="hidden" name="id" th:value=${component.id}>
-											<p>
-												<span>零件名称</span> <input type="text" class="form-control"
-													name="name" />
-											</p>
-											<p>
-												<span>零件价格</span> <input type="text" class="form-control"
-													name="price" />
-											</p>
-											<p>
-												<span>零件数量</span> <input type="text" class="form-control"
-													name="quantity" />
-											</p>
-											<p>
-												<span>零件类型</span> <input type="text" class="form-control"
-													name="type" />
-											</p>
-										</div>
-										<div class="modal-footer">
-
-											<button type="button" class="btn btn-default"
-												data-dismiss="modal">关闭</button>
-											<button type="submit" class="btn btn-primary" name="submit">提交</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
+										
 										
 									</tr>
 								
@@ -191,11 +132,82 @@
 			</div>
 		</div>
 	</div>
+<div class="modal fade" th:id="myModal3" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+											<!-- Modal content-->
+					<div class="modal-content">
+							<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
 
+									<div class="signin-form profile">
+									<h3 class="agileinfo_sign">是否删除该零件</h3>	
+																	<div class="login-form">
+										<form th:action="@{/manager/DeleteComponent}" method="post">
+											<input id="delete-input-id"  type="hidden" name="id" >
+											<input type="submit" value="确定">
+										</form>
+									</div>
+																			
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>	
+						
+						<!-- 模态框（Modal2） -->
+						<div class="modal fade" th:id="myModal4" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content agileits_banner_bottom_left">
+									<form th:action="@{/manager/UpdateComponent}" method="post">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true">&times;</button>
+											<h3>
+												<span>修改零件</span>
+											</h3>
+										</div>
+										<div class="modal-body">
+											<input id="update-input-id" type="hidden" name="id">
+											<p>
+												<span>零件名称</span> <input type="text" class="form-control"
+													name="name" />
+											</p>
+											<p>
+												<span>零件价格</span> <input type="text" class="form-control"
+													name="price" />
+											</p>
+											<p>
+												<span>零件数量</span> <input type="text" class="form-control"
+													name="quantity" />
+											</p>
+											<p>
+												<span>零件类型</span> <input type="text" class="form-control"
+													name="type" />
+											</p>
+										</div>
+										<div class="modal-footer">
+
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">关闭</button>
+											<button type="submit" class="btn btn-primary" name="submit">提交</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
 
 	
 	<!-- menu -->
 	<!-- js -->
+	<script type="text/javascript">
+		//点击按钮设置目标id
+		function setTargetID(id) {
+			document.getElementById("delete-input-id").value = id;
+			document.getElementById("update-input-id").value = id;
+		}
+	</script>
+	
 	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
 	<!-- updateFormID -->
