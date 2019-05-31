@@ -6,6 +6,8 @@
 <meta name="keywords" content="" />
 <title>预约零件</title>
 <script type="application/x-javascript">
+	
+		
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -13,14 +15,24 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+
+
 </script>
 <link href="/css/index.css" rel="stylesheet" type="text/css" media="all" />
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
-	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<style type="text/css">
+.filter {
+	display: inline-block;
+	margin-right: 1em;
+}
+</style>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-	<div th:replace="manager/Mnav :: mnavbar"></div> 
+	<div th:replace="manager/Mnav :: mnavbar"></div>
 
 	<!-- 主体内容：开始 -->
 	<div class="services">
@@ -35,43 +47,194 @@
 			<div class="tab-content">
 
 				<div class="table-responsive tab-pane active" id="table-content">
-					<table class="table">
-						<p style="" th:text="'总数：'+${totalNum}"></p>
-						<a href="" class="view resw3">刷新</a>
+					<table class="table table-striped table-bordered">
+						<p style="" th:text="'零件总数：'+${componentNum}"></p>
+						<span>零件:<strong th:text="${componentFilter}"
+							class="filter"></strong></span>
+						<span>场次: <strong th:text="${activityFilter}"
+							class="filter"></strong></span>
+						<span>状态:<strong th:text="${stateFilter}" class="filter"></strong></span>
 						<thead>
 							<tr>
 								<th>姓名</th>
 								<th>学号</th>
 								<th>联系电话</th>
-								<th>个数</th>
 								<th>预约类型</th>
 								<th>场次</th>
+								<th>地点</th>
 								<th>零件类型</th>
 								<th>是否完成</th>
+								<th>操作</th>
 								<th>详情</th>
 							</tr>
 						</thead>
 						<tbody>
-							<th:block th:each="viewComponent,iter:${viewComponents}">
-								<tr th:each="component,iter:${viewComponent.componentList}">
-									<td th:text="${viewComponent.student.name}"></td>
-									<td th:text="${viewComponent.student.studentId}"></td>
-									<td th:text="${viewComponent.student.phoneNumber}"></td>
-									<td th:text="${component.quantity}"></td>
-									
-									<td th:if="${viewComponent.applicationType == 0}">活动预约</td>
-									<td th:if="${viewComponent.applicationType == 1}">上门服务</td>
-									
-									<td th:text="${viewComponent.activity.time}"></td>
+							<th:block th:each="reservation,iter1:${reservations}">
+								<tr th:each="component,iter2:${reservation.componentList}">
+									<td th:text="${reservation.student.name}"></td>
+									<td th:text="${reservation.student.studentId}"></td>
+									<td th:text="${reservation.student.phoneNumber}"></td>
+
+									<td th:if="${reservation.applicationType == 0}">上门预约</td>
+									<td th:if="${reservation.applicationType == 1}">活动预约</td>
+
+									<td th:if="${reservation.activity!=null}"
+										th:text="${reservation.activity.time}"></td>
+									<td th:if="${reservation.activity==null}" th:text="无"></td>
+									<td th:if="${reservation.activity!=null}"
+										th:text="${reservation.activity.place}"></td>
+									<td th:if="${reservation.activity==null}" th:text="无"></td>
+
 									<td th:text="${component.name}"></td>
-									
-									<td th:if="${viewComponent.state == 0}">未受理</td>
-									<td th:if="${viewComponent.state == 1}">处理中</td>
-									<td th:if="${viewComponent.state == 1}">已完成</td>
-									
-									<td><a
-										href="makeReservation?method=getForID&id=${viewComponents.reservationID}"
-										class="view resw3">详情</a></td>
+
+									<td th:if="${reservation.state == 0}">未受理</td>
+									<td th:if="${reservation.state == 1}">处理中</td>
+									<td th:if="${reservation.state == 2}">已完成</td>
+
+									<td th:if="${reservation.state == 0}"><a
+										th:href="@{/reservation/updateState(id=${reservation.id},state=1)}"
+										class="btn btn-info btn-sm">接受</a></td>
+									<td th:if="${reservation.state == 1}"><a
+										th:href="@{/reservation/updateState(id=${reservation.id},state=2)}"
+										class="btn btn-warning btn-sm">标记为完成</a></td>
+									<td th:if="${reservation.state == 2}"><a
+										class="btn btn-success btn-sm">已完成</a></td>
+									<td>
+										<button type="button" class="btn btn-primary btn-sm"
+											data-toggle="modal"
+											th:data-target="'#detailModal'+${iter1.index} + ${iter2.index}">查看详情</button>
+
+										<div class="modal"
+											th:id="'detailModal'+${iter1.index}+${iter2.index}"
+											tabindex="-1" role="dialog"
+											aria-labelledby="mySmallModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-body">
+
+														<div class="mid_agile_bannner_top_info">
+															<h2>预约单详情</h2>
+															<div class="heading-underline">
+																<div class="h-u1"></div>
+																<div class="h-u2"></div>
+																<div class="h-u3"></div>
+																<div class="clearfix"></div>
+															</div>
+
+															<div class="agileits_banner_bottom_left"></div>
+
+															<div class="row  login-center panel panel-info"
+																th:if="${ reservation!=null}">
+																<div class="panel-heading">
+																	<h3 th:if="${reservation.state==0}"
+																		th:text="${'提交时间：'+reservation.applicationTime+'(未受理)'}"></h3>
+																	<h3 th:if="${reservation.state==1}"
+																		th:text="${'提交时间：'+reservation.applicationTime+'(已受理，未完成)'}"></h3>
+																	<h3 th:if="${reservation.state==2}"
+																		th:text="${'提交时间：'+reservation.applicationTime+'(已完成)'}"></h3>
+																	<div>
+																		<a th:if="${reservation.state==0}"
+																			th:href="'/editMyReservation?reservationId='+${reservation.id}"
+																			class="btn btn-primary">编辑</a>
+																		<button class="btn btn-danger"
+																			th:if="${reservation.state==0}"
+																			th:onclick="'setTargetID('+${reservation.id}+')'"
+																			data-toggle="modal" data-target="#cancel-data"
+																			type="button">撤销</button>
+																		<button class="btn btn-danger"
+																			th:if="${reservation.state==1}"
+																			th:onclick="'setTargetID('+${reservation.id}+')'"
+																			data-toggle="modal" data-target="#contact-data"
+																			type="button">联系</button>
+																		<button class="btn btn-success"
+																			th:if="${reservation.state==2}"
+																			th:onclick="'setTargetID('+${reservation.id}+')'"
+																			data-toggle="modal" data-target="#remark-data"
+																			type="button">评价</button>
+																		<button class="btn btn-danger"
+																			th:if="${reservation.state==2}"
+																			th:onclick="'setTargetID('+${reservation.id}+')'"
+																			data-toggle="modal" data-target="#feedback-data"
+																			type="button">反馈</button>
+																	</div>
+																</div>
+
+																<div class="panel-body">
+
+																	<table class="table" style="table-layout: fixed">
+																		<tbody>
+																			<tr>
+																				<td align="right" width="40%"><h3>维修时间：</h3></td>
+																				<td align="left">
+																					<h3 th:text="${reservation.RequiredTime}"></h3>
+																					<h3 th:text="未填写"
+																						th:if="${reservation.RequiredTime==null || reservation.RequiredTime.length()<1}"></h3>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td align="right"><h3>维修地点：</h3></td>
+																				<td align="left"><h3
+																						th:text="${reservation.place}"></h3></td>
+																			</tr>
+																			<tr>
+																				<td align="right"><h3>维修设备：</h3></td>
+																				<td align="left">
+																					<h3
+																						th:text="${reservation.equipment.equipmentName}"
+																						th:if="${reservation.equipment!=null}"></h3>
+																					<h3 th:text="未选择"
+																						th:if="${reservation.equipment==null}"></h3>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td align="right"><h3>问题类型：</h3></td>
+																				<td align="left"><h3
+																						th:text="${reservation.repairType}">${reservation.repairType}</h3></td>
+																			</tr>
+																			<tr>
+																				<td align="right"><h3>预约零件：</h3></td>
+																				<td align="left">
+																					<h3
+																						th:each="component : ${reservation.componentList}">
+																						<span th:text="${component.name}"></span>
+																					</h3>
+																					<h3 th:text="'未选择'"
+																						th:if="${reservation.componentList.size()<1}"></h3>
+																				</td>
+																			</tr>
+
+																			<tr>
+																				<td align="right"><h3>问题详情：</h3></td>
+																				<td align="left">
+																					<h3>
+																						<span th:if="${reservation.detail!=null}"
+																							th:text="${reservation.detail}"></span> <span
+																							th:if="${reservation.detail==null || reservation.detail.length()<1}"
+																							th:text="'未填写'"></span>
+																					</h3>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td></td>
+																				<td align="left"><img
+																					th:each="imgUrl : ${reservation.imgUrlList}"
+																					th:src="${imgUrl.img_url}" height="140px" /></td>
+																			</tr>
+																		</tbody>
+																	</table>
+
+																</div>
+																<!-- end panel-body -->
+
+															</div>
+															<!-- end panel -->
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</td>
 								</tr>
 							</th:block>
 						</tbody>
@@ -106,19 +269,15 @@
 		</div>
 	</div>
 
-	<!-- 预约零件搜索的表单：结束 -->
-
-	<!-- 主体内容：结束 -->
-
 	<!-- js -->
 	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="/js/modernizr.custom.46884.js"></script>
 	<!-- password-script -->
 	<script type="text/javascript">
-		window.onload = function() {
-			document.getElementById("password1").onchange = validatePassword;
-			document.getElementById("password2").onchange = validatePassword;
-		}
+		// 		window.onload = function() {
+		// 			document.getElementById("password1").onchange = validatePassword;
+		// 			document.getElementById("password2").onchange = validatePassword;
+		// 		}
 
 		function validatePassword() {
 			var pass2 = document.getElementById("password2").value;
@@ -237,14 +396,13 @@
 				}, 1000);
 			});
 		});
-	</script>
-	<script type="text/javascript">
 		$(document).ready(function() {
 			$().UItoTop({
 				easingType : 'easeOutQuart'
 			});
 		});
 	</script>
+
 </body>
 
 </html>
