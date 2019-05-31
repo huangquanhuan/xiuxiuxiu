@@ -51,24 +51,11 @@ public class ManagerComponentController {
 	}
     
     @RequestMapping("/manager/UpdateComponent")
-<<<<<<< HEAD
 	public String update(Model model,@RequestParam("id") int id,
 			@RequestParam("name") String name,@RequestParam("price") Double price,
 			@RequestParam("type") String type,@RequestParam("quantity") int quantity){
       
     	Component component=componentService.findComponentById(id);
-=======
-	public String update(Model model,@RequestParam("id") String id,
-			@RequestParam("name") String name,@RequestParam("price") Double price
-    ,@RequestParam("type") String type,@RequestParam("quantity") int quantity){
-    	System.out.println("name => "+name);
-    	System.out.println("type => "+type);
-    	System.out.println("quantity => "+quantity);
-    
-        System.out.println("price =>"+price);
-        Component component=componentService.findComponentById(Integer.parseInt(id));
-
->>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
         component.setName(name);
         component.setPrice(price);
         component.setQuantity(quantity);

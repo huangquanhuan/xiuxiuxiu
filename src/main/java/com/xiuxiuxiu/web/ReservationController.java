@@ -389,60 +389,11 @@ public class ReservationController {
 	public String componentSearch(Model model,
 			@RequestParam(value = "componentType", required = false, defaultValue = "all") String componentType,
 			@RequestParam(value = "activityId", required = false, defaultValue = "-1") Integer activityId,
-<<<<<<< HEAD
+
 			@RequestParam(value = "state", required = false,defaultValue = "3") Integer state) {
 		model.addAttribute("componentType", componentType);
 		model.addAttribute("activityId", activityId);
 		model.addAttribute("state", state);
-=======
-			@RequestParam(value = "state", required = false, defaultValue = "3") Integer state) {
-		int ALL_STATE = 3, ALL_ACTIVITY = -1, DOOR_ACTIVITY = -2;
-		List<Reservation> reservations = reservationService.getReservationList();
-		List<Reservation> filteredList = new ArrayList<Reservation>();
-		// 根据条件过滤
-		for (Reservation reservation : reservations) {
-			if(activityId != ALL_ACTIVITY) {
-				if (activityId == DOOR_ACTIVITY&&reservation.getActivity()!=null) continue;
-				else if (activityId == DOOR_ACTIVITY && reservation.getActivity() == null) {}
-				else {
-					if (reservation.getActivity()==null) continue;
-					if (reservation.getActivity().getId() != activityId) continue;
-				}
-			}
-			if (state != ALL_STATE && reservation.getState() != state)
-				continue;
-			if ("all".equals(componentType)) {
-				filteredList.add(reservation);
-				continue;
-			}
-			List<Component> filteredComponents = reservation.getComponentList().stream()
-					.filter(c -> componentType.equals(c.getName())).collect(Collectors.toList());
-			reservation.setComponentList(filteredComponents);
-			filteredList.add(reservation);
-		}
-		// 计算总数
-		int componentNum = 0,personNum=0;
-		for (int i = 0; i < filteredList.size(); i++) {
-			Reservation r = filteredList.get(i);
-			componentNum+=r.getComponentList().size();
-			personNum++;
-		}
-		model.addAttribute("componentNum", componentNum);
-		model.addAttribute("personNum", personNum);
-		model.addAttribute("reservations", filteredList);
-		// 设置过滤条件的显示
-		String activityFilter;
-		if (activityId ==ALL_ACTIVITY )  activityFilter = "全部";
-		else if (activityId ==DOOR_ACTIVITY )  activityFilter = "上门服务";
-		else {
-			activityFilter= activityService.findActivityById(activityId).getPlace();
-		}
-		String stateFilter = state==0?"已受理":(state==1?"已受理未完成":(state==2?"已完成":"全部"));
-		String componentFilter = componentType;
-		model.addAttribute("activityFilter", activityFilter);
-		model.addAttribute("stateFilter", stateFilter);
-		model.addAttribute("componentFilter", componentFilter);
->>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
 		return "/reservation/appointmentComponentSearch";
 	}
 
@@ -473,7 +424,6 @@ public class ReservationController {
 		return "/reservation/appointedComponents";
 	}
 	
-<<<<<<< HEAD
 	
 	/**
 	 * 前端分页
@@ -504,13 +454,6 @@ public class ReservationController {
 			filteredList.add(reservation);
 		}
 		return filteredList;
-=======
-	@RequestMapping("/reservation/updateState")
-	public String updateState(@RequestParam("id") Integer id,@RequestParam("state") Integer state) {
-		Reservation reservation = reservationService.findReservationById(id);
-		reservation.setState(state);
-		reservationService.edit(reservation);
-		return "redirect:/reservation/componentSearch";
->>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
+
 	}
 }
