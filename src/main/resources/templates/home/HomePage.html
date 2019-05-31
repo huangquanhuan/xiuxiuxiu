@@ -14,9 +14,8 @@
 <script src="/js/my/2.1.1-jquery.min.js"></script>
 <script src="/js/my/3.3.7-bootstrap.min.js"></script>
 </head>
-<script type="text/javascript"></script>
 <body>
-  <div th:replace="home/nav :: navbar"></div> 
+  <div th:replace="/home/nav :: navbar"></div> 
 
 	<div class="banner">
 
@@ -220,7 +219,7 @@
 			</div>
 		</div>
 	</div>
-<div th:replace="home/messageOrErr :: messageOrErr"></div> 
+
 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="/js/modernizr.custom.46884.js"></script>
 <script type="text/javascript" src="/js/jquery.slicebox.js"></script>
@@ -306,6 +305,6 @@
 	});
 </script>
 	
-
+<div th:replace="/home/messageOrErr :: messageOrErr"></div> 
 </body>
 </html>
