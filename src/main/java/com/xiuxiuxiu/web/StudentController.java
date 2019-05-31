@@ -220,6 +220,7 @@ public class StudentController {
 			try {
 				studentService.save(student);
 				model.addAttribute("message", "注册成功!");
+				session.setAttribute("user", student);
 				System.out.println("注册成功");
 			} catch (Exception e) {
 				model.addAttribute("err", "抱歉，由于数据库原因，注册失败");
