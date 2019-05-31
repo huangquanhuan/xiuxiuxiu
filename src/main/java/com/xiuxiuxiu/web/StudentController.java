@@ -231,6 +231,59 @@ public class StudentController {
 		return home(model);
 	}
 
+	@RequestMapping("/student/reset")
+	public String reset(Model model, @RequestParam("reset-phoneNumber") String phoneNumber,@RequestParam("reset_password1") String passWord,
+			@RequestParam("reset_password2") String passWord2,  @RequestParam("reset_email") String email,
+			@RequestParam("reset_code") String code,HttpSession session) {
+		System.out.println("手机号码:" + phoneNumber);
+		System.out.println("邮箱:" + email);
+		System.out.println("验证码" +code);
+		System.out.println("密码:" + passWord);
+		System.out.println("确认密码:" + passWord2);
+		if (!passWord.equals(passWord2)) {
+			model.addAttribute("err", "两次密码不同！");
+			System.out.println("两次密码不同！");
+		}else if (!code.equals(session.getAttribute("res_code"))) {
+			model.addAttribute("err", "验证码错误！");
+			System.out.println("验证码错误！");
+		}  else if(studentService.findStudentByPhoneNumber(phoneNumber)==null){
+			model.addAttribute("err", "该用户不存在！");
+			System.out.println("该用户不存在！");
+		}else{
+			Student student = studentService.findStudentByPhoneNumber(phoneNumber);	
+			String encryptedPassword = null;   
+			try {   
+				encryptedPassword = MyMD5Util.getEncryptedPwd(passWord);   
+				System.out.println("加密后的密码："+encryptedPassword);
+				student.setPassword(encryptedPassword);
+				
+			} catch (NoSuchAlgorithmException e) {   
+				model.addAttribute("err", "加密算法在当前环境中不可用，注册失败！");
+				System.out.println("加密算法在当前环境中不可用，注册失败！");
+				e.printStackTrace();   
+				return home(model);
+			} catch (UnsupportedEncodingException e) {   
+				model.addAttribute("err", "密码包含不支持的字符编码，注册失败！");
+				System.out.println("密码包含不支持的字符编码，注册失败！");
+				e.printStackTrace();   
+				return home(model);
+			}
+			
+			
+			try {
+				studentService.edit(student);
+				model.addAttribute("message", "重置密码成功!");
+				session.setAttribute("user", student);
+				System.out.println("重置密码成功");
+			} catch (Exception e) {
+				model.addAttribute("err", "抱歉，由于数据库原因，重置失败");
+				System.out.println("抱歉，由于数据库原因，重置失败");
+				e.printStackTrace();
+			}
+		}
+		return home(model);
+	}
+
 	@RequestMapping("student/exit")
 	public String exit(Model model, HttpSession session) {
 		session.invalidate();
