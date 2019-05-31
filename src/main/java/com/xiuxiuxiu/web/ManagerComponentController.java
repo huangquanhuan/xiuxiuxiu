@@ -14,6 +14,7 @@ import com.xiuxiuxiu.service.ComponentService;
 
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import java.util.List;
 
@@ -30,7 +31,9 @@ public class ManagerComponentController {
     }
 
     @RequestMapping("/manager/Mcomponent")
-    public String list(Model model) {
+    public String list(Model model,HttpSession session) {
+    	if(session.getAttribute("administrator")==null)
+    		return "redirect:/manager";
     	List<Component> componentList=componentService.getComponentList();
     	model.addAttribute("componentList", componentList);
         

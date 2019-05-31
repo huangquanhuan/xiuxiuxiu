@@ -54,8 +54,7 @@
                 <li><a th:style="'display:' + @{((${session.administrator}!=null) ? 'block' : 'none')} " 
                 th:href="@{/manager/Mcomponent}" class="hvr-underline-from-center">零件库编辑</a></li>
                 
-                 <li><a th:style="'display:' + @{((${session.administrator}!=null) ? 'block' : 'none')} " 
-                th:href="@{/Mcontact}" class="hvr-underline-from-center">联系我们</a></li>
+                 
                 <li class="dropdown"><a id="my_message" href="#"
 							class="dropdown-toggle hvr-underline-from-center"
 							data-toggle="dropdown"
@@ -190,6 +189,7 @@
 			</div>
 			
 </nav>
+<div th:replace="home/messageOrErr :: messageOrErr"></div> 
 </div>
 </body>
 </html>

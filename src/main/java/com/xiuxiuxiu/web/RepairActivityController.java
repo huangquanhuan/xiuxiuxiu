@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
 import java.util.List;
 
 @Controller
@@ -24,7 +26,9 @@ public class RepairActivityController {
     }
 
     @RequestMapping("/manager/activity")
-    public String list(Model model) {
+    public String list(Model model,HttpSession session) {
+    	if(session.getAttribute("administrator")==null)
+    		return "redirect:/manager";
     	List<Activity> activityList=activityService.getActivityList();
     	model.addAttribute("activityList", activityList);
         

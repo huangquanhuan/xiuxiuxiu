@@ -32,6 +32,7 @@
 <body>
 <!-- banner -->
 <div th:replace="manager/Mnav :: mnavbar"></div> 
+<div th:replace="home/messageOrErr :: messageOrErr"></div> 	
    <div class="agileits_w3layouts_banner_nav">
 		
 
@@ -265,6 +266,6 @@
 			document.getElementById("update-input-id").value = id;
 		}
 	</script>							
-													
+<div th:replace="home/messageOrErr :: messageOrErr"></div> 												
 </body>
 </html>
