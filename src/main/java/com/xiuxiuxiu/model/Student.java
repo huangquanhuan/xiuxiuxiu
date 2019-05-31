@@ -143,5 +143,11 @@ public class Student {
 	public void setReservationList(List<Reservation> reservationList) {
 		this.reservationList = reservationList;
 	}
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name + ", studentId=" + studentId + "]";
+	}
+	
 	
 }
