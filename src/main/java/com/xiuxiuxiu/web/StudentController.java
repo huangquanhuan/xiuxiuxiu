@@ -3,16 +3,14 @@ package com.xiuxiuxiu.web;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import com.xiuxiuxiu.model.Activity;
-import com.xiuxiuxiu.model.Article;
 import com.xiuxiuxiu.model.Equipment;
-import com.xiuxiuxiu.model.ReturnData;
 import com.xiuxiuxiu.model.Reservation;
 import com.xiuxiuxiu.model.Student;
 import com.xiuxiuxiu.service.ActivityService;
 import com.xiuxiuxiu.service.EquipmentService;
 import com.xiuxiuxiu.service.ReservationService;
-import com.xiuxiuxiu.service.StudentService;
 import com.xiuxiuxiu.service.impl.StudentServiceImpl;
+import com.xiuxiuxiu.utility.MyMD5Util;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -20,17 +18,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,7 +55,6 @@ public class StudentController {
 		return "home/index";
 	}
 	
-	
 	@RequestMapping("/findALL")
     @ResponseBody
     public List<Student> findAll(){
@@ -66,15 +62,15 @@ public class StudentController {
         return list;
     }
 	
-	@RequestMapping("/getAll")
-	@ResponseBody
-    public ReturnData<Student> findAllNoQuery(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
-    		@RequestParam(value="limit",defaultValue="5") Integer limit) {
-		int sum=studentService.findAll().size();
-		Page<Student> datas = studentService.findAll(offset, limit);
-		List<Student> stuDatas = datas.getContent(); 
-		return new ReturnData<Student>(sum,stuDatas);
-    }
+//	@RequestMapping("/getAll")
+//	@ResponseBody
+//    public ReturnData<Student> findAllNoQuery(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
+//    		@RequestParam(value="limit",defaultValue="5") Integer limit) {
+//		int sum=studentService.findAll().size();
+//		Page<Student> datas = studentService.findAll(offset, limit);
+//		List<Student> stuDatas = datas.getContent(); 
+//		return new ReturnData<Student>(sum,stuDatas);
+//    }
 	
 	@RequestMapping("/getAll2")
 	@ResponseBody
@@ -140,18 +136,16 @@ public class StudentController {
 
 	@RequestMapping("/student/login")
 	public String login(Model model, @RequestParam("phoneNumber") String phoneNumber,
-			@RequestParam("password") String password, HttpSession session) {
+			@RequestParam("password") String password, HttpSession session) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
 		Student student = studentService.findStudentByPhoneNumber(phoneNumber);
-
+//		if(password.length()<6) {
+//			model.addAttribute("err", "密码长度至少6个字符！！！");
+//		} else
 		if (student == null) {
 			model.addAttribute("err", "抱歉，该账号不存在！");
 			System.out.println("登陆账号不存在！");
-		} else if (student.getPhoneNumber().length() < 1) {
-			model.addAttribute("err", "请输入登录名！");
-		} else if (student.getPassword().length() < 1) {
-			model.addAttribute("err", "请输入密码！");
-		} else if (!student.getPassword().equals(password)) {
+		} else if (!MyMD5Util.validPassword(password,student.getPassword())) {
 			// 登陆失败
 			System.out.println("真实密码：" + student.getPassword());
 			System.out.println("输入密码：" + password);
@@ -200,9 +194,29 @@ public class StudentController {
 			student.setName(name);
 			student.setAddress(address);
 			student.setEmail(email);
-			student.setPassword(passWord);
 			student.setPhoneNumber(phoneNumber);
 			student.setAccessLevel(0);
+			
+			
+			String encryptedPassword = null;   
+			try {   
+				encryptedPassword = MyMD5Util.getEncryptedPwd(passWord);   
+				System.out.println("加密后的密码："+encryptedPassword);
+				student.setPassword(encryptedPassword);
+				
+			} catch (NoSuchAlgorithmException e) {   
+				model.addAttribute("err", "加密算法在当前环境中不可用，注册失败！");
+				System.out.println("加密算法在当前环境中不可用，注册失败！");
+				e.printStackTrace();   
+				return home(model);
+			} catch (UnsupportedEncodingException e) {   
+				model.addAttribute("err", "密码包含不支持的字符编码，注册失败！");
+				System.out.println("密码包含不支持的字符编码，注册失败！");
+				e.printStackTrace();   
+				return home(model);
+			}
+			
+			
 			try {
 				studentService.save(student);
 				model.addAttribute("message", "注册成功!");
