@@ -418,7 +418,7 @@ public class ReservationController {
 		}
 		model.addAttribute("componentNum", componentNum);
 		model.addAttribute("personNum", personNum);
-		model.addAttribute("viewComponents", filteredList);
+		model.addAttribute("reservations", filteredList);
 		// 设置过滤条件的显示
 		String activityFilter;
 		if (activityId ==ALL_ACTIVITY )  activityFilter = "全部";
@@ -459,5 +459,13 @@ public class ReservationController {
 		model.addAttribute("activities", activities);
 		model.addAttribute("components", componentService.getComponentList());
 		return "/reservation/appointedComponents";
+	}
+	
+	@RequestMapping("/reservation/updateState")
+	public String updateState(@RequestParam("id") Integer id,@RequestParam("state") Integer state) {
+		Reservation reservation = reservationService.findReservationById(id);
+		reservation.setState(state);
+		reservationService.edit(reservation);
+		return "redirect:/reservation/componentSearch";
 	}
 }
