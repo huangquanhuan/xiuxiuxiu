@@ -39,7 +39,9 @@ public class ManagerArticleController {
     }
 
     @RequestMapping("/manager/Marticle")
-    public String list(Model model) {
+    public String list(Model model,HttpSession session) {
+    	if(session.getAttribute("administrator")==null)
+    		return "redirect:/manager";
     	List<Article> articleList=articleService.getArticleList();
     	model.addAttribute("articleList", articleList);
         
@@ -93,16 +95,18 @@ public class ManagerArticleController {
    	}
     
     @RequestMapping("/manager/MyArticle")
-   	public String Add(Model model,HttpSession session
+   	public String myarticle(Model model,HttpSession session
    			) {      	
-
         String time=df.format(day);
-        System.out.println("time =>"+time);
-       
+        System.out.println("time =>"+time);      
     	Manager manager=(Manager)session.getAttribute("administrator");
     	List<Article> mylist=articleService.findByManager(manager);
+    	if(mylist==null || mylist.size()==0)
+    	{
+    		model.addAttribute("err","该管理员未发表过文章");
+    	}
     	model.addAttribute("articleList", mylist);
-   		return "/manager/Marticle";
+   		return list(model, session);
    	}
 }
 
