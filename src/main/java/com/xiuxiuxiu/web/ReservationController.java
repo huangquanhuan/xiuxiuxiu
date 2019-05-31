@@ -459,6 +459,7 @@ public class ReservationController {
 			Reservation r = filteredList.get(i);
 			componentNum+=r.getComponentList().size();
 			personNum++;
+
 		}
 		model.addAttribute("componentNum", componentNum);
 		model.addAttribute("personNum", personNum);
@@ -470,6 +471,7 @@ public class ReservationController {
 		else {
 			activityFilter= activityService.findActivityById(activityId).getPlace();
 		}
+
 		String stateFilter = state==0?"已受理":(state==1?"已受理未完成":(state==2?"已完成":"全部"));
 		String componentFilter = componentType;
 		model.addAttribute("activityFilter", activityFilter);
