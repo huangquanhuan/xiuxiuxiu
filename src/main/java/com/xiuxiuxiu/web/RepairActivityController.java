@@ -45,6 +45,7 @@ public class RepairActivityController {
     	System.out.println("begin_time => "+begin_time);
     	System.out.println("end_time => "+end_time);
     	System.out.println("place => "+place);
+    	
     	Activity activity=activityService.findActivityById(Integer.parseInt(id));
     	activity.setTime(begin_time+"-"+end_time);
     	activity.setPlace(place);
@@ -59,9 +60,12 @@ public class RepairActivityController {
        	System.out.println("begin_time => "+begin_time);
        	System.out.println("end_time => "+end_time);
        	System.out.println("place => "+place);
+       	int pnumber=0;
+       	System.out.println("pnumber=>"+pnumber);
        	Activity activity=new Activity();
        	activity.setTime(begin_time+"-"+end_time);
        	activity.setPlace(place);
+       	activity.setPnumber(pnumber);
        	activityService.save(activity);
    		return "redirect:/manager/activity";
    	}
