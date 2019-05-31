@@ -79,8 +79,8 @@ public class Reservation {
 
 	/** 详细问题的描述 */
 	private String detail;
-	
-	/** 截取前13个字的详情,用于简单展示*/
+
+	/** 截取前13个字的详情,用于简单展示 */
 	@Transient
 	private String cutDetail;
 
@@ -241,12 +241,8 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [id=" + id + ", state=" + state + ", student=" + student + ", applicationType="
-				+ applicationType + ", applicationTime=" + applicationTime + ", requiredTime=" + requiredTime
-				+ ", place=" + place + ", activity=" + activity + ", equipment=" + equipment + ", repairType="
-				+ repairType + ", detail=" + detail + ", remark=" + remark + ", feedback=" + feedback
-				+ ", componentList=" + componentList + ", imgUrlList=" + imgUrlList + "]";
+		return "Reservation [id=" + id + ", state=" + state + ", applicationType=" + applicationType
+				+ ", applicationTime=" + applicationTime + ", place=" + place + ", activity=" + activity + repairType;
 	}
 
-	
 }
