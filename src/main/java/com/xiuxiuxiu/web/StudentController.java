@@ -52,6 +52,17 @@ public class StudentController {
 	public String inex(Model model) {
 		List<Activity> activityList = activityService.getActivityList();
 		model.addAttribute("activityList", activityList);
+		
+		List<Reservation> reservationsList = reservationService.getReservationList();
+		int reservationCount = reservationsList.size();
+		model.addAttribute("reservationCount", reservationCount);
+		int serviceEquipmentCount = 0;
+		for(Reservation reservation:reservationsList) {
+			if(reservation.getEquipment()!=null)
+				serviceEquipmentCount++;
+		}
+		model.addAttribute("serviceEquipmentCount", serviceEquipmentCount);
+		model.addAttribute("reservationCount", reservationCount);
 		return "home/index";
 	}
 	
@@ -105,7 +116,10 @@ public class StudentController {
 
 	@RequestMapping("/student/edit")
 	public String edit(Model model,HttpSession session, HttpServletRequest request) {
-
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		return home(model);
+    	}
 		String changeName = request.getParameter("name");
 		String changeStudentId = request.getParameter("studentId");
 		String changeEmail = request.getParameter("email");
@@ -129,9 +143,14 @@ public class StudentController {
 	}
 
 	@RequestMapping("/student/delete")
-	public String delete(int id) {
+	public String delete(Model model, HttpSession session,int id) {
+		if(session.getAttribute("user")==null) {
+			model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		return home(model);
+    	}
+		model.addAttribute("message", "注销用户成功！");
 		studentService.delete(id);
-		return "redirect:/home";
+		return home(model);
 	}
 
 	@RequestMapping("/student/login")
@@ -147,8 +166,8 @@ public class StudentController {
 			System.out.println("登陆账号不存在！");
 		} else if (!MyMD5Util.validPassword(password,student.getPassword())) {
 			// 登陆失败
-			System.out.println("真实密码：" + student.getPassword());
-			System.out.println("输入密码：" + password);
+//			System.out.println("真实密码：" + student.getPassword());
+//			System.out.println("输入密码：" + password);
 			model.addAttribute("err", "密码错误！");
 			System.out.println("登陆密码错误！");
 		} else {
@@ -240,6 +259,12 @@ public class StudentController {
 	@RequestMapping("/student/equipmentEdit")
 	public String equipmentEdit(Model model, HttpSession session, @RequestParam("equipmentId") int equipmentId,
 			@RequestParam("equipmentName") String equipmentName) {
+		
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		return home(model);
+    	}
+		
 		Student user = (Student) session.getAttribute("user");
 
 		Equipment equipment = new Equipment();
@@ -263,6 +288,12 @@ public class StudentController {
 
 	@RequestMapping("/student/equipmentDelete")
 	public String equipmentDelete(Model model, HttpSession session, @RequestParam("equipmentId") int equipmentId) {
+		
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		return home(model);
+    	}
+		
 		equipmentService.delete(equipmentId);
 		model.addAttribute("message", "删除设备成功");
 
@@ -279,6 +310,11 @@ public class StudentController {
 
 	@RequestMapping("/student/addEquipment")
 	public String addEquipment(Model model, HttpSession session, @RequestParam("equipmentName") String equipmentName) {
+		
+		if(session.getAttribute("user")==null) {
+			model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		return home(model);
+    	}
 		
 		Student user = (Student) session.getAttribute("user");
 
