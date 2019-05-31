@@ -40,18 +40,3 @@ function settime(val) {
  		return false;
  		}
 }
-//使用ajax向后台传送数据
-//	function btnajax(){
-//		$.ajax({
-// 		type:"POST",
-// 		dataType:"text",
-// 		url:"/sendcode",
-// 		date:{phoneNumber:${"#register-phoneNumber"}.val() },
-// 		error:function(){
-// 			alert("发送失败");
-// 		},
-// 		success:function(data){
-// 			$("#tip").html("<font color='#339933'>√ 短信验证码已发到您的手机,请查收</font>");
-// 		}
-// 	})
-//	}

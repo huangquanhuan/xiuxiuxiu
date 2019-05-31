@@ -21,8 +21,8 @@ public class SendEmailController {
 			String code = (int)((Math.random()*9+1)*10000)+"";
 			session.setAttribute("email", code);
 			String receiver = req.getParameter("email").trim();
-			String title="验证您的电子邮箱地址";
-			String text="您的验证码为:"+code;
+			String title="欢迎注册修咻咻平台，请验证您的邮箱账号";
+			String text="您的验证码为:"+code+"如非本人操作请忽略该信息";
 			System.out.println("邮件接收者"+receiver);
 			System.out.println("标题为"+title);
 			System.out.println("正文为"+text);
