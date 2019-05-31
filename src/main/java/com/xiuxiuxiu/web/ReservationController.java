@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -29,11 +30,12 @@ import com.xiuxiuxiu.model.*;
 import com.xiuxiuxiu.service.*;
 
 @Controller
+//@RestController
 public class ReservationController {
 
 	/** 图片保存的位置（相对路径） */
 	private static final String UPLOAD_DIRECTORY = "uploadedImages";
-
+	
 	@Autowired
 	ReservationService reservationService;
 
@@ -394,35 +396,9 @@ public class ReservationController {
 			@RequestParam(value = "componentType", required = false, defaultValue = "all") String componentType,
 			@RequestParam(value = "activityId", required = false, defaultValue = "-1") Integer activityId,
 			@RequestParam(value = "state", required = false,defaultValue = "3") Integer state) {
-		int ALL_STATE = 3, ALL_ACTIVITY = -1, DOOR_ACTIVITY = -2;
-		List<Reservation> reservations = reservationService.getReservationList();
-		List<Reservation> filteredList = new ArrayList<Reservation>();
-		// 根据条件过滤
-		for (Reservation reservation : reservations) {
-			if (activityId != ALL_ACTIVITY && reservation.getActivity().getId() != activityId)
-				continue;
-			if (state != ALL_STATE && reservation.getState() != state)
-				continue;
-			if ("all".equals(componentType)) {
-				filteredList.add(reservation);
-				continue;
-			}
-			for (Component c : reservation.getComponentList()) {
-				System.out.println(c.getName());
-			}
-			List<Component> filteredComponents = reservation.getComponentList().stream()
-					.filter(c -> componentType.equals(c.getName())).collect(Collectors.toList());
-			reservation.setComponentList(filteredComponents);
-			filteredList.add(reservation);
-		}
-
-		// 计算总数
-		int totalNum = 0;
-		for (Reservation reservation : filteredList) {
-			totalNum += reservation.getComponentList().size();
-		}
-		model.addAttribute("totalNum", totalNum);
-		model.addAttribute("viewComponents", filteredList);
+		model.addAttribute("componentType", componentType);
+		model.addAttribute("activityId", activityId);
+		model.addAttribute("state", state);
 		return "/reservation/appointmentComponentSearch";
 	}
 
@@ -453,16 +429,35 @@ public class ReservationController {
 		return "/reservation/appointedComponents";
 	}
 	
+	
 	/**
-	 * 后端分页
+	 * 前端分页
 	 * */
-	@RequestMapping("/reservation/getAll")
+	@RequestMapping("/reservation/findAll")
 	@ResponseBody
-    public ReturnData<Activity> findAllNoQuery(Mode mode,@RequestParam(value="offset",defaultValue="0") Integer offset,
-    		@RequestParam(value="limit",defaultValue="5") Integer limit) {
-		int sum	= activityService.findAll().size();
-		Page<Activity> datas = activityService.findAll(offset, limit);
-		List<Activity> listDatas = datas.getContent(); 
-		return new ReturnData<Activity>(sum,listDatas);
-    }
+    public List<Reservation> findAll( Model model, 
+    		@RequestParam(value = "componentType", required = false, defaultValue = "all") String componentType,
+    		@RequestParam(value = "activityId", required = false, defaultValue = "-1") Integer activityId,
+    		@RequestParam(value = "state", required = false,defaultValue = "3") Integer state) {
+		System.out.println(componentType+"\n\n"+activityId);
+		int ALL_STATE = 3, ALL_ACTIVITY = -1, DOOR_ACTIVITY = -2;
+		List<Reservation> reservations = reservationService.getReservationList();
+		List<Reservation> filteredList = new ArrayList<Reservation>();
+		// 根据条件过滤
+		for (Reservation reservation : reservations) {
+			if (activityId != ALL_ACTIVITY && reservation.getActivity().getId() != activityId)
+				continue;
+			if (state != ALL_STATE && reservation.getState() != state)
+				continue;
+			if ("all".equals(componentType)) {
+				filteredList.add(reservation);
+				continue;
+			}
+			List<Component> filteredComponents = reservation.getComponentList().stream()
+					.filter(c -> componentType.equals(c.getName())).collect(Collectors.toList());
+			reservation.setComponentList(filteredComponents);
+			filteredList.add(reservation);
+		}
+		return filteredList;
+	}
 }

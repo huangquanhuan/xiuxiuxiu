@@ -57,7 +57,6 @@ public class ArticleController {
 			model.addAttribute("err", "抱歉，查找文章失败！");
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
         return "article/ArticleSearch";
     }
     
@@ -82,17 +81,4 @@ public class ArticleController {
 		List<Article> listDatas = datas.getContent(); 
 		return new ReturnData<Article>(sum,listDatas);
     }
-}
-=======
-		return "/article/articleList";
-	}
->>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
-
-	@RequestMapping("/article/articleDetail")
-	public String getDetail(@RequestParam Integer id, Model model) {
-		System.out.println("查看id为" + id + "的文章");
-		Article article = articleService.findArticleById(id);
-		model.addAttribute("article", article);
-		return "/article/articleDetail";
-	}
 }

@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-=======
-<html xmlns:th="http://www.thymeleaf.org">
->>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
+
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -11,40 +8,26 @@
 <!-- //custom-theme -->
 
     <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
-   <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"
-          media="all" />
+   
     <!-- font-awesome-icons -->
     <link href="../css/font-awesome.css" rel="stylesheet">
-<!-- //font-awesome-icons -->
-<<<<<<< HEAD
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-<link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
-  <!--BootStrap Table-->
-  <link href="https://cdn.staticfile.org/bootstrap-table/1.13.5/bootstrap-table.min.css" rel="stylesheet">
-  <script src="https://cdn.staticfile.org/bootstrap-table/1.13.5/bootstrap-table.min.js"></script>
-  <script type="text/javascript" src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
-=======
-<title>零件库编辑</title>
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="application/x-javascript">
-	
-	
+    <!-- //font-awesome-icons -->
+    <title>零件库编辑</title>
+  <script type="application/x-javascript">
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
+
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
 </script>
-<link href="/css/index.css" rel="stylesheet" type="text/css"
-	media="all" />
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-
->>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
+<link href="/css/index.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>	
+<!--BootStrap Table-->
+<link href="https://cdn.staticfile.org/bootstrap-table/1.13.5/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.staticfile.org/bootstrap-table/1.13.5/bootstrap-table.min.js"></script>
 </head>
 <body>
 	<div th:replace="manager/Mnav :: mnavbar"></div> 
@@ -63,7 +46,8 @@
 
 				<div class="wrapper" >
 					<div class="table-responsive">
-						<table class="table table-bordered table-striped" id="CompontentTable">
+          <table id="CompontentTable">123</table>
+						<table class="table table-bordered table-striped">
 							<caption>零件列表</caption>
 							
 							<thead>
@@ -214,7 +198,85 @@
 	
 	<!-- menu -->
 	<!-- js -->
-	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    
+<script src="https://cdn.staticfile.org/bootstrap-table/1.13.5/locale/bootstrap-table-zh-CN.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#CompontentTable").bootstrapTable({
+            url:"/manager/getAllComponent",            //请求地址
+            toolbar : '#toolbar',               //工具按钮用哪个容器
+            data_local : "zh-US" ,        //表格汉化
+            striped : true,           //是否显示行间隔色
+            pageNumber : 1,           //初始化加载第一页
+            pagination : true,          //是否分页
+            sidePagination : 'server',      //server:服务器端分页|client：前端分页
+            pageSize : 5,           //单页记录数
+            minimumCountColumns : 2,            //最少允许的列数
+            clickToSelect : true,               //是否启用点击选中行
+            sortStable : true,          //是否可排序
+            strictSearch : false,               //设置为 true启用 全匹配搜索，否则为模糊搜索
+            pageList : [ 5,10,20,'ALL'],    //可选择单页记录数
+            search: true,           //表格搜索按钮
+            showRefresh : true,         //刷新按钮
+            //queryParamsType:'',         //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+                              // 设置为 ''  在这种情况下传给服务器的参数为：pageSize,pageNumber
+            queryParams : function(params) {  //上传服务器的参数 //params的自带参数类型由queryParamsType决定
+                var temp = {
+                    offset: params.offset,             //起始
+                    limit: params.limit,                         //页面大小
+                };
+                return temp;
+            } ,
+            columns : [ {
+                title: '序号',
+                field: '',
+                align: 'center',
+                formatter: function (value, row, index) {
+                    return index+1;
+                }/* ,{
+                  title : 'ID',
+                  field : 'id'
+                  align : 'center',
+                  sortable : true
+                },{
+                  title : '零件名称',
+                  field : 'name'
+                  align : 'center',
+                  sortable : true
+                },{
+                  title : '价格',
+                  field : 'price'
+                  align : 'center',
+                  sortable : true
+                },{
+                  title : '数量',
+                  field : 'quantity'
+                  align : 'center',
+                  sortable : true
+                },{
+                  title : '零件类型',
+                  field : 'type'
+                  align : 'center',
+                  sortable : true
+                },{
+                  title : '修改',
+                  field : 'update'
+                  align : 'center',
+                  formatter: function (value, row, index) {
+                    return '<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target=\'#myModal2\''+row.id+'">修改</a>'
+                  }
+                },{
+                  title : '删除',
+                  field : 'deleted'
+                  align : 'center',
+                  formatter: function (value, row, index) {
+                    return '<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target=\'#myModal3\''+row.id+'">删除</a>'
+                  }
+                } */] 
+                
+        })
+    })
+</script>
 	<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
 	<!-- updateFormID -->
 	<script type="text/javascript">
@@ -410,82 +472,4 @@
 		Top</a>
 </body>
 
-<script src="https://cdn.staticfile.org/bootstrap-table/1.13.5/locale/bootstrap-table-zh-CN.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#CompontentTable").bootstrapTable({
-            url:"/manager/getAllComponen",            //请求地址
-            toolbar : '#toolbar',               //工具按钮用哪个容器
-            data_local : "zh-US" ,        //表格汉化
-            striped : true,           //是否显示行间隔色
-            pageNumber : 1,           //初始化加载第一页
-            pagination : true,          //是否分页
-            sidePagination : 'client',      //server:服务器端分页|client：前端分页
-            pageSize : 2,           //单页记录数
-            minimumCountColumns : 2,            //最少允许的列数
-            clickToSelect : true,               //是否启用点击选中行
-            sortStable : true,          //是否可排序
-            strictSearch : false,               //设置为 true启用 全匹配搜索，否则为模糊搜索
-            pageList : [ 2, 3, 5,'ALL'],    //可选择单页记录数
-            search: true,           //表格搜索按钮
-            showRefresh : true,         //刷新按钮
-            //queryParamsType:'',         //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
-                              // 设置为 ''  在这种情况下传给服务器的参数为：pageSize,pageNumber
-            queryParams : function(params) {  //上传服务器的参数 //params的自带参数类型由queryParamsType决定
-                var temp = {
-                    offset: params.offset,             //起始
-                    limit: params.limit,                         //页面大小
-                };
-                return temp;
-            } ,
-            columns : [ {
-                title: '序号',
-                field: '',
-                align: 'center',
-                formatter: function (value, row, index) {
-                    return index+1;
-                },{
-                	title : 'ID',
-                	field : 'id'
-                	align : 'center',
-                	sortable : true
-                },{
-                	title : '零件名称',
-                	field : 'name}'
-                	align : 'center',
-                	sortable : true
-                },{
-                	title : '价格',
-                	field : 'price'
-                	align : 'center',
-                	sortable : true
-                },{
-                	title : '数量',
-                	field : 'quantity'
-                	align : 'center',
-                	sortable : true
-                },{
-                	title : '零件类型',
-                	field : 'type'
-                	align : 'center',
-                	sortable : true
-                },{
-                	title : '修改',
-                	field : 'update'
-                	align : 'center',
-                	formatter: function (value, row, index) {
-                		return '<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target=\'#myModal2\''+row.id+'">修改</a>'
-                	}
-                },{
-                	title : '删除',
-                	field : 'deleted'
-                	align : 'center',
-                	formatter: function (value, row, index) {
-                		return '<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target=\'#myModal3\''+row.id+'">删除</a>'
-                	}
-                }] 
-                
-        })
-    })
-</script>
 </html>

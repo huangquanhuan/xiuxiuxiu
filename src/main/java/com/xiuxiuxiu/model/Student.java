@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name = "student")
-@JsonIgnoreProperties(value = {"equipmentList","reservationList"})
+@JsonIgnoreProperties(value = {"equipmentList","reservationList","hibernateLazyInitializer", "handler"})
 public class Student {
 
 	/** 用户的id */

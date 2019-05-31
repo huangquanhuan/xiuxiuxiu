@@ -24,16 +24,12 @@ public interface ArticleService {
 
 	public List<Article> findByManager(Manager manager);
 
-<<<<<<< HEAD
-    public Article findByTitleLink(String title);
-
 	public Page<Article> findAll(int pageNum, int pageSize);
 	
 	public List<Article> findAll();
-=======
 
-    public List<Article> findByTitleLike(String title);
+	public List<Article> findByTextLike(String text);
 
-    List<Article> findByTextLike(String text);
->>>>>>> branch 'master' of https://github.com/huangquanhuan/xiuxiuxiu
+	public List<Article> findByTitleLike(String title);
+
 }

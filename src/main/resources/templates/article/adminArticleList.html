@@ -50,46 +50,13 @@
             <!-- 两边留白 -->
 
             <div class="wrapper">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                <div class="table-responsive" id="aTable">
+                    <table class="table table-bordered table-striped" id="ATable">
                         <caption>文章列表</caption>
                         <caption>
                             <a href="ArticlesServlet?method=list" class="view resw3">刷新</a>
                         </caption>
-                        <!--<caption>
-                        <div class="container" style="width: 30em;margin-top: 2em">
-                            <form action="ArticlesServlet?method=search" method="post">
-                                <div class="input-group form-group">
-                                     <input type="text" class="form-control" placeholder="请输入文章标题"  name="title"/>
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary btn-lg" style="position: relative;left:1px;bottom: 1px;">搜索</button>
-                                        </span>
-                                </div>
-                            </form>
-                        </div>
-                        </caption>!-->
-                        <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>文章名</th>
-                            <th>发布时间</th>
-                            <th>修改</th>
-                            <th>删除</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="article,iterStat : ${articles}">
-                            <td th:text="${article.id}"></td>
-                            <td th:text="${article.title}"></td>
-                            <td th:text="${article.time}"></td>
-
-                            <td><button type="button" class="btn btn-primary btn-lg"
-                                        onclick="updateFormID(${articles.id})" data-toggle="modal"
-                                        data-target="#myModal2">修改</button></td>
-                            <td><a href="ArticlesServlet?method=delete&id=${articles.id}"
-                                    class="view resw3">删除</a></td>
-                            </tr>
-                        </tbody>
+                        
                     </table>
                     <!-- 按钮触发模态框 -->
                     <button class="btn btn-primary btn-lg" data-toggle="modal"
@@ -190,7 +157,69 @@
 <!-- //footer -->
 <!-- menu -->
 <!-- js -->
-<script type="text/javascript" src="../js/jquery-2.1.4.min.js"></script>
+<script src="https://cdn.staticfile.org/bootstrap-table/1.13.5/locale/bootstrap-table-zh-CN.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#ATable").bootstrapTable({
+            url:"/reservation/findAll",            //请求地址
+            toolbar : '#toolbar',               //工具按钮用哪个容器
+            data_local : "zh-US" ,        //表格汉化
+            striped : true,           //是否显示行间隔色
+            pageNumber : 1,           //初始化加载第一页
+            pagination : true,          //是否分页
+            sidePagination : 'server',      //server:服务器端分页|client：前端分页
+            
+            minimumCountColumns : 2,            //最少允许的列数
+            clickToSelect : true,               //是否启用点击选中行
+            sortStable : true,          //是否可排序
+            strictSearch : false,               //设置为 true启用 全匹配搜索，否则为模糊搜索
+            pageSize : 5,           //单页记录数
+            pageList:[5, 10, 20,'ALL'],    //可选择单页记录数
+            search: true,           //表格搜索按钮
+            showRefresh : true,         //刷新按钮
+            //queryParamsType:'',         //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+                              // 设置为 ''  在这种情况下传给服务器的参数为：pageSize,pageNumber
+            queryParams : function(params) {  //上传服务器的参数 //params的自带参数类型由queryParamsType决定
+                var temp = {
+                    offset: params.offset,             //起始
+                    limit: params.limit                       //页面大小
+                };
+                return temp;
+            }
+            columns : [ {
+                title: '序号',
+                field: '',
+                align: 'center',
+                formatter: function (value, row, index) {
+                    return index+1;
+                }
+            },{
+                title : 'id',
+                field : 'id',
+                align: 'center',
+                sortable : true
+            },{
+              title : '文章名',
+              field : 'student.studentId',
+              align: 'center',
+              sortable : true
+            },{
+              title : '发布时间',
+              field : 'time',
+              align: 'center'
+            },{
+              title : '操作',
+              field : 'opreator',
+              align: 'center',
+              formatter: function (value, row, index) {
+                    return '<button type="button" class="btn btn-primary btn-lg" onclick="updateFormID('+row.id+')" data-toggle="modal" + 
+                           'data-target="#myModal2">修改</button>'+
+                		   '<a href="ArticlesServlet?method=delete&id='+row.id+'"  class="view resw3">删除</a>';
+              }
+            }]
+        })
+    })
+</script>
 <script type="text/javascript" src="../js/modernizr.custom.46884.js"></script>
 <!-- updateFormID -->
 <script type="text/javascript">
