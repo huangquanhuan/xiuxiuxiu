@@ -48,7 +48,7 @@ public class ManagerComponentController {
 	}
     
     @RequestMapping("/manager/UpdateComponent")
-	public String update(Model model,@RequestParam("id") String id,
+	public String update(Model model,HttpSession session,@RequestParam("id") String id,
 			@RequestParam("name") String name,@RequestParam("price") String price
     ,@RequestParam("type") String type,@RequestParam("quantity") String quantity){
     	System.out.println("name => "+name);
@@ -61,13 +61,13 @@ public class ManagerComponentController {
     		doublePrice = Double.parseDouble(price);
     	}catch (Exception e) {
 			model.addAttribute("err", "请输入正确的价格！！");
-			return "redirect:/manager/Mcomponent";
+			return list(model,session);
 		}
     	try {
     		intQuantity = Integer.parseInt(quantity);
     	}catch (Exception e) {
     		model.addAttribute("err", "请输入正确的数量！！");
-    		return "redirect:/manager/Mcomponent";
+    		return list(model,session);
     	}
     	
     	
@@ -78,7 +78,7 @@ public class ManagerComponentController {
         component.setQuantity(intQuantity);
         component.setType(type);
     	componentService.edit(component);
-		return "redirect:/manager/Mcomponent";
+    	return list(model,session);
 	}
     
     @RequestMapping("/manager/AddComponent")
@@ -97,13 +97,13 @@ public class ManagerComponentController {
     		doublePrice = Double.parseDouble(price);
     	}catch (Exception e) {
 			model.addAttribute("err", "请输入正确的价格！！");
-			return "redirect:/manager/Mcomponent";
+			return list(model,session);
 		}
     	try {
     		intQuantity = Integer.parseInt(quantity);
     	}catch (Exception e) {
     		model.addAttribute("err", "请输入正确的数量！！");
-    		return "redirect:/manager/Mcomponent";
+    		return list(model,session);
     	}
     	
 
