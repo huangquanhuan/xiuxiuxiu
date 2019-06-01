@@ -66,7 +66,10 @@
 									<td th:text="${component.type}"></td>
 									<td><a href="#" class="view resw3" data-toggle="modal"
 										th:attr="data-target='#myModal4'"
-										th:onclick="'setTargetID('+${component.id}+')'">修改</a>
+										th:onclick="setTargetID([[${component.id}]],
+										[[${component.name}]],[[${component.price}]]
+										,[[${component.quantity}]],[[${component.type}]])
+										">修改</a>
 									<td><a href="#" class="view resw3" data-toggle="modal"
 										th:attr="data-target='#myModal3'"
 										th:onclick="'setTargetID('+${component.id}+')'">删除</a>
@@ -106,7 +109,7 @@
 											</p>
 											<p>
 												<span>零件名称</span> <input type="text" class="form-control"
-													id="type" name="type" required="required" />
+													id="add-form-type" name="type" required="required" />
 											</p>
 										</div>
 										<div class="modal-footer">
@@ -168,19 +171,19 @@
 						<input id="update-input-id" type="hidden" name="id">
 						<p>
 							<span>零件类型</span> <input type="text" class="form-control"
-								id="updata-form-name" name="name" required="required" />
+								id="update-form-name" name="name" required="required" />
 						</p>
 						<p>
 							<span>零件价格</span> <input type="text" class="form-control"
-								id="updata-form-price" name="price" required="required" />
+								id="update-form-price" name="price" required="required" />
 						</p>
 						<p>
 							<span>零件数量</span> <input type="text" class="form-control"
-								id="updata-form-quantity" name="quantity" required="required" />
+								id="update-form-quantity" name="quantity" required="required" />
 						</p>
 						<p>
 							<span>零件名称</span> <input type="text" class="form-control"
-								id="updata-form-type" name="type" required="required" />
+								id="update-form-type" name="type" required="required" />
 						</p>
 					</div>
 					<div class="modal-footer">
@@ -230,9 +233,13 @@
 	<!-- js -->
 	<script type="text/javascript">
 		//点击按钮设置目标id
-		function setTargetID(id) {
+		function setTargetID(id,name,price,quantity,type) {
 			document.getElementById("delete-input-id").value = id;
 			document.getElementById("update-input-id").value = id;
+			document.getElementById("update-form-name").value = name;
+			document.getElementById("update-form-price").value = price;
+			document.getElementById("update-form-quantity").value =quantity;
+			document.getElementById("update-form-type").value = type;
 		}
 	</script>
 

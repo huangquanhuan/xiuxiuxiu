@@ -67,7 +67,8 @@
 							<div class="read">
 								<a href="#" class="view resw3" data-toggle="modal"
 									th:attr="data-target='#myModal4'"
-									th:onclick="'setTargetID('+${activity.id}+'),CurrentTime()'"
+									th:onclick="setTargetID([[${activity.id}]],[[${activity.time}]]
+										,[[${activity.place}]]),CurrentTime()"
 									>修改</a> <a
 									href="#" class="view resw3" data-toggle="modal"
 									th:attr="data-target='#myModal5'"
@@ -263,7 +264,7 @@
 								<div  class="form-group">
 									<label style="margin-top:1em;" class="col-sm-3">地点:</label>
 									<div class="col-sm-9">
-										<input style="margin-top:1em;" type="text" name="place" placeholder="地点" required="required">
+										<input id="place" style="margin-top:1em;" type="text" name="place" placeholder="地点" required="required">
 									</div>
 								</div>
 <!-- 								<input type="text" name="place" placeholder="地点" required="required"> -->
@@ -291,9 +292,14 @@
 
 	<script type="text/javascript">
 		//点击按钮设置目标id
-		function setTargetID(id) {
+		function setTargetID(id,time,place) {
+			
 			document.getElementById("delete-input-id").value = id;
 			document.getElementById("update-input-id").value = id;
+			arr=time.split("~");
+			document.getElementById("update-form-begin-time").value = arr[0];
+			document.getElementById("update-form-end-time").value = arr[1];
+			document.getElementById("place").value = place;
 		}
 	</script>
 
