@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.sun.mail.handlers.message_rfc822;
 import com.xiuxiuxiu.model.*;
 import com.xiuxiuxiu.service.*;
 
@@ -450,10 +451,7 @@ public class ReservationController {
 	 * @return 过滤后的视图
 	 */
 	@RequestMapping("/reservation/componentSearch")
-	public String componentSearch(Model model,
-			@RequestParam(value = "componentType", required = false, defaultValue = "-1") Integer componentType,
-			@RequestParam(value = "activityId", required = false, defaultValue = "-1") Integer activityId,
-			@RequestParam(value = "state", required = false, defaultValue = "3") Integer state) {
+	public String componentSearch(Model model,Integer componentType,Integer activityId,Integer state) {
 		int ALL_STATE = 3, ALL_ACTIVITY = -1, DOOR_ACTIVITY = -2;
 		List<Reservation> reservations = reservationService.getReservationList();
 		List<Reservation> filteredList = new ArrayList<Reservation>();
@@ -536,9 +534,15 @@ public class ReservationController {
 			componentFilter = "全部";
 		else
 			componentFilter = componentService.findComponentById(componentType).getName();
+		
 		model.addAttribute("activityFilter", activityFilter);
 		model.addAttribute("stateFilter", stateFilter);
 		model.addAttribute("componentFilter", componentFilter);
+		
+		model.addAttribute("activityId", activityId);
+		model.addAttribute("state", state);
+		model.addAttribute("componentType", componentType);
+		
 		return "/reservation/reservationManageSearch";
 	}
 
@@ -570,10 +574,14 @@ public class ReservationController {
 	}
 
 	@RequestMapping("/reservation/updateState")
-	public String updateState(@RequestParam("id") Integer id, @RequestParam("state") Integer state) {
+	public String updateState(Model model,@RequestParam("id") Integer id, @RequestParam("state") Integer setState,
+			@RequestParam(value = "searchComponentType", required = false, defaultValue = "-1") Integer componentType,
+			@RequestParam(value = "searchActivityId", required = false, defaultValue = "-1") Integer activityId,
+			@RequestParam(value = "searchState", required = false, defaultValue = "3") Integer state) {
 		Reservation reservation = reservationService.findReservationById(id);
-		reservation.setState(state);
+		reservation.setState(setState);
 		reservationService.edit(reservation);
-		return "redirect:/reservation/componentSearch";
+		
+		return componentSearch(model, componentType, activityId, state);
 	}
 }
