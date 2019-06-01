@@ -69,7 +69,9 @@
 									class="read}">
 									<a href="#" class="view resw3" data-toggle="modal"
 										th:attr="data-target='#myModal4'"
-										th:onclick="'setTargetID('+${article.id}+')'">修改</a> <a
+										th:onclick="setTargetID([[${article.title}]],[[${article.id}]]
+										,[[${article.text}]])">修改</a> 
+										<a
 										href="#" class="view resw3" data-toggle="modal"
 										th:attr="data-target='#myModal5'"
 										th:onclick="'setTargetID('+${article.id}+')'">删除</a>
@@ -275,9 +277,10 @@
 						<h3 class="agileinfo_sign">修改文章</h3>
 						<div class="login-form">
 							<form th:action="@{/manager/UpdateArticle}" method="post">
-								<input id="update-input-id" type="hidden" name="id"> <input
+								<input id="update-input-id" type="hidden" name="id"> 
+								<input id="title"
 									type="text" name="title" placeholder="标题" required="required">
-								<textarea row="10" name="text" placeholder="文章内容"
+								<textarea id="text" row="10" name="text" placeholder="文章内容"
 									required="required"></textarea>
 
 								<input type="submit" value="确定">
@@ -292,9 +295,11 @@
 
 	<script type="text/javascript">
 		//点击按钮设置目标id
-		function setTargetID(id) {
+		function setTargetID(title,id,text) {
 			document.getElementById("delete-input-id").value = id;
 			document.getElementById("update-input-id").value = id;
+			document.getElementById("title").value = title;
+			document.getElementById("text").value = text;
 		}
 	</script>
 	<div th:replace="home/messageOrErr :: messageOrErr"></div>
