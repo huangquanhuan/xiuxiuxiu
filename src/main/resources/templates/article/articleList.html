@@ -15,7 +15,7 @@
 <script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 </head>
 <body>
-	<div th:replace="@{home/nav :: navbar}"></div>
+	<div th:replace="/home/nav :: navbar"></div>
 
 	<div class="agile_inner_banner_info">
 		<h2>文章列表</h2>
@@ -32,9 +32,9 @@
 							<div
 								class="event-left1-left-pos agileits-w3layouts-event-left1-left-pos">
 								<ul>
-									<li><a th:href="#"><span class="fa fa-tags"
+									<li><a href="#"><span class="fa fa-tags"
 											aria-hidden="true"></span>5 Tags</a></li>
-									<li><a th:href="#" th:text="${article.id}"><span
+									<li><a href="#" th:text="${article.id}"><span
 											class="fa fa-user" aria-hidden="true"></span></a></li>
 								</ul>
 							</div>
@@ -42,7 +42,7 @@
 						<div
 							class="col-xs-6 event-left1-right w3-agileits-event-left1-right">
 							<h5>
-								<a th:th:href="@{/article/articleDetail(id=${article.id})}"
+								<a th:href="@{/article/articleDetail(id=${article.id})}"
 									th:text="${article.title}"></a>
 							</h5>
 							<p th:text="${article.manager.name}"></p>
@@ -101,7 +101,7 @@
 							</div>
 							<div class="posts-grid w3-posts-grid">
 								<div class="posts-grid-left w3-posts-grid-left">
-									<a th:href="single.html"><img th:src="../images/6.jpg" alt=" "
+									<a th:href="single.html"><img th:src="@{/images/6.jpg}" alt=" "
 										class="img-responsive" /></a>
 								</div>
 								<div class="posts-grid-right w3-posts-grid-right">
@@ -176,7 +176,7 @@
 				<div class="clearfix"> </div>
 			</div>
 			<div class="agileinfo_copyright">
-				<p>Copyright &copy; 2019.Xiuxiuxiu All rights reserved <a th:href="" title="" target="_blank"></a></p>
+				<p>Copyright &copy; 2019.Xiuxiuxiu All rights reserved <a href="" title="" target="_blank"></a></p>
 			</div>
 		</div>
 	</div>
