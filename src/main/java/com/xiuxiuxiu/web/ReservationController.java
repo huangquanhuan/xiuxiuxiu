@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.catalina.startup.HomesUserDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +52,11 @@ public class ReservationController {
 
 	@RequestMapping("/myReservationList")
 	public String myReservationList(Model model, HttpSession session) {
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		System.out.println("登陆信息已过期，请重新登录！");
+    		return "redirect:/home";
+    	}
 		Student user = (Student) session.getAttribute("user");
 		user = studentService.findStudentById(user.getId());
 		List<Reservation> reservations = user.getReservationList();
@@ -95,6 +98,12 @@ public class ReservationController {
 
 	@RequestMapping("/editMyReservation")
 	public String editMyReservation(Model model,HttpSession session, @RequestParam("reservationId") int reservationId) {
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		System.out.println("登陆信息已过期，请重新登录！");
+    		return "redirect:/home";
+    	}
+		
 		Reservation reservation = reservationService.findReservationById(reservationId);
 		model.addAttribute("reservation", reservation);
 
@@ -214,6 +223,11 @@ public class ReservationController {
 
 	@RequestMapping("/reservation/step1")
 	public String reservationStep1(Model model, HttpSession session) {
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		System.out.println("登陆信息已过期，请重新登录！");
+    		return "redirect:/home";
+    	}
 		if (session.getAttribute("user") == null) {
 			model.addAttribute("err", "对不起，请先登录！");
 			List<Activity> activityList = activityService.getActivityList();
@@ -237,6 +251,11 @@ public class ReservationController {
 
 	@RequestMapping("/reservation/step2")
 	public String reservationStep2(Model model, HttpSession session) {
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		System.out.println("登陆信息已过期，请重新登录！");
+    		return "redirect:/home";
+    	}
 		// 获取所有活动场次列表
 		List<Activity> activities = activityService.getActivityList();
 		model.addAttribute("activities", activities);
@@ -255,7 +274,12 @@ public class ReservationController {
 
 	@RequestMapping("/reservation/submit")
 	public String reservationSubmit(Model model, HttpServletRequest request, HttpSession session) {
-
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		System.out.println("登陆信息已过期，请重新登录！");
+    		return "redirect:/home";
+    	}
+		
 		Reservation reservation = new Reservation();
 		Student student = (Student) session.getAttribute("user");
 
@@ -459,7 +483,7 @@ public class ReservationController {
 		}
 		// 计算总数
 		Set<String> personSet = new HashSet<String>();
-		int componentNum = 0, personNum = 0;
+		int componentNum = 0;
 		System.out.println(filteredList.size());
 		for (int i = 0; i < filteredList.size(); i++) {
 			Reservation r = filteredList.get(i);
