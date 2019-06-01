@@ -58,9 +58,9 @@
 									class="form-control">
 									<!-- 这里装入预约类型列表 -->
 									<option th:each="component:${components}"
-										th:value="${component.name}"
+										th:value="${component.id}"
 										th:text="${component.name}"></option>
-									<option value="all" selected="selected">全部</option>
+									<option value="-1" selected="selected">全部</option>
 								</select>
 							</div>
 						</div>
@@ -71,6 +71,7 @@
 							<div class="col-sm-9">
 								<select id="finished-select" name="state"
 									class="form-control">
+									<option value="-1">被拒绝</option>
 									<option value="0">未受理</option>
 									<option value="1">已受理未完成</option>
 									<option value="2">已完成</option>
