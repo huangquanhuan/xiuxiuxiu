@@ -290,6 +290,11 @@
 											<div class="table-responsive">
 												<table class="table">
 													<tr>
+														<td>邮箱</td>
+														<td><input type="text" name="email"
+															th:value="*{email}" class="form-control" disabled="disabled"></td>
+													</tr>
+													<tr>
 														<td>姓名</td>
 														<td><input type="text" name="name" th:value="*{name}"
 															class="form-control"></td>
@@ -298,11 +303,6 @@
 														<td>学号</td>
 														<td><input type="text" name="studentId"
 															th:value="*{studentId}" class="form-control"></td>
-													</tr>
-													<tr>
-														<td>邮箱</td>
-														<td><input type="text" name="email"
-															th:value="*{email}" class="form-control"></td>
 													</tr>
 													<tr>
 														<td>地址</td>
