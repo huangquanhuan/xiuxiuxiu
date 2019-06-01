@@ -61,7 +61,7 @@
 							<div class="col-sm-9">
 								<select id="device-select" class="form-control" name="device">
 									<!-- 这里装入用户的设备列表 -->
-									<option>不选择设备</option>
+									<option selected="selected">不选择设备</option>
 									<option th:each="equipment : ${equipments}"
 										th:value="${equipment.id}"
 										th:text="${equipment.equipmentName}"></option>
@@ -101,7 +101,7 @@
 							<div id="issue-type-select" class="col-sm-9">
 								<select id="repairType-select" class="form-control"
 									name="repairType">
-									<option value="硬件问题">硬件问题</option>
+									<option selected="selected" value="硬件问题">硬件问题</option>
 									<option value="软件问题">软件问题</option>
 								</select>
 							</div>
@@ -182,7 +182,7 @@
 							<div class="col-sm-9">
 								<select id="device-select-1" class="form-control" name="device">
 									<!-- 这里装入用户的设备列表 -->
-									<option>不选择设备</option>
+									<option selected="selected">不选择设备</option>
 									<option th:each="equipment : ${equipments}"
 										th:value="${equipment.id}"
 										th:text="${equipment.equipmentName}"></option>
@@ -218,7 +218,7 @@
 							<label for="issue-type-select-1" class="col-sm-3">问题种类</label>
 							<div id="issue-type-select-1" class="col-sm-9">
 								<select class="form-control">
-									<option value="硬件问题">硬件问题</option>
+									<option selected="selected" value="硬件问题">硬件问题</option>
 									<option value="软件问题">软件问题</option>
 								</select>
 							</div>
