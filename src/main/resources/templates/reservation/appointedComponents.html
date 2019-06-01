@@ -5,11 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>预约信息</title>
 
-<link href="/css/index.css" rel="stylesheet" type="text/css"> 
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
 
-<link href="/css/3.3.7-bootstrap.min.css" rel="stylesheet" type="text/css"> 
-<script src="/js/my/2.1.1-jquery.min.js"></script>
-<script src="/js/my/3.3.7-bootstrap.min.js"></script>
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 
 </head>
 <body>
@@ -148,8 +148,8 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="/js/modernizr.custom.46884.js"></script>
+	<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/modernizr.custom.46884.js}"></script>
 	<!-- password-script -->
 	<script type="text/javascript">
 		window.onload = function() {
@@ -171,9 +171,9 @@
 	<!-- //password-script -->
 
 	<!-- //js -->
-	<script src="/js/bars.js"></script>
+	<script th:src="@{/js/bars.js}"></script>
 
-	<script type="text/javascript" src="/js/jquery.slicebox.js"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.slicebox.js}"></script>
 	<script type="text/javascript">
 		$(function() {
 			var Page = (function() {
@@ -224,8 +224,8 @@
 		});
 	</script>
 	<!-- Stats -->
-	<script src="/js/waypoints.min.js"></script>
-	<script src="/js/counterup.min.js"></script>
+	<script th:src="@{/js/waypoints.min.js}"></script>
+	<script th:src="@{/js/counterup.min.js}"></script>
 	<script>
 		jQuery(document).ready(function($) {
 			$('.counter').counterUp({
@@ -236,7 +236,7 @@
 	</script>
 	<!-- //Stats -->
 
-	<script type="text/javascript" src="/js/jquery.flexisel.js"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.flexisel.js}"></script>
 	<!-- flexisel -->
 	<script type="text/javascript">
 		$(window).load(function() {
@@ -268,14 +268,14 @@
 	<!-- //flexisel -->
 	<!-- //flexisel -->
 	<!-- js for portfolio lightbox -->
-	<script src="/js/jquery.chocolat.js "></script>
+	<script th:src="@{/js/jquery.chocolat.js}"></script>
 	<!-- //menu -->
 	<!-- for bootstrap working -->
 
 	<!-- //for bootstrap working -->
 	<!-- start-smoth-scrolling -->
-	<script type="text/javascript" src="/js/move-top.js"></script>
-	<script type="text/javascript" src="/js/easing.js"></script>
+	<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+	<script type="text/javascript" th:src="@{/js/easing.js}"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
 			$(".scroll").click(function(event) {
