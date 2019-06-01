@@ -183,10 +183,11 @@ public class StudentController {
 	}
 
 	@RequestMapping("/student/register")
-	public String register(Model model, @RequestParam("name") String name,
+	public String register(Model model, @RequestParam("name") String name,@RequestParam("sid") String sId,
 			@RequestParam("phoneNumber") String phoneNumber, @RequestParam("passWord") String passWord,
 			@RequestParam("passWord2") String passWord2, @RequestParam("address") String address, @RequestParam("email") String email,@RequestParam("code") String code,HttpSession session) {
 		System.out.println("昵称:" + name);
+		System.out.println("学号:" + sId);
 		System.out.println("号码:" + phoneNumber);
 		System.out.println("地址:" + address);
 		System.out.println("邮箱:" + email);
@@ -211,6 +212,7 @@ public class StudentController {
 		}else{
 			Student student = new Student();
 			student.setName(name);
+			student.setStudentId(sId);
 			student.setAddress(address);
 			student.setEmail(email);
 			student.setPhoneNumber(phoneNumber);

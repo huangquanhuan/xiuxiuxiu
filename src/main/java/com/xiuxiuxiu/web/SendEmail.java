@@ -14,9 +14,9 @@ public class SendEmail {
 	public static void simpleMailSend(String email,String subject,String msg) {
 		 //创建邮件发送服务器
 	        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();  
-	        mailSender.setHost("smtp.163.com");
+	        mailSender.setHost("smtp.126.com");
 //	      mailSender.setPort(465);
-	        mailSender.setUsername("fzuxiuxiuxiu@163.com");
+	        mailSender.setUsername("fzuxiuxiuxiu@126.com");
 	        mailSender.setPassword("123xiuxiuxiu");
 	        //加认证机制
 	        Properties javaMailProperties = new Properties();
@@ -26,7 +26,7 @@ public class SendEmail {
 	        mailSender.setJavaMailProperties(javaMailProperties);
 	        //创建邮件内容
 	        SimpleMailMessage message=new SimpleMailMessage();
-	        message.setFrom("fzuxiuxiuxiu@163.com");
+	        message.setFrom("fzuxiuxiuxiu@126.com");
 	        message.setTo(email);
 	        message.setSubject(subject);
 	        message.setText(msg);
