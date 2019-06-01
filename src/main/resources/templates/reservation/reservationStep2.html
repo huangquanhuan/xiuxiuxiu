@@ -5,9 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>维修预约 - 第二步</title>
 
-<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css">
 
-<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet"
+	type="text/css">
 <script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
 <script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 </head>
@@ -29,48 +30,47 @@
 			<div class="tab-content">
 				<!-- 申请现场维修的表单：开始 -->
 				<div id="field-service" class="container tab-pane active">
-			
-					<form th:action="@{/reservation/submit}" method="post" enctype="multipart/form-data">
-						<input type="text" name="applyType"  value="0" style="display:none;" />
+
+					<form th:action="@{/reservation/submit}" method="post"
+						enctype="multipart/form-data">
+						<input type="text" name="applyType" value="0"
+							style="display: none;" />
 						<!-- 场次选择 -->
 						<div class="form-group">
 							<label for="session-select" class="col-sm-3">预约场次</label>
 							<div class="col-sm-9">
-								<select style="
-								select option{
-        background: red;
-        color: #fff;
-        outline:1px solid green;
-       }"
-    id="session-select" class="form-control" name="activity">
+								<select style="color: #fff; outline: 1px solid green;"
+									id="session-select" class="form-control" name="activity">
 									<!-- 这里装入场次时间信息 -->
-									<option th:each="activity,iterStat: ${activities}" th:value="${activity.Id}" 
-											th:text="${activity.time}+',地点'+${activity.place}"></option>
+									<option th:each="activity,iterStat: ${activities}"
+										th:value="${activity.Id}"
+										th:text="${activity.time}+',地点'+${activity.place}"></option>
 								</select>
 							</div>
 						</div>
 
 						<!-- 设备选择 -->
 						<div class="form-group">
-						
+
 
 							<div class="col-sm-3">
-								<label for="device-select">设备</label> 
-								<a href="#" data-toggle="modal"
-									data-target="#myDevice-data" class="active btn btn-link">添加设备</a>
+								<label for="device-select">设备</label> <a href="#"
+									data-toggle="modal" data-target="#myDevice-data"
+									class="active btn btn-link">添加设备</a>
 							</div>
 							<div class="col-sm-9">
 								<select id="device-select" class="form-control" name="device">
 									<!-- 这里装入用户的设备列表 -->
 									<option>不选择设备</option>
-									<option th:each="equipment : ${equipments}" th:value="${equipment.id}" 
-											th:text="${equipment.equipmentName}"></option>
+									<option th:each="equipment : ${equipments}"
+										th:value="${equipment.id}"
+										th:text="${equipment.equipmentName}"></option>
 								</select>
 							</div>
 						</div>
 
 						<!-- 需求零件选择 -->
-						<div class="form-group">						
+						<div class="form-group">
 
 							<label for="component-select" class="col-sm-3">需求零件</label>
 							<div id="accordion" class="col-sm-9">
@@ -82,9 +82,11 @@
 									<div id="component-list" class="collapse fade"
 										data-parent="#accordion">
 										<!-- 这里装入零件列表，插入格式见下面的样例 -->
-										<div class="card-body" th:each="component,iterStat:${components}">
-											<label>
-											<input type="checkbox" name="neededComponents" th:value="${component.id}" th:text="${component.name}+'：'+${component.price}+'元'">
+										<div class="card-body"
+											th:each="component,iterStat:${components}">
+											<label> <input type="checkbox"
+												name="neededComponents" th:value="${component.id}"
+												th:text="${component.name}+'：'+${component.price}+'元'">
 											</label>
 										</div>
 									</div>
@@ -97,55 +99,58 @@
 
 							<label for="issue-type-select" class="col-sm-3">问题种类</label>
 							<div id="issue-type-select" class="col-sm-9">
-								<select id="repairType-select" class="form-control" name="repairType">
+								<select id="repairType-select" class="form-control"
+									name="repairType">
 									<option value="硬件问题">硬件问题</option>
 									<option value="软件问题">软件问题</option>
-								</select> 
+								</select>
 							</div>
 						</div>
-						
-						
-						
+
+
+
 						<!-- 详细描述问题 -->
-						<div class="form-group">						
+						<div class="form-group">
 
 							<label for="issue-detail" class="col-sm-3">问题描述</label>
 							<div id="issue-detail" class="col-sm-9">
-<!-- 								<textarea class="form-control" rows="3" name="issueDetail"></textarea> -->
-								<textarea id="styled"  class="col-sm-3" rows="3" name="issueDetail"
-								onfocus="this.value=''; setbg('#e5fff3');" onblur="setbg('white')" placeholder="请填写问题描述"></textarea>
+								<!-- 								<textarea class="form-control" rows="3" name="issueDetail"></textarea> -->
+								<textarea id="styled" class="col-sm-3" rows="3"
+									name="issueDetail" onfocus="setbg('#e5fff3');"
+									onblur="setbg('white')" placeholder="请填写问题描述"></textarea>
 							</div>
 						</div>
-						
-						
-						
+
+
+
 						<!-- 图片上传 -->
 						<div class="form-inline">
-						
-						
+
+
 							<label for="issue-image" class="col-sm-3">为问题描述提供图片</label>
-							<div  class="col-sm-9">
-								<input id="issue-image" name="issueImage" onchange="uploadFile()" type="file" class="form-control" accept="image/*" />
+							<div class="col-sm-9">
+								<input id="issue-image" name="issueImage"
+									onchange="uploadFile()" type="file" class="form-control"
+									accept="image/*" />
 							</div>
-							<div  class="col-sm-3">
-							</div>
-							<div  class="col-sm-9">
+							<div class="col-sm-3"></div>
+							<div class="col-sm-9">
 								<img id="preview1" height="200px" src="" />
 							</div>
 						</div>
 
-<!-- 						备注 -->
-<!-- 						<div class="form-group"> -->
-<!-- 							<label for="issue-comment" class="col-sm-3" name="">备注</label> -->
-<!-- 							<div class="col-sm-9"> -->
-<!-- 								<textarea id="issue-comment" class="form-control" rows="3"></textarea> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
+						<!-- 						备注 -->
+						<!-- 						<div class="form-group"> -->
+						<!-- 							<label for="issue-comment" class="col-sm-3" name="">备注</label> -->
+						<!-- 							<div class="col-sm-9"> -->
+						<!-- 								<textarea id="issue-comment" class="form-control" rows="3"></textarea> -->
+						<!-- 							</div> -->
+						<!-- 						</div> -->
 
 						<!-- 提交按钮 -->
 						<div class="col-sm-offset-3 col-sm-9">
-						
-							<button type="submit" class="btn-lg btn-success" >提交预约</button> 
+
+							<button type="submit" class="btn-lg btn-success">提交预约</button>
 						</div>
 					</form>
 				</div>
@@ -153,30 +158,34 @@
 
 				<!-- 申请上门服务的表单：开始 -->
 				<div id="door-to-door-service" class="container tab-pane fade">
-		
-					<form th:action="@{/reservation/submit}" method="post" enctype="multipart/form-data">
-						<input type="text" name="applyType"  value="1" style="display:none;" />
+
+					<form th:action="@{/reservation/submit}" method="post"
+						enctype="multipart/form-data">
+						<input type="text" name="applyType" value="1"
+							style="display: none;" />
 						<!-- 时间选择 -->
 						<div class="form-group">
 							<label for="datetime-select" class="col-sm-3">预约时间</label>
 							<div class="col-sm-9">
-								<input class="form-control" type="datetime-local" name="requiredTime" />
+								<input class="form-control" type="datetime-local"
+									name="requiredTime" />
 							</div>
 						</div>
 
 						<!-- 设备选择 -->
 						<div class="form-group">
 							<div class="col-sm-3">
-								<label for="device-select-1">设备</label> 
-								<a href="#" data-toggle="modal"
-									data-target="#myDevice-data"
+								<label for="device-select-1">设备</label> <a href="#"
+									data-toggle="modal" data-target="#myDevice-data"
 									class="active btn btn-link">添加设备</a>
 							</div>
 							<div class="col-sm-9">
-								<select id="device-select-1" class="form-control"  name="device" >
+								<select id="device-select-1" class="form-control" name="device">
 									<!-- 这里装入用户的设备列表 -->
 									<option>不选择设备</option>
-									<option th:each="equipment : ${equipments}"  th:value="${equipment.id}" th:text="${equipment.equipmentName}"></option>
+									<option th:each="equipment : ${equipments}"
+										th:value="${equipment.id}"
+										th:text="${equipment.equipmentName}"></option>
 								</select>
 							</div>
 						</div>
@@ -194,9 +203,9 @@
 										data-parent="#accordion-1">
 										<!-- 这里装入零件列表，插入格式见下面的样例 -->
 										<div class="card-body" th:each="component : ${components}">
-											<label>
-											<input type="checkbox"
-												name="neededComponents" th:value="${component.id}" th:text="${component.name}"></label>
+											<label> <input type="checkbox"
+												name="neededComponents" th:value="${component.id}"
+												th:text="${component.name}"></label>
 										</div>
 										<!-- 这里装入零件列表，插入格式见下面的样例 -->
 									</div>
@@ -217,11 +226,13 @@
 
 						<!-- 详细描述问题 -->
 						<div class="form-group">
-							<label for="issue-detail-1" class="col-sm-3">问题描述</label>
-							<div id="issue-detail-1" class="col-sm-9">
-<!-- 								<textarea class="form-control" rows="3" name="issueDetail"></textarea> -->
-								<textarea id="styled"  class="col-sm-3" rows="3" name="issueDetail"
-								onfocus="this.value=''; setbg('#e5fff3');" onblur="setbg('white')" placeholder="请填写问题描述">输入详细信息</textarea>
+
+							<label for="issue-detail1" class="col-sm-3">问题描述</label>
+							<div id="issue-detail1" class="col-sm-9">
+								<!-- 								<textarea class="form-control" rows="3" name="issueDetail"></textarea> -->
+								<textarea id="styled1" class="col-sm-3" rows="3"
+									name="issueDetail" onfocus="setbg1('#e5fff3');"
+									onblur="setbg1('white')" placeholder="请填写问题描述"></textarea>
 							</div>
 						</div>
 
@@ -229,27 +240,28 @@
 						<div class="form-inline">
 							<label for="issue-image-1" class="col-sm-3">为问题描述提供图片</label>
 							<div class="col-sm-9">
-								<input id="issue-image-1" name="issueImage" onchange="uploadFile2()" type="file" class="form-control" accept="image/*"/>
+								<input id="issue-image-1" name="issueImage"
+									onchange="uploadFile2()" type="file" class="form-control"
+									accept="image/*" />
 							</div>
-							<div  class="col-sm-3">
-							</div>
-							<div  class="col-sm-9">
+							<div class="col-sm-3"></div>
+							<div class="col-sm-9">
 								<img id="preview2" height="200px" src="" />
 							</div>
 						</div>
 
 						<!-- 备注 -->
-<!-- 						<div class="form-group"> -->
-<!-- 							<label for="issue-comment-1" class="col-sm-3">备注</label> -->
-<!-- 							<div class="col-sm-9"> -->
-<!-- 								<textarea id="issue-comment-1" class="form-control" rows="3"></textarea> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
+						<!-- 						<div class="form-group"> -->
+						<!-- 							<label for="issue-comment-1" class="col-sm-3">备注</label> -->
+						<!-- 							<div class="col-sm-9"> -->
+						<!-- 								<textarea id="issue-comment-1" class="form-control" rows="3"></textarea> -->
+						<!-- 							</div> -->
+						<!-- 						</div> -->
 
 						<!-- 提交按钮 -->
 						<div class="col-sm-offset-3 col-sm-9">
-				
-							<button type="submit" class="btn-lg btn-success" >提交预约</button> 
+
+							<button type="submit" class="btn-lg btn-success">提交预约</button>
 						</div>
 					</form>
 				</div>
@@ -278,60 +290,66 @@
 						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>fzuxiuxiuxiu@163.com</li>
 					</ul>
 				</div>
-				<div class="clearfix"> </div>
+				<div class="clearfix"></div>
 			</div>
 			<div class="agileinfo_copyright">
-				<p>Copyright &copy; 2019.Xiuxiuxiu All rights reserved <a href="" title="" target="_blank"></a></p>
+				<p>
+					Copyright &copy; 2019.Xiuxiuxiu All rights reserved <a href=""
+						title="" target="_blank"></a>
+				</p>
 			</div>
 		</div>
 	</div>
 	<!-- 上传文件后产生预览图 -->
 	<script type="text/javascript">
-function uploadFile(){
-	var that = this;
-	const file = document.getElementById('issue-image');
-	const fileObj = file.files[0];
-	const windowURL = window.URL || window.webkitURL;
-	const img1 = document.getElementById('preview1');
-	if(file && fileObj) {
-		const dataURl = windowURL.createObjectURL(fileObj);
-		img1.setAttribute('src',dataURl);
-	}
-}
-function uploadFile2(){
-	var that = this;
-	const file2 = document.getElementById('issue-image-1');
-	const fileObj2 = file2.files[0];
-	const windowURL2 = window.URL || window.webkitURL;
-	const img2 = document.getElementById('preview2');
-	if(file2 && fileObj2) {
-		const dataURl2 = windowURL2.createObjectURL(fileObj2);
-		img2.setAttribute('src',dataURl2);
-	}
-}
-//textarea js
-function setbg(color){
-    document.getElementById("styled").style.background=color;
-}
+		function uploadFile() {
+			var that = this;
+			const file = document.getElementById('issue-image');
+			const fileObj = file.files[0];
+			const windowURL = window.URL || window.webkitURL;
+			const img1 = document.getElementById('preview1');
+			if (file && fileObj) {
+				const dataURl = windowURL.createObjectURL(fileObj);
+				img1.setAttribute('src', dataURl);
+			}
+		}
+		function uploadFile2() {
+			var that = this;
+			const file2 = document.getElementById('issue-image-1');
+			const fileObj2 = file2.files[0];
+			const windowURL2 = window.URL || window.webkitURL;
+			const img2 = document.getElementById('preview2');
+			if (file2 && fileObj2) {
+				const dataURl2 = windowURL2.createObjectURL(fileObj2);
+				img2.setAttribute('src', dataURl2);
+			}
+		}
+		//textarea js
+		function setbg(color) {
+			document.getElementById("styled").style.background = color;
+		}
 
-
-$(function () {
-    var unSelected = "#111";
-    var selected = "#111";
-    $(function () {
-        $("select").css("color", unSelected);
-        $("option").css("color", selected);
-        $("select").change(function () {
-            var selItem = $(this).val();
-            if (selItem == $(this).find('option:first').val()) {
-                $(this).css("color", unSelected);
-            } else {
-                $(this).css("color", selected);
-            }
-        });
-    })
-})
-
-</script>
+		//textarea js
+		function setbg1(color) {
+			document.getElementById("styled1").style.background = color;
+		}
+		
+		$(function() {
+			var unSelected = "#111";
+			var selected = "#111";
+			$(function() {
+				$("select").css("color", unSelected);
+				$("option").css("color", selected);
+				$("select").change(function() {
+					var selItem = $(this).val();
+					if (selItem == $(this).find('option:first').val()) {
+						$(this).css("color", unSelected);
+					} else {
+						$(this).css("color", selected);
+					}
+				});
+			})
+		})
+	</script>
 </body>
 </html>

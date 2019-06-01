@@ -41,7 +41,7 @@
 									th:text="${'提交时间：'+reservation.applicationTime+'(已完成)'}"></h3>
 								<div>
 									<a th:if="${reservation.state==0}"
-										th:href="@{/editMyReservation?reservationId=${reservation.id}}"
+										th:href="@{/editMyReservation(reservationId=${reservation.id})}"
 										class="btn btn-primary">编辑</a>
 									<button class="btn btn-danger" th:if="${reservation.state==0}"
 										th:onclick="'setTargetID('+${reservation.id}+')'"

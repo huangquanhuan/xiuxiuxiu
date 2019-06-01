@@ -8,17 +8,11 @@
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 
-<!-- //custom-theme -->
-<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css"
-	media="all" />
-<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
-<!-- font-awesome-icons -->
-<link th:href="@{/css/font-awesome.css}" rel="stylesheet">
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
 
-
-	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<script th:src="@{/https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js}"></script>
-	<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 
 </head>
 
@@ -30,8 +24,7 @@
 		<h2>维修人员</h2>
 	</div>
 	<ul class="agile_forms">
-	<li><a th:href="@{/addrepair_list}" data-toggle="modal"
-					data-target="#myModal1">增加维修人员</a></li>
+	<li><a class="active" href="#" data-toggle="modal" data-target="#myModal1">增加维修人员</a></li>
 <!-- 				<li><a href="addrepair_list" data-toggle="modal" -->
 <!-- 					data-target="#myModal10">清理账户</a></li> -->
 	</ul>
