@@ -3,31 +3,14 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="" />
-<!-- //custom-theme -->
-
-    <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
-   <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"
-          media="all" />
-    <!-- font-awesome-icons -->
-    <link href="../css/font-awesome.css" rel="stylesheet">
-<!-- //font-awesome-icons -->
 <title>预约信息</title>
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="application/x-javascript">
-	
-	
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-</script>
-<link href="/css/index.css" rel="stylesheet" type="text/css"
-	media="all" />
-<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
+
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
+
 </head>
 <body>
 	<div th:replace="manager/Mnav :: mnavbar"></div> 
@@ -37,27 +20,17 @@
 		<div class="container">
 			<ul id="formTab" class="nav nav-tabs" role="tablist">
 				<li class="nav-item"><a class="hvr-underline-from-center"
-					data-toggle="tab" href="#field-service">检索预约信息</a></li>
+					data-toggle="tab" href="#field-service">检索预约单</a></li>
 				<li><a class="hvr-underline-from-center" data-toggle="tab"
-					href="#excel-import">导入预约信息</a></li>
+					href="#excel-import">导入预约单</a></li>
 			</ul>
 
 			<div class="tab-content">
 				<!-- 预约零件的表单：开始 -->
 				<div id="field-service" class="container tab-pane active">
 					<br />
-					<form action="/reservation/componentSearch" method="post">
-						<!-- 搜索框 -->
-						<div id="field-search" class="container tab-pane active">
-							<br />
-						</div>
-						<div class="input-group col-md-12"
-							style="margin-top: 0px; positon: relative; padding-left: 1em; padding-right: 1em;">
-							<input type="text" class="form-control" name="name"
-								placeholder="请输入字段名"> <span class="input-group-btn">
-								<button class="btn btn-info btn-search" style="margin-left: 3px">搜索</button>
-							</span>
-						</div>
+					<form th:action="@{/reservation/componentSearch}" method="post">
+						
 
 
 						<!-- 场次选择 -->
@@ -165,8 +138,8 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="/js/modernizr.custom.46884.js"></script>
+	<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/modernizr.custom.46884.js}"></script>
 	<!-- password-script -->
 	<script type="text/javascript">
 		window.onload = function() {
@@ -188,9 +161,9 @@
 	<!-- //password-script -->
 
 	<!-- //js -->
-	<script src="/js/bars.js"></script>
+	<script th:src="@{/js/bars.js}"></script>
 
-	<script type="text/javascript" src="/js/jquery.slicebox.js"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.slicebox.js}"></script>
 	<script type="text/javascript">
 		$(function() {
 			var Page = (function() {
@@ -241,8 +214,8 @@
 		});
 	</script>
 	<!-- Stats -->
-	<script src="/js/waypoints.min.js"></script>
-	<script src="/js/counterup.min.js"></script>
+	<script th:src="@{/js/waypoints.min.js}"></script>
+	<script th:src="@{/js/counterup.min.js}"></script>
 	<script>
 		jQuery(document).ready(function($) {
 			$('.counter').counterUp({
@@ -253,7 +226,7 @@
 	</script>
 	<!-- //Stats -->
 
-	<script type="text/javascript" src="/js/jquery.flexisel.js"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.flexisel.js}"></script>
 	<!-- flexisel -->
 	<script type="text/javascript">
 		$(window).load(function() {
@@ -285,14 +258,14 @@
 	<!-- //flexisel -->
 	<!-- //flexisel -->
 	<!-- js for portfolio lightbox -->
-	<script src="/js/jquery.chocolat.js "></script>
+	<script th:src="@{/js/jquery.chocolat.js}"></script>
 	<!-- //menu -->
 	<!-- for bootstrap working -->
 
 	<!-- //for bootstrap working -->
 	<!-- start-smoth-scrolling -->
-	<script type="text/javascript" src="/js/move-top.js"></script>
-	<script type="text/javascript" src="/js/easing.js"></script>
+	<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+	<script type="text/javascript" th:src="@{/js/easing.js}"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
 			$(".scroll").click(function(event) {

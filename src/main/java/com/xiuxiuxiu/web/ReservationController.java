@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.catalina.startup.HomesUserDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +52,11 @@ public class ReservationController {
 
 	@RequestMapping("/myReservationList")
 	public String myReservationList(Model model, HttpSession session) {
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		System.out.println("登陆信息已过期，请重新登录！");
+    		return "redirect:/home";
+    	}
 		Student user = (Student) session.getAttribute("user");
 		user = studentService.findStudentById(user.getId());
 		List<Reservation> reservations = user.getReservationList();
@@ -83,12 +86,10 @@ public class ReservationController {
 				// 注意！《配置到服务器时》注意检查预约单图片存储路径，然后在application.properties中修改虚拟路径对应的实际路径...
 				// 已经设置一个虚拟路径对应实际路径的C:/Users/，所以进行路径剪裁
 				// 例如一个url="C:\Users\10553\AppData\Local\Temp..."=>"10553\AppData\Local\Temp..."
-				String cutUrl = imgUrl.getImg_url().substring(9);
-				System.out.println(cutUrl);
+				String cutUrl = imgUrl.getImg_url().substring(8);
 				imgUrl.setImg_url(cutUrl);
 			}
 			myReservation.setImgUrlList(imgUrls);
-
 		}
 
 		model.addAttribute("reservations", reservations);
@@ -97,6 +98,12 @@ public class ReservationController {
 
 	@RequestMapping("/editMyReservation")
 	public String editMyReservation(Model model,HttpSession session, @RequestParam("reservationId") int reservationId) {
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		System.out.println("登陆信息已过期，请重新登录！");
+    		return "redirect:/home";
+    	}
+		
 		Reservation reservation = reservationService.findReservationById(reservationId);
 		model.addAttribute("reservation", reservation);
 
@@ -216,6 +223,11 @@ public class ReservationController {
 
 	@RequestMapping("/reservation/step1")
 	public String reservationStep1(Model model, HttpSession session) {
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		System.out.println("登陆信息已过期，请重新登录！");
+    		return "redirect:/home";
+    	}
 		if (session.getAttribute("user") == null) {
 			model.addAttribute("err", "对不起，请先登录！");
 			List<Activity> activityList = activityService.getActivityList();
@@ -239,6 +251,11 @@ public class ReservationController {
 
 	@RequestMapping("/reservation/step2")
 	public String reservationStep2(Model model, HttpSession session) {
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		System.out.println("登陆信息已过期，请重新登录！");
+    		return "redirect:/home";
+    	}
 		// 获取所有活动场次列表
 		List<Activity> activities = activityService.getActivityList();
 		model.addAttribute("activities", activities);
@@ -257,7 +274,12 @@ public class ReservationController {
 
 	@RequestMapping("/reservation/submit")
 	public String reservationSubmit(Model model, HttpServletRequest request, HttpSession session) {
-
+		if(session.getAttribute("user")==null) {
+    		model.addAttribute("err", "登陆信息已过期，请重新登录！");
+    		System.out.println("登陆信息已过期，请重新登录！");
+    		return "redirect:/home";
+    	}
+		
 		Reservation reservation = new Reservation();
 		Student student = (Student) session.getAttribute("user");
 
@@ -461,7 +483,7 @@ public class ReservationController {
 		}
 		// 计算总数
 		Set<String> personSet = new HashSet<String>();
-		int componentNum = 0, personNum = 0;
+		int componentNum = 0;
 		System.out.println(filteredList.size());
 		for (int i = 0; i < filteredList.size(); i++) {
 			Reservation r = filteredList.get(i);
@@ -470,7 +492,22 @@ public class ReservationController {
 		}
 		model.addAttribute("componentNum", componentNum);
 		model.addAttribute("personNum", personSet.size());
+		
+		for (Reservation myReservation : filteredList) {
+			// 传递预约单对应图片url
+			List<ReservationImgUrl> imgUrls = myReservation.getImgUrlList();
+			for (ReservationImgUrl imgUrl : imgUrls) {
+				// 注意！《配置到服务器时》注意检查预约单图片存储路径，然后在application.properties中修改虚拟路径对应的实际路径...
+				// 已经设置一个虚拟路径对应实际路径的C:/Users/，所以进行路径剪裁
+				// 例如一个url="C:\Users\10553\AppData\Local\Temp..."=>"10553\AppData\Local\Temp..."
+				String cutUrl = imgUrl.getImg_url().substring(8);
+				imgUrl.setImg_url(cutUrl);
+			}
+			myReservation.setImgUrlList(imgUrls);
+		}
 		model.addAttribute("reservations", filteredList);
+		
+		
 		// 设置过滤条件的显示
 		String activityFilter;
 		if (activityId == ALL_ACTIVITY)
@@ -486,7 +523,7 @@ public class ReservationController {
 		model.addAttribute("activityFilter", activityFilter);
 		model.addAttribute("stateFilter", stateFilter);
 		model.addAttribute("componentFilter", componentFilter);
-		return "/reservation/appointmentComponentSearch";
+		return "/reservation/reservationManageSearch";
 	}
 
 	/**
@@ -513,7 +550,7 @@ public class ReservationController {
 		List<Activity> activities = activityService.getActivityList();
 		model.addAttribute("activities", activities);
 		model.addAttribute("components", componentService.getComponentList());
-		return "/reservation/appointedComponents";
+		return "/reservation/reservationManage";
 	}
 
 	@RequestMapping("/reservation/updateState")

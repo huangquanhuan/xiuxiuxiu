@@ -1,10 +1,3 @@
-<!--<%@ page language="java" contentType="text/html; charset=utf-8"-->
-<!--pageEncoding="utf-8"%>-->
-<!--<%@page import="xiuxiuxiu.dao.*"%>-->
-<!--<%@page import="xiuxiuxiu.pojo.User"%>-->
-<!--<%@page import="java.util.List"%>-->
-<!--<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>-->
-
 <!DOCTYPE html>
 <html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -13,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <link th:th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
+    <link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
 
-	<link th:th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
-	<script th:th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
-	<script th:th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
+	<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+	<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+	<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 </head>
 <body>
 
-<div th:replace="home/nav :: navbar"></div>
+	<div th:replace="home/nav :: navbar"></div>
+
 
 <div class="agile_inner_banner_info">
     <h2>详细文章</h2>
@@ -100,12 +94,12 @@
                 <div class="tags tags1 w3layouts-tags">
                     <h3>关键词检索</h3>
                     <ul>
-                        <li><a th:href="single.html">网络故障</a></li>
-                        <li><a th:href="single.html">无法开机</a></li>
-                        <li><a th:href="single.html">蓝屏</a></li>
-                        <li><a th:href="single.html">自动重启</a></li>
-                        <li><a th:href="single.html">病毒常识</a></li>
-                        <li><a th:href="single.html">系统变慢</a></li>
+							      <li><a th:href="@{/article/articleSearch?searchInfo=硬盘}">硬盘</a></li>
+							      <li><a th:href="@{/article/articleSearch?searchInfo=无法开机}">无法开机</a></li>
+							      <li><a th:href="@{/article/articleSearch?searchInfo=蓝屏}">蓝屏</a></li>
+							      <li><a th:href="@{/article/articleSearch?searchInfo=自动重启}">自动重启</a></li>
+							      <li><a th:href="@{/article/articleSearch?searchInfo=显卡}">显卡</a></li>
+							      <li><a th:href="@{/article/articleSearch?searchInfo=系统变慢}">系统变慢</a></li>
                     </ul>
                 </div>
             </div>
@@ -126,17 +120,20 @@
         document.getElementById("password2").onchange = validatePassword;
     }
 
-    function validatePassword() {
-        var pass2 = document.getElementById("password2").value;
-        var pass1 = document.getElementById("password1").value;
-        if (pass1 != pass2)
-            document.getElementById("password2").setCustomValidity("Passwords Don't Match");
-        else
-            document.getElementById("password2").setCustomValidity('');
-        //empty string means no validation error
-    }
-</script>
-<!-- //password-script -->
+
+		function validatePassword() {
+			var pass2 = document.getElementById("password2").value;
+			var pass1 = document.getElementById("password1").value;
+			if (pass1 != pass2)
+				document.getElementById("password2").setCustomValidity(
+						"Passwords Don't Match");
+			else
+				document.getElementById("password2").setCustomValidity('');
+			//empty string means no validation error
+		}
+	</script>
+	<!-- //password-script -->
+
 
 <!-- //js -->
 <script th:src="@{/js/bars.js}"></script>
@@ -161,8 +158,10 @@
             mainClass: 'my-mfp-zoom-in'
         });
 
-    });
-</script>
+
+		});
+	</script>
+
 
 <!-- for bootstrap working -->
 <script th:src="@{/js/bootstrap.js}"></script>
@@ -191,12 +190,15 @@
             };
         */
 
-        $().UItoTop({ easingType: 'easeOutQuart' });
 
-    });
-</script>
-<!-- //here ends scrolling icon -->
+			$().UItoTop({
+				easingType : 'easeOutQuart'
+			});
 
-<div th:replace="/home/messageOrErr :: messageOrErr"></div> 
+		});
+	</script>
+	<!-- //here ends scrolling icon -->
+
+	<div th:replace="/home/messageOrErr :: messageOrErr"></div>
 </body>
 </html>
