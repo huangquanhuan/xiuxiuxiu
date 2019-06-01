@@ -181,7 +181,7 @@
 														<tr>
 															<td></td>
 															<td align="left"><img th:each="imgUrl : ${reservation.imgUrlList}"
-																th:src="${imgUrl.img_url}" height="140px" /></td>
+																th:src="@{${imgUrl.img_url}}" height="140px" /></td>
 														</tr>
 													</tbody>
 												</table>
@@ -212,7 +212,7 @@
 		aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form id="cancelForm" role="form" th:action="@{cancelMyReservation}"
+				<form id="cancelForm" role="form" th:action="@{/cancelMyReservation}"
 					method="post" class="registration-form">
 					<!-- 一个隐藏的输入，其value在按钮点击时用js修改 -->
 					<input id="cancel-input-id" type="text" value="0"
@@ -291,7 +291,7 @@
 		aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form id="feedBackForm" role="form" th:action="@{feedbackMyReservation}"
+				<form id="feedBackForm" role="form" th:action="@{/feedbackMyReservation}"
 					method="post" class="registration-form">
 					<!-- 一个隐藏的输入，其value在按钮点击时用js修改 -->
 					<input id="feedback-input-id" type="text" value="0"
