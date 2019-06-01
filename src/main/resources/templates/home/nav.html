@@ -13,7 +13,7 @@
 						class="icon-bar"></span>
 				</button>
 				<h1>
-					<a class="navbar-brand" href="http://localhost:8080"><i
+					<a class="navbar-brand" th:href="http://masgak.online:8080/xiuxiuxiu/home"><i
 						class="fa fa-crosshairs" aria-hidden="true"></i> 修咻咻维修平台</a>
 				</h1>
 
@@ -37,13 +37,13 @@
 				id="bs-example-navbar-collapse-1">
 				<nav>
 					<ul class="nav navbar-nav">
-						<li><a href="/home" class="hvr-underline-from-center">首页</a></li>
-						<li><a href="/reservation/step1" id="appaly"
+						<li><a th:href="@{/home}" class="hvr-underline-from-center">首页</a></li>
+						<li><a th:href="@{/reservation/step1}" id="appaly"
 							class="hvr-underline-from-center"
 							th:style="'display:' + @{(${session.user} ? 'block' : 'none')} ">预约</a></li>
-						<li><a href="/article" class="hvr-underline-from-center">文章</a></li>
+						<li><a th:href="@{/article}" class="hvr-underline-from-center">文章</a></li>
 					  <li><a th:style="'display:' + @{(${session.user} ? 'block' : 'none')} "
-                href="/contact" class="hvr-underline-from-center">联系我们</a></li>
+                th:href="@{/contact}" class="hvr-underline-from-center">联系我们</a></li>
 						<li class="dropdown"><a id="my_message" href="#"
 							class="dropdown-toggle hvr-underline-from-center"
 							data-toggle="dropdown"
@@ -79,7 +79,7 @@
 							<div class="signin-form profile">
 								<h3 class="agileinfo_sign">登录</h3>
 								<div class="login-form">
-									<form class="loginForm" action="/student/login" method="post">
+									<form class="loginForm" th:action="@{/student/login}" method="post">
 										<input name="phoneNumber" placeholder="手机号" type="text"
 											required="required"> <input type="password"
 											name="password" placeholder="密码" required="required">
@@ -114,7 +114,7 @@
 							<div class="signin-form profile">
 								<h3 class="agileinfo_sign">注册</h3>
 								<div class="register-form">
-									<form class="registerForm" action="/student/register"
+									<form class="registerForm" th:action="@{/student/register}"
 										method="post">
 										<input id="register-name" type="text" name="name"
 											placeholder="姓名" required="required"> <input
@@ -166,13 +166,13 @@
 				<!-- 重复密码验证的js  -->
 
 				<script type="text/javascript"
-					src="/js/my/verify-input.js"></script>
+					th:src="@{/js/my/verify-input.js}"></script>
 				<!-- 使用ajax动态发送邮件 -->
 				<script type="text/javascript"
-					src="/js/my/send-email-ajax.js"></script>
+					th:src="@{/js/my/send-email-ajax.js}"></script>
 				<!-- 使用ajax动态发送短信 -->
 				<!-- 				<script type="text/javascript" -->
-				<!-- 					src="js/my/send-code-ajax.js"></script> -->
+				<!-- 					th:src="js/my/send-code-ajax.js"></script> -->
 			</div>
 
 			<!-- 忘记密码弹窗 -->
@@ -186,7 +186,7 @@
 							<div class="signin-form profile">
 								<h3 class="agileinfo_sign">忘记密码</h3>
 								<div class="register-form">
-									<form class="registerForm" action="/student/reset"
+									<form class="registerForm" th:action="@{/student/reset}"
 										method="post">
 										<input id="reset-phoneNumber" type="text" name="reset-phoneNumber" placeholder="手机号码" required="required">
 										<input id="reset-email" type="text" name="reset_email" placeholder="邮箱" required="required">
@@ -231,13 +231,13 @@
 				</div>
 				<!-- 验证正确性的js  -->
 				<script type="text/javascript"
-					src="/js/my/reset-input.js"></script>
+					th:src="@{/js/my/reset-input.js}"></script>
 				<!-- 使用ajax动态发送邮件 -->
 				<script type="text/javascript"
-					src="/js/my/reset-email-ajax.js"></script>
+					th:src="@{/js/my/reset-email-ajax.js}"></script>
 				<!-- 使用ajax动态发送短信 -->
 				<!-- 				<script type="text/javascript" -->
-				<!-- 					src="js/my/send-code-ajax.js"></script> -->
+				<!-- 					th:src="js/my/send-code-ajax.js"></script> -->
 			</div>
 			
 			<!-- 退出登录弹窗 -->
@@ -251,7 +251,7 @@
 							<div class="signin-form profile">
 								<h3 class="agileinfo_sign">是否退出登录？</h3>
 								<div class="login-form">
-									<form action="/student/exit" method="post">
+									<form th:action="@{/student/exit}" method="post">
 										<input type="submit" value="确定">
 									</form>
 								</div>
@@ -266,7 +266,7 @@
 				aria-labelledby="mySmallModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<form role="form" action="/student/edit" method="post"
+						<form role="form" th:action="@{/student/edit}" method="post"
 							class="registration-form">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">
@@ -348,7 +348,7 @@
 								th:unless="${session.user== null}">
 								<div th:each="equipment: ${session.user.equipmentList}">
 									<form class="form-inline" role="form"
-										action="/student/equipmentEdit" method="post">
+										th:action="@{/student/equipmentEdit}" method="post">
 										<input type="text" th:value="${equipment.id}"
 											name="equipmentId" style="display: none"> <input
 											type="text" class="form-control"
@@ -366,7 +366,7 @@
 								</div>
 
 								<form id="equipment-form-add" class="form-inline asd"
-									role="form" action="/student/addEquipment" method="post"
+									role="form" th:action="@{/student/addEquipment}" method="post"
 									style="display: none">
 									<input type="text" class="form-control" name="equipmentName">
 									<button type="submit" class="btn btn-success">确认添加</button>
@@ -388,7 +388,7 @@
 				</div>
 				<!-- 个人设备管理弹窗页按钮动态变化的js  -->
 				<script type="text/javascript"
-					src="/js/my/my-equipment-management.js"></script>
+					th:src="@{/js/my/my-equipment-management.js}"></script>
 			</div>
 
 
