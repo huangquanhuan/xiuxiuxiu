@@ -12,11 +12,11 @@ if(!isEmail(email)){
 	isError = false;
 }else{
 // 设置button效果，开始计时
-	$("#error_box")[0].style.display = 'block'; 
-	oError.innerHTML = "正在发送中";
+//	$("#error_box")[0].style.display = 'block'; 
+//	oError.innerHTML = "正在发送中";
 document.getElementById("btnSendCode").setAttribute("disabled","true" );//设置按钮为禁用状态
-document.getElementById("btnSendCode").value="在" + curCount + "后再次获取";//更改按钮文字
 InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器timer处理函数，1秒执行一次
+document.getElementById("btnSendCode").value="在" + curCount + "秒后再次获取";//更改按钮文字
 // 向后台发送处理数据
 $.ajax({
   	 type:"post",
