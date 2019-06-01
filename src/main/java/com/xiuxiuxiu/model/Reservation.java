@@ -99,6 +99,10 @@ public class Reservation {
 			// 定义连接表中名为component_id的外键列，该外键列参照当前实体关联实体(Component)对应表(component)的主键列(id)
 			inverseJoinColumns = @JoinColumn(name = "component_id", referencedColumnName = "id"))
 	private List<Component> componentList;
+	
+	/** 将所有零件用一个字符串表示,用于简单展示 */
+	@Transient
+	private String allComponent;
 
 	/**
 	 * 预约单中包含的图片url列表； 定义该Reservation实体所有关联的ReservationImgUrl实体；
@@ -235,6 +239,23 @@ public class Reservation {
 
 	public void setCutDetail(String cutDetail) {
 		this.cutDetail = cutDetail;
+	}
+
+	public String getAllComponent() {
+		return allComponent;
+	}
+
+	public void setAllComponent(String allComponent) {
+		this.allComponent = allComponent;
+	}
+	
+	/**自动根据自己的预约零件列表生成allComponent*/
+	public void setAllComponent() {
+		allComponent="";
+		for(Component component:componentList) {
+			allComponent+=","+component.getName();
+		}
+		allComponent=allComponent.substring(1);
 	}
 
 	@Override

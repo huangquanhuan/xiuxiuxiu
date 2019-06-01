@@ -444,14 +444,14 @@ public class ReservationController {
 	 * 根据表单输入的数据进行查询，表单在[appointedComponents.html]
 	 * 
 	 * @param model:         视图
-	 * @param componentType: 零件类型,"all"表示全部
+	 * @param componentType: 零件类型,"-1"表示全部
 	 * @param activityId:    活动场次的id,"-1"表示全部
 	 * @param state:         预约的状态 ,0: 未受理,1: 已受理未完成,2: 已完成,3: 全部
 	 * @return 过滤后的视图
 	 */
 	@RequestMapping("/reservation/componentSearch")
 	public String componentSearch(Model model,
-			@RequestParam(value = "componentType", required = false, defaultValue = "all") String componentType,
+			@RequestParam(value = "componentType", required = false, defaultValue = "-1") Integer componentType,
 			@RequestParam(value = "activityId", required = false, defaultValue = "-1") Integer activityId,
 			@RequestParam(value = "state", required = false, defaultValue = "3") Integer state) {
 		int ALL_STATE = 3, ALL_ACTIVITY = -1, DOOR_ACTIVITY = -2;
@@ -472,14 +472,26 @@ public class ReservationController {
 			}
 			if (state != ALL_STATE && reservation.getState() != state)
 				continue;
-			if ("all".equals(componentType)) {
+			
+			//判断零件
+			if (componentType==-1) {
+				reservation.setAllComponent();
 				filteredList.add(reservation);
 				continue;
+			} else {
+				boolean flag=false;
+				for (Component component : reservation.getComponentList()) {
+					if(component.getId()==componentType) {
+						reservation.setAllComponent();
+						flag=true;
+						continue;
+					}
+				}
+				if(flag) {
+					filteredList.add(reservation);
+					continue;
+				}
 			}
-			List<Component> filteredComponents = reservation.getComponentList().stream()
-					.filter(c -> componentType.equals(c.getName())).collect(Collectors.toList());
-			reservation.setComponentList(filteredComponents);
-			filteredList.add(reservation);
 		}
 		// 计算总数
 		Set<String> personSet = new HashSet<String>();
@@ -515,11 +527,15 @@ public class ReservationController {
 		else if (activityId == DOOR_ACTIVITY)
 			activityFilter = "上门服务";
 		else {
-			activityFilter = activityService.findActivityById(activityId).getPlace();
+			activityFilter = activityService.findActivityById(activityId).getTime()+" "+activityService.findActivityById(activityId).getPlace();
 		}
 
 		String stateFilter = state == 0 ? "已受理" : (state == 1 ? "已受理未完成" : (state == 2 ? "已完成" : "全部"));
-		String componentFilter = componentType;
+		String componentFilter;
+		if(componentType==-1)
+			componentFilter = "全部";
+		else
+			componentFilter = componentService.findComponentById(componentType).getName();
 		model.addAttribute("activityFilter", activityFilter);
 		model.addAttribute("stateFilter", stateFilter);
 		model.addAttribute("componentFilter", componentFilter);

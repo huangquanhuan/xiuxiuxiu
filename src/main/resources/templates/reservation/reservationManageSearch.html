@@ -58,7 +58,7 @@
 								<th>学号</th>
 								<th>联系电话</th>
 								<th>预约类型</th>
-								<th>场次</th>
+								<th>时间</th>
 								<th>地点</th>
 								<th>零件类型</th>
 								<th>是否完成</th>
@@ -75,30 +75,32 @@
 								<td th:if="${reservation.applicationType == 0}">上门预约</td>
 								<td th:if="${reservation.applicationType == 1}">活动预约</td>
 
-								<td th:if="${reservation.activity!=null}"
-									th:text="${reservation.activity.time}"></td>
-								<td th:if="${reservation.activity==null}" th:text="无"></td>
-								<td th:if="${reservation.activity!=null}"
-									th:text="${reservation.activity.place}"></td>
-								<td th:if="${reservation.activity==null}" th:text="无"></td>
+								<td th:text="${reservation.requiredTime}"></td>
+								<td th:text="${reservation.place}"></td>
 
 								<td th:if="${#lists.size(reservation.componentList)} eq 0" 
 									th:text="无"></td>
-								<td th:if="${#lists.size(reservation.componentList)} gt 0"
-									th:text="${reservation.componentList[0].name}"></td>
+								<td th:unless="${#lists.size(reservation.componentList)} eq 0"
+									th:text="${reservation.allComponent}"></td>
 								
 								<td th:if="${reservation.state == 0}">未受理</td>
 								<td th:if="${reservation.state == 1}">处理中</td>
 								<td th:if="${reservation.state == 2}">已完成</td>
+								<td th:if="${reservation.state == -1}">被拒绝</td>
 
-								<td th:if="${reservation.state == 0}"><a
-									th:href="@{/reservation/updateState(id=${reservation.id},state=1)}"
-									class="btn btn-info btn-sm">接受</a></td>
+								<td th:if="${reservation.state == 0}">
+									<a th:href="@{/reservation/updateState(id=${reservation.id},state=1)}"
+									class="btn btn-info btn-sm">接受</a>
+									<a th:href="@{/reservation/updateState(id=${reservation.id},state=-1)}"
+									class="btn btn-danger btn-sm">拒绝</a>
+								</td>
 								<td th:if="${reservation.state == 1}"><a
 									th:href="@{/reservation/updateState(id=${reservation.id},state=2)}"
 									class="btn btn-warning btn-sm">标记为完成</a></td>
 								<td th:if="${reservation.state == 2}"><a
 									class="btn btn-success btn-sm">已完成</a></td>
+								<td th:if="${reservation.state == -1}"><a
+									class="btn btn-default btn-sm active" >已被拒绝</a></td>
 								<td>
 									<button type="button" class="btn btn-primary btn-sm"
 										data-toggle="modal"
