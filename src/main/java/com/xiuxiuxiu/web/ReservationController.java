@@ -84,7 +84,6 @@ public class ReservationController {
 				// 已经设置一个虚拟路径对应实际路径的C:/Users/，所以进行路径剪裁
 				// 例如一个url="C:\Users\10553\AppData\Local\Temp..."=>"10553\AppData\Local\Temp..."
 				String cutUrl = imgUrl.getImg_url().substring(8);
-				System.out.println(cutUrl);
 				imgUrl.setImg_url(cutUrl);
 			}
 			myReservation.setImgUrlList(imgUrls);
@@ -478,7 +477,6 @@ public class ReservationController {
 				// 已经设置一个虚拟路径对应实际路径的C:/Users/，所以进行路径剪裁
 				// 例如一个url="C:\Users\10553\AppData\Local\Temp..."=>"10553\AppData\Local\Temp..."
 				String cutUrl = imgUrl.getImg_url().substring(8);
-				System.out.println(cutUrl);
 				imgUrl.setImg_url(cutUrl);
 			}
 			myReservation.setImgUrlList(imgUrls);
