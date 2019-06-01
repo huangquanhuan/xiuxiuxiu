@@ -9,11 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Manager - 管理员类
  */
 @Entity
 @Table(name = "manager")
+@JsonIgnoreProperties(value = {"articleList","hibernateLazyInitializer", "handler"})
 public class Manager {
 
 	/**

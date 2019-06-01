@@ -6,15 +6,19 @@
 <meta name="keywords" content="" />
 <!-- //custom-theme -->
 
-<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<!-- font-awesome-icons -->
-<link href="../css/font-awesome.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+   <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"
+          media="all" />
+    <!-- font-awesome-icons -->
+    <link href="../css/font-awesome.css" rel="stylesheet">
 <!-- //font-awesome-icons -->
 <title>文章管理</title>
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.staticfile.org/bootstrap-table/1.13.5/bootstrap-table.min.js"></script>
 <script type="application/x-javascript">
+	
+	
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -22,94 +26,184 @@
             window.scrollTo(0, 1);
         }
 </script>
-<link href="/css/index.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/css/index.css" rel="stylesheet" type="text/css"
+	media="all" />
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://cdn.staticfile.org/bootstrap-table/1.13.5/bootstrap-table.min.css" rel="stylesheet">
+
+  
 </head>
 <body>
-  <!-- banner -->
-  <div th:replace="manager/Mnav :: mnavbar"></div>
-  <div class="agileits_w3layouts_banner_nav">
-    <div class="clearfix"></div>
-  </div>
+<!-- banner -->
+<div th:replace="manager/Mnav :: mnavbar"></div> 
+<div th:replace="home/messageOrErr :: messageOrErr"></div> 	
+   <div class="agileits_w3layouts_banner_nav">
+		<div class="clearfix"> </div>
+	</div>
+            
+	<div class="services">
+		<div class="container">
+			<h3 class="tittle_agile_w3">文章列表</h3>
+			<ul class="agile_forms">
+				
+				<li><a class="agile_forms"href="#" data-toggle="modal" data-target="#myModal1">添加文章</a> </li>
+				<li><a class="agile_forms" th:href="@{/manager/MyArticle}" >我的文章</a> </li>
+			</ul>
+			<div class="heading-underline">
+				<div class="h-u1"></div><div class="h-u2"></div><div class="h-u3"></div><div class="clearfix"></div>
+			</div>
+			
+			<div class="w3l-news_info_agile_its">
+			<table class="table table-bordered table-striped" id="articleTable">
+              <caption>文章列表</caption>
+              
+              <thead>
+                <tr>
+                  <th data-field="" data-formatter="tableIndex">行号</th>
+                  <th data-field="title" data-sortable="true" data-formatter="tableTitle">标题</th>
+                  <th data-field="time" data-sortable="true">发布时间</th>
+                  <th data-field="manager.name" data-sortable="true">作者</th>
+                  <th data-field="text" data-formatter="tableText">内容</th>
+                  <th data-field="opreator" data-formatter="tableButton">操作</th>
+                </tr>
+              </thead>
+            </table>
+			<!-- <div th:each="article,iterStat : ${articleList}">
+			
+						<div class="media response-info">
+						<div class="media-body response-text-right">
+							<h5>
+                            	<a th:href="@{/article/articleDetail(id=${article.id})}" th:text="${article.title}"></a>
+                        	</h5>
+							<ul>
+								
+								<li><i th:text="${article.time}" class="fa fa-calendar" aria-hidden="true"></i></li>
+								<li><i th:text="${article.manager.name}"class="fa fa-user" aria-hidden="true"></i></li>
+							</ul>
+							<p 
+							style="
+							overflow : hidden;
+					        text-overflow: ellipsis;
+					        display: -webkit-box;
+					        -webkit-line-clamp: 3;
+					        -webkit-box-orient: vertical;"
+					th:text="${article.text}"></p>
+					<div th:th:if="${session.administrator!=null}">
+							<div th:if="(${article.manager.id}==${session.administrator.id})
+							or (${session.administrator.accessLevel==2})" class="read}" 
+							 >
+								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal4'"
+								th:onclick="'setTargetID('+${article.id}+')'">修改</a>
+								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal5'"
+								th:onclick="'setTargetID('+${article.id}+')'">删除</a>
+							
+							</div>
+						</div> -->
+					</div>
+						<div class="clearfix"> </div>
+					</div>
+											
+													
+				</div>
+			</div>
 
-  <div class="services">
-    <div class="container">
-      <h3 class="tittle_agile_w3">文章列表</h3>
-      <ul class="agile_forms">
-
-        <li>
-          <a class="agile_forms" href="#" data-toggle="modal" data-target="#myModal1">添加文章</a>
-        </li>
-        <li>
-          <a class="agile_forms" th:href="@{/manager/MyArticle}">我的文章</a>
-        </li>
-      </ul>
-      <div class="heading-underline">
-        <div class="h-u1"></div>
-        <div class="h-u2"></div>
-        <div class="h-u3"></div>
-        <div class="clearfix"></div>
-      </div>
-
-      <div class="w3l-news_info_agile_its">
-
-        <div th:each="article,iterStat : ${articleList}">
-
-          <div class="media response-info">
-            <div class="media-body response-text-right">
-              <h5>
-                <a th:href="@{/article/articleDetail(id=${article.id})}" th:text="${article.title}"></a>
-              </h5>
-              <ul>
-
-                <li>
-                  <i th:text="${article.time}" class="fa fa-calendar" aria-hidden="true"></i>
-                </li>
-                <li>
-                  <i th:text="${article.manager.name}" class="fa fa-user" aria-hidden="true"></i>
-                </li>
-              </ul>
-              <p
-                style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;"
-                th:text="${article.text}"></p>
-              <div th:th:if="${session.administrator!=null}">
-                <div
-                  th:if="(${article.manager.id}==${session.administrator.id})
-							or (${session.administrator.accessLevel==2})"
-                  class="read}">
-                  <a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal4'"
-                    th:onclick="'setTargetID('+${article.id}+')'">修改</a>
-                  <a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal5'"
-                    th:onclick="'setTargetID('+${article.id}+')'">删除</a>
-
-                </div>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-
-
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <!-- //typo -->
-  <!-- footer -->
-  <!-- //footer -->
-  <!-- menu -->
-  <!-- js -->
-
-  <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
-  <!-- //js -->
-  <!-- password-script -->
+	    </div>
+	 </div>
+<!-- //typo -->	
+<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="w3_agile_footer_grids">
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>地址</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>福州大学数计学院</li>
+					</ul>
+				</div>
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>号码</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>18868836723</li>
+					</ul>
+				</div>
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>邮箱</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>fzuxiuxiuxiu@163.com</li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="agileinfo_copyright">
+				<p>Copyright &copy; 2019.Xiuxiuxiu All rights reserved <a href="" title="" target="_blank"></a></p>
+			</div>
+		</div>
+	</div>
+<div th:replace="home/messageOrErr :: messageOrErr"></div> 
+<!-- //footer -->
+<!-- menu -->
+<!-- js -->
+<script src="https://cdn.staticfile.org/bootstrap-table/1.13.5/locale/bootstrap-table-zh-CN.min.js"></script>
   <script type="text/javascript">
+  function tableIndex(value, row, index) {
+      return index+1;
+  }
+  function tableTitle(value, row, index) {
+      return '<a href="@{/article/articleDetail?id='+row.id+'}">'+row.title+'</a>';
+  }
+  function tableText(value, row, index) {
+      return '<p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">'+row.text+'</p>';
+  }
+  function tableButton(value, row, index) {
+    //把需要创建的按钮封装在函数中
+    var ans='';
+    var sid = "[[${session.administrator.id}]]";
+    var slevel = "[[${session.administrator.accessLevel}]]";
+    if(row.manager.id == sid  | slevel == 2 ) {
+    	ans += '<a href="#" class="view resw3" data-toggle="modal" data-target=#myModal4" onclick="setTargetID('+row.id+')">修改</a>';
+    	ans += '&nbsp;&nbsp;&nbsp;&nbsp;';
+    	ans += '<a href="#" class="view resw3" data-toggle="modal" data-target=#myModal5" onclick="setTargetID('+row.id+')">删除</a>';
+    }
+  	return ans;
+  }
+  $(document).ready(function () {
+      $("#articleTable").bootstrapTable({
+          url:"/article/getAll",            //请求地址
+          toolbar : '#toolbar',               //工具按钮用哪个容器
+          data_local : "zh-US" ,        //表格汉化
+          striped : true,           //是否显示行间隔色
+          pageNumber : 1,           //初始化加载第一页
+          pagination : true,          //是否分页
+          sidePagination : 'server',      //server:服务器端分页|client：前端分页
+          showToggle:true,        //切换视图
+          //minimumCountColumns : 2,            //最少允许的列数
+          clickToSelect : true,               //是否启用点击选中行
+          sortStable : true,          //是否可排序
+          strictSearch : false,               //设置为 true启用 全匹配搜索，否则为模糊搜索
+          pageSize : 5,           //单页记录数
+          pageList:[5,10,20,'ALL'],    //可选择单页记录数
+          search: true,           //表格搜索按钮
+          showRefresh : true,         //刷新按钮
+          //queryParamsType:'limit',         //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+                            // 设置为 ''  在这种情况下传给服务器的参数为：pageSize,pageNumber
+          queryParams : function(params) {  //上传服务器的参数 //params的自带参数类型由queryParamsType决定
+              var temp = {
+                  offset: params.offset,             //起始
+                  limit: params.limit,                         //页面大小
+              };
+              return temp;
+          }
+      })
+  })
+  </script>
+<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
+<!-- //js -->
+	<!-- password-script -->
+	<script type="text/javascript">
 		window.onload = function () {
 			document.getElementById("password1").onchange = validatePassword;
 			document.getElementById("password2").onchange = validatePassword;
 		}
-
 		function validatePassword() {
 			var pass2 = document.getElementById("password2").value;
 			var pass1 = document.getElementById("password1").value;
@@ -121,13 +215,12 @@
 		}
 		//管理员删除时弹出警告
 		function showDelMessage(){
-
 		}
 	</script>
-
-  <!-- 由session判断是否登录成功 -->
-  <!-- <%if (session.getAttribute("name")==null){%> -->
-  <script type="text/javascript">
+	
+<!-- 由session判断是否登录成功 -->
+<!-- <%if (session.getAttribute("name")==null){%> -->
+<script type="text/javascript">
 // 	jQuery(document).ready(function($) {
 // 		$("#exit").toggle( 
 // 				  function () {
@@ -136,8 +229,8 @@
 // 				);
 // 	});
 </script>
-  <!--   <%}else {%> -->
-  <script type="text/javascript">
+<!--   <%}else {%> -->
+<script type="text/javascript">
 // 	jQuery(document).ready(function($) {
 // 		$("#login").toggle( 
 // 				  function () {
@@ -151,15 +244,14 @@
 // 				);
 // 	});
 </script>
-  <!--   <%}%> -->
-
-  <!-- for bootstrap working -->
-  <script src="js/bootstrap.js"></script>
-  <!-- //for bootstrap working -->
-  <!-- start-smoth-scrolling -->
-  <script type="text/javascript" src="js/move-top.js"></script>
-  <script type="text/javascript" src="js/easing.js"></script>
-  <script type="text/javascript">
+<!--   <%}%> -->
+  
+<!-- for bootstrap working -->
+<!-- //for bootstrap working -->
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
 			event.preventDefault();
@@ -167,9 +259,9 @@
 		});
 	});
 </script>
-  <!-- start-smoth-scrolling -->
-  <!-- here stars scrolling icon -->
-  <script type="text/javascript">
+<!-- start-smoth-scrolling -->
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
 		$(document).ready(function() {
 			/*
 				var defaults = {
@@ -184,88 +276,88 @@
 								
 			});
 	</script>
-  <!-- //here ends scrolling icon -->
-  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-          <div class="signin-form profile">
-            <h3 class="agileinfo_sign">添加文章</h3>
-            <div class="login-form">
-              <form th:action="@{/manager/AddArticle}" method="post">
-
-                <input type="text" name="title" placeholder="标题" required="required">
-
-                <textarea rows="10" name="text" placeholder="内容" required="required"></textarea>
-                <input type="submit" value="确定">
-
-              </form>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- //Modal -->
-  <div class="modal fade" th:id="myModal5" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-          <div class="signin-form profile">
-            <h3 class="agileinfo_sign">是否删除该文章？</h3>
-            <div class="login-form">
-              <form th:action="@{/manager/DeleteArticle}" method="post">
-                <input id="delete-input-id" type="hidden" name="id">
-                <input type="submit" value="确定">
-              </form>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" th:id="myModal4" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-          <div class="signin-form profile">
-            <h3 class="agileinfo_sign">修改文章</h3>
-            <div class="login-form">
-              <form th:action="@{/manager/UpdateArticle}" method="post">
-                <input id="update-input-id" type="hidden" name="id">
-                <input type="text" name="title" placeholder="标题" required="required">
-                <textarea row="10" name="text" placeholder="文章内容" required="required"></textarea>
-
-                <input type="submit" value="确定">
-              </form>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script type="text/javascript">
+<!-- //here ends scrolling icon -->
+													<div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+														<div class="modal-dialog">
+														<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	
+																	<div class="signin-form profile">
+																	<h3 class="agileinfo_sign">添加文章</h3>	
+																			<div class="login-form">
+																				<form th:action="@{/manager/AddArticle}" method="post">
+																					
+																				    <input type="text" name="title" placeholder="标题" required="required">
+																					
+				                                                                    <textarea rows="10" name="text" placeholder="内容" required="required"></textarea>
+																					<input type="submit" value="确定">
+																					
+																				</form>
+																			</div>
+																			
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>		
+													
+													<!-- //Modal -->
+											<div class="modal fade" th:id="myModal5" tabindex="-1" role="dialog">
+														<div class="modal-dialog">
+														<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	
+																	<div class="signin-form profile">
+																	<h3 class="agileinfo_sign">是否删除该文章？</h3>	
+																			<div class="login-form">
+																				<form th:action="@{/manager/DeleteArticle}" method="post">
+																					<input id="delete-input-id"  type="hidden" name="id" >
+																					<input type="submit" value="确定">
+																				</form>
+																			</div>
+																			
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>	
+											
+													<div class="modal fade" th:id="myModal4" tabindex="-1" role="dialog">
+														<div class="modal-dialog">
+														<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	
+																	<div class="signin-form profile">
+																	<h3 class="agileinfo_sign">修改文章</h3>	
+																			<div class="login-form">
+																				<form th:action="@{/manager/UpdateArticle}" method="post">
+																					<input id="update-input-id" type="hidden" name="id">
+																				    <input type="text" name="title" placeholder="标题" required="required">
+																					<textarea row="10" name="text" placeholder="文章内容" required="required"></textarea>
+				                                                                    
+																					<input type="submit" value="确定">
+																				</form>
+																			</div>
+																			
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>		
+													
+	<script type="text/javascript">
 		//点击按钮设置目标id
 		function setTargetID(id) {
 			document.getElementById("delete-input-id").value = id;
 			document.getElementById("update-input-id").value = id;
 		}
-	</script>
-
+	</script>							
+<div th:replace="home/messageOrErr :: messageOrErr"></div> 												
 </body>
 </html>

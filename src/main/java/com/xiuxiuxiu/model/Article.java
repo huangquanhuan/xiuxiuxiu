@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "article")
 
-@JsonIgnoreProperties(value= {"manager"})
 public class Article {
 
 	/** 文章id */

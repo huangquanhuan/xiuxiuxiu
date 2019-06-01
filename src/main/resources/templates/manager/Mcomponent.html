@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -8,26 +7,29 @@
 <!-- //custom-theme -->
 
     <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
-   
+   <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"
+          media="all" />
     <!-- font-awesome-icons -->
     <link href="../css/font-awesome.css" rel="stylesheet">
-    <!-- //font-awesome-icons -->
-    <title>零件库编辑</title>
-  <script type="application/x-javascript">
+<!-- //font-awesome-icons -->
+<title>零件库编辑</title>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="application/x-javascript">
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
-
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
 </script>
+<link href="/css/index.css" rel="stylesheet" type="text/css"
+	media="all" />
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="/css/index.css" rel="stylesheet" type="text/css" media="all" />
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>	
 <!--BootStrap Table-->
 <link href="https://cdn.staticfile.org/bootstrap-table/1.13.5/bootstrap-table.min.css" rel="stylesheet">
 <script src="https://cdn.staticfile.org/bootstrap-table/1.13.5/bootstrap-table.min.js"></script>
+  
 </head>
 <body>
 	<div th:replace="manager/Mnav :: mnavbar"></div> 
@@ -46,38 +48,21 @@
 
 				<div class="wrapper" >
 					<div class="table-responsive">
-          <table id="CompontentTable">123</table>
-						<table class="table table-bordered table-striped">
+						<table class="table table-bordered table-striped" id="ComTable">
 							<caption>零件列表</caption>
 							
 							<thead>
 								<tr>
-									<th>id</th>
-									<th>零件名称</th>
-									<th>价格</th>
-									<th>数量</th>
-									<th>零件类型</th>
-									<th>修改</th>
-									<th>删除</th>
+                                    <th data-field="" data-formatter="tableIndex">行号</th>
+									<th data-field="id" data-sortable="true">id</th>
+									<th data-field="name" data-sortable="true">零件名称</th>
+									<th data-field="price" data-sortable="true">价格</th>
+									<th data-field="quantity" data-sortable="true">数量</th>
+									<th data-field="type" data-sortable="true">零件类型</th>
+									<th data-field="" data-formatter="tableButton">操作</th>
 								</tr>
 							</thead>
-							<tbody th:each="component,iterStat : ${componentList}">								
-									<tr>
-										<td th:text="${component.id}"></td>
-										<td th:text="${component.name}"></td>
-										<td th:text="${component.price}"></td>
-										<td th:text="${component.quantity}"></td>
-										<td th:text="${component.type}"></td>
-										<td><a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal4'"
-										th:onclick="'setTargetID('+${component.id}+')'">修改</a>					
-										<td><a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal3'"
-										th:onclick="'setTargetID('+${component.id}+')'">删除</a>
-										
-										
-										
-									</tr>
-								
-							</tbody>
+							
 						</table>
 						<!-- 按钮触发模态框 -->
 						<button class=" btn-success btn-lg" data-toggle="modal"
@@ -87,7 +72,7 @@
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content agileits_banner_bottom_left">
-									<form th:action="@{/manager/AddComponent}" method="post">
+									<form class="registerForm" th:action="@{/manager/AddComponent}" method="post">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal"
 												aria-hidden="true">&times;</button>
@@ -98,26 +83,26 @@
 										<div class="modal-body">
 											<p>
 												<span>零件名称</span> <input type="text" class="form-control"
-													name="name" />
+												 id="name"	name="name" required="required"/>
 											</p>
 											<p>
 												<span>零件价格</span> <input type="text" class="form-control"
-													name="price" />
+												id="price"	name="price" required="required"/>
 											</p>
 											<p>
 												<span>零件数量</span> <input type="text" class="form-control"
-													name="quantity" />
+												id="add-from-quantity"	name="quantity" required="required"/>
 											</p>
 											<p>
 												<span>零件类型</span> <input type="text" class="form-control"
-													name="type" />
+												id="type"	name="type" required="required"/>
 											</p>
 										</div>
 										<div class="modal-footer">
 
 											<button type="button" class="btn btn-default"
 												data-dismiss="modal">关闭</button>
-											<button type="submit" class="btn btn-success" name="submit">提交</button>
+											<button onclick="validateInput()" type="submit" class="btn btn-success" name="submit">提交</button>
 										</div>
 									</form>
 								</div>
@@ -168,117 +153,119 @@
 											</h3>
 										</div>
 										<div class="modal-body">
-											<input id="update-input-id" type="hidden" name="id">
+											<input id="update-input-id" type="hidden" name="id" >
 											<p>
 												<span>零件名称</span> <input type="text" class="form-control"
-													name="name" />
+												 id="updata-form-name"	name="name" required="required"/>
 											</p>
 											<p>
 												<span>零件价格</span> <input type="text" class="form-control"
-													name="price" />
+												 id="updata-form-price"	name="price" required="required"/>
 											</p>
 											<p>
 												<span>零件数量</span> <input type="text" class="form-control"
-													name="quantity" />
+												 id="updata-form-quantity"	name="quantity" required="required"/>
 											</p>
 											<p>
 												<span>零件类型</span> <input type="text" class="form-control"
-													name="type" />
+												 id="updata-form-type"	name="type" required="required"/>
 											</p>
 										</div>
 										<div class="modal-footer">
 
 											<button type="button" class="btn btn-default"
 												data-dismiss="modal">关闭</button>
-											<button type="submit" class="btn btn-primary" name="submit">提交</button>
+											<button onclick="validateInput()" type="submit" class="btn btn-success" name="submit">提交</button>
 										</div>
 									</form>
 								</div>
 							</div>
 						</div>
-
+	<div class="footer">
+		<div class="container">
+			<div class="w3_agile_footer_grids">
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>地址</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>福州大学数计学院</li>
+					</ul>
+				</div>
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>号码</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>18868836723</li>
+					</ul>
+				</div>
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>邮箱</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>fzuxiuxiuxiu@163.com</li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="agileinfo_copyright">
+				<p>Copyright &copy; 2019.Xiuxiuxiu All rights reserved <a href="" title="" target="_blank"></a></p>
+			</div>
+		</div>
+	</div>
+<div th:replace="home/messageOrErr :: messageOrErr"></div> 
 	
 	<!-- menu -->
-	<!-- js -->
-    
-<script src="https://cdn.staticfile.org/bootstrap-table/1.13.5/locale/bootstrap-table-zh-CN.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#CompontentTable").bootstrapTable({
-            url:"/manager/getAllComponent",            //请求地址
-            toolbar : '#toolbar',               //工具按钮用哪个容器
-            data_local : "zh-US" ,        //表格汉化
-            striped : true,           //是否显示行间隔色
-            pageNumber : 1,           //初始化加载第一页
-            pagination : true,          //是否分页
-            sidePagination : 'server',      //server:服务器端分页|client：前端分页
-            pageSize : 5,           //单页记录数
-            minimumCountColumns : 2,            //最少允许的列数
-            clickToSelect : true,               //是否启用点击选中行
-            sortStable : true,          //是否可排序
-            strictSearch : false,               //设置为 true启用 全匹配搜索，否则为模糊搜索
-            pageList : [ 5,10,20,'ALL'],    //可选择单页记录数
-            search: true,           //表格搜索按钮
-            showRefresh : true,         //刷新按钮
-            //queryParamsType:'',         //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
-                              // 设置为 ''  在这种情况下传给服务器的参数为：pageSize,pageNumber
-            queryParams : function(params) {  //上传服务器的参数 //params的自带参数类型由queryParamsType决定
-                var temp = {
-                    offset: params.offset,             //起始
-                    limit: params.limit,                         //页面大小
-                };
-                return temp;
-            } ,
-            columns : [ {
-                title: '序号',
-                field: '',
-                align: 'center',
-                formatter: function (value, row, index) {
-                    return index+1;
-                }/* ,{
-                  title : 'ID',
-                  field : 'id'
-                  align : 'center',
-                  sortable : true
-                },{
-                  title : '零件名称',
-                  field : 'name'
-                  align : 'center',
-                  sortable : true
-                },{
-                  title : '价格',
-                  field : 'price'
-                  align : 'center',
-                  sortable : true
-                },{
-                  title : '数量',
-                  field : 'quantity'
-                  align : 'center',
-                  sortable : true
-                },{
-                  title : '零件类型',
-                  field : 'type'
-                  align : 'center',
-                  sortable : true
-                },{
-                  title : '修改',
-                  field : 'update'
-                  align : 'center',
-                  formatter: function (value, row, index) {
-                    return '<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target=\'#myModal2\''+row.id+'">修改</a>'
-                  }
-                },{
-                  title : '删除',
-                  field : 'deleted'
-                  align : 'center',
-                  formatter: function (value, row, index) {
-                    return '<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target=\'#myModal3\''+row.id+'">删除</a>'
-                  }
-                } */] 
-                
-        })
-    })
-</script>
+  <!-- js -->
+  <!-- 设置table的js -->
+  
+  <script src="https://cdn.staticfile.org/bootstrap-table/1.13.5/locale/bootstrap-table-zh-CN.min.js"></script>
+  <script type="text/javascript">
+  function tableIndex(value, row, index) {
+      return index+1;
+  }
+  function tableButton(value, row, index) {
+    //把需要创建的按钮封装在函数中
+    var ans='';
+    ans += '<a href="#" class="view resw3" data-toggle="modal" data-target=#myModal4" onclick="setTargetID('+row.id+')">修改</a>';
+    ans += '<a href="#" class="view resw3" data-toggle="modal" data-target=#myModal3" onclick="setTargetID('+row.id+')">删除</a>';
+	return ans;
+  }
+  $(document).ready(function () {
+      $("#ComTable").bootstrapTable({
+          url:"/reservation/findAll",            //请求地址
+          toolbar : '#toolbar',               //工具按钮用哪个容器
+          data_local : "zh-US" ,        //表格汉化
+          striped : true,           //是否显示行间隔色
+          pageNumber : 1,           //初始化加载第一页
+          pagination : true,          //是否分页
+          sidePagination : 'server',      //server:服务器端分页|client：前端分页
+          showToggle:true,        //切换视图
+          //minimumCountColumns : 2,            //最少允许的列数
+          clickToSelect : true,               //是否启用点击选中行
+          sortStable : true,          //是否可排序
+          strictSearch : false,               //设置为 true启用 全匹配搜索，否则为模糊搜索
+          pageSize : 5,           //单页记录数
+          pageList:[5,10,20,'ALL'],    //可选择单页记录数
+          search: true,           //表格搜索按钮
+          showRefresh : true,         //刷新按钮
+          //queryParamsType:'limit',         //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+                            // 设置为 ''  在这种情况下传给服务器的参数为：pageSize,pageNumber
+          queryParams : function(params) {  //上传服务器的参数 //params的自带参数类型由queryParamsType决定
+              var temp = {
+                  offset: params.offset,             //起始
+                  limit: params.limit,                         //页面大小
+              };
+              return temp;
+          }
+      })
+  })
+  </script>
+	
+	<script type="text/javascript">
+		//点击按钮设置目标id
+		function setTargetID(id) {
+			document.getElementById("delete-input-id").value = id;
+			document.getElementById("update-input-id").value = id;
+		}
+	</script>
+	
 	<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
 	<!-- updateFormID -->
 	<script type="text/javascript">
@@ -434,7 +421,6 @@
 	<script src="js/jquery.chocolat.js "></script>
 	<!-- //menu -->
 	<!-- for bootstrap working -->
-	<script src="js/bootstrap.js"></script>
 	<!-- //for bootstrap working -->
 	<!-- start-smoth-scrolling -->
 	<script type="text/javascript" src="js/move-top.js"></script>
@@ -468,10 +454,45 @@
 
             });
         </script>
+        <!-- 输入判定 -->
+        <script type="text/javascript">
+    	function validateInput() {
+    		var name = document.getElementById("updata-form-name").value;
+    		var price = document.getElementById("updata-form-price").value;
+    		var quantity = document.getElementById("updata-form-quantity").value;
+    		var type = document.getElementById("updata-form-type").value;
+    		//判断浮点数的正则
+    		var price-reg=/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+    		var quantity-reg=/^(([1-9][0-9]*)|)$/;
+    		
+    		if (typeof name != "string"){
+   			
+	   			document.getElementById("updata-form-name").setCustomValidity("请输入字符串");
+    			
+    		}else if(!price-reg.test(price)){
+    			
+    			document.getElementById("updata-form-price").setCustomValidity("请输入数字");
+    			
+    		}else if(!quantity-reg.test(quantity)){
+    			
+    			document.getElementById("updata-form-quantity").setCustomValidity("za请输入数字");
+    			
+    		}else if(typeof type != "string"){
+    			
+    			document.getElementById("type").setCustomValidity("请输入字符串");
+    			
+    		}else{
+    			document.getElementById("updata-form-name").setCustomValidity('');
+    			document.getElementById("updata-form-price").setCustomValidity('');
+    			document.getElementById("updata-form-quantity").setCustomValidity('');
+    			document.getElementById("updata-form-type").setCustomValidity('');
+    		}
+    		//empty string means no validation error
+    	}
+        </script>
 	<!-- //here ends scrolling icon -->
 
 	<a href="#" id="toTop" style="display: none;"><span id="toTopHover"></span>To
 		Top</a>
 </body>
-
 </html>

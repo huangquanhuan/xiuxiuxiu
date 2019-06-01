@@ -33,11 +33,8 @@ public class ManagerComponentController {
 
     @RequestMapping("/manager/Mcomponent")
     public String list(Model model) {
-
-    	List<Component> componentList=componentService.getComponentList();
-    	model.addAttribute("componentList", componentList);
         
-        return "/manager/Mcomponent2";
+        return "/manager/Mcomponent";
 
     }
     
