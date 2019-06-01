@@ -305,6 +305,63 @@ public class StudentController {
 		return home(model);
 	}
 
+	@RequestMapping("/student/reset_pw")
+	public String reset(Model model, @RequestParam("re_phone") String re_phone,@RequestParam("old_password") String old_password,@RequestParam("re_password1") String re_password1,
+			@RequestParam("re_password2") String re_password2,  @RequestParam("re_email") String re_email,
+			@RequestParam("resetpw_code") String ret_code,HttpSession session) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		System.out.println("手机号码:" + re_phone);
+		System.out.println("邮箱:" + re_email);
+		System.out.println("验证码" +ret_code);
+		System.out.println("原密码:" + old_password);
+		System.out.println("新密码:" + re_password1);
+		System.out.println("确认密码:" + re_password2);
+		Student student = studentService.findStudentByPhoneNumber(re_phone);
+		if(!MyMD5Util.validPassword(old_password,student.getPassword())) {
+			model.addAttribute("err", student.getPassword());
+			System.out.println("原密码错误！");
+		}else if (!re_password1.equals(re_password2)) {
+			model.addAttribute("err", "两次密码不同！");
+			System.out.println("两次密码不同！");
+		}else if (!ret_code.equals(session.getAttribute("res_code"))) {
+			model.addAttribute("err", "验证码错误！");
+			System.out.println("验证码错误！");
+		}  else if(studentService.findStudentByPhoneNumber(re_phone)==null){
+			model.addAttribute("err", "该用户不存在！");
+			System.out.println("该用户不存在！");
+		}else{
+			String encryptedPassword = null;   
+			try {   
+				encryptedPassword = MyMD5Util.getEncryptedPwd(re_password1);   
+				System.out.println("加密后的密码："+encryptedPassword);
+				student.setPassword(encryptedPassword);
+				
+			} catch (NoSuchAlgorithmException e) {   
+				model.addAttribute("err", "加密算法在当前环境中不可用，注册失败！");
+				System.out.println("加密算法在当前环境中不可用，注册失败！");
+				e.printStackTrace();   
+				return home(model);
+			} catch (UnsupportedEncodingException e) {   
+				model.addAttribute("err", "密码包含不支持的字符编码，注册失败！");
+				System.out.println("密码包含不支持的字符编码，注册失败！");
+				e.printStackTrace();   
+				return home(model);
+			}
+			
+			
+			try {
+				studentService.edit(student);
+				model.addAttribute("message", "重置密码成功!");
+				session.setAttribute("user", student);
+				System.out.println("重置密码成功");
+			} catch (Exception e) {
+				model.addAttribute("err", "抱歉，由于数据库原因，重置失败");
+				System.out.println("抱歉，由于数据库原因，重置失败");
+				e.printStackTrace();
+			}
+		}
+		return home(model);
+	}
+	
 	@RequestMapping("student/exit")
 	public String exit(Model model, HttpSession session) {
 		session.invalidate();

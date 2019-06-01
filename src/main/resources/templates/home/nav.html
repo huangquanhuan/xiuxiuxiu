@@ -58,7 +58,9 @@
 								<li><p class="text-center">邮箱:</p></li>
 								<li><p th:text="*{email}" class="text-center">邮箱</p></li>
 								<li><h3 class="text-center"><a class="active " data-toggle="modal"
-									data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></h3></li>
+									data-target="#changeinfo-data" href="#" id="update">修改个人信息</a></h3></li>	
+								<li><h3 class="text-center"><a class="active " data-toggle="modal"
+									data-target="#reset_pw" href="#" id="update">修改密码</a></h3></li>
 								<li><h3 class="text-center"><a class="active text-center" data-toggle="modal"
 									data-target="#myDevice-data" href="#" id="device">我的设备</a></h3></li>
 								<li><h3 class="text-center"><a th:href="@{/myReservationList}"
@@ -235,7 +237,78 @@
 					th:src="@{/js/my/reset-input.js}"></script>
 				<!-- 使用ajax动态发送邮件 -->
 				<script type="text/javascript"
-					th:src="@{/js/my/reset-email-ajax.js}"></script>
+					th:src="@{/js/my/resetpw-email-ajax.js}"></script>
+				<!-- 使用ajax动态发送短信 -->
+				<!-- 				<script type="text/javascript" -->
+				<!-- 					th:src="js/my/send-code-ajax.js"></script> -->
+			</div>
+			
+			<!-- 修改密码弹窗 -->
+			<div class="modal fade" id="reset_pw" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<div class="signin-form profile">
+								<h3 class="agileinfo_sign">修改密码</h3>
+								<div class="register-form">
+								<form class="registerForm" th:action="@{/student/reset_pw}" method="post">
+								<div class="modal-body" th:object="${session.user}"
+								th:unless="${session.user == null}">
+								<!-- Top content -->							
+										<p id="error"  style="display:none"><br></p>
+										<input type="text" name="re_email" th:value="*{email}" id="re_email"
+													class="txtinput"	readonly="readonly">
+										<input type="text" name="re_phone" th:value="*{phoneNumber}" id="re_phone"
+													class="txtinput"	style="display:none">
+										<table>
+											<tr>											
+												<td width="100%"><input type="text" name="resetpw_code"
+													class="txtinput" id="resetpw_code" placeholder="验证码"
+													required="required" /></td>
+												<td>
+													<input id="btnResetPwCode" class="btn" name="btnResetPwCode" type="button"   value="点击获取验证码" onclick="resetPwMessage();" />
+												</td>
+											</tr>
+										</table>
+										<!-- 										<table> -->
+										<!-- 											<tr> -->
+										<!-- 												<td align="center" hidden><span id="tip">请输入收到的验证码</span></td> -->
+										<!-- 											</tr> -->
+										<!-- 											<tr> -->
+										<!-- 												<td width="100%"><input type="text" name="code" -->
+										<!-- 													class="txtinput" id="code" placeholder="验证码" -->
+										<!-- 													required="required" /></td> -->
+										<!-- 												<td> -->
+										<!-- 												<input type="button" class="btn" -->
+										<!-- 													onclick="settime(this)" value="获取验证码"> -->
+										<!-- 												</td> -->
+										<!-- 											</tr> -->
+										<!-- 										</table> -->
+										<input id="old_password" type="password" name="old_password"
+											placeholder="请输入原密码" required="required">
+										<input id="re_password1" type="password" name="re_password1"
+											placeholder="重置密码" required="required"> <input
+											id="reset_password2" type="password" name="re_password2"
+											placeholder="确认密码" required="required">
+										<div class="tp">
+											<input  type="submit" value="确认重置">
+										</div>
+										</div>
+									</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 验证正确性的js  -->
+				<script type="text/javascript"
+					th:src="@{/js/my/reset-input.js}"></script>
+				<!-- 使用ajax动态发送邮件 -->
+				<script type="text/javascript"
+					th:src="@{/js/my/resetpw-email-ajax.js}"></script>
 				<!-- 使用ajax动态发送短信 -->
 				<!-- 				<script type="text/javascript" -->
 				<!-- 					th:src="js/my/send-code-ajax.js"></script> -->
