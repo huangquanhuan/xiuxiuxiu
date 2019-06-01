@@ -106,7 +106,7 @@ public class ManagerArticleController {
     		model.addAttribute("message","该管理员未发表过文章");
     	}
     	model.addAttribute("articleList", mylist);
-   		return list(model, session);
+   		return "/manager/Marticle";
    	}
 }
 
