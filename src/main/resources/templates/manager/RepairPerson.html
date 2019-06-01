@@ -49,7 +49,9 @@
 								<li class="color" th:text="${manager.address}"></li>
 							</ul>
 							<a href="#" class="btn btn-select-plan btn-sm" data-toggle="modal" th:attr="data-target='#myModal4'"
-							th:onclick="'setTargetID('+${manager.id}+')'">修改</a>	
+							th:onclick="setTargetID([[${manager.id}]],[[${manager.name}]]
+										,[[${manager.phoneNumber}]]
+										,[[${manager.address}]],[[${manager.email}]],[[${manager.accessLevel}]])">修改</a>	
 							<a href="#" class="btn btn-select-plan btn-sm" data-toggle="modal" th:attr="data-target='#myModal5'"
 							th:onclick="'setTargetID('+${manager.id}+')'">删除</a>	
 							
@@ -74,14 +76,14 @@
 												<div class="login-form">
 													<form th:action="@{/manager/UpdatePerson}" method="post">
 														<input id="update-input-id" type="hidden" name="id">
-														<input type="text" name="name" placeholder="姓名" required="required"> 
-														<input type="text" name="phone_number"  placeholder="号码" required="required"> 
-														<input type="password" name="password1" id="password1" placeholder="密码"
+														<input id="name" type="text" name="name" placeholder="姓名" required="required"> 
+														<input id="phoneNumber" type="text" name="phone_number"  placeholder="号码" required="required"> 
+														<input id="password1" type="password" name="password1"  placeholder="密码"
 															required="required"> 
-														<input type="password" name="password2" id="password2" placeholder="确认密码"
+														<input id="password2" type="password" name="password2"  placeholder="确认密码"
 															required="required"> 
-														<input type="text" name="address" placeholder="地址" required="required">
-														<input type="text" name="email" placeholder="邮箱" required="required">
+														<input id="address" type="text" name="address" placeholder="地址" required="required">
+														<input id="email" type="text" name="email" placeholder="邮箱" required="required">
 														<input id="access_level" type="text" name="accesslist" placeholder="权限等级(1或2) ">
 										                                                                   
 						
@@ -192,9 +194,15 @@
 	<!-- js -->
 		<script type="text/javascript">
 		//点击按钮设置目标id
-		function setTargetID(id) {
+		function setTargetID(id,name,phoneNumber,address,email,accessLevel) {
 			document.getElementById("delete-input-id").value = id;
 			document.getElementById("update-input-id").value = id;
+			document.getElementById("name").value =name;
+			document.getElementById("phoneNumber").value = phoneNumber;
+			
+			document.getElementById("address").value = address;
+			document.getElementById("email").value = email;
+			document.getElementById("access_level").value = accessLevel;
 		}
 	</script>	
 	
