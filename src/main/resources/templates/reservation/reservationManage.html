@@ -90,22 +90,23 @@
 					</form>
 				</div>
 				<div id="excel-import" class="container tab-pane">
-					<br />
-					<form action="*" method="post">
-						<!-- 选择文件 -->
-						<div class="form-group">
-							<label for="issue-image" class="col-sm-3">选择要导入的excel文件</label>
-							<div class="col-sm-9">
-								<input id="issue-image" type="file" class="form-control" />
-							</div>
-						</div>
-						<!-- 导入按钮 -->
-						<div class="form-group">
-							<div class="col-sm-offset-3 col-sm-9">
-								<input type="submit" class="btn " value="导入" />
-							</div>
-						</div>
-					</form>
+					<br />					
+							<!-- form里面不加上enctype就无法识别为文件 -->
+							<form action="/Excel/importExcel2" method="post"
+								enctype="multipart/form-data">
+								<div class="form-group">
+									<label for="issue-image" class="col-sm-3">选择要导入的excel文件</label>
+									<div class="col-sm-9">
+										<input  type="file" name="file"  class="form-control"/>
+									</div>
+								</div>
+									<!-- 导入按钮 -->
+									<div class="form-group">
+										<div class="col-sm-offset-3 col-sm-9">
+											<input  type="submit" class="btn btn-info" value="导入">
+										</div>
+									</div>
+							</form>
 				</div>
 			</div>
 		</div>
