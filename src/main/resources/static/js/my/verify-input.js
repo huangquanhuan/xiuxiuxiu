@@ -11,7 +11,7 @@
 		var code = document.getElementById("code").value;
 		if(name.length<2||name.length>12){
 			document.getElementById("register-name").setCustomValidity("昵称长度在2-12之间");
-		}else if(!isSid(sid)){
+		}else if(!isSid(sid)||sid.length<5||sid.length>15){
 			document.getElementById("register-sid").setCustomValidity("学号格式错误");
 		}else if(!isPhoneNumber(phone)){
 			document.getElementById("register-phoneNumber").setCustomValidity("手机号码格式错误");
