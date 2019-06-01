@@ -57,7 +57,7 @@ public class RepairActivityController {
 			return list(model,session);
 		}
     	Activity activity=activityService.findActivityById(Integer.parseInt(id));
-    	activity.setTime(begin_time+"-"+end_time);
+    	activity.setTime(begin_time+"~"+end_time);
     	activity.setPlace(place);
     	activityService.edit(activity);
 		return "redirect:/manager/activity";
@@ -79,7 +79,7 @@ public class RepairActivityController {
 			return list(model,session);
 		}
        	Activity activity=new Activity();
-       	activity.setTime(begin_time+"——"+end_time);
+       	activity.setTime(begin_time+"~"+end_time);
        	activity.setPlace(place);
        	activity.setPnumber(pnumber);
        	activityService.save(activity);
