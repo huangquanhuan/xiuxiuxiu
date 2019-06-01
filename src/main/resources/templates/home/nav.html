@@ -87,6 +87,15 @@
 											<input type="submit" value="登录">
 										</div>
 									</form>
+									<div class="login-social-grids">
+									<ul>
+									
+									<li><a href="#"><i class="fa fa-wrench"></i></a></li>
+									<li><a href="#"><i class="fa fa-wrench"></i></a></li>
+									<li><a href="#"><i class="fa fa-wrench" ></i></a></li>
+									</ul>
+									</div>
+									<p><a href="#" data-toggle="modal" data-target="#myModal7"> 忘了密码?</a></p>
 								</div>
 							</div>
 						</div>
@@ -166,6 +175,71 @@
 				<!-- 					src="js/my/send-code-ajax.js"></script> -->
 			</div>
 
+			<!-- 忘记密码弹窗 -->
+			<div class="modal fade" id="myModal7" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+							<div class="signin-form profile">
+								<h3 class="agileinfo_sign">忘记密码</h3>
+								<div class="register-form">
+									<form class="registerForm" action="/student/reset"
+										method="post">
+										<input id="reset-phoneNumber" type="text" name="reset-phoneNumber" placeholder="手机号码" required="required">
+										<input id="reset-email" type="text" name="reset_email" placeholder="邮箱" required="required">
+										<p id="error"  style="display:none"><br></p>
+										<table>
+											<tr>
+												<td width="100%"><input type="text" name="reset_code"
+													class="txtinput" id="reset_code" placeholder="验证码"
+													required="required" /></td>
+												<td>
+													<input id="btnResetCode" class="btn" name="btnResetCode" type="button"   value="点击获取验证码" onclick="resetMessage();" />
+												</td>
+											</tr>
+										</table>
+										<!-- 										<table> -->
+										<!-- 											<tr> -->
+										<!-- 												<td align="center" hidden><span id="tip">请输入收到的验证码</span></td> -->
+										<!-- 											</tr> -->
+										<!-- 											<tr> -->
+										<!-- 												<td width="100%"><input type="text" name="code" -->
+										<!-- 													class="txtinput" id="code" placeholder="验证码" -->
+										<!-- 													required="required" /></td> -->
+										<!-- 												<td> -->
+										<!-- 												<input type="button" class="btn" -->
+										<!-- 													onclick="settime(this)" value="获取验证码"> -->
+										<!-- 												</td> -->
+										<!-- 											</tr> -->
+										<!-- 										</table> -->
+										<input id="reset_password1" type="password" name="reset_password1"
+											placeholder="重置密码" required="required"> <input
+											id="reset_password2" type="password" name="reset_password2"
+											placeholder="确认密码" required="required">
+										<div class="tp">
+											<input onclick="ret_validateInput()" type="submit" value="确认重置">
+										</div>
+									</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 验证正确性的js  -->
+				<script type="text/javascript"
+					src="/js/my/reset-input.js"></script>
+				<!-- 使用ajax动态发送邮件 -->
+				<script type="text/javascript"
+					src="/js/my/reset-email-ajax.js"></script>
+				<!-- 使用ajax动态发送短信 -->
+				<!-- 				<script type="text/javascript" -->
+				<!-- 					src="js/my/send-code-ajax.js"></script> -->
+			</div>
+			
 			<!-- 退出登录弹窗 -->
 			<div class="modal fade" id="myModal6" tabindex="-1" role="dialog">
 				<div class="modal-dialog">
