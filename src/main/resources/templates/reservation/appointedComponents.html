@@ -22,7 +22,7 @@
 				<li class="nav-item"><a class="hvr-underline-from-center"
 					data-toggle="tab" href="#field-service">检索预约信息</a></li>
 				<li><a class="hvr-underline-from-center" data-toggle="tab"
-					href="#excel-import">导入预约信息</a></li>
+					href="#excel-import">导入导出预约信息</a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -100,21 +100,17 @@
 				</div>
 				<div id="excel-import" class="container tab-pane">
 					<br />
-					<form action="*" method="post">
-						<!-- 选择文件 -->
-						<div class="form-group">
-							<label for="issue-image" class="col-sm-3">选择要导入的excel文件</label>
-							<div class="col-sm-9">
-								<input id="issue-image" type="file" class="form-control" />
-							</div>
+				<div>
+				<!-- form里面不加上enctype就无法识别为文件 -->
+				<form  action="/Excel/importExcel2" method="post" enctype="multipart/form-data">
+						<input type="file" name="file"/>
+						<div class="tp">
+								<input type="submit" value="导入">
 						</div>
-						<!-- 导入按钮 -->
-						<div class="form-group">
-							<div class="col-sm-offset-3 col-sm-9">
-								<input type="submit" class="btn " value="导入" />
-							</div>
-						</div>
-					</form>
+				</form>
+					<a href="/Excel/export"><button type="submit" class="">导出文件</button></a>
+<!-- 					<input type="file" name="file"/><input type="submit"/> -->
+				</div>	
 				</div>
 			</div>
 		</div>
