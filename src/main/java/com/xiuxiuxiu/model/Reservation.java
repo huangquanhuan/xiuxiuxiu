@@ -255,7 +255,8 @@ public class Reservation {
 		for(Component component:componentList) {
 			allComponent+=","+component.getName();
 		}
-		allComponent=allComponent.substring(1);
+		if(componentList.size()>0)
+			allComponent=allComponent.substring(1);
 	}
 
 	@Override
