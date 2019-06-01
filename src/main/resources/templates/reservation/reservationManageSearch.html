@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>预约零件</title>
+<title>预约信息查询</title>
 
 <script type="application/x-javascript">
 		
@@ -24,10 +24,10 @@
 }
 </style>
 
-<link href="/css/index.css" rel="stylesheet" type="text/css"> 
-<link href="/css/3.3.7-bootstrap.min.css" rel="stylesheet" type="text/css"> 
-<script src="/js/my/2.1.1-jquery.min.js"></script>
-<script src="/js/my/3.3.7-bootstrap.min.js"></script>
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 
 </head>
 <body>
@@ -38,9 +38,9 @@
 		<div class="container">
 			<ul id="formTab" class="nav nav-tabs" role="tablist">
 				<li class="nav-item"><a class="hvr-underline-from-center"
-					data-toggle="tab" href="#table-content">检索预约零件名单</a></li>
+					data-toggle="tab" href="#table-content">检索预约单</a></li>
 				<li><a class="hvr-underline-from-center" data-toggle="tab"
-					href="#excel-import">导入预约零件名单</a></li>
+					href="#excel-import">导入预约单</a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -131,31 +131,6 @@
 																	th:text="${'提交时间：'+reservation.applicationTime+'(已受理，未完成)'}"></h3>
 																<h3 th:if="${reservation.state==2}"
 																	th:text="${'提交时间：'+reservation.applicationTime+'(已完成)'}"></h3>
-																<div>
-																	<a th:if="${reservation.state==0}"
-																		th:href="'/editMyReservation?reservationId='+${reservation.id}"
-																		class="btn btn-primary">编辑</a>
-																	<button class="btn btn-danger"
-																		th:if="${reservation.state==0}"
-																		th:onclick="'setTargetID('+${reservation.id}+')'"
-																		data-toggle="modal" data-target="#cancel-data"
-																		type="button">撤销</button>
-																	<button class="btn btn-danger"
-																		th:if="${reservation.state==1}"
-																		th:onclick="'setTargetID('+${reservation.id}+')'"
-																		data-toggle="modal" data-target="#contact-data"
-																		type="button">联系</button>
-																	<button class="btn btn-success"
-																		th:if="${reservation.state==2}"
-																		th:onclick="'setTargetID('+${reservation.id}+')'"
-																		data-toggle="modal" data-target="#remark-data"
-																		type="button">评价</button>
-																	<button class="btn btn-danger"
-																		th:if="${reservation.state==2}"
-																		th:onclick="'setTargetID('+${reservation.id}+')'"
-																		data-toggle="modal" data-target="#feedback-data"
-																		type="button">反馈</button>
-																</div>
 															</div>
 
 															<div class="panel-body">
@@ -216,7 +191,7 @@
 																			<td></td>
 																			<td align="left"><img
 																				th:each="imgUrl : ${reservation.imgUrlList}"
-																				th:src="${imgUrl.img_url}" height="140px" /></td>
+																				th:src="@{Url.img_url}" height="140px" /></td>
 																		</tr>
 																	</tbody>
 																</table>
@@ -241,7 +216,7 @@
 				<div class="form-group">
 					<div class="col-sm-offset-3 col-sm-9">
 						<input type="submit" class="btn btn-primary" value="导出" />
-						<a href="/reservation/appointedComponents" class="btn btn-primary" >返回</a>
+						<a th:href="@{/reservation/appointedComponents}" class="btn btn-primary" >返回</a>
 					</div>
 				</div>
 				<div id="excel-import" class="container tab-pane">
@@ -295,8 +270,8 @@
 	</div>
 <div th:replace="home/messageOrErr :: messageOrErr"></div> 
 	<!-- js -->
-	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="/js/modernizr.custom.46884.js"></script>
+	<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/modernizr.custom.46884.js}"></script>
 	<!-- password-script -->
 	<script type="text/javascript">
 		// 		window.onload = function() {
@@ -318,9 +293,9 @@
 	<!-- //password-script -->
 
 	<!-- //js -->
-	<script src="/js/bars.js"></script>
+	<script th:src="@{/js/bars.js}"></script>
 
-	<script type="text/javascript" src="/js/jquery.slicebox.js"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.slicebox.js}"></script>
 	<script type="text/javascript">
 		$(function() {
 			var Page = (function() {
@@ -370,8 +345,8 @@
 			Page.init();
 		});
 	</script>
-	<script src="/js/waypoints.min.js"></script>
-	<script src="/js/counterup.min.js"></script>
+	<script th:src="@{/js/waypoints.min.js}"></script>
+	<script th:src="@{/js/counterup.min.js}"></script>
 	<script>
 		jQuery(document).ready(function($) {
 			$('.counter').counterUp({
@@ -380,7 +355,7 @@
 			});
 		});
 	</script>
-	<script type="text/javascript" src="/js/jquery.flexisel.js"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.flexisel.js}"></script>
 	<script type="text/javascript">
 		$(window).load(function() {
 			$("#flexiselDemo1").flexisel({
@@ -408,10 +383,10 @@
 
 		});
 	</script>
-	<script src="/js/jquery.chocolat.js "></script>
-	<script src="/js/bootstrap.js"></script>
-	<script type="text/javascript" src="/js/move-top.js"></script>
-	<script type="text/javascript" src="/js/easing.js"></script>
+	<script th:src="@{/js/jquery.chocolat.js} "></script>
+	<script th:src="@{/js/bootstrap.js}"></script>
+	<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+	<script type="text/javascript" th:src="@{/js/easing.js}"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
 			$(".scroll").click(function(event) {

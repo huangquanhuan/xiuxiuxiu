@@ -5,11 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>维修预约 - 第二步</title>
 
-<link href="/css/index.css" rel="stylesheet" type="text/css"> 
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
 
-<link href="/css/3.3.7-bootstrap.min.css" rel="stylesheet" type="text/css"> 
-<script src="/js/my/2.1.1-jquery.min.js"></script>
-<script src="/js/my/3.3.7-bootstrap.min.js"></script>
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 </head>
 <body>
 	<div th:replace="/home/nav :: navbar"></div>
@@ -30,7 +30,7 @@
 				<!-- 申请现场维修的表单：开始 -->
 				<div id="field-service" class="container tab-pane active">
 			
-					<form action="/reservation/submit" method="post" enctype="multipart/form-data">
+					<form th:action="@{/reservation/submit}" method="post" enctype="multipart/form-data">
 						<input type="text" name="applyType"  value="0" style="display:none;" />
 						<!-- 场次选择 -->
 						<div class="form-group">
@@ -154,7 +154,7 @@
 				<!-- 申请上门服务的表单：开始 -->
 				<div id="door-to-door-service" class="container tab-pane fade">
 		
-					<form action="/reservation/submit" method="post" enctype="multipart/form-data">
+					<form th:action="@{/reservation/submit}" method="post" enctype="multipart/form-data">
 						<input type="text" name="applyType"  value="1" style="display:none;" />
 						<!-- 时间选择 -->
 						<div class="form-group">
