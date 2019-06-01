@@ -7,11 +7,18 @@
 
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
-		
-<link href="/css/index.css" rel="stylesheet" type="text/css"> 
-<link href="/css/3.3.7-bootstrap.min.css" rel="stylesheet" type="text/css"> 
-<script src="/js/my/2.1.1-jquery.min.js"></script>
-<script src="/js/my/3.3.7-bootstrap.min.js"></script>
+
+<!-- //custom-theme -->
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+<!-- font-awesome-icons -->
+<link th:href="@{/css/font-awesome.css}" rel="stylesheet">
+
+
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script th:src="@{/https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js}"></script>
+	<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 
 </head>
 
@@ -23,7 +30,7 @@
 		<h2>维修人员</h2>
 	</div>
 	<ul class="agile_forms">
-	<li><a href="addrepair_list" data-toggle="modal"
+	<li><a th:href="@{/addrepair_list}" data-toggle="modal"
 					data-target="#myModal1">增加维修人员</a></li>
 <!-- 				<li><a href="addrepair_list" data-toggle="modal" -->
 <!-- 					data-target="#myModal10">清理账户</a></li> -->
@@ -61,7 +68,7 @@
 			</div>
 		</div>
 	</div>
-	
+	</div>
 	<div class="modal fade" th:id="myModal4" tabindex="-1" role="dialog">
 								<div class="modal-dialog">
 									<!-- Modal content-->
@@ -198,8 +205,8 @@
 		}
 	</script>	
 	
-	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
+	<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/modernizr.custom.46884.js}"></script>
 	<!-- //js -->
 	<!-- password-script -->
 	<script type="text/javascript">
@@ -225,11 +232,11 @@
 	<!-- //password-script -->
 
 	<!-- for bootstrap working -->
-	<script src="js/bootstrap.js"></script>
+	<script th:src="@{/js/bootstrap.js}"></script>
 	<!-- //for bootstrap working -->
 	<!-- start-smoth-scrolling -->
-	<script type="text/javascript" src="js/move-top.js"></script>
-	<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+	<script type="text/javascript" th:src="@{/js/easing.js}"></script>
 	<script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
