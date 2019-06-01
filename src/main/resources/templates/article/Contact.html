@@ -80,7 +80,9 @@
 			</div>
 		</div>
 	</div>
-	<div th:replace="home/messageOrErr :: messageOrErr"></div> 
+	<div th:if="${err!=null}">
+	<p th:text="${err}"></p>
+	</div>
     <!-- js -->
     <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
@@ -140,5 +142,6 @@
             });
     </script>
     <!-- //here ends scrolling icon -->
+    <div th:replace="home/messageOrErr :: messageOrErr"></div> 
 </body>
 </html>
