@@ -83,12 +83,11 @@ public class ReservationController {
 				// 注意！《配置到服务器时》注意检查预约单图片存储路径，然后在application.properties中修改虚拟路径对应的实际路径...
 				// 已经设置一个虚拟路径对应实际路径的C:/Users/，所以进行路径剪裁
 				// 例如一个url="C:\Users\10553\AppData\Local\Temp..."=>"10553\AppData\Local\Temp..."
-				String cutUrl = imgUrl.getImg_url().substring(9);
+				String cutUrl = imgUrl.getImg_url().substring(8);
 				System.out.println(cutUrl);
 				imgUrl.setImg_url(cutUrl);
 			}
 			myReservation.setImgUrlList(imgUrls);
-
 		}
 
 		model.addAttribute("reservations", reservations);
@@ -470,7 +469,23 @@ public class ReservationController {
 		}
 		model.addAttribute("componentNum", componentNum);
 		model.addAttribute("personNum", personSet.size());
+		
+		for (Reservation myReservation : filteredList) {
+			// 传递预约单对应图片url
+			List<ReservationImgUrl> imgUrls = myReservation.getImgUrlList();
+			for (ReservationImgUrl imgUrl : imgUrls) {
+				// 注意！《配置到服务器时》注意检查预约单图片存储路径，然后在application.properties中修改虚拟路径对应的实际路径...
+				// 已经设置一个虚拟路径对应实际路径的C:/Users/，所以进行路径剪裁
+				// 例如一个url="C:\Users\10553\AppData\Local\Temp..."=>"10553\AppData\Local\Temp..."
+				String cutUrl = imgUrl.getImg_url().substring(8);
+				System.out.println(cutUrl);
+				imgUrl.setImg_url(cutUrl);
+			}
+			myReservation.setImgUrlList(imgUrls);
+		}
 		model.addAttribute("reservations", filteredList);
+		
+		
 		// 设置过滤条件的显示
 		String activityFilter;
 		if (activityId == ALL_ACTIVITY)
