@@ -39,6 +39,8 @@
 									th:text="${'提交时间：'+reservation.applicationTime+'(已受理，未完成)'}"></h3>
 								<h3 th:if="${reservation.state==2}" class="panel-title"
 									th:text="${'提交时间：'+reservation.applicationTime+'(已完成)'}"></h3>
+								<h3 th:if="${reservation.state==-1}" class="panel-title"
+									th:text="${'提交时间：'+reservation.applicationTime+'(被拒绝)'}" style="color:red"></h3>
 								<div>
 									<a th:if="${reservation.state==0}"
 										th:href="@{/editMyReservation(reservationId=${reservation.id})}"
