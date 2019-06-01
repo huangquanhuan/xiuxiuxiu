@@ -48,39 +48,70 @@ public class ManagerComponentController {
 	}
     
     @RequestMapping("/manager/UpdateComponent")
-	public String update(Model model,@RequestParam("id") String id,
-			@RequestParam("name") String name,@RequestParam("price") Double price
-    ,@RequestParam("type") String type,@RequestParam("quantity") int quantity){
+	public String update(Model model,HttpSession session,@RequestParam("id") String id,
+			@RequestParam("name") String name,@RequestParam("price") String price
+    ,@RequestParam("type") String type,@RequestParam("quantity") String quantity){
     	System.out.println("name => "+name);
+    	System.out.println("price =>"+price);
     	System.out.println("type => "+type);
     	System.out.println("quantity => "+quantity);
-    
-        System.out.println("price =>"+price);
+    	Double doublePrice ;
+    	int intQuantity;
+    	try {
+    		doublePrice = Double.parseDouble(price);
+    	}catch (Exception e) {
+			model.addAttribute("err", "请输入正确的价格！！");
+			return list(model,session);
+		}
+    	try {
+    		intQuantity = Integer.parseInt(quantity);
+    	}catch (Exception e) {
+    		model.addAttribute("err", "请输入正确的数量！！");
+    		return list(model,session);
+    	}
+    	
+    	
         Component component=componentService.findComponentById(Integer.parseInt(id));
 
         component.setName(name);
-        component.setPrice(price);
-        component.setQuantity(quantity);
+        component.setPrice(doublePrice);
+        component.setQuantity(intQuantity);
         component.setType(type);
     	componentService.edit(component);
-		return "redirect:/manager/Mcomponent";
+    	return list(model,session);
 	}
     
     @RequestMapping("/manager/AddComponent")
    	public String Add(Model model,
-   			@RequestParam("name") String name,@RequestParam("price") Double price
-   		    ,@RequestParam("type") String type,@RequestParam("quantity") int quantity,HttpSession session){
+   			@RequestParam("name") String name,@RequestParam("price") String price
+   		    ,@RequestParam("type") String type,@RequestParam("quantity") String quantity,HttpSession session){
        	
     	System.out.println("name => "+name);
     	System.out.println("price => "+price);
     	System.out.println("type => "+type);
-    	System.out.println("quantity => "+quantity);		         
+    	System.out.println("quantity => "+quantity);	
+    	
+    	Double doublePrice ;
+    	int intQuantity;
+    	try {
+    		doublePrice = Double.parseDouble(price);
+    	}catch (Exception e) {
+			model.addAttribute("err", "请输入正确的价格！！");
+			return list(model,session);
+		}
+    	try {
+    		intQuantity = Integer.parseInt(quantity);
+    	}catch (Exception e) {
+    		model.addAttribute("err", "请输入正确的数量！！");
+    		return list(model,session);
+    	}
+    	
 
     	Component component=new Component();
        
     	component.setName(name);
-    	component.setPrice(price);
-    	component.setQuantity(quantity);
+    	component.setPrice(doublePrice);
+    	component.setQuantity(intQuantity);
     	component.setType(type);
     	try {
     		componentService.save(component);
