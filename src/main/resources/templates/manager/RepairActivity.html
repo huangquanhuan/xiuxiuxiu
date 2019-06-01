@@ -6,140 +6,155 @@
 <title>维修场次管理</title>
 
 <script type="application/x-javascript">
+
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } 
+
 </script>
 
-<link href="/css/index.css" rel="stylesheet" type="text/css"> 
-<link href="/css/3.3.7-bootstrap.min.css" rel="stylesheet" type="text/css"> 
-<script src="/js/my/2.1.1-jquery.min.js"></script>
-<script src="/js/my/3.3.7-bootstrap.min.js"></script>
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css">
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet"
+	type="text/css">
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
+
 
 </head>
-	
-<body>
-<!-- banner -->
-<div th:replace="manager/Mnav :: mnavbar"></div> 
-   <div class="agileits_w3layouts_banner_nav">
-		
 
-		<div class="clearfix"> </div>
+<body>
+	<!-- banner -->
+	<div th:replace="manager/Mnav :: mnavbar"></div>
+	<div class="agileits_w3layouts_banner_nav">
+
+
+		<div class="clearfix"></div>
 	</div>
 
 	<div class="services">
 		<div class="container">
 			<h3 class="tittle_agile_w3">维修场次列表</h3>
 			<ul class="agile_forms">
-				
-				<li><a class="agile_forms"href="#" data-toggle="modal" data-target="#myModal1">增加维修场次</a> </li>
+
+				<li><a class="agile_forms" href="#" data-toggle="modal"
+					data-target="#myModal1">增加维修场次</a></li>
 			</ul>
 			<div class="heading-underline">
-				<div class="h-u1"></div><div class="h-u2"></div><div class="h-u3"></div><div class="clearfix"></div>
+				<div class="h-u1"></div>
+				<div class="h-u2"></div>
+				<div class="h-u3"></div>
+				<div class="clearfix"></div>
 			</div>
-			
+
 			<div class="w3l-news_info_agile_its">
-			
-			<div th:each="activity,iterStat : ${activityList}">
-			
-						<div class="media response-info">
+
+				<div th:each="activity,iterStat : ${activityList}">
+
+					<div class="media response-info">
 						<div class="media-body response-text-right">
 							<h5 th:text="${activity.place}"></h5>
 							<ul>
-								<li><i th:text="${activity.time}" class="fa fa-calendar" aria-hidden="true"></i></li>
-								<li><i th:text="'预约人数 :'+ ${activity.pnumber}" class="fa fa-users" aria-hidden="true"></i></li>
+								<li><i th:text="${activity.time}" class="fa fa-calendar"
+									aria-hidden="true"></i></li>
+								<li><i th:text="'预约人数 :'+ ${activity.pnumber}"
+									class="fa fa-users" aria-hidden="true"></i></li>
 							</ul>
 							<p>服务同学、建设校园</p>
 							<div class="read">
-								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal4'"
-								th:onclick="'setTargetID('+${activity.id}+')'">修改</a>	
-								<a href="#" class="view resw3" data-toggle="modal" th:attr="data-target='#myModal5'"
-								th:onclick="'setTargetID('+${activity.id}+')'">删除</a>	
+								<a href="#" class="view resw3" data-toggle="modal"
+									th:attr="data-target='#myModal4'"
+									th:onclick="'setTargetID('+${activity.id}+')'">修改</a> <a
+									href="#" class="view resw3" data-toggle="modal"
+									th:attr="data-target='#myModal5'"
+									th:onclick="'setTargetID('+${activity.id}+')'">删除</a>
 							</div>
 						</div>
-						<div class="clearfix"> </div>
+						<div class="clearfix"></div>
 					</div>
-											
-													
+
+
 				</div>
 			</div>
 
-	    </div>
-	 </div>
-<!-- //typo -->	
-<!-- footer -->
-<!-- //footer -->
-<!-- menu -->
-<!-- js -->
+		</div>
+	</div>
+	<!-- //typo -->
+	<!-- footer -->
+	<!-- //footer -->
+	<!-- menu -->
+	<!-- js -->
 
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
-<!-- //js -->
+	<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/modernizr.custom.46884.js}"></script>
+	<!-- //js -->
 	<!-- password-script -->
 	<script type="text/javascript">
-		window.onload = function () {
+		window.onload = function() {
 			document.getElementById("password1").onchange = validatePassword;
 			document.getElementById("password2").onchange = validatePassword;
 		}
-
 		function validatePassword() {
 			var pass2 = document.getElementById("password2").value;
 			var pass1 = document.getElementById("password1").value;
 			if (pass1 != pass2)
-				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+				document.getElementById("password2").setCustomValidity(
+						"Passwords Don't Match");
 			else
 				document.getElementById("password2").setCustomValidity('');
 			//empty string means no validation error
 		}
 		//管理员删除时弹出警告
-		function showDelMessage(){
-
+		function showDelMessage() {
 		}
 	</script>
-	
-<!-- 由session判断是否登录成功 -->
-<!-- <%if (session.getAttribute("name")==null){%> -->
-<script type="text/javascript">
-// 	jQuery(document).ready(function($) {
-// 		$("#exit").toggle( 
-// 				  function () {
-// 				    $(this).hide();
-// 				  }
-// 				);
-// 	});
-</script>
-<!--   <%}else {%> -->
-<script type="text/javascript">
-// 	jQuery(document).ready(function($) {
-// 		$("#login").toggle( 
-// 				  function () {
-// 				    $(this).hide();
-// 				  }
-// 				);
-// 		$("#register").toggle( 
-// 				  function () {
-// 				    $(this).hide();
-// 				  }
-// 				);
-// 	});
-</script>
-<!--   <%}%> -->
-  
-<!-- for bootstrap working -->
-	<script src="js/bootstrap.js"></script>
-<!-- //for bootstrap working -->
-<!-- start-smoth-scrolling -->
-<script type="text/javascript" src="js/move-top.js"></script>
-<script type="text/javascript" src="js/easing.js"></script>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){		
-			event.preventDefault();
-			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+
+	<!-- 由session判断是否登录成功 -->
+	<!-- <%if (session.getAttribute("name")==null){%> -->
+	<script type="text/javascript">
+		// 	jQuery(document).ready(function($) {
+		// 		$("#exit").toggle( 
+		// 				  function () {
+		// 				    $(this).hide();
+		// 				  }
+		// 				);
+		// 	});
+	</script>
+	<!--   <%}else {%> -->
+	<script type="text/javascript">
+		// 	jQuery(document).ready(function($) {
+		// 		$("#login").toggle( 
+		// 				  function () {
+		// 				    $(this).hide();
+		// 				  }
+		// 				);
+		// 		$("#register").toggle( 
+		// 				  function () {
+		// 				    $(this).hide();
+		// 				  }
+		// 				);
+		// 	});
+	</script>
+	<!--   <%}%> -->
+
+	<!-- for bootstrap working -->
+	<script th:src="@{/js/bootstrap.js}"></script>
+	<!-- //for bootstrap working -->
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+	<script type="text/javascript" th:src="@{/js/easing.js}"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop : $(this.hash).offset().top
+				}, 1000);
+			});
 		});
-	});
-</script>
-<!-- start-smoth-scrolling -->
-<!-- here stars scrolling icon -->
+	</script>
+	<!-- start-smoth-scrolling -->
+	<!-- here stars scrolling icon -->
 	<script type="text/javascript">
 		$(document).ready(function() {
 			/*
@@ -149,92 +164,96 @@
 				scrollSpeed: 1200,
 				easingType: 'linear' 
 				};
-			*/
-								
-			$().UItoTop({ easingType: 'easeOutQuart' });
-								
+			 */
+
+			$().UItoTop({
+				easingType : 'easeOutQuart'
 			});
+
+		});
 	</script>
-<!-- //here ends scrolling icon -->
-													<div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
-														<div class="modal-dialog">
-														<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>
-																	
-																	<div class="signin-form profile">
-																	<h3 class="agileinfo_sign">增加维修场次</h3>	
-																			<div class="login-form">
-																				<form th:action="@{/manager/AddActivity}" method="post">
-																				   <input type="text" name="begin_time" placeholder="开始时间" required="required">
-																					<input type="text" name="end_time" placeholder="结束时间" required="required">
-				                                                                    <input type="text" name="place" placeholder="地点" required="required">
-																					<input type="submit" value="确定">
-																				</form>
-																			</div>
-																			
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>											
-													
-													<!-- //Modal -->
-											<div class="modal fade" th:id="myModal5" tabindex="-1" role="dialog">
-														<div class="modal-dialog">
-														<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>
-																	
-																	<div class="signin-form profile">
-																	<h3 class="agileinfo_sign">是否删除该维修场次？</h3>	
-																			<div class="login-form">
-																				<form th:action="@{/manager/DeleteActivity}" method="post">
-																					
-																					<input id="delete-input-id" type="hidden" name="id">
-																					<input type="submit" value="确定">
-																				</form>
-																			</div>
-																			
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>	
-											
-													<div class="modal fade" th:id="myModal4" tabindex="-1" role="dialog">
-														<div class="modal-dialog">
-														<!-- Modal content-->
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>
-																	
-																	<div class="signin-form profile">
-																	<h3 class="agileinfo_sign">修改维修场次</h3>	
-																			<div class="login-form">
-																				<form th:action="@{/manager/UpdateActivity}" method="post">
-																					<input id="update-input-id" type="hidden" name="id">
-																				    <input type="text" name="begin_time" placeholder="开始时间" required="required">
-																					<input type="text" name="end_time" placeholder="结束时间" required="required">
-				                                                                    <input type="text" name="place" placeholder="地点" required="required">
-																					<input type="submit" value="确定">
-																				</form>
-																			</div>
-																			
-																		</div>
-																</div>
-															</div>
-														</div>
-													</div>
+	<!-- //here ends scrolling icon -->
+	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+					<div class="signin-form profile">
+						<h3 class="agileinfo_sign">增加维修场次</h3>
+						<div class="login-form">
+							<form th:action="@{/manager/AddActivity}" method="post">
+								<input type="text" name="begin_time" placeholder="开始时间"
+									required="required"> <input type="text" name="end_time"
+									placeholder="结束时间" required="required"> <input
+									type="text" name="place" placeholder="地点" required="required">
+								<input type="submit" value="确定">
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- //Modal -->
+	<div class="modal fade" th:id="myModal5" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+					<div class="signin-form profile">
+						<h3 class="agileinfo_sign">是否删除该维修场次？</h3>
+						<div class="login-form">
+							<form th:action="@{/manager/DeleteActivity}" method="post">
+
+								<input id="delete-input-id" type="hidden" name="id"> <input
+									type="submit" value="确定">
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" th:id="myModal4" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+					<div class="signin-form profile">
+						<h3 class="agileinfo_sign">修改维修场次</h3>
+						<div class="login-form">
+							<form th:action="@{/manager/UpdateActivity}" method="post">
+								<input id="update-input-id" type="hidden" name="id"> <input
+									type="text" name="begin_time" placeholder="开始时间"
+									required="required"> <input type="text" name="end_time"
+									placeholder="结束时间" required="required"> <input
+									type="text" name="place" placeholder="地点" required="required">
+								<input type="submit" value="确定">
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript">
 		//点击按钮设置目标id
 		function setTargetID(id) {
 			document.getElementById("delete-input-id").value = id;
 			document.getElementById("update-input-id").value = id;
 		}
-	</script>							
-																		
+	</script>
+
 </body>
 </html>

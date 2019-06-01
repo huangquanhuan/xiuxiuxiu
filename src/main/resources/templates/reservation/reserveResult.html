@@ -5,11 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>预约结果</title>
 
-<link href="/css/index.css" rel="stylesheet" type="text/css"> 
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
 
-<link href="/css/3.3.7-bootstrap.min.css" rel="stylesheet" type="text/css"> 
-<script src="/js/my/2.1.1-jquery.min.js"></script>
-<script src="/js/my/3.3.7-bootstrap.min.js"></script>
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 </head>
 <body>
 	<div th:replace="/home/nav :: navbar"></div>
@@ -23,7 +23,7 @@
 				<p th:text="${message}" class="text-center">result</p>
 			</div>
 			<div class="text-center">
-			<a  href="/myReservationList" class="btn btn-lg btn-primary ">查看我的预约单</a>
+			<a  th:href="@{/myReservationList}" class="btn btn-lg btn-primary ">查看我的预约单</a>
 			</div>
 		</div>
 	</div>

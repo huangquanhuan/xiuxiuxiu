@@ -5,11 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>维修预约 - 第二步</title>
 
-<link href="/css/index.css" rel="stylesheet" type="text/css"> 
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
 
-<link href="/css/3.3.7-bootstrap.min.css" rel="stylesheet" type="text/css"> 
-<script src="/js/my/2.1.1-jquery.min.js"></script>
-<script src="/js/my/3.3.7-bootstrap.min.js"></script>
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 </head>
 <body>
 	<div th:replace="/home/nav :: navbar"></div>
@@ -24,7 +24,7 @@
 				<!-- 申请现场维修的表单：开始 -->
 				<div id="field-service" class="tab-pane active">
 					<br />
-					<form action="/reservation/submit" method="post" enctype="multipart/form-data">
+					<form th:action="@{/reservation/submit}" method="post" enctype="multipart/form-data">
 						<input type="text" name="reservationId" th:value="${reservation.id}" style="display:none">
 						<input type="text" name="applyType"  th:value="${reservation.applicationType}" style="display:none;" />
 						<!-- 场次选择 -->

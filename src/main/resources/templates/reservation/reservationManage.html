@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>预约信息</title>
+
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
+
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
+
+</head>
+<body>
+	<div th:replace="manager/Mnav :: mnavbar"></div> 
+
+	<!-- 主体内容：开始 -->
+	<div class="services">
+		<div class="container">
+			<ul id="formTab" class="nav nav-tabs" role="tablist">
+				<li class="nav-item"><a class="hvr-underline-from-center"
+					data-toggle="tab" href="#field-service">检索预约单</a></li>
+				<li><a class="hvr-underline-from-center" data-toggle="tab"
+					href="#excel-import">导入预约单</a></li>
+			</ul>
+
+			<div class="tab-content">
+				<!-- 预约零件的表单：开始 -->
+				<div id="field-service" class="container tab-pane active">
+					<br />
+					<form th:action="@{/reservation/componentSearch}" method="post">
+						
+
+
+						<!-- 场次选择 -->
+						<div class="form-group">
+							<label for="session-select" class="col-sm-3">预约场次</label>
+							<div class="col-sm-9">
+								<select id="session-select" name="activityId"
+									class="form-control">
+									<!-- 这里装入场次时间信息 -->
+									<option th:each="activity:${activities}" th:value="${activity.id}"
+										th:text="${activity.time}+'，地点：'+${activity.place}"></option>
+									<option value="-1" selected="selected">全部预约场次</option>
+									<option value="-2">上门服务</option>
+								</select>
+							</div>
+						</div>
+
+						<!-- 零件类型选择 -->
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="components-select">零件类型</label>
+							</div>
+							<div class="col-sm-9">
+								<select id="components-select" name="componentType"
+									class="form-control">
+									<!-- 这里装入预约类型列表 -->
+									<option th:each="component:${components}"
+										th:value="${component.name}"
+										th:text="${component.name}"></option>
+									<option value="all" selected="selected">全部</option>
+								</select>
+							</div>
+						</div>
+
+						<!-- 是否已完成 -->
+						<div class="form-group">
+							<label for="finished-select" class="col-sm-3">是否已完成</label>
+							<div class="col-sm-9">
+								<select id="finished-select" name="state"
+									class="form-control">
+									<option value="0">未受理</option>
+									<option value="1">已受理未完成</option>
+									<option value="2">已完成</option>
+									<option value="3" selected="selected">全部</option>
+								</select>
+							</div>
+						</div>
+
+						<!-- 搜索按钮 -->
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-9">
+								<input type="submit" class="btn btn-info"
+									style="margin-top: 1em" value="搜索" />
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="excel-import" class="container tab-pane">
+					<br />
+					<form action="*" method="post">
+						<!-- 选择文件 -->
+						<div class="form-group">
+							<label for="issue-image" class="col-sm-3">选择要导入的excel文件</label>
+							<div class="col-sm-9">
+								<input id="issue-image" type="file" class="form-control" />
+							</div>
+						</div>
+						<!-- 导入按钮 -->
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-9">
+								<input type="submit" class="btn " value="导入" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="w3_agile_footer_grids">
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>地址</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>福州大学数计学院</li>
+					</ul>
+				</div>
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>号码</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>18868836723</li>
+					</ul>
+				</div>
+				<div class="col-md-4 w3_agile_footer_grid">
+					<h3>邮箱</h3>
+					<ul class="agileits_w3layouts_footer_grid_list">
+						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>fzuxiuxiuxiu@163.com</li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="agileinfo_copyright">
+				<p>Copyright &copy; 2019.Xiuxiuxiu All rights reserved <a href="" title="" target="_blank"></a></p>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/modernizr.custom.46884.js}"></script>
+	<!-- password-script -->
+	<script type="text/javascript">
+		window.onload = function() {
+			document.getElementById("password1").onchange = validatePassword;
+			document.getElementById("password2").onchange = validatePassword;
+		}
+
+		function validatePassword() {
+			var pass2 = document.getElementById("password2").value;
+			var pass1 = document.getElementById("password1").value;
+			if (pass1 != pass2)
+				document.getElementById("password2").setCustomValidity(
+						"Passwords Don't Match");
+			else
+				document.getElementById("password2").setCustomValidity('');
+			//empty string means no validation error
+		}
+	</script>
+	<!-- //password-script -->
+
+	<!-- //js -->
+	<script th:src="@{/js/bars.js}"></script>
+
+	<script type="text/javascript" th:src="@{/js/jquery.slicebox.js}"></script>
+	<script type="text/javascript">
+		$(function() {
+			var Page = (function() {
+				var $navArrows = $('#nav-arrows').hide(), $navDots = $(
+						'#nav-dots').hide(), $nav = $navDots.children('span'), $shadow = $(
+						'#shadow').hide(), slicebox = $('#sb-slider').slicebox(
+						{
+							onReady : function() {
+								$navArrows.show();
+								$navDots.show();
+								$shadow.show();
+							},
+							onBeforeChange : function(pos) {
+								$nav.removeClass('nav-dot-current');
+								$nav.eq(pos).addClass('nav-dot-current');
+							}
+						}), init = function() {
+					initEvents();
+				}, initEvents = function() {
+					// add navigation events
+					$navArrows.children(':first').on('click', function() {
+						slicebox.next();
+						return false;
+					});
+
+					$navArrows.children(':last').on('click', function() {
+						slicebox.previous();
+						return false;
+					});
+
+					$nav.each(function(i) {
+						$(this).on('click', function(event) {
+							var $dot = $(this);
+							if (!slicebox.isActive()) {
+								$nav.removeClass('nav-dot-current');
+								$dot.addClass('nav-dot-current');
+							}
+							slicebox.jump(i + 1);
+							return false;
+						});
+					});
+				};
+				return {
+					init : init
+				};
+			})();
+			Page.init();
+		});
+	</script>
+	<!-- Stats -->
+	<script th:src="@{/js/waypoints.min.js}"></script>
+	<script th:src="@{/js/counterup.min.js}"></script>
+	<script>
+		jQuery(document).ready(function($) {
+			$('.counter').counterUp({
+				delay : 10,
+				time : 2000
+			});
+		});
+	</script>
+	<!-- //Stats -->
+
+	<script type="text/javascript" th:src="@{/js/jquery.flexisel.js}"></script>
+	<!-- flexisel -->
+	<script type="text/javascript">
+		$(window).load(function() {
+			$("#flexiselDemo1").flexisel({
+				visibleItems : 4,
+				animationSpeed : 1000,
+				autoPlay : true,
+				autoPlaySpeed : 3000,
+				pauseOnHover : true,
+				enableResponsiveBreakpoints : true,
+				responsiveBreakpoints : {
+					portrait : {
+						changePoint : 480,
+						visibleItems : 1
+					},
+					landscape : {
+						changePoint : 640,
+						visibleItems : 2
+					},
+					tablet : {
+						changePoint : 768,
+						visibleItems : 2
+					}
+				}
+			});
+
+		});
+	</script>
+	<!-- //flexisel -->
+	<!-- //flexisel -->
+	<!-- js for portfolio lightbox -->
+	<script th:src="@{/js/jquery.chocolat.js}"></script>
+	<!-- //menu -->
+	<!-- for bootstrap working -->
+
+	<!-- //for bootstrap working -->
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+	<script type="text/javascript" th:src="@{/js/easing.js}"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop : $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<!-- start-smoth-scrolling -->
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			  var defaults = {
+			  containerID: 'toTop', // fading element id
+			  containerHoverID: 'toTopHover', // fading element hover id
+			  scrollSpeed: 1200,
+			  easingType: 'linear'
+			  };
+			 */
+
+			$().UItoTop({
+				easingType : 'easeOutQuart'
+			});
+
+		});
+	</script>
+</body>
+
+</html>

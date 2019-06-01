@@ -8,11 +8,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link href="/css/index.css" rel="stylesheet" type="text/css"> 
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
 
-<link href="/css/3.3.7-bootstrap.min.css" rel="stylesheet" type="text/css"> 
-<script src="/js/my/2.1.1-jquery.min.js"></script>
-<script src="/js/my/3.3.7-bootstrap.min.js"></script>
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
 									th:text="${'提交时间：'+reservation.applicationTime+'(已完成)'}"></h3>
 								<div>
 									<a th:if="${reservation.state==0}"
-										th:href="'/editMyReservation?reservationId='+${reservation.id}"
+										th:href="@{/editMyReservation(reservationId=${reservation.id})}"
 										class="btn btn-primary">编辑</a>
 									<button class="btn btn-danger" th:if="${reservation.state==0}"
 										th:onclick="'setTargetID('+${reservation.id}+')'"
@@ -104,7 +104,7 @@
 													th:text="${'提交时间：'+reservation.applicationTime+'(已完成)'}"></h3>
 												<div>
 													<a th:if="${reservation.state==0}"
-														th:href="'/editMyReservation?reservationId='+${reservation.id}"
+														th:href="@{/editMyReservation(reservationId=${reservation.id})}"
 														class="btn btn-primary">编辑</a>
 													<button class="btn btn-danger"
 														th:if="${reservation.state==0}"
@@ -181,7 +181,7 @@
 														<tr>
 															<td></td>
 															<td align="left"><img th:each="imgUrl : ${reservation.imgUrlList}"
-																th:src="${imgUrl.img_url}" height="140px" /></td>
+																th:src="@{${imgUrl.img_url}}" height="140px" /></td>
 														</tr>
 													</tbody>
 												</table>
@@ -212,7 +212,7 @@
 		aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form id="cancelForm" role="form" action="cancelMyReservation"
+				<form id="cancelForm" role="form" th:action="@{/cancelMyReservation}"
 					method="post" class="registration-form">
 					<!-- 一个隐藏的输入，其value在按钮点击时用js修改 -->
 					<input id="cancel-input-id" type="text" value="0"
@@ -240,7 +240,7 @@
 		aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form id="remarkForm" role="form" action="/remarkMyReservation"
+				<form id="remarkForm" role="form" th:action="@{/remarkMyReservation}"
 					method="post" class="registration-form">
 
 					<!-- 一个隐藏的输入，其value在按钮点击时用js修改 -->
@@ -291,7 +291,7 @@
 		aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form id="feedBackForm" role="form" action="feedbackMyReservation"
+				<form id="feedBackForm" role="form" th:action="@{/feedbackMyReservation}"
 					method="post" class="registration-form">
 					<!-- 一个隐藏的输入，其value在按钮点击时用js修改 -->
 					<input id="feedback-input-id" type="text" value="0"
@@ -326,8 +326,8 @@
 	
 	
 	<!-- 下面js作用为平滑地回到顶部 -->
-	<script type="text/javascript" src="js/move-top.js"></script>
-		<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript" th:src="@{js/move-top.js}"></script>
+		<script type="text/javascript" th:src="@{js/easing.js}"></script>
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event) {

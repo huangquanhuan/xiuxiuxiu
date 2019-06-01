@@ -8,14 +8,14 @@
 <meta http-equiv="Content-Type" content="text/jsp; charset=utf-8" />
 <!-- //custom-theme -->
 
-<link href="/css/index.css" rel="stylesheet" type="text/css"> 
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
 
-<link href="/css/3.3.7-bootstrap.min.css" rel="stylesheet" type="text/css"> 
-<script src="/js/my/2.1.1-jquery.min.js"></script>
-<script src="/js/my/3.3.7-bootstrap.min.js"></script>
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 </head>
 <body>
-	<div th:replace="home/nav :: navbar"></div>
+	<div th:replace="/home/nav :: navbar"></div>
 
 	<div class="agile_inner_banner_info">
 		<h2>文章列表</h2>
@@ -28,7 +28,7 @@
 					<div class="event-left1 w3-agile-event-left1">
 						<div class="col-xs-6 event-left1-left agile-event-left1-left">
 							<a th:href="@{/article/articleDetail(id=${article.id})}"><img
-								src="../images/7.jpg" alt=" " class="img-responsive" /></a>
+								th:src="@{/images/7.jpg}" alt=" " class="img-responsive" /></a>
 							<div
 								class="event-left1-left-pos agileits-w3layouts-event-left1-left-pos">
 								<ul>
@@ -53,15 +53,15 @@
 				</div>
 				<nav class="paging1 agileits-w3layouts-paging1" th:if="${ articles==null}">
 					<ul class="pagination paging w3-agileits-paging">
-						<li><a href="#" aria-label="Previous"> <span
+						<li><a th:href="#" aria-label="Previous"> <span
 								aria-hidden="true">&laquo;</span>
 						</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#" aria-label="Next"> <span
+						<li><a th:href="#">1</a></li>
+						<li><a th:href="#">2</a></li>
+						<li><a th:href="#">3</a></li>
+						<li><a th:href="#">4</a></li>
+						<li><a th:href="#">5</a></li>
+						<li><a th:href="#" aria-label="Next"> <span
 								aria-hidden="true">&raquo;</span>
 						</a></li>
 					</ul>
@@ -84,51 +84,51 @@
 						<div class="posts-grids w3-posts-grids">
 							<div class="posts-grid w3-posts-grid">
 								<div class="posts-grid-left w3-posts-grid-left">
-									<a href="single.html"><img src="../images/1.jpg" alt=" "
+									<a th:href="single.html"><img th:src="@{/images/1.jpg}" alt=" "
 										class="img-responsive" /></a>
 								</div>
 								<div class="posts-grid-right w3-posts-grid-right">
 									<h4>
-										<a href="single.html">维修场次变更通知</a>
+										<a th:href="single.html">维修场次变更通知</a>
 									</h4>
 									<ul class="wthree_blog_events_list">
 										<li><i class="fa fa-calendar" aria-hidden="true"></i>10/5/2017</li>
 										<li><i class="fa fa-user" aria-hidden="true"></i><a
-											href="single.html">管理员</a></li>
+											th:href="single.html">管理员</a></li>
 									</ul>
 								</div>
 								<div class="clearfix"></div>
 							</div>
 							<div class="posts-grid w3-posts-grid">
 								<div class="posts-grid-left w3-posts-grid-left">
-									<a href="single.html"><img src="../images/6.jpg" alt=" "
+									<a th:href="single.html"><img th:src="@{/images/6.jpg}" alt=" "
 										class="img-responsive" /></a>
 								</div>
 								<div class="posts-grid-right w3-posts-grid-right">
 									<h4>
-										<a href="single.html">维修场地变更通知</a>
+										<a th:href="single.html">维修场地变更通知</a>
 									</h4>
 									<ul class="wthree_blog_events_list">
 										<li><i class="fa fa-calendar" aria-hidden="true"></i>12/5/2017</li>
 										<li><i class="fa fa-user" aria-hidden="true"></i><a
-											href="single.html">管理员</a></li>
+											th:href="single.html">管理员</a></li>
 									</ul>
 								</div>
 								<div class="clearfix"></div>
 							</div>
 							<div class="posts-grid w3-posts-grid">
 								<div class="posts-grid-left w3-posts-grid-left">
-									<a href="single.html"><img src="../images/7.jpg" alt=" "
+									<a th:href="single.html"><img th:src="@{/images/7.jpg}" alt=" "
 										class="img-responsive" /></a>
 								</div>
 								<div class="posts-grid-right w3-posts-grid-right">
 									<h4>
-										<a href="single.html">零件库更新通知</a>
+										<a th:href="single.html">零件库更新通知</a>
 									</h4>
 									<ul class="wthree_blog_events_list">
 										<li><i class="fa fa-calendar" aria-hidden="true"></i>13/5/2017</li>
 										<li><i class="fa fa-user" aria-hidden="true"></i><a
-											href="single.html">管理员</a></li>
+											th:href="single.html">管理员</a></li>
 									</ul>
 								</div>
 								<div class="clearfix"></div>
