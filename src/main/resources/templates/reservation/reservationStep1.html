@@ -14,13 +14,12 @@
         window.scrollTo(0, 1);
       }
 </script>
-<!-- //custom-theme -->
-<link href="../css/index.css" rel="stylesheet" type="text/css"> 
 
-<!-- 一些动态效果需要下面两个js同时支持 -->
-<link href="/css/3.3.7-bootstrap.min.css" rel="stylesheet" type="text/css"> 
-<script src="/js/my/2.1.1-jquery.min.js"></script>
-<script src="/js/my/3.3.7-bootstrap.min.js"></script>
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css"> 
+
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet" type="text/css"> 
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 </head>
 <body>
 	<div th:replace="/home/nav :: navbar"></div>
@@ -61,7 +60,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<a href="/reservation/step2" class="btn-lg btn-success">下一步</a>
+						<a th:href="@{/reservation/step2}" class="btn-lg btn-success">下一步</a>
 					</div>
 				</div>
 			</form>

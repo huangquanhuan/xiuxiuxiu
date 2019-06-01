@@ -37,14 +37,14 @@ public class ManagerComponentController {
     	List<Component> componentList=componentService.getComponentList();
     	model.addAttribute("componentList", componentList);
         
-        return "/manager/Mcomponent";
+        return "/manager/reservationManage";
     }
 
     @RequestMapping("/manager/DeleteComponent")
 	public String delete(Model model,@RequestParam("id") String id) {
     	System.out.println("id => "+id);
     	componentService.delete(Integer.parseInt(id));
-		return "redirect:/manager/Mcomponent";
+		return "redirect:/manager/reservationManage";
 	}
     
     @RequestMapping("/manager/UpdateComponent")
@@ -63,7 +63,7 @@ public class ManagerComponentController {
         component.setQuantity(quantity);
         component.setType(type);
     	componentService.edit(component);
-		return "redirect:/manager/Mcomponent";
+		return "redirect:/manager/reservationManage";
 	}
     
     @RequestMapping("/manager/AddComponent")

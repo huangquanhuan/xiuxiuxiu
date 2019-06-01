@@ -523,7 +523,7 @@ public class ReservationController {
 		model.addAttribute("activityFilter", activityFilter);
 		model.addAttribute("stateFilter", stateFilter);
 		model.addAttribute("componentFilter", componentFilter);
-		return "/reservation/appointmentComponentSearch";
+		return "/reservation/reservationManageSearch";
 	}
 
 	/**
@@ -550,7 +550,7 @@ public class ReservationController {
 		List<Activity> activities = activityService.getActivityList();
 		model.addAttribute("activities", activities);
 		model.addAttribute("components", componentService.getComponentList());
-		return "/reservation/appointedComponents";
+		return "/reservation/reservationManage";
 	}
 
 	@RequestMapping("/reservation/updateState")
