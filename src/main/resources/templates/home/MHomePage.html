@@ -8,34 +8,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link href="/css/index.css" rel="stylesheet" type="text/css"> 
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css">
 
-<link href="/css/3.3.7-bootstrap.min.css" rel="stylesheet" type="text/css"> 
-<script src="/js/my/2.1.1-jquery.min.js"></script>
-<script src="/js/my/3.3.7-bootstrap.min.js"></script>
+<link th:href="@{/css/3.3.7-bootstrap.min.css}" rel="stylesheet"
+	type="text/css">
+<script th:src="@{/js/my/2.1.1-jquery.min.js}"></script>
+<script th:src="@{/js/my/3.3.7-bootstrap.min.js}"></script>
 </head>
 
 <body>
-<div th:replace="/manager/Mnav :: mnavbar"></div> 
+	<div th:replace="/manager/Mnav :: mnavbar"></div>
 
 	<div class="banner">
 
 		<div class="wrapper">
 
 			<ul id="sb-slider" class="sb-slider">
-				<li><a href="#"><img src="/images/轮播图1.jpg"  alt="image1" /></a>
+				<li><a href="#"><img th:src="@{/images/轮播图1.jpg}" alt="image1" /></a>
 					<div class="sb-description">
 						<h3>上门维修，在线预约</h3>
 					</div></li>
-				<li><a href="#"><img src="/images/轮播图2.jpg" alt="image1" /></a>
+				<li><a href="#"><img th:src="@{/images/轮播图2.jpg}" alt="image1" /></a>
 					<div class="sb-description">
 						<h3>服务同学，建设校园</h3>
 					</div></li>
-				<li><a href="#"><img src="/images/轮播图3.jpg"  alt="image1" /></a>
+				<li><a href="#"><img th:src="@{/images/轮播图3.jpg}" alt="image1" /></a>
 					<div class="sb-description">
 						<h3>上门维修，在线预约</h3>
 					</div></li>
-				<li><a href="#"><img src="/images/轮播图2.jpg" alt="image1" /></a>
+				<li><a href="#"><img th:src="@{/images/轮播图2.jpg}" alt="image1" /></a>
 					<div class="sb-description">
 						<h3>服务同学，建设校园</h3>
 					</div></li>
@@ -52,7 +53,7 @@
 		</div>
 		<!-- /wrapper -->
 	</div>
-	
+
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
 		<div class="container">
@@ -76,18 +77,18 @@
 						</tr>
 					</thead>
 					<tbody>
-							<tr th:each="activity,status : ${activityList}" >
-								<td th:text="${status.count}">序号</td>
-								<td th:text="${activity.time}">时间</td>
-								<td th:text="${activity.place}">地点</td>
-<!-- 								<td> -->
-<!-- 									<form  id="applythis" class="ApplyActivity" -->
-<!-- 										action="makeReservation?method=beforeReserve" -->
-<!-- 										method="post"> -->
-<!-- 										<button  type="submit" class="">预约此活动</button> -->
-<!-- 									</form> -->
-<!-- 								</td> -->
-							</tr>
+						<tr th:each="activity,status : ${activityList}">
+							<td th:text="${status.count}">序号</td>
+							<td th:text="${activity.time}">时间</td>
+							<td th:text="${activity.place}">地点</td>
+							<!-- 								<td> -->
+							<!-- 									<form  id="applythis" class="ApplyActivity" -->
+							<!-- 										action="makeReservation?method=beforeReserve" -->
+							<!-- 										method="post"> -->
+							<!-- 										<button  type="submit" class="">预约此活动</button> -->
+							<!-- 									</form> -->
+							<!-- 								</td> -->
+						</tr>
 					</tbody>
 				</table>
 
@@ -125,9 +126,9 @@
 			</div>
 			<div class="col-md-6 agileits_banner_bottom_right">
 				<div class="w3ls_banner_bottom_right">
-					<img src="/images/2.jpg" alt=" " class="img-responsive" />
+					<img th:src="@{/images/2.jpg}" alt=" " class="img-responsive" />
 					<div class="w3ls_banner_bottom_right_pos">
-						<img src="/images/t.jpg" alt=" " class="img-responsive" />
+						<img th:src="@{/images/t.jpg}" alt=" " class="img-responsive" />
 					</div>
 				</div>
 			</div>
@@ -144,7 +145,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4>Treasurer</h4>
-					<img src="/images/banner2.jpg" alt="blog-image" /> <span>Lorem
+					<img th:src="@{/images/banner2.jpg}" alt="blog-image" /> <span>Lorem
 						ipsum dolor sit amet, Sed ut perspiciatis unde omnis iste natus
 						error sit voluptatem , eaque ipsa quae ab illo inventore veritatis
 						et quasi architecto beatae vitae dicta sunt explicabo.accusantium
@@ -176,7 +177,7 @@
 				<section>
 					<div class="modal-body">
 						<div class="col-md-6 w3_modal_body_left">
-							<img src="/images/2.jpg" alt=" " class="img-responsive" />
+							<img th:src="@{/images/2.jpg}" alt=" " class="img-responsive" />
 						</div>
 						<div class="col-md-6 w3_modal_body_right">
 							<p>
@@ -195,9 +196,9 @@
 		</div>
 	</div>
 
-<!-- 	<%@include file="动态js代码.jsp"%> -->
-<!-- 	<%@include file="错误提示窗口.jsp"%> -->
-<!-- <div th:replace="home/nav :: navbar"></div>  -->
+	<!-- 	<%@include file="动态js代码.jsp"%> -->
+	<!-- 	<%@include file="错误提示窗口.jsp"%> -->
+	<!-- <div th:replace="home/nav :: navbar"></div>  -->
 	<!-- footer -->
 	<div class="footer">
 		<div class="container">
@@ -220,99 +221,102 @@
 						<li><i class="fa fa-angle-double-right" aria-hidden="true"></i>fzuxiuxiuxiu@163.com</li>
 					</ul>
 				</div>
-				<div class="clearfix"> </div>
+				<div class="clearfix"></div>
 			</div>
 			<div class="agileinfo_copyright">
-				<p>Copyright &copy; 2019.Xiuxiuxiu All rights reserved <a href="" title="" target="_blank"></a></p>
+				<p>
+					Copyright &copy; 2019.Xiuxiuxiu All rights reserved <a href=""
+						title="" target="_blank"></a>
+				</p>
 			</div>
 		</div>
 	</div>
-<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="/js/modernizr.custom.46884.js"></script>
-<script type="text/javascript" src="/js/jquery.slicebox.js"></script>
-<script type="text/javascript">
-	$(function() {
-		var Page = (function() {
-			var $navArrows = $('#nav-arrows').hide(), $navDots = $('#nav-dots')
-					.hide(), $nav = $navDots.children('span'), $shadow = $(
-					'#shadow').hide(), slicebox = $('#sb-slider').slicebox({
-				onReady : function() {
-					$navArrows.show();
-					$navDots.show();
-					$shadow.show();
-				},
-				onBeforeChange : function(pos) {
-					$nav.removeClass('nav-dot-current');
-					$nav.eq(pos).addClass('nav-dot-current');
-				}
-			}),
-			init = function() {
-				initEvents();
-			}, initEvents = function() {
-				// add navigation events
-				$navArrows.children(':first').on('click', function() {
-					slicebox.next();
-					return false;
-				});
-				$navArrows.children(':last').on('click', function() {
-					slicebox.previous();
-					return false;
-				});
-				$nav.each(function(i) {
-					$(this).on('click', function(event) {
-						var $dot = $(this);
-						if (!slicebox.isActive()) {
-							$nav.removeClass('nav-dot-current');
-							$dot.addClass('nav-dot-current');
-						}
-
-						slicebox.jump(i + 1);
+	<script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/modernizr.custom.46884.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.slicebox.js}"></script>
+	<script type="text/javascript">
+		$(function() {
+			var Page = (function() {
+				var $navArrows = $('#nav-arrows').hide(), $navDots = $(
+						'#nav-dots').hide(), $nav = $navDots.children('span'), $shadow = $(
+						'#shadow').hide(), slicebox = $('#sb-slider').slicebox(
+						{
+							onReady : function() {
+								$navArrows.show();
+								$navDots.show();
+								$shadow.show();
+							},
+							onBeforeChange : function(pos) {
+								$nav.removeClass('nav-dot-current');
+								$nav.eq(pos).addClass('nav-dot-current');
+							}
+						}), init = function() {
+					initEvents();
+				}, initEvents = function() {
+					// add navigation events
+					$navArrows.children(':first').on('click', function() {
+						slicebox.next();
 						return false;
 					});
-				});
-			};
-			return {
-				init : init
-			};
-		})();
-		Page.init();
-	});
-</script>
-<!-- 固定于右下角的回到顶部的按钮，点击可顺滑地回到顶部（下面4个js） -->
-<script type="text/javascript" src="/js/move-top.js"></script>
-<script type="text/javascript" src="/js/easing.js"></script>
-<!-- start-smoth-scrolling -->
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event) {
-			event.preventDefault();
-			$('html,body').animate({
-				scrollTop : $(this.hash).offset().top
-			}, 1000);
+					$navArrows.children(':last').on('click', function() {
+						slicebox.previous();
+						return false;
+					});
+					$nav.each(function(i) {
+						$(this).on('click', function(event) {
+							var $dot = $(this);
+							if (!slicebox.isActive()) {
+								$nav.removeClass('nav-dot-current');
+								$dot.addClass('nav-dot-current');
+							}
+
+							slicebox.jump(i + 1);
+							return false;
+						});
+					});
+				};
+				return {
+					init : init
+				};
+			})();
+			Page.init();
 		});
-	});
-</script>
-<!-- //end-smoth-scrolling -->
-<!-- here stars scrolling icon -->
-<script type="text/javascript">
-	$(document).ready(function() {
-		/*
-			var defaults = {
-			containerID: 'toTop', // fading element id
-			containerHoverID: 'toTopHover', // fading element hover id
-			scrollSpeed: 1200,
-			easingType: 'linear' 
-			};
-		 */
-
-		$().UItoTop({
-			easingType : 'easeOutQuart'
+	</script>
+	<!-- 固定于右下角的回到顶部的按钮，点击可顺滑地回到顶部（下面4个js） -->
+	<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+	<script type="text/javascript" th:src="@{/js/easing.js}"></script>
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop : $(this.hash).offset().top
+				}, 1000);
+			});
 		});
+	</script>
+	<!-- //end-smoth-scrolling -->
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			 */
 
-	});
-</script>
+			$().UItoTop({
+				easingType : 'easeOutQuart'
+			});
+
+		});
+	</script>
 
 
-<div th:replace="/home/messageOrErr :: messageOrErr"></div> 
+	<div th:replace="/home/messageOrErr :: messageOrErr"></div>
 </body>
 </html>

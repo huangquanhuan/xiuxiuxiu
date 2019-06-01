@@ -81,7 +81,7 @@
 								<td th:text="${activity.time}">时间</td>
 								<td th:text="${activity.place}">地点</td>
 								<td width="140px">
-									<a href="/reservation/step1" id="appaly" class="btn-lg btn-success"
+									<a th:href="@{/reservation/step1}" id="appaly" class="btn-lg btn-success"
 							th:style="'display:' + @{(${session.user} ? 'block' : 'none')} ">预约活动</a>
 								</td>
 							</tr>
