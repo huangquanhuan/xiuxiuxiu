@@ -12,11 +12,11 @@ if(!isEmail(email)){
 	isError = false;
 }else{
 // 设置button效果，开始计时
-	$("#error")[0].style.display = 'block'; 
-	oError.innerHTML = "正在发送中";
+//	$("#error")[0].style.display = 'block'; 
+//	oError.innerHTML = "正在发送中";
 document.getElementById("btnResetCode").setAttribute("disabled","true" );//设置按钮为禁用状态
-document.getElementById("btnResetCode").value="在" + curCount + "后再次获取";//更改按钮文字
-InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器timer处理函数，1秒执行一次
+document.getElementById("btnResetCode").value="在" + curCount + "秒后再次获取";//更改按钮文字
+InterValObj = window.setInterval(RetRemainTime, 1000); // 启动计时器timer处理函数，1秒执行一次
 // 向后台发送处理数据
 $.ajax({
   	 type:"post",
@@ -32,7 +32,7 @@ $.ajax({
    });
 }
 }
-function SetRemainTime() {
+function RetRemainTime() {
 if (curCount == 0) {                
 window.clearInterval(InterValObj);// 停止计时器
 document.getElementById("btnResetCode").removeAttribute("disabled");//移除禁用状态改为可用
