@@ -74,7 +74,8 @@
 										<a
 										href="#" class="view resw3" data-toggle="modal"
 										th:attr="data-target='#myModal5'"
-										th:onclick="'setTargetID('+${article.id}+')'">删除</a>
+										th:onclick="setTargetID([[${article.title}]],[[${article.id}]]
+										,[[${article.text}]])">删除</a>
 
 								</div>
 							</div>
